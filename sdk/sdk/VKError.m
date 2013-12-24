@@ -21,7 +21,7 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKError.h"
-
+#import "VKRequest.h"
 @implementation VKError
 + (instancetype)errorWithCode:(NSInteger)errorCode {
 	VKError *error = [VKError new];

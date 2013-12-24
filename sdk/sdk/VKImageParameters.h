@@ -52,7 +52,7 @@ typedef enum VKImageType {
  @param quality Used only for <b>VKImageTypeJpg</b> representation. From 0.0 to 1.0
  @return New instance with passed parameters
  */
-+ (instancetype)jpegImageWithQuality:(CGFloat)quality;
++ (instancetype)jpegImageWithQuality:(float)quality;
 
 /**
  Return file extension for selected type

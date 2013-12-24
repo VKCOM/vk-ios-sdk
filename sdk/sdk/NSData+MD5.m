@@ -21,7 +21,7 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <CommonCrypto/CommonDigest.h>
-
+#import <Foundation/Foundation.h>
 @implementation NSData (MD5)
 
 - (NSString *)MD5 {

@@ -24,6 +24,7 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKHTTPOperation.h"
+#import "VKRequest.h"
 typedef enum {
 	VKOperationPausedState      = -1,
 	VKOperationReadyState       = 1,

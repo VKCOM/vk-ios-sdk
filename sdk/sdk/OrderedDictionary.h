@@ -20,7 +20,9 @@
 //  3. This notice may not be removed or altered from any source
 //     distribution.
 //
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
+#import <Foundation/Foundation.h>
+
 @interface OrderedDictionary : NSMutableDictionary
 {
 	NSMutableDictionary *dictionary;
@@ -32,4 +34,3 @@
 - (NSEnumerator *)reverseKeyEnumerator;
 
 @end
-#endif

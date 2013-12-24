@@ -29,7 +29,7 @@
 	return params;
 }
 
-+ (instancetype)jpegImageWithQuality:(CGFloat)quality {
++ (instancetype)jpegImageWithQuality:(float)quality {
 	VKImageParameters *params = [VKImageParameters new];
 	params.imageType = VKImageTypeJpg;
 	params.jpegQuality = quality;

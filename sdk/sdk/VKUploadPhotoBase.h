@@ -21,7 +21,7 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKRequest.h"
-
+#import "VKImageParameters.h"
 /**
  Provides common part of photo upload process
  */

@@ -24,7 +24,7 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-
+@class VKRequest;
 /**
  VK URL operation subclassing NSOperation.
  Based on AFNetworking library ( https://github.com/AFNetworking/AFNetworking )
