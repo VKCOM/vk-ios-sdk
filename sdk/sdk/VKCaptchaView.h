@@ -22,6 +22,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VKError.h"
+
 /**
  View for displaying captcha. Don't use it dirrectly. Use VKCaptchaViewController
  */

@@ -21,7 +21,8 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKObject.h"
-
+#import "VKError.h"
+#import "VKRequest.h"
 /**
  Used for execution bunch of methods at time, and receive results of that methods in array
  */
