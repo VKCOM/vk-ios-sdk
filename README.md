@@ -124,7 +124,7 @@ Sending
     }];
 
 Errors handling
-==========
+----------
 Class VKError contains errorCode property. Compare it with VK_API_ERROR. If it equals, process vkError propetry, otherwise you handling http error in httpError property.
 
 SDK can process several errors (captcha error, validation error). Appropriate delegate methods will be called.
@@ -137,7 +137,7 @@ Example of processing captcha error:
     }
 
 Batching requests
-==========
+----------
 SDK can build load bunch of requests, and return results as requests were passed
 
 1) Prepare requests
