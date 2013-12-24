@@ -22,11 +22,12 @@
 
 #import <Foundation/Foundation.h>
 #import "VKResponse.h"
-#import "VKError.h"
 #import "VKApiConst.h"
 #import "VKObject.h"
 #import "OrderedDictionary.h"
 #import "VKHTTPOperation.h"
+
+@class VKError;
 
 /**
  Class for execution API-requests

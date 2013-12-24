@@ -26,6 +26,7 @@
 #import "OrderedDictionary.h"
 #import "VKAuthorizeController.h"
 #import "VKHTTPClient.h"
+#import "VKError.h"
 
 #define SUPPORTED_LANGS_ARRAY @[@"ru", @"en", @"ua", @"es", @"fi", @"de", @"it"]
 

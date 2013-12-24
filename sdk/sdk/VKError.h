@@ -22,7 +22,6 @@
 
 #import <Foundation/Foundation.h>
 #import "VKObject.h"
-#import "VKRequest.h"
 #import "VKApiConst.h"
 static int const VK_API_ERROR = -101;
 static int const VK_API_CANCELED = -102;
