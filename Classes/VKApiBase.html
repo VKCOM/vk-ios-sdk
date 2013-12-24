@@ -11,8 +11,8 @@
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
-				<h1><a id="libraryTitle" href="../index.html">VK SDK </a></h1>
-				<a id="developerHome" href="../index.html">VK</a>
+				<h1><a id="libraryTitle" href="../index.html">VK iOS SDK </a></h1>
+				<a id="developerHome" href="../index.html">VK.com</a>
 			</div>
 			
 			<div id="title" role="banner">
@@ -45,11 +45,15 @@
 	
 	<option value="//api/name/getMethodGroup">&nbsp;&nbsp;&nbsp;&nbsp;- getMethodGroup</option>
 	
+	<option value="//api/name/init">&nbsp;&nbsp;&nbsp;&nbsp;- init</option>
+	
 	<option value="//api/name/prepareRequestWithMethodName:andParameters:">&nbsp;&nbsp;&nbsp;&nbsp;- prepareRequestWithMethodName:andParameters:</option>
 	
 	<option value="//api/name/prepareRequestWithMethodName:andParameters:andHttpMethod:">&nbsp;&nbsp;&nbsp;&nbsp;- prepareRequestWithMethodName:andParameters:andHttpMethod:</option>
 	
 	<option value="//api/name/prepareRequestWithMethodName:andParameters:andHttpMethod:andClassOfModel:">&nbsp;&nbsp;&nbsp;&nbsp;- prepareRequestWithMethodName:andParameters:andHttpMethod:andClassOfModel:</option>
+	
+	<option value="//api/name/setMethodGroup:">&nbsp;&nbsp;&nbsp;&nbsp;- setMethodGroup:</option>
 	
 	
 	
@@ -81,11 +85,15 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getMethodGroup">getMethodGroup</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/init">init</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/prepareRequestWithMethodName:andParameters:">prepareRequestWithMethodName:andParameters:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/prepareRequestWithMethodName:andParameters:andHttpMethod:">prepareRequestWithMethodName:andParameters:andHttpMethod:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/prepareRequestWithMethodName:andParameters:andHttpMethod:andClassOfModel:">prepareRequestWithMethodName:andParameters:andHttpMethod:andClassOfModel:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setMethodGroup:">setMethodGroup:</a></span></li>
 	
 </ul></li>
 
@@ -111,7 +119,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Inherits from</td>
-	<td class="specification-value">VKObject : NSObject</td>
+	<td class="specification-value"><a href="../Classes/VKObject.html">VKObject</a> : NSObject</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
 	<td class="specification-value">VKApiBase.h<br />VKApiBase.m</td>
@@ -137,7 +145,7 @@
 						
 						
 						
-						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
 
 						<ul class="task-list">
 							<li>
@@ -161,6 +169,26 @@
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/prepareRequestWithMethodName:andParameters:andHttpMethod:andClassOfModel:">&ndash;&nbsp;prepareRequestWithMethodName:andParameters:andHttpMethod:andClassOfModel:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/init">&ndash;&nbsp;init</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setMethodGroup:">&ndash;&nbsp;setMethodGroup:</a></code>
 	</span>
 	
 	
@@ -208,6 +236,11 @@
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Return group name for current methods builder</p>
+	</div>
+	
 	
 	
 	
@@ -220,6 +253,17 @@
 	</div>				
 	
 	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/init" title="init"></a>
+	<h3 class="subsubtitle method-title">init</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (id)init</code></div>
+
+    
 </div>
 						
 						<div class="section-method">
@@ -263,6 +307,11 @@
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Builds request and return it for configure and loading</p>
+	</div>
 	
 	
 	
@@ -324,6 +373,11 @@
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Builds request and return it for configure and loading</p>
+	</div>
 	
 	
 	
@@ -391,6 +445,11 @@
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Builds request and return it for configure and loading</p>
+	</div>
+	
 	
 	
 	
@@ -403,6 +462,17 @@
 	</div>				
 	
 	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setMethodGroup:" title="setMethodGroup:"></a>
+	<h3 class="subsubtitle method-title">setMethodGroup:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)setMethodGroup:(NSString *)<em>methodGroup</em></code></div>
+
+    
 </div>
 						
 					</div>
@@ -420,7 +490,7 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 VK. All rights reserved. (Last updated: 2013-12-25)</span><br />
+						<p><span class="copyright">&copy; 2013 VK.com. All rights reserved. (Last updated: 2013-12-25)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
 						

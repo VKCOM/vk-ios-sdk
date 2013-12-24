@@ -11,8 +11,8 @@
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
-				<h1><a id="libraryTitle" href="../index.html">VK SDK </a></h1>
-				<a id="developerHome" href="../index.html">VK</a>
+				<h1><a id="libraryTitle" href="../index.html">VK iOS SDK </a></h1>
+				<a id="developerHome" href="../index.html">VK.com</a>
 			</div>
 			
 			<div id="title" role="banner">
@@ -40,6 +40,8 @@
 	<option value="properties">Properties</option>
 	
 	<option value="//api/name/attempts">&nbsp;&nbsp;&nbsp;&nbsp;attempts</option>
+	
+	<option value="//api/name/attemptsUsed">&nbsp;&nbsp;&nbsp;&nbsp;attemptsUsed</option>
 	
 	<option value="//api/name/completeBlock">&nbsp;&nbsp;&nbsp;&nbsp;completeBlock</option>
 	
@@ -79,15 +81,29 @@
 	
 	<option value="//api/name/addExtraParameters:">&nbsp;&nbsp;&nbsp;&nbsp;- addExtraParameters:</option>
 	
+	<option value="//api/name/addPostRequest:">&nbsp;&nbsp;&nbsp;&nbsp;- addPostRequest:</option>
+	
 	<option value="//api/name/cancel">&nbsp;&nbsp;&nbsp;&nbsp;- cancel</option>
+	
+	<option value="//api/name/description">&nbsp;&nbsp;&nbsp;&nbsp;- description</option>
 	
 	<option value="//api/name/executeAfter:withResultBlock:errorBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- executeAfter:withResultBlock:errorBlock:</option>
 	
 	<option value="//api/name/executeWithResultBlock:errorBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- executeWithResultBlock:errorBlock:</option>
 	
+	<option value="//api/name/generateSig:token:">&nbsp;&nbsp;&nbsp;&nbsp;- generateSig:token:</option>
+	
 	<option value="//api/name/getPreparedRequest">&nbsp;&nbsp;&nbsp;&nbsp;- getPreparedRequest</option>
 	
+	<option value="//api/name/processCommonError:">&nbsp;&nbsp;&nbsp;&nbsp;- processCommonError:</option>
+	
+	<option value="//api/name/provideError:">&nbsp;&nbsp;&nbsp;&nbsp;- provideError:</option>
+	
+	<option value="//api/name/provideResponse:">&nbsp;&nbsp;&nbsp;&nbsp;- provideResponse:</option>
+	
 	<option value="//api/name/repeat">&nbsp;&nbsp;&nbsp;&nbsp;- repeat</option>
+	
+	<option value="//api/name/setupProgress:">&nbsp;&nbsp;&nbsp;&nbsp;- setupProgress:</option>
 	
 	<option value="//api/name/start">&nbsp;&nbsp;&nbsp;&nbsp;- start</option>
 	
@@ -113,6 +129,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Operating with parameters">Operating with parameters</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Extension Methods">Extension Methods</a></span></li>
+	
 </ul></li>
 
 
@@ -122,6 +140,8 @@
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/attempts">attempts</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/attemptsUsed">attemptsUsed</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/completeBlock">completeBlock</a></span></li>
 	
@@ -163,15 +183,29 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/addExtraParameters:">addExtraParameters:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/addPostRequest:">addPostRequest:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/cancel">cancel</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/description">description</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/executeAfter:withResultBlock:errorBlock:">executeAfter:withResultBlock:errorBlock:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/executeWithResultBlock:errorBlock:">executeWithResultBlock:errorBlock:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/generateSig:token:">generateSig:token:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getPreparedRequest">getPreparedRequest</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/processCommonError:">processCommonError:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/provideError:">provideError:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/provideResponse:">provideResponse:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/repeat">repeat</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setupProgress:">setupProgress:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/start">start</a></span></li>
 	
@@ -199,7 +233,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Inherits from</td>
-	<td class="specification-value">VKObject : NSObject</td>
+	<td class="specification-value"><a href="../Classes/VKObject.html">VKObject</a> : NSObject</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
 	<td class="specification-value">VKRequest.h<br />VKRequest.m</td>
@@ -381,6 +415,70 @@
 </li>
 						</ul>
 						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/description">&ndash;&nbsp;description</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/addPostRequest:">&ndash;&nbsp;addPostRequest:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/provideResponse:">&ndash;&nbsp;provideResponse:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/provideError:">&ndash;&nbsp;provideError:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setupProgress:">&ndash;&nbsp;setupProgress:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/generateSig:token:">&ndash;&nbsp;generateSig:token:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/processCommonError:">&ndash;&nbsp;processCommonError:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Extension Methods" name="task_Extension Methods"></a>
+						<h3 class="subsubtitle task-title">Extension Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/attemptsUsed">&nbsp;&nbsp;attemptsUsed</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
 					</div>
 					
 					
@@ -413,6 +511,11 @@
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specify attempts for request loading if caused HTTP-error. 0 for infinite</p>
+	</div>
+	
 	
 	
 	
@@ -425,6 +528,17 @@
 	</div>				
 	
 	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/attemptsUsed" title="attemptsUsed"></a>
+	<h3 class="subsubtitle method-title">attemptsUsed</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (readwrite, assign) int attemptsUsed</code></div>
+
+    
 </div>
 						
 						<div class="section-method">
@@ -448,6 +562,11 @@
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specify completion block for request</p>
+	</div>
 	
 	
 	
@@ -485,6 +604,11 @@
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specity error (HTTP or API) block for request.</p>
+	</div>
+	
 	
 	
 	
@@ -520,6 +644,11 @@
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns HTTP-method for current request</p>
+	</div>
 	
 	
 	
@@ -557,6 +686,11 @@
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns method for current request, e.g. users.get</p>
+	</div>
+	
 	
 	
 	
@@ -592,6 +726,11 @@
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns list of method parameters (without common parameters)</p>
+	</div>
 	
 	
 	
@@ -629,6 +768,11 @@
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Set to false if you don&rsquo;t need automatic model parsing</p>
+	</div>
+	
 	
 	
 	
@@ -664,6 +808,11 @@
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specify language for API request</p>
+	</div>
 	
 	
 	
@@ -701,6 +850,11 @@
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Specify progress for uploading or downloading. Useless for text requests (because gzip encoding bytesTotal will always return -1)</p>
+	</div>
+	
 	
 	
 	
@@ -737,6 +891,11 @@
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Use HTTPS requests (by default is YES). If http-request is impossible (user denied no https access), SDK will load https version</p>
+	</div>
+	
 	
 	
 	
@@ -772,6 +931,11 @@
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Sets current system language as default for API data</p>
+	</div>
 	
 	
 	
@@ -837,6 +1001,11 @@
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Creates new request for upload image to url</p>
+	</div>
+	
 	
 	
 	
@@ -897,6 +1066,11 @@
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a></p>
+	</div>
 	
 	
 	
@@ -964,6 +1138,11 @@
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a></p>
+	</div>
+	
 	
 	
 	
@@ -1018,6 +1197,11 @@
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Adds additional parameters to that request</p>
+	</div>
+	
 	
 	
 	
@@ -1030,6 +1214,17 @@
 	</div>				
 	
 	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/addPostRequest:" title="addPostRequest:"></a>
+	<h3 class="subsubtitle method-title">addPostRequest:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)addPostRequest:(VKRequest *)<em>postRequest</em></code></div>
+
+    
 </div>
 						
 						<div class="section-method">
@@ -1054,6 +1249,11 @@
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Cancel current request. Result will be not passed. <a href="#//api/name/errorBlock">errorBlock</a> will be called with error code</p>
+	</div>
+	
 	
 	
 	
@@ -1066,6 +1266,17 @@
 	</div>				
 	
 	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/description" title="description"></a>
+	<h3 class="subsubtitle method-title">description</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)description</code></div>
+
+    
 </div>
 						
 						<div class="section-method">
@@ -1109,6 +1320,11 @@
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Register current request for execute after passed request, if passed request is successful. If it&rsquo;s not, <a href="#//api/name/errorBlock">errorBlock</a> will be called.</p>
+	</div>
 	
 	
 	
@@ -1161,6 +1377,11 @@
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Executes that request, and returns result to blocks</p>
+	</div>
+	
 	
 	
 	
@@ -1173,6 +1394,17 @@
 	</div>				
 	
 	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/generateSig:token:" title="generateSig:token:"></a>
+	<h3 class="subsubtitle method-title">generateSig:token:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)generateSig:(OrderedDictionary *)<em>params</em> token:(VKAccessToken *)<em>token</em></code></div>
+
+    
 </div>
 						
 						<div class="section-method">
@@ -1202,6 +1434,11 @@
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Prepares NSURLRequest and returns prepared url request for current vkrequest</p>
+	</div>
+	
 	
 	
 	
@@ -1214,6 +1451,39 @@
 	</div>				
 	
 	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/processCommonError:" title="processCommonError:"></a>
+	<h3 class="subsubtitle method-title">processCommonError:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (BOOL)processCommonError:(VKError *)<em>error</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/provideError:" title="provideError:"></a>
+	<h3 class="subsubtitle method-title">provideError:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)provideError:(VKError *)<em>error</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/provideResponse:" title="provideResponse:"></a>
+	<h3 class="subsubtitle method-title">provideResponse:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)provideResponse:(id)<em>JSON</em></code></div>
+
+    
 </div>
 						
 						<div class="section-method">
@@ -1239,6 +1509,12 @@ Used <a href="#//api/name/attempts">attempts</a> will be set to 0.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Repeats this request with initial parameters and blocks.
+Used <a href="#//api/name/attempts">attempts</a> will be set to 0.</p>
+	</div>
+	
 	
 	
 	
@@ -1251,6 +1527,17 @@ Used <a href="#//api/name/attempts">attempts</a> will be set to 0.</p>
 	</div>				
 	
 	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setupProgress:" title="setupProgress:"></a>
+	<h3 class="subsubtitle method-title">setupProgress:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)setupProgress:(VKHTTPOperation *)<em>operation</em></code></div>
+
+    
 </div>
 						
 						<div class="section-method">
@@ -1274,6 +1561,11 @@ Used <a href="#//api/name/attempts">attempts</a> will be set to 0.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Starts loading of prepared request. You can use it instead of executeWithResultBlock</p>
+	</div>
 	
 	
 	
@@ -1304,7 +1596,7 @@ Used <a href="#//api/name/attempts">attempts</a> will be set to 0.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 VK. All rights reserved. (Last updated: 2013-12-25)</span><br />
+						<p><span class="copyright">&copy; 2013 VK.com. All rights reserved. (Last updated: 2013-12-25)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
 						

@@ -11,8 +11,8 @@
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
-				<h1><a id="libraryTitle" href="../index.html">VK SDK </a></h1>
-				<a id="developerHome" href="../index.html">VK</a>
+				<h1><a id="libraryTitle" href="../index.html">VK iOS SDK </a></h1>
+				<a id="developerHome" href="../index.html">VK.com</a>
 			</div>
 			
 			<div id="title" role="banner">
@@ -39,6 +39,8 @@
 	
 	<option value="properties">Properties</option>
 	
+	<option value="//api/name/defaultHeaders">&nbsp;&nbsp;&nbsp;&nbsp;defaultHeaders</option>
+	
 	<option value="//api/name/operationQueue">&nbsp;&nbsp;&nbsp;&nbsp;operationQueue</option>
 	
 	
@@ -55,11 +57,21 @@
 	
 	<option value="//api/name/defaultValueForHeader:">&nbsp;&nbsp;&nbsp;&nbsp;- defaultValueForHeader:</option>
 	
+	<option value="//api/name/encodeWithCoder:">&nbsp;&nbsp;&nbsp;&nbsp;- encodeWithCoder:</option>
+	
 	<option value="//api/name/enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:</option>
 	
 	<option value="//api/name/enqueueHTTPRequestOperation:">&nbsp;&nbsp;&nbsp;&nbsp;- enqueueHTTPRequestOperation:</option>
 	
+	<option value="//api/name/escapeString:">&nbsp;&nbsp;&nbsp;&nbsp;- escapeString:</option>
+	
+	<option value="//api/name/init">&nbsp;&nbsp;&nbsp;&nbsp;- init</option>
+	
+	<option value="//api/name/initWithCoder:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithCoder:</option>
+	
 	<option value="//api/name/multipartFormRequestWithMethod:path:images:">&nbsp;&nbsp;&nbsp;&nbsp;- multipartFormRequestWithMethod:path:images:</option>
+	
+	<option value="//api/name/queryStringFromParams:">&nbsp;&nbsp;&nbsp;&nbsp;- queryStringFromParams:</option>
 	
 	<option value="//api/name/requestWithMethod:path:parameters:secure:">&nbsp;&nbsp;&nbsp;&nbsp;- requestWithMethod:path:parameters:secure:</option>
 	
@@ -89,6 +101,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Enqueuing operations">Enqueuing operations</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Extension Methods">Extension Methods</a></span></li>
+	
 </ul></li>
 
 
@@ -96,6 +110,8 @@
 
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/defaultHeaders">defaultHeaders</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/operationQueue">operationQueue</a></span></li>
 	
@@ -115,11 +131,21 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/defaultValueForHeader:">defaultValueForHeader:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/encodeWithCoder:">encodeWithCoder:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:">enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/enqueueHTTPRequestOperation:">enqueueHTTPRequestOperation:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/escapeString:">escapeString:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/init">init</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithCoder:">initWithCoder:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/multipartFormRequestWithMethod:path:images:">multipartFormRequestWithMethod:path:images:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/queryStringFromParams:">queryStringFromParams:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/requestWithMethod:path:parameters:secure:">requestWithMethod:path:parameters:secure:</a></span></li>
 	
@@ -149,7 +175,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Inherits from</td>
-	<td class="specification-value">VKObject : NSObject</td>
+	<td class="specification-value"><a href="../Classes/VKObject.html">VKObject</a> : NSObject</td>
 </tr><tr>
 	<td class="specification-title">Conforms to</td>
 	<td class="specification-value">NSCoding</td>
@@ -257,6 +283,58 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 </li>
 						</ul>
 						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/init">&ndash;&nbsp;init</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/escapeString:">&ndash;&nbsp;escapeString:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/queryStringFromParams:">&ndash;&nbsp;queryStringFromParams:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/encodeWithCoder:">&ndash;&nbsp;encodeWithCoder:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithCoder:">&ndash;&nbsp;initWithCoder:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Extension Methods" name="task_Extension Methods"></a>
+						<h3 class="subsubtitle task-title">Extension Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/defaultHeaders">&nbsp;&nbsp;defaultHeaders</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
 					</div>
 					
 					
@@ -266,6 +344,17 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 					<div class="section section-methods">
 						<a title="Properties" name="properties"></a>
 						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/defaultHeaders" title="defaultHeaders"></a>
+	<h3 class="subsubtitle method-title">defaultHeaders</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (readwrite, nonatomic, strong) NSMutableDictionary *defaultHeaders</code></div>
+
+    
+</div>
 						
 						<div class="section-method">
 	<a name="//api/name/operationQueue" title="operationQueue"></a>
@@ -288,6 +377,11 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The operation queue which manages operations enqueued by the HTTP client.</p>
+	</div>
 	
 	
 	
@@ -337,6 +431,11 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Creates and initializes an <code>VKHTTPClient</code> object with the specified base URL.</p>
+	</div>
 	
 	
 	
@@ -397,6 +496,11 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns the value for the HTTP headers set in request objects created by the HTTP client.</p>
+	</div>
+	
 	
 	
 	
@@ -409,6 +513,17 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 	</div>				
 	
 	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/encodeWithCoder:" title="encodeWithCoder:"></a>
+	<h3 class="subsubtitle method-title">encodeWithCoder:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)encodeWithCoder:(NSCoder *)<em>aCoder</em></code></div>
+
+    
 </div>
 						
 						<div class="section-method">
@@ -452,6 +567,11 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Enqueues the specified request operations into a batch. When each request operation finishes, the specified progress block is executed, until all of the request operations have finished, at which point the completion block also executes.</p>
+	</div>
 	
 	
 	
@@ -499,6 +619,11 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Enqueues an <code>AFHTTPRequestOperation</code> to the HTTP client&rsquo;s operation queue.</p>
+	</div>
+	
 	
 	
 	
@@ -511,6 +636,39 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 	</div>				
 	
 	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/escapeString:" title="escapeString:"></a>
+	<h3 class="subsubtitle method-title">escapeString:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)escapeString:(NSString *)<em>value</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/init" title="init"></a>
+	<h3 class="subsubtitle method-title">init</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (id)init</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithCoder:" title="initWithCoder:"></a>
+	<h3 class="subsubtitle method-title">initWithCoder:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (id)initWithCoder:(NSCoder *)<em>aDecoder</em></code></div>
+
+    
 </div>
 						
 						<div class="section-method">
@@ -562,7 +720,9 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Multipart form requests are automatically streamed, reading files directly from disk along with in-memory data in a single HTTP body. The resulting <code>NSMutableURLRequest</code> object has an <code>HTTPBodyStream</code> property, so refrain from setting <code>HTTPBodyStream</code> or <code>HTTPBody</code> on this request object, as it will clear out the multipart form body stream.</p>
+		<p>Creates an <code>NSMutableURLRequest</code> object with the specified HTTP method and path, and constructs a <code>multipart/form-data</code> HTTP body, using the specified parameters and multipart form data block. See <a href="http://www.w3.org/TR/html4/interact/forms.html">http://www.w3.org/TR/html4/interact/forms.html</a>#h-17.13.4.2</p>
+
+<p>Multipart form requests are automatically streamed, reading files directly from disk along with in-memory data in a single HTTP body. The resulting <code>NSMutableURLRequest</code> object has an <code>HTTPBodyStream</code> property, so refrain from setting <code>HTTPBodyStream</code> or <code>HTTPBody</code> on this request object, as it will clear out the multipart form body stream.</p>
 	</div>
 	
 	
@@ -577,6 +737,17 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 	</div>				
 	
 	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/queryStringFromParams:" title="queryStringFromParams:"></a>
+	<h3 class="subsubtitle method-title">queryStringFromParams:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)queryStringFromParams:(NSDictionary *)<em>params</em></code></div>
+
+    
 </div>
 						
 						<div class="section-method">
@@ -633,7 +804,9 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>If the HTTP method is <code>GET</code>, <code>HEAD</code>, or <code>DELETE</code>, the parameters will be used to construct a url-encoded query string that is appended to the request&rsquo;s URL. Otherwise, the parameters will be encoded according to the value of the <code>parameterEncoding</code> property, and set as the request body.</p>
+		<p>Creates an <code>NSMutableURLRequest</code> object with the specified HTTP method and path.</p>
+
+<p>If the HTTP method is <code>GET</code>, <code>HEAD</code>, or <code>DELETE</code>, the parameters will be used to construct a url-encoded query string that is appended to the request&rsquo;s URL. Otherwise, the parameters will be encoded according to the value of the <code>parameterEncoding</code> property, and set as the request body.</p>
 	</div>
 	
 	
@@ -687,6 +860,11 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Sets the value for the HTTP headers set in request objects made by the HTTP client. If <code>nil</code>, removes the existing value for that header.</p>
+	</div>
+	
 	
 	
 	
@@ -716,7 +894,7 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 VK. All rights reserved. (Last updated: 2013-12-25)</span><br />
+						<p><span class="copyright">&copy; 2013 VK.com. All rights reserved. (Last updated: 2013-12-25)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
 						
