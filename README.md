@@ -143,10 +143,10 @@ SDK can build load bunch of requests, and return results as requests were passed
 1) Prepare requests
 ```
     VKRequest * request1 = [[VKApi audio] get]; 
-    audioReq.completeBlock = ^(VKResponse*) { ... }; 
+    request1.completeBlock = ^(VKResponse*) { ... }; 
 
     VKRequest * request2 = [[VKApi users] get:@{VK_USER_IDS : @[@(1), @(6492), @(1708231)]}]; 
-    users.completeBlock = ^(VKResponse*) { ... };
+    request2.completeBlock = ^(VKResponse*) { ... };
 ```
 2) Batch requests
 
