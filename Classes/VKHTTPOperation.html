@@ -1,0 +1,1252 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>VKHTTPOperation Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">VK SDK </a></h1>
+				<a id="developerHome" href="../index.html">VK</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">VKHTTPOperation Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/error">&nbsp;&nbsp;&nbsp;&nbsp;error</option>
+	
+	<option value="//api/name/failureCallbackQueue">&nbsp;&nbsp;&nbsp;&nbsp;failureCallbackQueue</option>
+	
+	<option value="//api/name/request">&nbsp;&nbsp;&nbsp;&nbsp;request</option>
+	
+	<option value="//api/name/response">&nbsp;&nbsp;&nbsp;&nbsp;response</option>
+	
+	<option value="//api/name/responseData">&nbsp;&nbsp;&nbsp;&nbsp;responseData</option>
+	
+	<option value="//api/name/responseJson">&nbsp;&nbsp;&nbsp;&nbsp;responseJson</option>
+	
+	<option value="//api/name/responseString">&nbsp;&nbsp;&nbsp;&nbsp;responseString</option>
+	
+	<option value="//api/name/runLoopModes">&nbsp;&nbsp;&nbsp;&nbsp;runLoopModes</option>
+	
+	<option value="//api/name/successCallbackQueue">&nbsp;&nbsp;&nbsp;&nbsp;successCallbackQueue</option>
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/operationWithRequest:">&nbsp;&nbsp;&nbsp;&nbsp;+ operationWithRequest:</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/initWithURLRequest:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithURLRequest:</option>
+	
+	<option value="//api/name/isPaused">&nbsp;&nbsp;&nbsp;&nbsp;- isPaused</option>
+	
+	<option value="//api/name/pause">&nbsp;&nbsp;&nbsp;&nbsp;- pause</option>
+	
+	<option value="//api/name/resume">&nbsp;&nbsp;&nbsp;&nbsp;- resume</option>
+	
+	<option value="//api/name/setCompletionBlockWithSuccess:failure:">&nbsp;&nbsp;&nbsp;&nbsp;- setCompletionBlockWithSuccess:failure:</option>
+	
+	<option value="//api/name/setDownloadProgressBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- setDownloadProgressBlock:</option>
+	
+	<option value="//api/name/setShouldExecuteAsBackgroundTaskWithExpirationHandler:">&nbsp;&nbsp;&nbsp;&nbsp;- setShouldExecuteAsBackgroundTaskWithExpirationHandler:</option>
+	
+	<option value="//api/name/setUploadProgressBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- setUploadProgressBlock:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Accessing Run Loop Modes">Accessing Run Loop Modes</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Getting URL Connection Information">Getting URL Connection Information</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Getting Response Data">Getting Response Data</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Configuring Backgrounding Task Behavior">Configuring Backgrounding Task Behavior</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/error">error</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/failureCallbackQueue">failureCallbackQueue</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/request">request</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/response">response</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/responseData">responseData</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/responseJson">responseJson</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/responseString">responseString</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/runLoopModes">runLoopModes</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/successCallbackQueue">successCallbackQueue</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/operationWithRequest:">operationWithRequest:</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithURLRequest:">initWithURLRequest:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isPaused">isPaused</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/pause">pause</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/resume">resume</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setCompletionBlockWithSuccess:failure:">setCompletionBlockWithSuccess:failure:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setDownloadProgressBlock:">setDownloadProgressBlock:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setShouldExecuteAsBackgroundTaskWithExpirationHandler:">setShouldExecuteAsBackgroundTaskWithExpirationHandler:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setUploadProgressBlock:">setUploadProgressBlock:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="VKHTTPOperation Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">VKHTTPOperation Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSOperation</td>
+</tr><tr>
+	<td class="specification-title">Conforms to</td>
+	<td class="specification-value">NSCoding<br />NSCopying<br />NSURLConnectionDataDelegate<br />NSURLConnectionDelegate</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">VKHTTPOperation.h<br />VKHTTPOperation.m</td>
+</tr>
+						</tbody></table></div>
+					
+                    
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>VK URL operation subclassing NSOperation.
+Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetworking">https://github.com/AFNetworking/AFNetworking</a> )</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/operationWithRequest:">+&nbsp;operationWithRequest:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Accessing Run Loop Modes" name="task_Accessing Run Loop Modes"></a>
+						<h3 class="subsubtitle task-title">Accessing Run Loop Modes</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/runLoopModes">&nbsp;&nbsp;runLoopModes</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Getting URL Connection Information" name="task_Getting URL Connection Information"></a>
+						<h3 class="subsubtitle task-title">Getting URL Connection Information</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/request">&nbsp;&nbsp;request</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/error">&nbsp;&nbsp;error</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Getting Response Data" name="task_Getting Response Data"></a>
+						<h3 class="subsubtitle task-title">Getting Response Data</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/responseData">&nbsp;&nbsp;responseData</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/responseString">&nbsp;&nbsp;responseString</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/responseJson">&nbsp;&nbsp;responseJson</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/response">&nbsp;&nbsp;response</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/successCallbackQueue">&nbsp;&nbsp;successCallbackQueue</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/failureCallbackQueue">&nbsp;&nbsp;failureCallbackQueue</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithURLRequest:">&ndash;&nbsp;initWithURLRequest:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/pause">&ndash;&nbsp;pause</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/isPaused">&ndash;&nbsp;isPaused</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/resume">&ndash;&nbsp;resume</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Configuring Backgrounding Task Behavior" name="task_Configuring Backgrounding Task Behavior"></a>
+						<h3 class="subsubtitle task-title">Configuring Backgrounding Task Behavior</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setShouldExecuteAsBackgroundTaskWithExpirationHandler:">&ndash;&nbsp;setShouldExecuteAsBackgroundTaskWithExpirationHandler:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setUploadProgressBlock:">&ndash;&nbsp;setUploadProgressBlock:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setDownloadProgressBlock:">&ndash;&nbsp;setDownloadProgressBlock:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setCompletionBlockWithSuccess:failure:">&ndash;&nbsp;setCompletionBlockWithSuccess:failure:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/error" title="error"></a>
+	<h3 class="subsubtitle method-title">error</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The error, if any, that occurred in the lifecycle of the <a href="#//api/name/request">request</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (readonly, nonatomic, strong) NSError *error</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/failureCallbackQueue" title="failureCallbackQueue"></a>
+	<h3 class="subsubtitle method-title">failureCallbackQueue</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The callback dispatch queue on failure. If <code>NULL</code> (default), the main queue is used.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) dispatch_queue_t failureCallbackQueue</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/request" title="request"></a>
+	<h3 class="subsubtitle method-title">request</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The request used by the operation&rsquo;s <a href="#//api/name/connection">connection</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (readonly, nonatomic, strong) NSURLRequest *request</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/response" title="response"></a>
+	<h3 class="subsubtitle method-title">response</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The last HTTP response received by the operation&rsquo;s <a href="#//api/name/connection">connection</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (readonly, nonatomic, strong) NSHTTPURLResponse *response</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/responseData" title="responseData"></a>
+	<h3 class="subsubtitle method-title">responseData</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The data received during the <a href="#//api/name/request">request</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (readonly, nonatomic, strong) NSData *responseData</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/responseJson" title="responseJson"></a>
+	<h3 class="subsubtitle method-title">responseJson</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The json representation of the <a href="#//api/name/response">response</a> data.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (readonly, nonatomic, copy) id responseJson</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/responseString" title="responseString"></a>
+	<h3 class="subsubtitle method-title">responseString</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The string representation of the <a href="#//api/name/response">response</a> data.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (readonly, nonatomic, copy) NSString *responseString</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/runLoopModes" title="runLoopModes"></a>
+	<h3 class="subsubtitle method-title">runLoopModes</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The run loop modes in which the operation will run on the network thread. By default, this is a single-member set containing <code>NSRunLoopCommonModes</code>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSSet *runLoopModes</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/successCallbackQueue" title="successCallbackQueue"></a>
+	<h3 class="subsubtitle method-title">successCallbackQueue</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The callback dispatch queue on success. If <code>NULL</code> (default), the main queue is used.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) dispatch_queue_t successCallbackQueue</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/operationWithRequest:" title="operationWithRequest:"></a>
+	<h3 class="subsubtitle method-title">operationWithRequest:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Creates new operation with prepared <a href="#//api/name/request">request</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)operationWithRequest:(VKRequest *)<em>request</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>request</em></dt>
+			<dd><p>Prepared VK <a href="#//api/name/request">request</a> to API</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>Initialized operation</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithURLRequest:" title="initWithURLRequest:"></a>
+	<h3 class="subsubtitle method-title">initWithURLRequest:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Init this operation with URL <a href="#//api/name/request">request</a></p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)initWithURLRequest:(NSURLRequest *)<em>urlRequest</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>urlRequest</em></dt>
+			<dd><p><a href="#//api/name/request">request</a> to load</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>initialized operation</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/isPaused" title="isPaused"></a>
+	<h3 class="subsubtitle method-title">isPaused</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Whether the <a href="#//api/name/request">request</a> operation is currently paused.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (BOOL)isPaused</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p><code>YES</code> if the operation is currently paused, otherwise <code>NO</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/pause" title="pause"></a>
+	<h3 class="subsubtitle method-title">pause</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Pauses the execution of the <a href="#//api/name/request">request</a> operation.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)pause</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>A paused operation returns <code>NO</code> for <a href="#//api/name/isReady"><code>isReady</code></a>, <a href="#//api/name/isExecuting"><code>isExecuting</code></a>, and <a href="#//api/name/isFinished"><code>isFinished</code></a>. As such, it will remain in an <code>NSOperationQueue</code> until it is either <a href="#//api/name/cancelled">cancelled</a> or resumed. Pausing a finished, <a href="#//api/name/cancelled">cancelled</a>, or paused operation has no effect.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/resume" title="resume"></a>
+	<h3 class="subsubtitle method-title">resume</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Resumes the execution of the paused <a href="#//api/name/request">request</a> operation.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)resume</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Pause/Resume behavior varies depending on the underlying implementation for the operation class. In its base implementation, resuming a paused requests restarts the original <a href="#//api/name/request">request</a>. However, since HTTP defines a specification for how to <a href="#//api/name/request">request</a> a specific content range, <code>AFHTTPRequestOperation</code> will resume downloading the <a href="#//api/name/request">request</a> from where it left off, instead of restarting the original <a href="#//api/name/request">request</a>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setCompletionBlockWithSuccess:failure:" title="setCompletionBlockWithSuccess:failure:"></a>
+	<h3 class="subsubtitle method-title">setCompletionBlockWithSuccess:failure:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sets the <code>completionB</code>lock<code></code> property with a b<a href="#//api/name/lock">lock</a> that executes either the specified success or failure b<a href="#//api/name/lock">lock</a>, depending on the <a href="#//api/name/state">state</a> of the <a href="#//api/name/request">request</a> on completion. If <a href="#//api/name/error"><code>error</code></a> returns a value, which can be caused by an unacceptable status code or content type, then <code>failure</code> is executed. Otherwise, <code>success</code> is executed.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setCompletionBlockWithSuccess:(void ( ^ ) ( VKHTTPOperation *operation , id responseObject ))<em>success</em> failure:(void ( ^ ) ( VKHTTPOperation *operation , NSError *error ))<em>failure</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>success</em></dt>
+			<dd><p>The b<a href="#//api/name/lock">lock</a> to be executed on the completion of a successful <a href="#//api/name/request">request</a>. This b<a href="#//api/name/lock">lock</a> has no return value and takes two arguments: the receiver operation and the object constructed from the <a href="#//api/name/response">response</a> data of the <a href="#//api/name/request">request</a>.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>failure</em></dt>
+			<dd><p>The b<a href="#//api/name/lock">lock</a> to be executed on the completion of an unsuccessful <a href="#//api/name/request">request</a>. This b<a href="#//api/name/lock">lock</a> has no return value and takes two arguments: the receiver operation and the <a href="#//api/name/error">error</a> that occurred during the <a href="#//api/name/request">request</a>.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This method should be overridden in subclasses in order to specify the <a href="#//api/name/response">response</a> object passed into the success b<a href="#//api/name/lock">lock</a>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setDownloadProgressBlock:" title="setDownloadProgressBlock:"></a>
+	<h3 class="subsubtitle method-title">setDownloadProgressBlock:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sets a callback to be called when an undetermined number of bytes have been downloaded from the server.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setDownloadProgressBlock:(void ( ^ ) ( NSUInteger bytesRead , long long totalBytesRead , long long totalBytesExpectedToRead ))<em>block</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A b<a href="#//api/name/lock">lock</a> object to be called when an undetermined number of bytes have been downloaded from the server. This b<a href="#//api/name/lock">lock</a> has no return value and takes three arguments: the number of bytes read since the last time the download progress b<a href="#//api/name/lock">lock</a> was called, the total bytes read, and the total bytes expected to be read during the <a href="#//api/name/request">request</a>, as initially determined by the expected content size of the <code>NSHTTPURLResponse</code> object. This b<a href="#//api/name/lock">lock</a> may be called multiple times, and will execute on the main thread.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setShouldExecuteAsBackgroundTaskWithExpirationHandler:" title="setShouldExecuteAsBackgroundTaskWithExpirationHandler:"></a>
+	<h3 class="subsubtitle method-title">setShouldExecuteAsBackgroundTaskWithExpirationHandler:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Specifies that the operation should continue execution after the app has entered the background, and the expiration handler for that background task.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setShouldExecuteAsBackgroundTaskWithExpirationHandler:(void ( ^ ) ( void ))<em>handler</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>handler</em></dt>
+			<dd><p>A handler to be called shortly before the application’s remaining background time reaches 0. The handler is wrapped in a b<a href="#//api/name/lock">lock</a> that cancels the operation, and cleans up and marks the end of execution, unlike the <code>handler</code> parameter in <code>UIApplication -beginBackgroundTaskWithExpirationHandler:</code>, which expects this to be done in the handler itself. The handler is called synchronously on the main thread, thus blocking the application’s suspension momentarily while the application is notified.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setUploadProgressBlock:" title="setUploadProgressBlock:"></a>
+	<h3 class="subsubtitle method-title">setUploadProgressBlock:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sets a callback to be called when an undetermined number of bytes have been uploaded to the server.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setUploadProgressBlock:(void ( ^ ) ( NSUInteger bytesWritten , long long totalBytesWritten , long long totalBytesExpectedToWrite ))<em>block</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A b<a href="#//api/name/lock">lock</a> object to be called when an undetermined number of bytes have been uploaded to the server. This b<a href="#//api/name/lock">lock</a> has no return value and takes three arguments: the number of bytes written since the last time the upload progress b<a href="#//api/name/lock">lock</a> was called, the total bytes written, and the total bytes expected to be written during the <a href="#//api/name/request">request</a>, as initially determined by the length of the HTTP body. This b<a href="#//api/name/lock">lock</a> may be called multiple times, and will execute on the main thread.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+                    
+                    
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2013 VK. All rights reserved. (Last updated: 2013-12-24)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>
