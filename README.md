@@ -54,7 +54,7 @@ SDK initialization
 2) Initialize SDK with your APP_ID for some delegate
     [VKSdk initialize:delegate andAppId:YOUR_APP_ID];
     
-See refference of VKSdkDelegate protocol here: http://vkcom.github.io/vk-ios-sdk/Protocols/VKSdkDelegate.html
+See reference of VKSdkDelegate protocol here: http://vkcom.github.io/vk-ios-sdk/Protocols/VKSdkDelegate.html
 
 User authorization
 ----------
