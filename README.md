@@ -25,7 +25,7 @@ Adding VK iOS SDK to your iOS application
 Installation with CocoaPods
 ----------
 
-CocoaPods is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like AFNetworking in your projects. See the "[Getting Started](http://beta.cocoapods.org/?q=#get_started)" guide for more information.
+CocoaPods is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like VK SDK in your projects. See the "[Getting Started](http://beta.cocoapods.org/?q=#get_started)" guide for more information.
 
 Podfile
 
