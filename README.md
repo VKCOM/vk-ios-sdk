@@ -61,9 +61,9 @@ User authorization
 
 There are several methods for authorization:
 
-    [VKSdk authorize:];
-    [VKSdk authorize:revokeAccess:];
-    [VKSdk authorize:revokeAccess:forceOAuth:];
+    [VKSdk authorize:scope];
+    [VKSdk authorize:scope revokeAccess:YES];
+    [VKSdk authorize:scope revokeAccess:YES forceOAuth:YES];
 
 Usually, [VKSdk authorize:]; is enougth for your needs.
 
