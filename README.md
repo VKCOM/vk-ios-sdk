@@ -45,11 +45,11 @@ SDK initialization
 ----------
 1) Add next code to application delegate method application:openURL:sourceApplication:annotation:
 ```
-    -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-    {
-        [VKSdk processOpenURL:url fromApplication:sourceApplication];
-        return YES;
-    }
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    [VKSdk processOpenURL:url fromApplication:sourceApplication];
+    return YES;
+}
 ```
 2) Initialize SDK with your APP_ID for some delegate
     [VKSdk initialize:delegate andAppId:YOUR_APP_ID];
@@ -142,11 +142,11 @@ SDK can build load bunch of requests, and return results as requests were passed
 
 1) Prepare requests
 ```
-    VKRequest * request1 = [[VKApi audio] get]; 
-    request1.completeBlock = ^(VKResponse*) { ... }; 
+VKRequest * request1 = [[VKApi audio] get]; 
+request1.completeBlock = ^(VKResponse*) { ... }; 
 
-    VKRequest * request2 = [[VKApi users] get:@{VK_USER_IDS : @[@(1), @(6492), @(1708231)]}]; 
-    request2.completeBlock = ^(VKResponse*) { ... };
+VKRequest * request2 = [[VKApi users] get:@{VK_USER_IDS : @[@(1), @(6492), @(1708231)]}]; 
+request2.completeBlock = ^(VKResponse*) { ... };
 ```
 2) Batch requests
 
