@@ -54,7 +54,7 @@
 
 /**
  Retrieve token from user defaults. Token must be saved to defaults with saveTokenToDefaults method
- @param filePath path to file with saved token
+ @param defaultsKey path to file with saved token
  @return parsed token
  */
 + (instancetype)tokenFromDefaults:(NSString *)defaultsKey;
