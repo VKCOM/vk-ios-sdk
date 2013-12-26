@@ -3,21 +3,22 @@ vk-ios-sdk
 
 Library for working with VK API, authorization through VK app, using VK functions.
 
-Prepare for using VK SDK
+Prepare for Using VK SDK
 ----------
 
-Before using VK SDK you need to create standalone application in VK ( https://vk.com/editapp?act=create ). Save your Application ID, fill "App Bundle for iOS" field.
+To use VK SDK primarily you need to create a new VK application [here](https://vk.com/editapp?act=create) by choosing the Standalone application type. Choose a title and confirm the action via SMS and you will be redirected to the application settings page. 
+You will require your Application ID (referenced as API_ID in the documentation). Fill in the App Bundle for iOS field. 
 
-Setting up URL-schema in your application
+Setup URL-schema of Your Application
 ----------
 
-For authorization through VK App you need to setup url-schema of your application.
+To use authorization via VK App you need to setup a url-schema of your application. 
 
 <b>Xcode 5:</b>
-Open your application settings, then select Info tab. In URL Types section press plus sign. Enter vk+YOUR_APP_ID (e.g. vk1234567) to Indentifier and URL Schemes fields.
+Open your application settings then select the Info tab. In the URL Types section click the plus sign. Enter vk+APP_ID (e.g. vk1234567) to the Identifier and URL Schemes fields.
 
 <b>Xcode 4:</b>
-Open your Info.plist, then add new row "URL Types". Set URL identifier to vk+YOUR_APP_ID
+Open your Info.plist then add a new row URL Types. Set the URL identifier to vk+APP_ID
 
 Adding VK iOS SDK to your iOS application
 ==========
@@ -30,20 +31,22 @@ CocoaPods is a dependency manager for Objective-C, which automates and simplifie
 Podfile
 
     pod "VK-ios-sdk"
+Then import the main header.
+
+    #import <VKSdk.h>
 
 Installation with source code
 ----------
 
-Add sdk/sdk.xcodeproj to your project. In your Application settings/Build phases/Link Binary with Libraries add libVKSdk.a
-Import main header
+Add the sdk/sdk.xcodeproj file to your project. In the Application settings open Build phases, then the Link Binary with Libraries section. Add libVKSdk.a there, then import the main header.
 
     #import "VKSdk.h"
 
-Working with SDK
+Using SDK
 ==========
-SDK initialization
+SDK Initialization
 ----------
-1) Add next code to application delegate method application:openURL:sourceApplication:annotation:
+1) Put this code to the application delegate method  application:openURL:sourceApplication:annotation:
 ```
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
@@ -51,66 +54,67 @@ SDK initialization
     return YES;
 }
 ```
-2) Initialize SDK with your APP_ID for some delegate
+2) Initialize SDK with your APP_ID for any delegate.
     [VKSdk initialize:delegate andAppId:YOUR_APP_ID];
     
-See reference of VKSdkDelegate protocol here: http://vkcom.github.io/vk-ios-sdk/Protocols/VKSdkDelegate.html
+See full description of VKSdkDelegate protocol here: http://vkcom.github.io/vk-ios-sdk/Protocols/VKSdkDelegate.html
 
-User authorization
+User Authorization
 ----------
 
-There are several methods for authorization:
+There are several methods for authorization: 
 
     [VKSdk authorize:scope];
     [VKSdk authorize:scope revokeAccess:YES];
     [VKSdk authorize:scope revokeAccess:YES forceOAuth:YES];
 
-Usually, [VKSdk authorize:]; is enougth for your needs.
+Generally, [VKSdk authorize:scope]; is enough for your needs. 
 
-In case of success will next method of delegate will be called
+When succeeded, the following method of delegate will be called:
 
     -(void) vkSdkDidReceiveNewToken:(VKAccessToken*) newToken;
 
-In case of error (e.g. used canceled authorization)
+In case of error (e.g., user canceled authorization):
 
     -(void) vkSdkUserDeniedAccess:(VKError*) authorizationError;
 
-API requests
+API Requests
 ==========
 
-Preparing
+Requests Syntax
 ----------
-1) Simple
+Below we have listed the examples for several request types. 
+1) Plain request.
 
     VKRequest * audioReq = [[VKApi users] get];
 
-2) Parametrized
+2) Request with parameters.
 
     VKRequest * audioReq = [[VKApi audio] get:@{VK_OWNER_ID : @"896232"}];
 
-3) Http (not https) loading (only if scope VK_PER_NOHTTPS was passed)
+3) Http (not https) request (only if scope VK_PER_NOHTTPS has been passed)
 
     VKRequest * audioReq = [[VKApi audio] get:@{VK_OWNER_ID : @"896232"}]; 
     audioReq.secure = NO;
 
-4) Set maximum attempts count 
+4) Request with predetermined maximum number of attempts.
 
     VKRequest * postReq = [[VKApi wall] post:@{VK_MESSAGE : @"Test"}]; 
     postReq.attempts = 10; 
     //or infinite 
     //postReq.attempts = 0;
 
-Request will take 10 attempts, until success or API error
+It will take 10 attempts until succeeds or an API error occurs. 
 
-5) Load any API method (don't forget about scope)
+5) Request that calls a method of VK API (keep in mind scope value).
 
     VKRequest * getWall = [VKRequest requestWithMethod:@"wall.get" andParameters:@{VK_API_OWNER_ID : @"-1"} andHttpMethod:@"GET"];
 
-6) Upload photo to user wall
+6) Request for uploading photos on user wall.
 
     VKRequest * request = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"my_photo"] parameters:[VKImageParameters pngImage] userId:0 groupId:0 ];
 
-Sending
+Requests Sending
 ----------
 
     [audioReq executeWithResultBlock:^(VKResponse * response) { 
@@ -123,12 +127,12 @@ Sending
         } 
     }];
 
-Errors handling
+Error Handling
 ----------
-Class VKError contains errorCode property. Compare it with VK_API_ERROR. If it equals, process vkError propetry, otherwise you handling http error in httpError property.
+The VKError class contains the errorCode property. Compare its value with the global constant VK_API_ERROR. If it equals, process the vkError field that contains a description of a VK API error. Otherwise you should handle an http error in the httpError property. 
 
-SDK can process several errors (captcha error, validation error). Appropriate delegate methods will be called.
-Example of processing captcha error:
+Some errors (e.g., captcha error, validation error) can be proccessed by the SDK. Appropriate delegate methods will be called for this purpose. 
+Below is an example of captcha error processing:
 
     -(void) vkSdkNeedCaptchaEnter:(VKError*) captchaError 
     { 
@@ -136,9 +140,9 @@ Example of processing captcha error:
         [vc presentIn:self]; 
     }
 
-Batching requests
+Batch Processing Requests
 ----------
-SDK can build load bunch of requests, and return results as requests were passed
+SDK gives a feature to execute several unrelated requests at the one call. 
 
 1) Prepare requests
 ```
@@ -148,17 +152,17 @@ request1.completeBlock = ^(VKResponse*) { ... };
 VKRequest * request2 = [[VKApi users] get:@{VK_USER_IDS : @[@(1), @(6492), @(1708231)]}]; 
 request2.completeBlock = ^(VKResponse*) { ... };
 ```
-2) Batch requests
+2) Combine created requests into one.
 
     VKBatchRequest * batch = [[VKBatchRequest alloc] initWithRequests:request1, request2, nil];
 
-3) Load batch with blocks
+3) Load the obtained request.
 
     [batch executeWithResultBlock:^(NSArray *responses) { 
             NSLog(@"Responses: %@", responses); 
         } errorBlock:^(VKError *error) { 
             NSLog(@"Error: %@", error); 
     }];
-
-4) Result of each method will be returned to completeBlock of that request, responses array will contains responses of requests as they were passed.
+    
+4) The result of each method returns to a corresponding completeBlock. The responses array contains responses of the requests in order they have been passed.
 
