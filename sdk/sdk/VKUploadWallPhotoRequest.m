@@ -25,26 +25,26 @@
 @implementation VKUploadWallPhotoRequest
 - (instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters userId:(long long)userId groupId:(int)groupId {
 	self = [super init];
-	self->_image            = image;
-	self->_imageParameters  = parameters;
-	self->_userId           = userId;
-	self->_groupId          = groupId;
+	self.image            = image;
+	self.imageParameters  = parameters;
+	self.userId           = userId;
+	self.groupId          = groupId;
 	return self;
 }
 
 - (VKRequest *)getServerRequest {
-	if (_groupId != 0)
-		return [[VKApi photos] getWallUploadServer:_groupId];
+	if (self.groupId != 0)
+		return [[VKApi photos] getWallUploadServer:self.groupId];
 	else
 		return [[VKApi photos] getWallUploadServer];
 }
 
 - (VKRequest *)getSaveRequest:(VKResponse *)response {
 	VKRequest *saveRequest = [[VKApi photos] saveWallPhoto:response.json];
-	if (_userId)
-		[saveRequest addExtraParameters:@{ VK_API_USER_ID : @(_userId) }];
-	if (_groupId)
-		[saveRequest addExtraParameters:@{ VK_API_GROUP_ID : @(_groupId) }];
+	if (self.userId)
+		[saveRequest addExtraParameters:@{ VK_API_USER_ID : @(self.userId) }];
+	if (self.groupId)
+		[saveRequest addExtraParameters:@{ VK_API_GROUP_ID : @(self.groupId) }];
 	return saveRequest;
 }
 

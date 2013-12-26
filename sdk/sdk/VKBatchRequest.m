@@ -21,7 +21,7 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKBatchRequest.h"
-
+#import "VKHTTPClient.h"
 @implementation VKBatchRequest
 - (instancetype)initWithRequests:(VKRequest *)firstRequest, ...
 {
@@ -42,18 +42,35 @@
 	for (int i = 0; i < _requests.count; i++)
 		[_responses addObject:[NSNull null]];
     
+    NSMutableArray * batchOperations = [NSMutableArray arrayWithCapacity:_requests.count];
 	for (VKRequest *request in _requests)
-		[request executeWithResultBlock: ^(VKResponse *response) {
-		    [self provideResponse:response];
-		} errorBlock: ^(VKError *error) {
-		    [self cancel];
-		}];
+    {
+        void (^originalComplete)(VKResponse*) = [request.completeBlock copy];
+        request.completeBlock = ^(VKResponse* response) {
+            [self provideResponse:response];
+            if (originalComplete) originalComplete(response);
+        };
+        
+        void (^originalError)(VKError*) = [request.errorBlock copy];
+        request.errorBlock = ^(VKError* error) {
+            [self provideError:error];
+            if (originalError) originalError(error);
+        };
+        
+        [batchOperations addObject:request.executionOperation];
+    }
+    [[VKHTTPClient getClient] enqueueBatchOfHTTPRequestOperations:batchOperations
+                                                    progressBlock:nil
+                                                  completionBlock:nil];
 }
 
 - (void)cancel {
+    if (_canceled) return;
+    _canceled = YES;
 	for (VKRequest *request in _requests)
 		[request cancel];
 	[self provideError:[VKError errorWithCode:VK_API_CANCELED]];
+    
 }
 
 - (void)provideResponse:(VKResponse *)response {

@@ -112,6 +112,7 @@ static NSString * const TEST_CAPTCHA = @"Test captcha";
     if ([[segue identifier] isEqualToString:@"API_CALL"]) {
         ApiCallViewController * vc = [segue destinationViewController];
         vc.callingRequest = self->callingRequest;
+        self->callingRequest = nil;
     }
 }
 -(void) callMethod:(VKRequest*) method

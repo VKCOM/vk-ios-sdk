@@ -34,6 +34,9 @@
  */
 @interface VKRequest : VKObject
 {
+@protected
+    /// Working operation for this request
+	NSOperation *_executionOperation;
 @private
 	/// Selected method name
 	NSString *_methodName;
@@ -43,8 +46,6 @@
 	NSDictionary *_methodParameters;
 	/// Method parametes with common parameters
 	OrderedDictionary *_preparedParameters;
-	/// HTTP loading operation
-	VKHTTPOperation *_loadingOperation;
 	/// How much times request was loaded
 	int _attemptsUsed;
 	/// Url for uploading files
@@ -79,6 +80,8 @@
 @property (nonatomic, readonly) NSString *httpMethod;
 /// Returns list of method parameters (without common parameters)
 @property (nonatomic, readonly) NSDictionary *methodParameters;
+/// Returns http operation that can be enqueued
+@property (nonatomic, readonly) NSOperation *executionOperation;
 
 ///-------------------------------
 /// @name Preparing requests

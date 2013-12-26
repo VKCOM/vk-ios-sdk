@@ -32,13 +32,12 @@
 {
     [super viewDidLoad];
 	self.methodName.text = self.callingRequest.methodName;
-    [self.callingRequest setProgressBlock:^(VKProgressType progressType, long long bytesLoaded, long long bytesTotal) {
-        NSLog(@"%lld %lld", bytesLoaded, bytesTotal);
-    }];
     [self.callingRequest executeWithResultBlock:^(VKResponse *response) {
         self.callResult.text = [NSString stringWithFormat:@"Result: %@", response];
+        self.callingRequest = nil;
     } errorBlock:^(VKError *error) {
         self.callResult.text = [NSString stringWithFormat:@"Error: %@", error];
+        self.callingRequest = nil;
     }];
 }
 

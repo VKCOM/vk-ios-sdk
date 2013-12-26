@@ -32,6 +32,7 @@
     
 	NSMutableArray *_requests;
 	NSMutableArray *_responses;
+    BOOL            _canceled;
 }
 /// Specify completion block for request
 @property (nonatomic, copy)   void (^completeBlock)(NSArray *responses);

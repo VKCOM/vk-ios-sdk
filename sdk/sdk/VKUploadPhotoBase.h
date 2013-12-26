@@ -26,18 +26,23 @@
  Provides common part of photo upload process
  */
 @interface VKUploadPhotoBase : VKRequest
-{
-@protected
-	/// ID of album to upload
-	int _albumId;
-	/// ID of group to upload
-	int _groupId;
-	/// ID of user wall to upload
-	long long _userId;
-    
-	/// Image to upload
-	UIImage *_image;
-	/// Passed image parameters
-	VKImageParameters *_imageParameters;
-}
+/// ID of album to upload
+@property (nonatomic, assign) int albumId;
+/// ID of group to upload
+@property (nonatomic, assign) int groupId;
+/// ID of user wall to upload
+@property (nonatomic, assign) long long userId;
+
+/// Passed image parameters
+@property (nonatomic, strong) VKImageParameters *imageParameters;
+/// Image to upload
+@property (nonatomic, strong) UIImage * image;
+@end
+
+/**
+ Special operation for execute upload
+ */
+@interface VKUploadImageOperation : VKOperation
+
++(instancetype) operationWithUploadRequest:(VKUploadPhotoBase*) request;
 @end

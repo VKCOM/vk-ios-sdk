@@ -25,73 +25,14 @@
 
 #import "VKHTTPOperation.h"
 #import "VKRequest.h"
-typedef enum {
-	VKOperationPausedState      = -1,
-	VKOperationReadyState       = 1,
-	VKOperationExecutingState   = 2,
-	VKOperationFinishedState    = 3,
-} VKOperationState;
+
 NSString *const VKNetworkingErrorDomain = @"VKNetworkingErrorDomain";
 NSString *const VKNetworkingOperationFailingURLRequestErrorKey = @"VKNetworkingOperationFailingURLRequestErrorKey";
 NSString *const VKNetworkingOperationFailingURLResponseErrorKey = @"VKNetworkingOperationFailingURLResponseErrorKey";
-static inline NSString *VKKeyPathFromOperationState(VKOperationState state) {
-	switch (state) {
-		case VKOperationReadyState:
-			return @"isReady";
-            
-		case VKOperationExecutingState:
-			return @"isExecuting";
-            
-		case VKOperationFinishedState:
-			return @"isFinished";
-            
-		case VKOperationPausedState:
-			return @"isPaused";
-            
-		default:
-			return @"state";
-	}
-}
 
-static inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperationState toState, BOOL isCancelled) {
-	switch (fromState) {
-		case VKOperationReadyState:
-			switch (toState) {
-				case VKOperationPausedState:
-				case VKOperationExecutingState:
-					return YES;
-                    
-				case VKOperationFinishedState:
-					return isCancelled;
-                    
-				default:
-					return NO;
-			}
-            
-		case VKOperationExecutingState:
-			switch (toState) {
-				case VKOperationPausedState:
-				case VKOperationFinishedState:
-					return YES;
-                    
-				default:
-					return NO;
-			}
-            
-		case VKOperationFinishedState:
-			return NO;
-            
-		case VKOperationPausedState:
-			return toState == VKOperationReadyState;
-            
-		default:
-			return YES;
-	}
-}
 
 typedef void (^VKURLConnectionOperationProgressBlock)(NSUInteger bytes, long long totalBytes, long long totalBytesExpected);
 @interface VKHTTPOperation ()
-@property (readwrite, nonatomic, assign) VKOperationState state;
 @property (readwrite, nonatomic, assign, getter = isCancelled) BOOL cancelled;
 @property (readwrite, nonatomic, strong) NSRecursiveLock *lock;
 @property (readwrite, nonatomic, strong) NSURLConnection *connection;
@@ -109,6 +50,7 @@ typedef void (^VKURLConnectionOperationProgressBlock)(NSUInteger bytes, long lon
 @property (readwrite, nonatomic, strong) NSError *HTTPError;
 @property (nonatomic, strong) NSOutputStream *outputStream;
 @property (readwrite, nonatomic, strong) NSError *JSONError;
+@property (readwrite, nonatomic, weak) VKRequest *vkRequest;
 @end
 
 static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type, NSString **subtype) {
@@ -126,9 +68,12 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 @implementation VKHTTPOperation
 + (instancetype)operationWithRequest:(VKRequest *)request {
 	NSURLRequest *urlRequest = [request getPreparedRequest];
+    
 	if (!request)
 		return nil;
-	return [[VKHTTPOperation alloc] initWithURLRequest:urlRequest];
+	VKHTTPOperation *operation = [[VKHTTPOperation alloc] initWithURLRequest:urlRequest];
+	operation.vkRequest = request;
+	return operation;
 }
 
 + (void)networkRequestThreadEntryPoint:(id __unused)object {
@@ -203,24 +148,6 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 	return _outputStream;
 }
 
-- (void)setCompletionBlock:(void (^)(void))block {
-	[self.lock lock];
-	if (!block) {
-		[super setCompletionBlock:nil];
-	}
-	else {
-		__weak __typeof(& *self) weakSelf = self;
-        
-		[super setCompletionBlock: ^{
-		    __strong __typeof(&*weakSelf) strongSelf = weakSelf;
-            
-		    block();
-		    [strongSelf setCompletionBlock:nil];
-		}];
-	}
-	[self.lock unlock];
-}
-
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 - (void)setShouldExecuteAsBackgroundTaskWithExpirationHandler:(void (^)(void))handler {
 	[self.lock lock];
@@ -254,23 +181,6 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 
 - (void)setDownloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead))block {
 	self.downloadProgress = block;
-}
-
-- (void)setState:(VKOperationState)state {
-	if (!VKStateTransitionIsValid(self.state, state, [self isCancelled])) {
-		return;
-	}
-    
-	[self.lock lock];
-	NSString *oldStateKey = VKKeyPathFromOperationState(self.state);
-	NSString *newStateKey = VKKeyPathFromOperationState(state);
-    
-	[self willChangeValueForKey:newStateKey];
-	[self willChangeValueForKey:oldStateKey];
-	_state = state;
-	[self didChangeValueForKey:oldStateKey];
-	[self didChangeValueForKey:newStateKey];
-	[self.lock unlock];
 }
 
 - (NSString *)responseString {
@@ -391,21 +301,7 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 
 #pragma mark - NSOperation
 
-- (BOOL)isReady {
-	return self.state == VKOperationReadyState && [super isReady];
-}
 
-- (BOOL)isExecuting {
-	return self.state == VKOperationExecutingState;
-}
-
-- (BOOL)isFinished {
-	return self.state == VKOperationFinishedState;
-}
-
-- (BOOL)isConcurrent {
-	return YES;
-}
 
 - (void)start {
 	[self.lock lock];
@@ -449,10 +345,7 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 - (void)cancel {
 	[self.lock lock];
 	if (![self isFinished] && ![self isCancelled]) {
-		[self willChangeValueForKey:@"isCancelled"];
-		_cancelled = YES;
 		[super cancel];
-		[self didChangeValueForKey:@"isCancelled"];
         
 		// Cancel the connection on the thread it runs on to prevent race conditions
 		[self performSelector:@selector(cancelConnection) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:NO modes:[self.runLoopModes allObjects]];

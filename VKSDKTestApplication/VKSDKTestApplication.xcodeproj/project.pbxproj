@@ -318,7 +318,7 @@
 				GCC_PREFIX_HEADER = "VKSDKTestApplication/VKSDKTestApplication-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
-					"$(inherited)",
+					"VKDEBUG=1",
 				);
 				INFOPLIST_FILE = "VKSDKTestApplication/VKSDKTestApplication-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -327,7 +327,7 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9C92E666-CEEB-4504-BDF3-CC497100DF30";
+				PROVISIONING_PROFILE = "5BAFB0D1-450A-444D-8DB0-197699D4F79E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -352,7 +352,7 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9C92E666-CEEB-4504-BDF3-CC497100DF30";
+				PROVISIONING_PROFILE = "5BAFB0D1-450A-444D-8DB0-197699D4F79E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -115,7 +115,7 @@
  
  @param operation The HTTP request operation to be enqueued.
  */
-- (void)enqueueHTTPRequestOperation:(VKHTTPOperation *)operation;
+- (void)enqueueOperation:(NSOperation *)operation;
 
 /**
  Enqueues the specified request operations into a batch. When each request operation finishes, the specified progress block is executed, until all of the request operations have finished, at which point the completion block also executes.

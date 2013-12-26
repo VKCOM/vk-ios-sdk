@@ -44,20 +44,11 @@ attemptsUsed  = _attemptsUsed;
 + (instancetype)requestWithMethod:(NSString *)method andParameters:(NSDictionary *)parameters andHttpMethod:(NSString *)httpMethod {
 	VKRequest *newRequest = [VKRequest new];
 	//Common parameters
-	newRequest.secure             = YES;
-	//By default there is 1 attempt for loading.
-	newRequest.attempts           = 1;
-    
-	//If system language is not supported, we use english
-	newRequest.preferredLang      = @"en";
-	//By default we use system language.
-	newRequest.useSystemLanguage  = YES;
 	newRequest.parseModel         = YES;
     
 	newRequest->_methodName       = method;
 	newRequest->_methodParameters = parameters;
 	newRequest->_httpMethod       = httpMethod;
-	newRequest->_attemptsUsed     = 0;
     
 	return newRequest;
 }
@@ -77,10 +68,22 @@ attemptsUsed  = _attemptsUsed;
 	newRequest->_photoObjects = photoObjects;
 	return newRequest;
 }
+- (id)init {
+	self = [super init];
+	self->_attemptsUsed     = 0;
+	//If system language is not supported, we use english
+	self.preferredLang      = @"en";
+    //By default there is 1 attempt for loading.
+	self.attempts           = 1;
+    //By default we use system language.
+    self.useSystemLanguage  = YES;
+    self.secure             = YES;
+	return self;
+}
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"<VKRequest: %p>\nMethod: %@ (%@)\nparameters: %@",
-	        self, _methodName, _httpMethod, _methodParameters];
+//	return [NSString stringWithFormat:@"<VKRequest: %p>\nMethod: %@ (%@)\nparameters: %@", self, _methodName, _httpMethod, _methodParameters];
+    return [NSString stringWithFormat:@"<VKRequest: %p; Method: %@ (%@)>", self, _methodName, _httpMethod];
 }
 
 #pragma mark Execution
@@ -154,15 +157,12 @@ attemptsUsed  = _attemptsUsed;
 	[request setValue:nil forHTTPHeaderField:@"Accept-Language"];
 	return request;
 }
-
-- (void)start {
-	_loadingOperation = [VKHTTPOperation operationWithRequest:self];
-	if (!_loadingOperation)
-		return;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-retain-cycles"
-#pragma clang diagnostic ignored "-Wgnu"
-	[_loadingOperation setCompletionBlockWithSuccess: ^(VKHTTPOperation *operation, id JSON) {
+- (NSOperation*) executionOperation
+{
+    VKHTTPOperation * operation = [VKHTTPOperation operationWithRequest:self];
+	if (!operation)
+		return nil;
+	[operation setCompletionBlockWithSuccess: ^(VKHTTPOperation *operation, id JSON) {
 	    if ([JSON objectForKey:@"error"]) {
 	        VKError *error = [VKError errorWithJson:[JSON objectForKey:@"error"]];
 	        if ([self processCommonError:error]) return;
@@ -188,9 +188,14 @@ attemptsUsed  = _attemptsUsed;
 	    vkErr.httpError = error;
 	    [self provideError:vkErr];
 	}];
-#pragma clang diagnostic pop
-	[self setupProgress:_loadingOperation];
-	[[VKHTTPClient getClient] enqueueHTTPRequestOperation:_loadingOperation];
+	[self setupProgress:operation];
+    return operation;
+}
+- (void)start {
+	_executionOperation = self.executionOperation;
+    if (_executionOperation == nil)
+        return;
+	[[VKHTTPClient getClient] enqueueOperation:_executionOperation];
 }
 
 - (void)provideResponse:(id)JSON {
@@ -209,6 +214,7 @@ attemptsUsed  = _attemptsUsed;
 		}
 	    else
 			vkResp.json = JSON;
+        
 	    for (VKRequest *postRequest in _postRequestsQueue)
 			[postRequest start];
 	    dispatch_sync(dispatch_get_main_queue(), ^{
@@ -234,7 +240,7 @@ attemptsUsed  = _attemptsUsed;
 }
 
 - (void)cancel {
-	[_loadingOperation cancel];
+	[_executionOperation cancel];
 	[self provideError:[VKError errorWithCode:VK_API_CANCELED]];
 }
 

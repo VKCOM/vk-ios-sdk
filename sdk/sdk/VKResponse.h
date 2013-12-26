@@ -30,7 +30,7 @@
 @interface VKResponse : VKObject
 
 /// Request which caused response
-@property (nonatomic, strong) VKRequest *request;
+@property (nonatomic, weak) VKRequest *request;
 /// Json content of response. Can be array or object.
 @property (nonatomic, strong) id json;
 /// Model parsed from response

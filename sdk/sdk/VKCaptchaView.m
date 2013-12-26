@@ -70,7 +70,7 @@ static CGFloat kCaptchaImageHeight = 79;
 		    [_captchaImage setImage:[UIImage imageWithData:operation.responseData]];
 		} failure: ^(VKHTTPOperation *operation, NSError *error) {
 		}];
-		[[VKHTTPClient getClient] enqueueHTTPRequestOperation:operation];
+		[[VKHTTPClient getClient] enqueueOperation:operation];
 		//        [_captchaImage setImageWithURL:[NSURL URLWithString:_error.captchaImg]];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceDidRotate:) name:UIDeviceOrientationDidChangeNotification object:nil];
 		[self deviceDidRotate:nil];

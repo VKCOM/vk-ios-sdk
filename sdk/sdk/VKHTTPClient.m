@@ -166,7 +166,7 @@ static NSString *const kCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()',*"
 	return request;
 }
 
-- (void)enqueueHTTPRequestOperation:(VKHTTPOperation *)operation {
+- (void)enqueueOperation:(NSOperation *)operation {
 	[self.operationQueue addOperation:operation];
 }
 
@@ -185,17 +185,10 @@ static NSString *const kCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()',*"
 #endif
 	}];
     
-	for (VKHTTPOperation *operation in operations) {
+	for (NSOperation *operation in operations) {
 		void (^originalCompletionBlock)(void) = [operation.completionBlock copy];
-		__weak __typeof(& *operation) weakOperation = operation;
-        
 		operation.completionBlock = ^{
-			__strong __typeof(& *weakOperation) strongOperation = weakOperation;
-            
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu"
-			dispatch_queue_t queue = strongOperation.successCallbackQueue ? : dispatch_get_main_queue();
-#pragma clang diagnostic pop
+			dispatch_queue_t queue = dispatch_get_main_queue();
 			dispatch_group_async(dispatchGroup, queue, ^{
 			    if (originalCompletionBlock) {
 			        originalCompletionBlock();

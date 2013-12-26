@@ -49,5 +49,11 @@
 	}
 	[controller presentViewController:self animated:YES completion:nil];
 }
-
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+-(void)dealloc
+{
+    NSLog(@"DEALLOC: %@", self);
+}
 @end

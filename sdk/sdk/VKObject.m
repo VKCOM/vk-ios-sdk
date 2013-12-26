@@ -24,7 +24,7 @@
 
 @implementation VKObject
 - (void)dealloc {
-#ifdef DEBUG
+#ifdef VKDEBUG
 	NSLog(@"DEALLOC: %@", self);
 #endif
 }

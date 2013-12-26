@@ -24,12 +24,14 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "VKOperation.h"
+
 @class VKRequest;
 /**
  VK URL operation subclassing NSOperation.
  Based on AFNetworking library ( https://github.com/AFNetworking/AFNetworking )
  */
-@interface VKHTTPOperation : NSOperation <NSURLConnectionDataDelegate, NSURLConnectionDelegate, NSCoding, NSCopying>
+@interface VKHTTPOperation : VKOperation <NSURLConnectionDataDelegate, NSURLConnectionDelegate, NSCoding, NSCopying>
 @property (nonatomic, strong) VKRequest *loadingRequest;
 
 /**
@@ -52,6 +54,10 @@
 /// @name Getting URL Connection Information
 ///-----------------------------------------
 
+/**
+ The vk request initialized that operation
+ */
+@property (readonly, nonatomic, weak) VKRequest * vkRequest;
 /**
  The request used by the operation's connection.
  */
@@ -159,3 +165,4 @@
 - (void)setCompletionBlockWithSuccess:(void (^)(VKHTTPOperation *operation, id responseObject))success
                               failure:(void (^)(VKHTTPOperation *operation, NSError *error))failure;
 @end
+

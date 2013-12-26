@@ -25,26 +25,26 @@
 @implementation VKUploadPhotoRequest
 - (instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters albumId:(int)albumId groupId:(int)groupId {
 	self = [super init];
-	self->_image            = image;
-	self->_imageParameters  = parameters;
-	self->_albumId          = albumId;
-	self->_groupId          = groupId;
+	self.image            = image;
+	self.imageParameters  = parameters;
+	self.albumId          = albumId;
+	self.groupId          = groupId;
 	return self;
 }
 
 - (VKRequest *)getServerRequest {
-	if (_albumId && _groupId)
-		return [[VKApi photos] getUploadServer:_albumId andGroupId:_groupId];
+	if (self.albumId && self.groupId)
+		return [[VKApi photos] getUploadServer:self.albumId andGroupId:self.groupId];
 	else
-		return [[VKApi photos] getUploadServer:_albumId];
+		return [[VKApi photos] getUploadServer:self.albumId];
 }
 
 - (VKRequest *)getSaveRequest:(VKResponse *)response {
 	VKRequest *saveRequest = [[VKApi photos] save:response.json];
-	if (_albumId)
-		[saveRequest addExtraParameters:@{ VK_API_ALBUM_ID : @(_albumId) }];
-	if (_groupId)
-		[saveRequest addExtraParameters:@{ VK_API_GROUP_ID : @(_groupId) }];
+	if (self.albumId)
+		[saveRequest addExtraParameters:@{ VK_API_ALBUM_ID : @(self.albumId) }];
+	if (self.groupId)
+		[saveRequest addExtraParameters:@{ VK_API_GROUP_ID : @(self.groupId) }];
 	return saveRequest;
 }
 
