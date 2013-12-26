@@ -43,6 +43,8 @@
 	
 	<option value="//api/name/failureCallbackQueue">&nbsp;&nbsp;&nbsp;&nbsp;failureCallbackQueue</option>
 	
+	<option value="//api/name/lock">&nbsp;&nbsp;&nbsp;&nbsp;lock</option>
+	
 	<option value="//api/name/request">&nbsp;&nbsp;&nbsp;&nbsp;request</option>
 	
 	<option value="//api/name/response">&nbsp;&nbsp;&nbsp;&nbsp;response</option>
@@ -56,6 +58,8 @@
 	<option value="//api/name/runLoopModes">&nbsp;&nbsp;&nbsp;&nbsp;runLoopModes</option>
 	
 	<option value="//api/name/successCallbackQueue">&nbsp;&nbsp;&nbsp;&nbsp;successCallbackQueue</option>
+	
+	<option value="//api/name/vkRequest">&nbsp;&nbsp;&nbsp;&nbsp;vkRequest</option>
 	
 	
 	
@@ -109,6 +113,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Configuring Backgrounding Task Behavior">Configuring Backgrounding Task Behavior</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Extension Methods">Extension Methods</a></span></li>
+	
 </ul></li>
 
 
@@ -120,6 +126,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/error">error</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/failureCallbackQueue">failureCallbackQueue</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/lock">lock</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/request">request</a></span></li>
 	
@@ -134,6 +142,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/runLoopModes">runLoopModes</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/successCallbackQueue">successCallbackQueue</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/vkRequest">vkRequest</a></span></li>
 	
 </ul></li>
 
@@ -189,7 +199,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Inherits from</td>
-	<td class="specification-value">NSOperation</td>
+	<td class="specification-value"><a href="../Classes/VKOperation.html">VKOperation</a> : NSOperation</td>
 </tr><tr>
 	<td class="specification-title">Conforms to</td>
 	<td class="specification-value">NSCoding<br />NSCopying<br />NSURLConnectionDataDelegate<br />NSURLConnectionDelegate</td>
@@ -251,6 +261,12 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 
 						<ul class="task-list">
 							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/vkRequest">&nbsp;&nbsp;vkRequest</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/request">&nbsp;&nbsp;request</a></code>
 	</span>
@@ -365,6 +381,20 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 </li>
 						</ul>
 						
+						
+						<a title="Extension Methods" name="task_Extension Methods"></a>
+						<h3 class="subsubtitle task-title">Extension Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/lock">&nbsp;&nbsp;lock</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
 					</div>
 					
 					
@@ -442,6 +472,42 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
 		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/lock" title="lock"></a>
+	<h3 class="subsubtitle method-title">lock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Operation working lock</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (readwrite, nonatomic, strong) NSRecursiveLock *lock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKOperation.h</code><br />
 	</div>				
 	
 	
@@ -699,6 +765,42 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 	
 </div>
 						
+						<div class="section-method">
+	<a name="//api/name/vkRequest" title="vkRequest"></a>
+	<h3 class="subsubtitle method-title">vkRequest</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The vk <a href="#//api/name/request">request</a> initialized that operation</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (readonly, nonatomic, weak) VKRequest *vkRequest</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKHTTPOperation.h</code><br />
+	</div>				
+	
+	
+</div>
+						
 					</div>
 					
 					
@@ -882,7 +984,7 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>A paused operation returns <code>NO</code> for <a href="#//api/name/isReady"><code>isReady</code></a>, <a href="#//api/name/isExecuting"><code>isExecuting</code></a>, and <a href="#//api/name/isFinished"><code>isFinished</code></a>. As such, it will remain in an <code>NSOperationQueue</code> until it is either <a href="#//api/name/cancelled">cancelled</a> or resumed. Pausing a finished, <a href="#//api/name/cancelled">cancelled</a>, or paused operation has no effect.</p>
+		<p>A paused operation returns <code>NO</code> for <code>-isReady</code>, <code>-isExecuting</code>, and <code>-isFinished</code>. As such, it will remain in an <code>NSOperationQueue</code> until it is either <a href="#//api/name/cancelled">cancelled</a> or resumed. Pausing a finished, <a href="#//api/name/cancelled">cancelled</a>, or paused operation has no effect.</p>
 	</div>
 	
 	
@@ -947,7 +1049,7 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Sets the <code>completionB</code>lock<code></code> property with a b<a href="#//api/name/lock">lock</a> that executes either the specified success or failure b<a href="#//api/name/lock">lock</a>, depending on the <a href="#//api/name/state">state</a> of the <a href="#//api/name/request">request</a> on completion. If <a href="#//api/name/error"><code>error</code></a> returns a value, which can be caused by an unacceptable status code or content type, then <code>failure</code> is executed. Otherwise, <code>success</code> is executed.</p>
+		<p>Sets the <code>completionB</code>lock<code></code> property with a b<a href="#//api/name/lock">lock</a> that executes either the specified success or failure b<a href="#//api/name/lock">lock</a>, depending on the state of the <a href="#//api/name/request">request</a> on completion. If <a href="#//api/name/error"><code>error</code></a> returns a value, which can be caused by an unacceptable status code or content type, then <code>failure</code> is executed. Otherwise, <code>success</code> is executed.</p>
 	</div>		
 	
     
@@ -1149,7 +1251,7 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 VK. All rights reserved. (Last updated: 2013-12-24)</span><br />
+						<p><span class="copyright">&copy; 2013 VK. All rights reserved. (Last updated: 2013-12-26)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
