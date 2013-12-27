@@ -47,14 +47,16 @@ static CGFloat kCaptchaImageHeight = 79;
         
 		_error = captchaError;
         
-		_imageLoadingActivity = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(145, 20, 30, 30)];
+		_imageLoadingActivity = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake((self.bounds.size.width - 30) / 2, 40, 30, 30)];
 		_imageLoadingActivity.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
 		_imageLoadingActivity.hidesWhenStopped = YES;
+        _imageLoadingActivity.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
 		[self addSubview:_imageLoadingActivity];
 		[_imageLoadingActivity startAnimating];
         
 		_captchaImage = [[UIImageView alloc] init];
 		_captchaImage.contentMode = UIViewContentModeScaleAspectFit;
+        _captchaImage.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
 		[self addSubview:_captchaImage];
         
 		_captchaTextField = [[UITextField alloc] init];
@@ -64,6 +66,7 @@ static CGFloat kCaptchaImageHeight = 79;
 		_captchaTextField.returnKeyType = UIReturnKeyDone;
 		_captchaTextField.autocorrectionType = UITextAutocorrectionTypeNo;
 		_captchaTextField.placeholder = NSLocalizedString(@"Enter captcha text", @"");
+        _captchaTextField.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
 		[self addSubview:_captchaTextField];
 		VKHTTPOperation *operation = [[VKHTTPOperation alloc] initWithURLRequest:[[VKHTTPClient getClient] requestWithMethod:@"GET" path:_error.captchaImg parameters:nil secure:NO]];
 		[operation setCompletionBlockWithSuccess: ^(VKHTTPOperation *operation, id responseObject) {

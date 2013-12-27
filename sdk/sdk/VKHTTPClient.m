@@ -158,11 +158,7 @@ static NSString *const kCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()',*"
 		[postbody appendData:uploadImageObject.imageData];
 	}
 	[postbody appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", kVKMultipartFormBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-	NSLog(@"Post body: %@", [[NSString alloc] initWithData:postbody
-	                                              encoding:NSUTF8StringEncoding]);
 	[request setHTTPBody:postbody];
-    
 	return request;
 }
 
