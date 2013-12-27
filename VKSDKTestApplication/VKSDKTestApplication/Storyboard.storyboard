@@ -115,7 +115,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YWF-ld-CDZ">
-                                <rect key="frame" x="83" y="269" width="153" height="30"/>
+                                <rect key="frame" x="84" y="269" width="153" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Get new access token">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -125,7 +125,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pEX-xT-Axq">
-                                <rect key="frame" x="84" y="307" width="153" height="30"/>
+                                <rect key="frame" x="83" y="339" width="153" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Force oauth">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -138,6 +138,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="gAF-tH-eqo"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <segue destination="H8u-X9-tSm" kind="push" identifier="START_WORK" id="7UU-b0-KyZ"/>
                     </connections>

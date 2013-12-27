@@ -47,9 +47,9 @@ extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperat
 @end
 
 @interface VKUploadImageOperation ()
-@property (nonatomic, weak) VKUploadPhotoBase *uploadRequest;
+@property (nonatomic, strong) VKUploadPhotoBase *uploadRequest;
 @property (readwrite, nonatomic, assign) VKOperationState state;
-@property (nonatomic, weak) VKRequest *lastLoadingRequest;
+@property (nonatomic, strong) VKRequest *lastLoadingRequest;
 @end
 @implementation VKUploadImageOperation
 
@@ -107,6 +107,8 @@ extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperat
 
 - (void)finish {
 	self.state = VKOperationFinishedState;
+    self.uploadRequest = nil;
+    self.lastLoadingRequest = nil;
 }
 
 - (void)cancel {
