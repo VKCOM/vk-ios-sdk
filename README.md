@@ -30,7 +30,9 @@ CocoaPods is a dependency manager for Objective-C, which automates and simplifie
 
 Podfile
 
+    platform :ios, '5.0'
     pod "VK-ios-sdk"
+    
 Then import the main header.
 
     #import <VKSdk.h>
