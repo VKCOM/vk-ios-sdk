@@ -23,21 +23,22 @@
 #import "VKAppDelegate.h"
 @implementation VKAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	// Override point for customization after application launch.
+	self.window.backgroundColor = [UIColor whiteColor];
+	[self.window makeKeyAndVisible];
     
-    self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Storyboard" bundle:nil] instantiateInitialViewController];
-    [self.window addSubview:self.window.rootViewController.view];
+	self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Storyboard" bundle:nil] instantiateInitialViewController];
+	[self.window addSubview:self.window.rootViewController.view];
     
-    return YES;
+	return YES;
 }
--(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
-    [VKSdk processOpenURL:url fromApplication:sourceApplication];
-    return YES;
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+	[VKSdk processOpenURL:url fromApplication:sourceApplication];
+	
+	return YES;
 }
+
 @end

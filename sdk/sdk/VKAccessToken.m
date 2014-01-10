@@ -23,20 +23,38 @@
 #import "VKAccessToken.h"
 #import "NSData+AES256.h"
 #import "VKUtil.h"
-@implementation VKAccessToken
+#import "VKSdk.h"
 
+
+@interface VKAccessToken ()
+@property (nonatomic, readwrite, assign) NSTimeInterval created;
+@end
+
+@implementation VKAccessToken
+static NSString *const ACCESS_TOKEN = @"access_token";
+static NSString *const EXPIRES_IN = @"expires_in";
+static NSString *const USER_ID = @"user_id";
+static NSString *const SECRET = @"secret";
+static NSString *const HTTPS_REQUIRED = @"https_required";
+static NSString *const CREATED = @"created";
 static NSString *const TOKEN_KEY = @"VK is the best";
+
 + (instancetype)tokenFromUrlString:(NSString *)urlString {
 	NSDictionary *parameters   = [VKUtil explodeQueryString:urlString];
 	VKAccessToken *token       = [VKAccessToken new];
-	token.accessToken           = parameters[@"access_token"];
-	token.expiresIn             = parameters[@"expires_in"];
-	token.userId                = parameters[@"user_id"];
-	token.secret                = parameters[@"secret"];
+	token.accessToken           = parameters[ACCESS_TOKEN];
+	token.expiresIn             = parameters[EXPIRES_IN];
+	token.userId                = parameters[USER_ID];
+	token.secret                = parameters[SECRET];
 	token.httpsRequired         = NO;
-	if (parameters[@"https_required"])
-		token.httpsRequired = [parameters[@"https_required"] intValue] == 1;
+	if (parameters[HTTPS_REQUIRED])
+		token.httpsRequired = [parameters[HTTPS_REQUIRED] intValue] == 1;
     
+    if ([parameters objectForKey:CREATED])
+        token.created = [parameters[CREATED] floatValue];
+    else
+        token.created = [[NSDate new] timeIntervalSince1970];
+    [token checkIfExpired];
 	return token;
 }
 
@@ -53,7 +71,17 @@ static NSString *const TOKEN_KEY = @"VK is the best";
 		return nil;
 	return [self tokenFromUrlString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
 }
-
+- (void) checkIfExpired
+{
+    int expiresIn = [self.expiresIn intValue];
+    if (expiresIn > 0 && expiresIn + self.created < [[NSDate new] timeIntervalSince1970])
+        [[[VKSdk instance] delegate] vkSdkTokenHasExpired:self];
+}
+- (NSString *)accessToken
+{
+    [self checkIfExpired];
+    return _accessToken;
+}
 - (void)saveTokenToFile:(NSString *)filePath {
 	NSError *error = nil;
 	NSFileManager *manager = [NSFileManager defaultManager];
@@ -66,17 +94,21 @@ static NSString *const TOKEN_KEY = @"VK is the best";
 - (void)saveTokenToDefaults:(NSString *)defaultsKey {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setObject:[self serialize] forKey:defaultsKey];
+    [defaults synchronize];
 }
 
 - (NSData *)serialize {
-	NSMutableString *tokenString = [NSMutableString stringWithFormat:@"access_token=%@&expires_in=%@&user_id=%@", self.accessToken, self.expiresIn, self.userId];
+    NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithObjects:@[self.accessToken, self.expiresIn, self.userId, @(self.created)]
+                                                                    forKeys:@[ACCESS_TOKEN, EXPIRES_IN, USER_ID, CREATED]];
 	if (self.secret)
-		[tokenString appendFormat:@"&secret=%@", self.secret];
+		[dict setObject:self.secret forKey:SECRET];
 	if (self.httpsRequired)
-		[tokenString appendString:@"&https_required=1"];
-	NSData *data = [NSData dataWithData:[tokenString dataUsingEncoding:NSUTF8StringEncoding]];
-	data          = [data encryptWithKey:TOKEN_KEY];
-	return data;
+        [dict setObject:@(1) forKey:HTTPS_REQUIRED];
+    NSMutableArray * result = [NSMutableArray new];
+    for (NSString * key in dict)
+        [result addObject:[NSString stringWithFormat:@"%@=%@", key, dict[key]]];
+	NSData *data = [NSData dataWithData:[[result componentsJoinedByString:@"&"] dataUsingEncoding:NSUTF8StringEncoding]];
+	return [data encryptWithKey:TOKEN_KEY];
 }
 
 @end

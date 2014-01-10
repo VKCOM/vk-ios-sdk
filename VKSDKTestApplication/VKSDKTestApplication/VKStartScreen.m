@@ -22,66 +22,61 @@
 
 #import "VKStartScreen.h"
 
+static NSString *const TOKEN_KEY = @"my_application_access_token";
+static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
 @implementation VKStartScreen
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	if (self) {
+		// Custom initialization
+	}
+	return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+- (void)viewDidLoad {
+	[super viewDidLoad];
     
-	[VKSdk initializeWithDelegate:self andAppId:@"3974615" andCustomToken:[VKAccessToken tokenFromFile:[NSTemporaryDirectory() stringByAppendingPathComponent:@"my_application_access_token"]]];
+	[VKSdk initializeWithDelegate:self andAppId:@"3974615" andCustomToken:[VKAccessToken tokenFromDefaults:TOKEN_KEY]];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
--(IBAction) authorize:(id)sender
-{
-    [VKSdk authorize:@[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS] revokeAccess:YES];
-}
--(IBAction) authorizeForceOAuth:(id)sender
-{
-    [VKSdk authorize:@[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS] revokeAccess:YES forceOAuth:YES];
+- (void)didReceiveMemoryWarning {
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
 }
 
--(void) vkSdkNeedCaptchaEnter:(VKError*) captchaError
-{
-    VKCaptchaViewController * vc = [VKCaptchaViewController captchaControllerWithError:captchaError];
-    [vc presentIn:self];
+- (IBAction)authorize:(id)sender {
+	[VKSdk authorize:@[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS] revokeAccess:YES];
 }
 
--(void) vkSdkTokenHasExpired:(VKAccessToken*) expiredToken
-{
-    [self authorize:nil];
+- (IBAction)authorizeForceOAuth:(id)sender {
+	[VKSdk authorize:@[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS] revokeAccess:YES forceOAuth:YES];
 }
 
--(void) vkSdkDidReceiveNewToken:(VKAccessToken*) newToken
-{
-    [newToken saveTokenToFile:[NSTemporaryDirectory() stringByAppendingPathComponent:@"my_application_access_token"]];
-    [self performSegueWithIdentifier:@"START_WORK" sender:self];
+- (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {
+	VKCaptchaViewController *vc = [VKCaptchaViewController captchaControllerWithError:captchaError];
+	[vc presentIn:self];
 }
 
--(void)vkSdkShouldPresentViewController:(UIViewController *)controller
-{
-    [self presentViewController:controller animated:YES completion:nil];
+- (void)vkSdkTokenHasExpired:(VKAccessToken *)expiredToken {
+	[self authorize:nil];
 }
 
--(void)vkSdkDidAcceptUserToken:(VKAccessToken *)token
-{
-    [self performSegueWithIdentifier:@"START_WORK" sender:self];
+- (void)vkSdkDidReceiveNewToken:(VKAccessToken *)newToken {
+	[newToken saveTokenToDefaults:TOKEN_KEY];
+	[self performSegueWithIdentifier:NEXT_CONTROLLER_SEGUE_ID sender:self];
 }
--(void)vkSdkUserDeniedAccess:(VKError *)authorizationError
-{
-    [[[UIAlertView alloc] initWithTitle:nil message:@"Access denied" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+
+- (void)vkSdkShouldPresentViewController:(UIViewController *)controller {
+	[self presentViewController:controller animated:YES completion:nil];
 }
+
+- (void)vkSdkDidAcceptUserToken:(VKAccessToken *)token {
+	[self performSegueWithIdentifier:NEXT_CONTROLLER_SEGUE_ID sender:self];
+}
+
+- (void)vkSdkUserDeniedAccess:(VKError *)authorizationError {
+	[[[UIAlertView alloc] initWithTitle:nil message:@"Access denied" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+}
+
 @end

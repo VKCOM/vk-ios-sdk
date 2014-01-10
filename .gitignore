@@ -22,6 +22,7 @@ CVS
 **/*.xcworkspace/*
 **/!*.xcworkspace/contents.xcworkspacedata
 !xcshareddata
+xcuserdata
 
 #Project files
 [Bb]uild/

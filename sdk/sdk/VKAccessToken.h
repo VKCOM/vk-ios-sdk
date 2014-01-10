@@ -37,6 +37,8 @@
 @property (nonatomic, strong) NSString *secret;
 /// If user sets "Always use HTTPS" setting in his profile, it will be true
 @property (nonatomic, assign) BOOL httpsRequired;
+/// Indicates time of token creation
+@property (nonatomic, readonly) NSTimeInterval created;
 
 /**
  Retrieve token from key-value query string
