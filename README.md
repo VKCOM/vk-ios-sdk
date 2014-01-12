@@ -26,7 +26,7 @@ Adding VK iOS SDK to your iOS application
 Installation with CocoaPods
 ----------
 
-CocoaPods is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like VK SDK in your projects. See the "[Getting Started](http://beta.cocoapods.org/?q=#get_started)" guide for more information.
+CocoaPods is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like VK SDK in your projects. See the "[Getting Started](http://cocoapods.org/)" guide for more information.
 
 Podfile
 
@@ -92,16 +92,16 @@ Below we have listed the examples for several request types.
 
 2) Request with parameters.
 
-    VKRequest * audioReq = [[VKApi audio] get:@{VK_OWNER_ID : @"896232"}];
+    VKRequest * audioReq = [[VKApi audio] get:@{VK_API_OWNER_ID : @"896232"}];
 
 3) Http (not https) request (only if scope VK_PER_NOHTTPS has been passed)
 
-    VKRequest * audioReq = [[VKApi audio] get:@{VK_OWNER_ID : @"896232"}]; 
+    VKRequest * audioReq = [[VKApi audio] get:@{VK_API_OWNER_ID : @"896232"}]; 
     audioReq.secure = NO;
 
 4) Request with predetermined maximum number of attempts.
 
-    VKRequest * postReq = [[VKApi wall] post:@{VK_MESSAGE : @"Test"}]; 
+    VKRequest * postReq = [[VKApi wall] post:@{VK_API_MESSAGE : @"Test"}]; 
     postReq.attempts = 10; 
     //or infinite 
     //postReq.attempts = 0;
