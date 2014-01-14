@@ -44,14 +44,14 @@
 }
 
 - (IBAction)getSubscriptions:(id)sender {
-    //    VKRequest * request = [[VKApi users] getSubscriptions:@{VK_API_EXTENDED : @(1), VK_API_COUNT : @(100)}];
-    //    request.secure = NO;
-    //    [request executeWithResultBlock:^(VKResponse *response) {
-    //        NSLog(@"Result: %@", response);
-    //
-    //    } errorBlock:^(VKError *error) {
-    //        NSLog(@"Error: %@", error);
-    //    }];
+    VKRequest * request = [[VKApi users] getSubscriptions:@{VK_API_EXTENDED : @(1), VK_API_COUNT : @(100)}];
+    request.secure = NO;
+    [request executeWithResultBlock:^(VKResponse *response) {
+        NSLog(@"Result: %@", response);
+
+    } errorBlock:^(VKError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 static NSArray *labels = nil;
