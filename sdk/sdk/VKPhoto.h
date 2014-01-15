@@ -30,19 +30,17 @@
 @interface VKPhoto : VKApiObject
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 @property (nonatomic, strong) NSNumber *pid;
-@property (nonatomic, strong) NSNumber *aid;
+@property (nonatomic, strong) NSNumber *album_id;
 @property (nonatomic, strong) NSNumber *owner_id;
-@property (nonatomic, strong) NSString *src;
-@property (nonatomic, strong) NSString *src_small;
-@property (nonatomic, strong) NSString *src_big;
-@property (nonatomic, strong) NSString *text;
-@property (nonatomic, strong) NSNumber *created;
+@property (nonatomic, strong) NSString *photo_75;
+@property (nonatomic, strong) NSString *photo_130;
+@property (nonatomic, strong) NSString *photo_604;
+@property (nonatomic, strong) NSString *photo_807;
+@property (nonatomic, strong) NSString *photo_1280;
+@property (nonatomic, strong) NSString *photo_2560;
 @property (nonatomic, strong) NSNumber *width;
 @property (nonatomic, strong) NSNumber *height;
-@property (nonatomic, strong) NSString *src_xbig;
-@property (nonatomic, strong) NSString *src_xxbig;
-@property (nonatomic, strong) NSString *src_xxxbig;
-@property (nonatomic, strong) VKLikes *likes;
-@property (nonatomic, strong) NSString *access_key;
+@property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) NSNumber *date;
 #endif
 @end

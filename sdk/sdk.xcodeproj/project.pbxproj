@@ -112,6 +112,7 @@
 		F349DC531832693000D0DCB3 /* VKUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUtil.m; sourceTree = "<group>"; };
 		F37C34241869D0F400AA0459 /* VKUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKUser.h; sourceTree = "<group>"; };
 		F37C34251869D0F400AA0459 /* VKUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUser.m; sourceTree = "<group>"; };
+		F39DB95018868C06009609FB /* VKApiModels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKApiModels.h; sourceTree = "<group>"; };
 		F3A77AD7182A9392006DDF96 /* VKApiCaptcha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKApiCaptcha.h; sourceTree = "<group>"; };
 		F3A77AD8182A9392006DDF96 /* VKApiCaptcha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKApiCaptcha.m; sourceTree = "<group>"; };
 		F3AD12951836719B00B837C0 /* VKImageParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKImageParameters.h; sourceTree = "<group>"; };
@@ -242,6 +243,7 @@
 				F37C34251869D0F400AA0459 /* VKUser.m */,
 				F3B7EEC11844B22E00104B90 /* VKUsersArray.h */,
 				F3B7EEC21844B22E00104B90 /* VKUsersArray.m */,
+				F39DB95018868C06009609FB /* VKApiModels.h */,
 			);
 			name = model;
 			sourceTree = "<group>";

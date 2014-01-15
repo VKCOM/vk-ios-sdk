@@ -27,17 +27,14 @@
 
 - (id)initWithDictionary:(NSDictionary *)dict {
     if ((self = [super initWithDictionary:dict])) {
-        NSDictionary *l = [dict objectForKey:@"likes"];
-        if (l)
-            self.likes = [[VKLikes alloc] initWithDictionary:l];
+        self.pid = dict[@"id"];
     }
     return self;
 }
 
 - (NSDictionary *)serialize {
     NSMutableDictionary *dict = (NSMutableDictionary*)[super serialize];
-    if (self.likes)
-        [dict setObject:[self.likes serialize] forKey:@"likes"];
+    [dict setObject:self.pid forKey:@"id"];
     return dict;
 }
 

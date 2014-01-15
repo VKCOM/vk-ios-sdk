@@ -134,8 +134,8 @@ static NSString *const TEST_CAPTCHA = @"Test captcha";
 	VKRequest *request = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"fat_awesome"] parameters:[VKImageParameters pngImage] userId:0 groupId:60479154];
 	[request executeWithResultBlock: ^(VKResponse *response) {
 	    NSLog(@"Photo: %@", response.json);
-	    NSDictionary *photoInfo = response.json[0];
-	    NSString *photoAttachment = [NSString stringWithFormat:@"photo%@_%@", photoInfo[@"owner_id"], photoInfo[@"id"]];
+        VKPhoto *photoInfo = [(VKPhotoArray*)response.parsedModel objectAtIndex:0];
+	    NSString *photoAttachment = [NSString stringWithFormat:@"photo%@_%@", photoInfo.owner_id, photoInfo.pid];
 	    VKRequest *post = [[VKApi wall] post:@{ VK_API_ATTACHMENTS : photoAttachment, VK_API_FRIENDS_ONLY : @(1), VK_API_OWNER_ID : @"-60479154" }];
 	    [post executeWithResultBlock: ^(VKResponse *response) {
 	        NSLog(@"Result: %@", response);
@@ -157,8 +157,8 @@ static NSString *const TEST_CAPTCHA = @"Test captcha";
 	    NSLog(@"Photos: %@", responses);
 	    NSMutableArray *photosAttachments = [NSMutableArray new];
 	    for (VKResponse * resp in responses) {
-	        NSDictionary *photoInfo = resp.json[0];
-	        [photosAttachments addObject:[NSString stringWithFormat:@"photo%@_%@", photoInfo[@"owner_id"], photoInfo[@"id"]]];
+	        VKPhoto *photoInfo = [(VKPhotoArray*)resp.parsedModel objectAtIndex:0];
+	        [photosAttachments addObject:[NSString stringWithFormat:@"photo%@_%@", photoInfo.owner_id, photoInfo.pid]];
 		}
 	    VKRequest *post = [[VKApi wall] post:@{ VK_API_ATTACHMENTS : [photosAttachments componentsJoinedByString:@","], VK_API_FRIENDS_ONLY : @(1), VK_API_OWNER_ID : @"-60479154" }];
 	    [post executeWithResultBlock: ^(VKResponse *response) {

@@ -46,4 +46,7 @@
 {
     return [self.items countByEnumeratingWithState:state objects:buffer count:len];
 }
+-(id)objectAtIndex:(NSInteger)idx {
+    return [self.items objectAtIndex:idx];
+}
 @end

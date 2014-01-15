@@ -38,4 +38,5 @@
  @return Initialized object
  */
 - (instancetype) initWithDictionary:(NSDictionary *)dict objectClass:(Class) objectClass;
+- (id) objectAtIndex:(NSInteger) idx;
 @end
