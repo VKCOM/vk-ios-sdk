@@ -58,8 +58,8 @@
 @property (nonatomic, strong) NSNumber *can_see_all_posts;
 @property (nonatomic, strong) NSNumber *can_see_audio;
 @property (nonatomic, strong) NSNumber *can_write_private_message;
-@property (nonatomic, strong) NSNumber *status;
-@property (nonatomic, strong) NSNumber *last_seen;
+@property (nonatomic, strong) NSString *status;
+@property (nonatomic, strong) NSDictionary *last_seen;
 @property (nonatomic, strong) NSNumber *common_count;
 @property (nonatomic, strong) NSNumber *relation;
 @property (nonatomic, strong) NSDictionary *relatives;
