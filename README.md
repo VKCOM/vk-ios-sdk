@@ -1,7 +1,7 @@
 vk-ios-sdk
 ==========
 
-Library for working with VK API, authorization through VK app, using VK functions. Supported iOS 5.0 and upper
+Library for working with VK API, authorization through VK app, using VK functions. Supported iOS from 5.0
 
 Prepare for Using VK SDK
 ----------
