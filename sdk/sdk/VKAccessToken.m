@@ -71,10 +71,13 @@ static NSString *const TOKEN_KEY = @"VK is the best";
 		return nil;
 	return [self tokenFromUrlString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
 }
+-(BOOL)isExpired {
+    int expiresIn = [self.expiresIn intValue];
+    return  expiresIn > 0 && expiresIn + self.created < [[NSDate new] timeIntervalSince1970];
+}
 - (void) checkIfExpired
 {
-    int expiresIn = [self.expiresIn intValue];
-    if (expiresIn > 0 && expiresIn + self.created < [[NSDate new] timeIntervalSince1970])
+    if (self.isExpired)
         [[[VKSdk instance] delegate] vkSdkTokenHasExpired:self];
 }
 - (NSString *)accessToken

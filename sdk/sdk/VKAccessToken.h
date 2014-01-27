@@ -39,6 +39,8 @@
 @property (nonatomic, assign) BOOL httpsRequired;
 /// Indicates time of token creation
 @property (nonatomic, readonly) NSTimeInterval created;
+/// Return YES if token has expired
+@property (nonatomic, readonly) BOOL isExpired;
 
 /**
  Retrieve token from key-value query string
@@ -72,4 +74,5 @@
  @param defaultsKey key for defaults
  */
 - (void)saveTokenToDefaults:(NSString *)defaultsKey;
+
 @end
