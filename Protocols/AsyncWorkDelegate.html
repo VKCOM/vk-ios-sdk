@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>VKBundle Class Reference</title>
+		<title>AsyncWorkDelegate Protocol Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
@@ -16,7 +16,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">VKBundle Class Reference</h1>
+				<h1 class="hideInXcode">AsyncWorkDelegate Protocol Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -39,13 +39,11 @@
 	
 	
 	
-	<option value="class_methods">Class Methods</option>
-	
-	<option value="//api/name/vkLibraryImageNamed:">&nbsp;&nbsp;&nbsp;&nbsp;+ vkLibraryImageNamed:</option>
-	
-	<option value="//api/name/vkLibraryResourcesBundle">&nbsp;&nbsp;&nbsp;&nbsp;+ vkLibraryResourcesBundle</option>
 	
 	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/asyncWorkCompleted">&nbsp;&nbsp;&nbsp;&nbsp;- asyncWorkCompleted</option>
 	
 	
 	
@@ -71,22 +69,20 @@
 
 
 
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/vkLibraryImageNamed:">vkLibraryImageNamed:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/vkLibraryResourcesBundle">vkLibraryResourcesBundle</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/asyncWorkCompleted">asyncWorkCompleted</a></span></li>
 	
 </ul></li>
-
-
 
 
 			</ul>
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="VKBundle Class Reference" name="top"></a>
+				<a title="AsyncWorkDelegate Protocol Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -95,18 +91,15 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">VKBundle Class Reference</h1>
+						<h1 class="title title-header">AsyncWorkDelegate Protocol Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
 					
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
-	<td class="specification-title">Inherits from</td>
-	<td class="specification-value">VKObject : NSObject</td>
-</tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">VKBundle.h<br />VKBundle.m</td>
+	<td class="specification-value">VKSdk.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -116,7 +109,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Class for providing resources from VK SDK Bundle</p>
+						<p>Delegate for testing asyncronious work</p>
 					</div>
 					
 					
@@ -134,16 +127,10 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/vkLibraryResourcesBundle">+&nbsp;vkLibraryResourcesBundle</a></code>
+		<code><a href="#//api/name/asyncWorkCompleted">&ndash;&nbsp;asyncWorkCompleted</a></code>
 	</span>
 	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/vkLibraryImageNamed:">+&nbsp;vkLibraryImageNamed:</a></code>
-	</span>
-	
-	
+	<span class="task-item-suffix">required method</span>
 </li>
 						</ul>
 						
@@ -155,42 +142,29 @@
 					
 					
 					
+					
+					
 					<div class="section section-methods">
-						<a title="Class Methods" name="class_methods"></a>
-						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/vkLibraryImageNamed:" title="vkLibraryImageNamed:"></a>
-	<h3 class="subsubtitle method-title">vkLibraryImageNamed:</h3>
+	<a name="//api/name/asyncWorkCompleted" title="asyncWorkCompleted"></a>
+	<h3 class="subsubtitle method-title">asyncWorkCompleted</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Searches for image in main application bundle, then VK SDK bundle</p>
+		<p>Calls when test asyncronious work completed</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (UIImage *)vkLibraryImageNamed:(NSString *)<em>name</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)asyncWorkCompleted</code></div>
 
     
 	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>name</em></dt>
-			<dd><p>Name for image to find</p></dd>
-		</dl>
-		
-	</div>
 	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Founded image object or nil, if file not found</p>
-	</div>
 	
 	
 	
@@ -204,56 +178,13 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKBundle.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/vkLibraryResourcesBundle" title="vkLibraryResourcesBundle"></a>
-	<h3 class="subsubtitle method-title">vkLibraryResourcesBundle</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Returns bundle for VK SDK (by default VKSdkResources)</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (NSBundle *)vkLibraryResourcesBundle</code></div>
-
-    
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Bundle object or nil</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKBundle.h</code><br />
+		<code class="declared-in-ref">VKSdk.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 					</div>
-					
-					
 					
 					
                     

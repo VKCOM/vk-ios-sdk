@@ -11,8 +11,8 @@
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
-				<h1><a id="libraryTitle" href="../index.html">VK iOS SDK </a></h1>
-				<a id="developerHome" href="../index.html">VK.com</a>
+				<h1><a id="libraryTitle" href="../index.html">VK SDK </a></h1>
+				<a id="developerHome" href="../index.html">VK</a>
 			</div>
 			
 			<div id="title" role="banner">
@@ -41,9 +41,13 @@
 	
 	<option value="//api/name/accessToken">&nbsp;&nbsp;&nbsp;&nbsp;accessToken</option>
 	
+	<option value="//api/name/created">&nbsp;&nbsp;&nbsp;&nbsp;created</option>
+	
 	<option value="//api/name/expiresIn">&nbsp;&nbsp;&nbsp;&nbsp;expiresIn</option>
 	
 	<option value="//api/name/httpsRequired">&nbsp;&nbsp;&nbsp;&nbsp;httpsRequired</option>
+	
+	<option value="//api/name/isExpired">&nbsp;&nbsp;&nbsp;&nbsp;isExpired</option>
 	
 	<option value="//api/name/secret">&nbsp;&nbsp;&nbsp;&nbsp;secret</option>
 	
@@ -68,8 +72,6 @@
 	<option value="//api/name/saveTokenToDefaults:">&nbsp;&nbsp;&nbsp;&nbsp;- saveTokenToDefaults:</option>
 	
 	<option value="//api/name/saveTokenToFile:">&nbsp;&nbsp;&nbsp;&nbsp;- saveTokenToFile:</option>
-	
-	<option value="//api/name/serialize">&nbsp;&nbsp;&nbsp;&nbsp;- serialize</option>
 	
 	
 	
@@ -97,9 +99,13 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/accessToken">accessToken</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/created">created</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/expiresIn">expiresIn</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/httpsRequired">httpsRequired</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isExpired">isExpired</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/secret">secret</a></span></li>
 	
@@ -126,8 +132,6 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/saveTokenToDefaults:">saveTokenToDefaults:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/saveTokenToFile:">saveTokenToFile:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/serialize">serialize</a></span></li>
 	
 </ul></li>
 
@@ -179,7 +183,7 @@
 						
 						
 						
-						<h3 class="subsubtitle task-title">Other Methods</h3>
+						
 
 						<ul class="task-list">
 							<li>
@@ -214,6 +218,18 @@
 	
 </li><li>
 	<span class="tooltip">
+		<code><a href="#//api/name/created">&nbsp;&nbsp;created</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/isExpired">&nbsp;&nbsp;isExpired</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
 		<code><a href="#//api/name/tokenFromUrlString:">+&nbsp;tokenFromUrlString:</a></code>
 	</span>
 	
@@ -239,20 +255,6 @@
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/saveTokenToDefaults:">&ndash;&nbsp;saveTokenToDefaults:</a></code>
-	</span>
-	
-	
-</li>
-						</ul>
-						
-						
-						
-						<h3 class="subsubtitle task-title">Other Methods</h3>
-
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/serialize">&ndash;&nbsp;serialize</a></code>
 	</span>
 	
 	
@@ -291,10 +293,41 @@
 	
 	
 	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>String token for use in request parameters</p>
-	</div>
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKAccessToken.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/created" title="created"></a>
+	<h3 class="subsubtitle method-title">created</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Indicates time of token creation</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSTimeInterval created</code></div>
+
+    
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -332,11 +365,6 @@
 	
 	
 	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Time when token expires</p>
-	</div>
-	
 	
 	
 	
@@ -373,10 +401,41 @@
 	
 	
 	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>If user sets &ldquo;Always use HTTPS&rdquo; setting in his profile, it will be true</p>
-	</div>
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKAccessToken.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/isExpired" title="isExpired"></a>
+	<h3 class="subsubtitle method-title">isExpired</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Return YES if token has expired</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) BOOL isExpired</code></div>
+
+    
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -414,11 +473,6 @@
 	
 	
 	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>User secret to sign requests (if nohttps used)</p>
-	</div>
-	
 	
 	
 	
@@ -454,11 +508,6 @@
 	
 	
 	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Current user id for this token</p>
-	</div>
 	
 	
 	
@@ -503,7 +552,7 @@
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>defaultsKey</em></dt>
-			<dd><p>key for defaults</p></dd>
+			<dd><p>path to file with saved token</p></dd>
 		</dl>
 		
 	</div>
@@ -518,11 +567,6 @@
 	
 	
 	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Retrieve token from user defaults. Token must be saved to defaults with saveTokenToDefaults method</p>
-	</div>
 	
 	
 	
@@ -575,11 +619,6 @@
 	
 	
 	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Retrieve token from file. Token must be saved into file with saveTokenToFile method</p>
-	</div>
-	
 	
 	
 	
@@ -630,11 +669,6 @@
 	
 	
 	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Retrieve token from key-value query string</p>
-	</div>
 	
 	
 	
@@ -690,11 +724,6 @@
 	
 	
 	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Save token into user defaults by specified key</p>
-	</div>
-	
 	
 	
 	
@@ -741,11 +770,6 @@
 	
 	
 	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Save token into specified file</p>
-	</div>
-	
 	
 	
 	
@@ -758,17 +782,6 @@
 	</div>				
 	
 	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/serialize" title="serialize"></a>
-	<h3 class="subsubtitle method-title">serialize</h3>
-	
-	
-
-	<div class="method-subsection method-declaration"><code>- (NSData *)serialize</code></div>
-
-    
 </div>
 						
 					</div>
@@ -786,7 +799,7 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 VK.com. All rights reserved. (Last updated: 2013-12-25)</span><br />
+						<p><span class="copyright">&copy; 2014 VK. All rights reserved. (Last updated: 2014-01-28)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
 						
