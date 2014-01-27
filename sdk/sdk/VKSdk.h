@@ -191,6 +191,11 @@
  */
 + (BOOL)processOpenURL:(NSURL *)passedUrl fromApplication:(NSString *)sourceApplication;
 
+/**
+ Forces logout using OAuth (with VKAuthorizeController). Removes all cookies for *.vk.com.
+ Has no effect for logout in VK app
+ */
++ (void) forceLogout;
 // Deny allocating more SDK
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 + (instancetype)alloc __attribute__((unavailable("alloc not available, call initialize: or instance instead")));

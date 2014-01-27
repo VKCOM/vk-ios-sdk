@@ -113,7 +113,7 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 	_appId = appId;
 	_scope = [permissions componentsJoinedByString:@","];
     //
-	_redirectUri = [[self class] buildAuthorizationUrl:REDIRECT_URL clientId:_appId scope:_scope revoke:revoke display:@"ios"];
+	_redirectUri = [[self class] buildAuthorizationUrl:REDIRECT_URL clientId:_appId scope:_scope revoke:revoke display:@"mobile"];
 	return self;
 }
 

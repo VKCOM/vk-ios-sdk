@@ -139,5 +139,15 @@ static VKSdk *vkSdkInstance = nil;
 		return [self processOpenURL:passedUrl];
 	return NO;
 }
++(void)forceLogout {
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    
+    for (NSHTTPCookie *cookie in cookies)
+        if (NSNotFound != [cookie.domain rangeOfString:@"vk.com"].location)
+        {
+            [[NSHTTPCookieStorage sharedHTTPCookieStorage]
+             deleteCookie:cookie];
+        }
+}
 
 @end
