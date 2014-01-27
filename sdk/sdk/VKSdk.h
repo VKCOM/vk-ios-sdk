@@ -80,16 +80,6 @@
 @end
 
 /**
- Delegate for testing asyncronious work
- */
-@protocol AsyncWorkDelegate
-/**
- Calls when test asyncronious work completed
- */
-- (void)asyncWorkCompleted;
-@end
-
-/**
  Entry point for using VK sdk. Should be initialized at application start
  */
 @interface VKSdk : NSObject
