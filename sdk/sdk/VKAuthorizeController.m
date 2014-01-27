@@ -51,10 +51,11 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 
 + (void)presentThisController:(VKAuthorizeController *)controller {
 	UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:controller];
-	navigation.navigationBar.translucent = YES;
+
 	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
 		navigation.navigationBar.barTintColor = VK_COLOR;
 		navigation.navigationBar.tintColor = [UIColor whiteColor];
+        navigation.navigationBar.translucent = YES;
 	}
     
 	UIImage *image = [VKBundle vkLibraryImageNamed:@"ic_vk_logo_nb"];
@@ -87,7 +88,6 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 	activityMark.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 	[activityMark startAnimating];
 	[view addSubview:activityMark];
-    
     
 	_warningLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, activityMark.frame.origin.y + activityMark.frame.size.height * 1.2, 300, 50)];
 	_warningLabel.numberOfLines = 3;
