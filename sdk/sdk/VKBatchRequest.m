@@ -22,6 +22,7 @@
 
 #import "VKBatchRequest.h"
 #import "VKHTTPClient.h"
+#import "NSError+VKError.h"
 @implementation VKBatchRequest
 - (instancetype)initWithRequests:(VKRequest *)firstRequest, ...
 {
@@ -35,7 +36,7 @@
 	va_end(args);
 	return self;
 }
-- (void)executeWithResultBlock:(void (^)(NSArray *responses))completeBlock errorBlock:(void (^)(VKError *))errorBlock {
+- (void)executeWithResultBlock:(void (^)(NSArray *responses))completeBlock errorBlock:(void (^)(NSError *))errorBlock {
 	self.completeBlock  = completeBlock;
 	self.errorBlock     = errorBlock;
 	_responses = [NSMutableArray arrayWithCapacity:_requests.count];
@@ -51,10 +52,10 @@
             if (originalComplete) originalComplete(response);
         };
         
-        void (^originalError)(VKError*) = [request.errorBlock copy];
-        request.errorBlock = ^(VKError* error) {
+        void (^originalErrorBlock)(NSError*) = [request.errorBlock copy];
+        request.errorBlock = ^(NSError* error) {
             [self provideError:error];
-            if (originalError) originalError(error);
+            if (originalErrorBlock) originalErrorBlock(error);
         };
         
         [batchOperations addObject:request.executionOperation];
@@ -69,7 +70,7 @@
     _canceled = YES;
 	for (VKRequest *request in _requests)
 		[request cancel];
-	[self provideError:[VKError errorWithCode:VK_API_CANCELED]];
+	[self provideError:[NSError errorWithVkError:[VKError errorWithCode:VK_API_CANCELED]]];
     
 }
 
@@ -82,7 +83,7 @@
 		self.completeBlock(_responses);
 }
 
-- (void)provideError:(VKError *)error {
+- (void)provideError:(NSError *)error {
 	if (self.errorBlock)
 		self.errorBlock(error);
 }

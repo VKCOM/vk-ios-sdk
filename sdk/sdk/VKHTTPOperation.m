@@ -25,8 +25,8 @@
 
 #import "VKHTTPOperation.h"
 #import "VKRequest.h"
+#import "NSError+VKError.h"
 
-NSString *const VKNetworkingErrorDomain = @"VKNetworkingErrorDomain";
 NSString *const VKNetworkingOperationFailingURLRequestErrorKey = @"VKNetworkingOperationFailingURLRequestErrorKey";
 NSString *const VKNetworkingOperationFailingURLResponseErrorKey = @"VKNetworkingOperationFailingURLResponseErrorKey";
 
@@ -212,7 +212,7 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 				NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
 				[userInfo setValue:@"Operation responseData failed decoding as a UTF-8 string" forKey:NSLocalizedDescriptionKey];
 				[userInfo setValue:[NSString stringWithFormat:@"Could not decode string: %@", self.responseString] forKey:NSLocalizedFailureReasonErrorKey];
-				error = [[NSError alloc] initWithDomain:VKNetworkingErrorDomain code:NSURLErrorCannotDecodeContentData userInfo:userInfo];
+				error = [[NSError alloc] initWithDomain:VKSdkErrorDomain code:NSURLErrorCannotDecodeContentData userInfo:userInfo];
 			}
 		}
         
@@ -516,7 +516,7 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 			if (![self hasAcceptableStatusCode]) {
 				NSUInteger statusCode = ([self.response isKindOfClass:[NSHTTPURLResponse class]]) ? (NSUInteger)[self.response statusCode] : 200;
 				[userInfo setValue:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Expected status code 200, got %d", @"AFNetworking", nil), statusCode] forKey:NSLocalizedDescriptionKey];
-				self.HTTPError = [[NSError alloc] initWithDomain:VKNetworkingErrorDomain code:NSURLErrorBadServerResponse userInfo:userInfo];
+				self.HTTPError = [[NSError alloc] initWithDomain:VKSdkErrorDomain code:NSURLErrorBadServerResponse userInfo:userInfo];
 			}
 		}
 	}

@@ -26,10 +26,7 @@
 extern inline NSString *VKKeyPathFromOperationState(VKOperationState state);
 extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperationState toState, BOOL isCancelled);
 
-@interface VKUploadPhotoBase ()
-@property (readwrite, strong) VKResponse *response;
-@property (readwrite, strong) VKError *error;
-@end
+
 
 @implementation VKUploadPhotoBase
 - (NSOperation *)executionOperation {
@@ -62,9 +59,9 @@ extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperat
 
 
 - (void)start {
-	void (^originalErrorBlock)(VKError *) = [_uploadRequest.errorBlock copy];
+	void (^originalErrorBlock)(NSError *) = [_uploadRequest.errorBlock copy];
 	__weak VKUploadImageOperation *weakSelf = self;
-	_uploadRequest.errorBlock = ^(VKError *error) {
+	_uploadRequest.errorBlock = ^(NSError *error) {
 		[weakSelf finish];
 		if (originalErrorBlock)
 			originalErrorBlock(error);

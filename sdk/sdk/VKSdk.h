@@ -33,6 +33,7 @@
 #import "VKRequest.h"
 #import "VKBatchRequest.h"
 #import "VKApiModels.h"
+#import "NSError+VKError.h"
 
 /**
  Global SDK events delegate protocol.

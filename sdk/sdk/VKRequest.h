@@ -27,8 +27,6 @@
 #import "OrderedDictionary.h"
 #import "VKHTTPOperation.h"
 
-@class VKError;
-
 /**
  Class for execution API-requests
  */
@@ -65,7 +63,7 @@
 /// Specify completion block for request
 @property (nonatomic, copy)   void (^completeBlock)(VKResponse *response);
 /// Specity error (HTTP or API) block for request.
-@property (nonatomic, copy)   void (^errorBlock)(VKError *error);
+@property (nonatomic, copy)   void (^errorBlock)(NSError *error);
 /// Specify attempts for request loading if caused HTTP-error. 0 for infinite
 @property (nonatomic, assign) int attempts;
 /// Use HTTPS requests (by default is YES). If http-request is impossible (user denied no https access), SDK will load https version
@@ -134,7 +132,7 @@
  @param errorBlock called immediately if there was API error, or after <b>attempts</b> tries if there was an HTTP error
  */
 - (void)executeWithResultBlock:(void (^)(VKResponse *response))completeBlock
-                    errorBlock:(void (^)(VKError *error))errorBlock;
+                    errorBlock:(void (^)(NSError *error))errorBlock;
 /**
  Register current request for execute after passed request, if passed request is successful. If it's not, errorBlock will be called.
  @param request after which request must be called that request
@@ -143,7 +141,7 @@
  */
 - (void)executeAfter:(VKRequest *)request
      withResultBlock:(void (^)(VKResponse *response))completeBlock
-          errorBlock:(void (^)(VKError *error))errorBlock;
+          errorBlock:(void (^)(NSError *error))errorBlock;
 
 /**
  Starts loading of prepared request. You can use it instead of executeWithResultBlock

@@ -27,6 +27,7 @@
 #import "VKAuthorizeController.h"
 #import "VKHTTPClient.h"
 #import "VKError.h"
+#import "NSError+VKError.h"
 
 #define SUPPORTED_LANGS_ARRAY @[@"ru", @"en", @"ua", @"es", @"fi", @"de", @"it"]
 
@@ -88,7 +89,7 @@ attemptsUsed  = _attemptsUsed;
 
 #pragma mark Execution
 - (void)executeWithResultBlock:(void (^)(VKResponse *))completeBlock
-                    errorBlock:(void (^)(VKError *))errorBlock {
+                    errorBlock:(void (^)(NSError *))errorBlock {
 	self.completeBlock = completeBlock;
 	self.errorBlock    = errorBlock;
     
@@ -97,7 +98,7 @@ attemptsUsed  = _attemptsUsed;
 
 - (void)executeAfter:(VKRequest *)request
      withResultBlock:(void (^)(VKResponse *response))completeBlock
-          errorBlock:(void (^)(VKError *error))errorBlock {
+          errorBlock:(void (^)(NSError *error))errorBlock {
 	self.completeBlock = completeBlock;
 	self.errorBlock    = errorBlock;
 	[request addPostRequest:self];
@@ -120,7 +121,7 @@ attemptsUsed  = _attemptsUsed;
 		if (token == nil) {
 			VKError *error = [VKError errorWithCode:VK_API_REQUEST_NOT_PREPARED];
 			error.errorMessage = @"Access token is nil";
-			[self provideError:error];
+			[self provideError:[NSError errorWithVkError:error]];
 			return nil;
 		}
 		[_preparedParameters setObject:token.accessToken forKey:VK_API_ACCESS_TOKEN];
@@ -166,7 +167,7 @@ attemptsUsed  = _attemptsUsed;
 	    if ([JSON objectForKey:@"error"]) {
 	        VKError *error = [VKError errorWithJson:[JSON objectForKey:@"error"]];
 	        if ([self processCommonError:error]) return;
-	        [self provideError:error];
+	        [self provideError:[NSError errorWithVkError:error]];
 	        return;
 		}
 	    [self provideResponse:JSON];
@@ -185,8 +186,7 @@ attemptsUsed  = _attemptsUsed;
 		}
         
 	    VKError *vkErr = [VKError errorWithCode:operation.response.statusCode];
-	    vkErr.httpError = error;
-	    [self provideError:vkErr];
+	    [self provideError:[error copyWithVkError:vkErr]];
 	}];
 	[self setupProgress:operation];
     return operation;
@@ -224,8 +224,8 @@ attemptsUsed  = _attemptsUsed;
 	});
 }
 
-- (void)provideError:(VKError *)error {
-	error.request = self;
+- (void)provideError:(NSError *)error {
+	error.vkError.request = self;
 	if (self.errorBlock) {
 		self.errorBlock(error);
 	}
@@ -241,7 +241,7 @@ attemptsUsed  = _attemptsUsed;
 
 - (void)cancel {
 	[_executionOperation cancel];
-	[self provideError:[VKError errorWithCode:VK_API_CANCELED]];
+	[self provideError:[NSError errorWithVkError:[VKError errorWithCode:VK_API_CANCELED]]];
 }
 
 - (void)setupProgress:(VKHTTPOperation *)operation {

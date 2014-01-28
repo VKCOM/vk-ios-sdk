@@ -21,7 +21,6 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKObject.h"
-#import "VKError.h"
 #import "VKRequest.h"
 /**
  Used for execution bunch of methods at time, and receive results of that methods in array
@@ -37,7 +36,7 @@
 /// Specify completion block for request
 @property (nonatomic, copy)   void (^completeBlock)(NSArray *responses);
 /// Specity error (HTTP or API) block for request.
-@property (nonatomic, copy)   void (^errorBlock)(VKError *error);
+@property (nonatomic, copy)   void (^errorBlock)(NSError *error);
 /**
  Initializes batch processing with requests
  @param firstRequest ,... A comma-separated list of requests should be loaded, ending with nil.
@@ -49,7 +48,7 @@
  @param completeBlock will receive result of passed requests
  @param errorBlock called if any request did fail
  */
-- (void)executeWithResultBlock:(void (^)(NSArray *responses))completeBlock errorBlock:(void (^)(VKError *))errorBlock;
+- (void)executeWithResultBlock:(void (^)(NSArray *responses))completeBlock errorBlock:(void (^)(NSError *))errorBlock;
 /**
  Cancel current batch operation
  */
