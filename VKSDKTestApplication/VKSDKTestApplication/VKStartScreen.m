@@ -46,11 +46,15 @@ static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
 }
 
 - (IBAction)authorize:(id)sender {
-	[VKSdk authorize:@[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS] revokeAccess:YES];
+	[VKSdk authorize:@[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_MESSAGES] revokeAccess:YES];
 }
 
 - (IBAction)authorizeForceOAuth:(id)sender {
-	[VKSdk authorize:@[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS] revokeAccess:YES forceOAuth:YES];
+	[VKSdk authorize:@[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_MESSAGES] revokeAccess:YES forceOAuth:YES];
+}
+
+- (IBAction)authorizeForceOAuthInApp:(id)sender {
+	[VKSdk authorize:@[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_MESSAGES] revokeAccess:YES forceOAuth:YES inApp:YES];
 }
 
 - (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {

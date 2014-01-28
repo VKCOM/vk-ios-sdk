@@ -80,16 +80,6 @@
 @end
 
 /**
- Delegate for testing asyncronious work
- */
-@protocol AsyncWorkDelegate
-/**
- Calls when test asyncronious work completed
- */
-- (void)asyncWorkCompleted;
-@end
-
-/**
  Entry point for using VK sdk. Should be initialized at application start
  */
 @interface VKSdk : NSObject
@@ -136,26 +126,36 @@
 
 /**
  Starts authorization process. If VKapp is available in system, it will opens and requests access from user.
- Otherwise UIWebView with standard UINavigationBar will be opened for access request.
+ Otherwise Mobile Safari will be opened for access request.
  @param permissions array of permissions for your applications. All permissions you can
  */
 + (void)authorize:(NSArray *)permissions;
 
 /**
  Starts authorization process. If VKapp is available in system, it will opens and requests access from user.
- Otherwise UIWebView with standard UINavigationBar will be opened for access request.
+ Otherwise Mobile Safari will be opened for access request.
  @param permissions Array of permissions for your applications. All permissions you can
  @param revokeAccess If YES, user will allow logout (to change user)
  */
 + (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess;
 /**
  Starts authorization process. If VKapp is available in system, it will opens and requests access from user.
- Otherwise UIWebView with standard UINavigationBar will be opened for access request.
+ Otherwise Mobile Safari will be opened for access request.
  @param permissions Array of permissions for your applications. All permissions you can
  @param revokeAccess If YES, user will allow logout (to change user)
- @param forceOAuth sdk will use only oauth authorization, through uiwebview
+ @param forceOAuth SDK will use only oauth authorization, through uiwebview
  */
 + (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth;
+
+/**
+ Starts authorization process. If VKapp is available in system, it will opens and requests access from user.
+ Otherwise Mobile Safari will be opened for access request.
+ @param permissions Array of permissions for your applications. All permissions you can
+ @param revokeAccess If YES, user will allow logout (to change user)
+ @param forceOAuth SDK will use only oauth authorization, through uiwebview
+ @param inApp If YES, SDK will try to open modal window with webview to authorize. This method strongly not recommended as user should enter his account data in your application. For use modal view add VKSdkResources.bundle to your project.
+ */
++ (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth inApp:(BOOL) inApp;
 
 ///-------------------------------
 /// @name Access token methods
@@ -191,6 +191,11 @@
  */
 + (BOOL)processOpenURL:(NSURL *)passedUrl fromApplication:(NSString *)sourceApplication;
 
+/**
+ Forces logout using OAuth (with VKAuthorizeController). Removes all cookies for *.vk.com.
+ Has no effect for logout in VK app
+ */
++ (void) forceLogout;
 // Deny allocating more SDK
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 + (instancetype)alloc __attribute__((unavailable("alloc not available, call initialize: or instance instead")));

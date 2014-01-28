@@ -68,24 +68,34 @@ static VKSdk *vkSdkInstance = nil;
 }
 
 + (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth {
+    [self authorize:permissions revokeAccess:revokeAccess forceOAuth:forceOAuth inApp:NO];
+}
++ (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth inApp:(BOOL) inApp;
+{
 	NSString *clientId = vkSdkInstance->_currentAppId;
-	NSURL *urlToOpen = [NSURL URLWithString:
-	                    [NSString stringWithFormat:@"vkauth://authorize?client_id=%@&scope=%@&revoke=%d",
-	                     clientId,
-	                     [permissions componentsJoinedByString:@","], revokeAccess ? 1:0]];
-	if (!forceOAuth && [[UIApplication sharedApplication] canOpenURL:urlToOpen])
-		[[UIApplication sharedApplication] openURL:urlToOpen];
-	else
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:
-		                                            [VKAuthorizeController buildAuthorizationUrl:[NSString stringWithFormat:@"vk%@://authorize", clientId]
-		                                                                                clientId:clientId
-		                                                                                   scope:[permissions componentsJoinedByString:@","]
-		                                                                                  revoke:revokeAccess
-		                                                                                 display:@"mobile"]]];
-    //    Authorization through popup webview
-    //        [VKAuthorizeController presentForAuthorizeWithAppId:vkSdkInstance->_currentAppId
-    //                                             andPermissions:permissions
-    //                                               revokeAccess:revokeAccess];
+
+    if (!inApp) {
+        NSURL *urlToOpen = [NSURL URLWithString:
+                            [NSString stringWithFormat:@"vkauth://authorize?client_id=%@&scope=%@&revoke=%d",
+                             clientId,
+                             [permissions componentsJoinedByString:@","], revokeAccess ? 1:0]];
+        if (!forceOAuth && [[UIApplication sharedApplication] canOpenURL:urlToOpen])
+            [[UIApplication sharedApplication] openURL:urlToOpen];
+        else
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:
+                                                        [VKAuthorizeController buildAuthorizationUrl:[NSString stringWithFormat:@"vk%@://authorize", clientId]
+                                                                                            clientId:clientId
+                                                                                               scope:[permissions componentsJoinedByString:@","]
+                                                                                              revoke:revokeAccess
+                                                                                             display:@"mobile"]]];
+    } else {
+        //Authorization through popup webview
+        [VKAuthorizeController presentForAuthorizeWithAppId:clientId
+                                             andPermissions:permissions
+                                               revokeAccess:revokeAccess];
+        
+    }
+	
 }
 
 #pragma mark Access token
@@ -138,6 +148,16 @@ static VKSdk *vkSdkInstance = nil;
 	    [sourceApplication isEqualToString:@"com.apple.mobilesafari"])
 		return [self processOpenURL:passedUrl];
 	return NO;
+}
++(void)forceLogout {
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    
+    for (NSHTTPCookie *cookie in cookies)
+        if (NSNotFound != [cookie.domain rangeOfString:@"vk.com"].location)
+        {
+            [[NSHTTPCookieStorage sharedHTTPCookieStorage]
+             deleteCookie:cookie];
+        }
 }
 
 @end
