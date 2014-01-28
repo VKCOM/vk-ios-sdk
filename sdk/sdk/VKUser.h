@@ -29,13 +29,13 @@
 @interface VKUser : VKApiObject
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 //Original field - id
-@property (nonatomic, strong) NSNumber *uid;
+@property (nonatomic, strong) NSNumber *id;
 @property (nonatomic, strong) NSString *first_name;
 @property (nonatomic, strong) NSString *last_name;
 @property (nonatomic, strong) NSNumber *sex;
 @property (nonatomic, strong) NSString *bdate;
-@property (nonatomic, strong) NSNumber *city;
-@property (nonatomic, strong) NSNumber *country;
+@property (nonatomic, strong) NSString *city;
+@property (nonatomic, strong) NSString *country;
 @property (nonatomic, strong) NSString *photo_50;
 @property (nonatomic, strong) NSString *photo_100;
 @property (nonatomic, strong) NSString *photo_200_orig;
@@ -61,8 +61,8 @@
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) NSDictionary *last_seen;
 @property (nonatomic, strong) NSNumber *common_count;
-@property (nonatomic, strong) NSNumber *relation;
-@property (nonatomic, strong) NSDictionary *relatives;
+@property (nonatomic, strong) NSString *relation;
+@property (nonatomic, strong) NSArray  *relatives;
 @property (nonatomic, strong) NSDictionary *counters;
 #endif
 @end

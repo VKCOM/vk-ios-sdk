@@ -29,7 +29,7 @@
  */
 @interface VKPhoto : VKApiObject
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-@property (nonatomic, strong) NSNumber *pid;
+@property (nonatomic, strong) NSNumber *id;
 @property (nonatomic, strong) NSNumber *album_id;
 @property (nonatomic, strong) NSNumber *owner_id;
 @property (nonatomic, strong) NSString *photo_75;

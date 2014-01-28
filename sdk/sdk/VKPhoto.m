@@ -25,17 +25,4 @@
 
 @implementation VKPhoto
 
-- (id)initWithDictionary:(NSDictionary *)dict {
-    if ((self = [super initWithDictionary:dict])) {
-        self.pid = dict[@"id"];
-    }
-    return self;
-}
-
-- (NSDictionary *)serialize {
-    NSMutableDictionary *dict = (NSMutableDictionary*)[super serialize];
-    [dict setObject:self.pid forKey:@"id"];
-    return dict;
-}
-
 @end

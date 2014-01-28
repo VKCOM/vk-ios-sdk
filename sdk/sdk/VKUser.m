@@ -24,18 +24,4 @@
 
 @implementation VKUser
 
-- (id)initWithDictionary:(NSDictionary *)dict {
-	if ((self = [super initWithDictionary:dict])) {
-		self.uid = [dict objectForKey:@"id"];
-	}
-	return self;
-}
-
-- (NSDictionary *)serialize {
-	NSMutableDictionary *dict = (NSMutableDictionary *)[super serialize];
-	[dict removeObjectForKey:@"uid"];
-	[dict setObject:self.uid forKey:@"id"];
-	return dict;
-}
-
 @end
