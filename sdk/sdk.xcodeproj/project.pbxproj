@@ -14,6 +14,8 @@
 		F311207A18588D67004A9A40 /* VKHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F311207818588D67004A9A40 /* VKHTTPClient.h */; };
 		F311207B18588D67004A9A40 /* VKHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F311207918588D67004A9A40 /* VKHTTPClient.m */; };
 		F349DC541832693000D0DCB3 /* VKUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F349DC531832693000D0DCB3 /* VKUtil.m */; };
+		F378469B1897AA9300DF860E /* NSError+VKError.h in Headers */ = {isa = PBXBuildFile; fileRef = F37846991897AA9300DF860E /* NSError+VKError.h */; };
+		F378469C1897AA9300DF860E /* NSError+VKError.m in Sources */ = {isa = PBXBuildFile; fileRef = F378469A1897AA9300DF860E /* NSError+VKError.m */; };
 		F37C34261869D0F400AA0459 /* VKUser.h in Headers */ = {isa = PBXBuildFile; fileRef = F37C34241869D0F400AA0459 /* VKUser.h */; };
 		F37C34271869D0F400AA0459 /* VKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = F37C34251869D0F400AA0459 /* VKUser.m */; };
 		F3A77AD9182A9392006DDF96 /* VKApiCaptcha.h in Headers */ = {isa = PBXBuildFile; fileRef = F3A77AD7182A9392006DDF96 /* VKApiCaptcha.h */; };
@@ -110,6 +112,8 @@
 		F311207818588D67004A9A40 /* VKHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKHTTPClient.h; sourceTree = "<group>"; };
 		F311207918588D67004A9A40 /* VKHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKHTTPClient.m; sourceTree = "<group>"; };
 		F349DC531832693000D0DCB3 /* VKUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUtil.m; sourceTree = "<group>"; };
+		F37846991897AA9300DF860E /* NSError+VKError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+VKError.h"; sourceTree = "<group>"; };
+		F378469A1897AA9300DF860E /* NSError+VKError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+VKError.m"; sourceTree = "<group>"; };
 		F37C34241869D0F400AA0459 /* VKUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKUser.h; sourceTree = "<group>"; };
 		F37C34251869D0F400AA0459 /* VKUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUser.m; sourceTree = "<group>"; };
 		F39DB95018868C06009609FB /* VKApiModels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKApiModels.h; sourceTree = "<group>"; };
@@ -351,6 +355,8 @@
 		F3EEFF4318241A37000BB525 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
+				F37846991897AA9300DF860E /* NSError+VKError.h */,
+				F378469A1897AA9300DF860E /* NSError+VKError.m */,
 				F3C7549918226ABB00964716 /* VKAccessToken.h */,
 				F3C7549A18226ABB00964716 /* VKAccessToken.m */,
 				F3D38E7D183F7B4800D05079 /* VKBatchRequest.h */,
@@ -367,6 +373,8 @@
 				F3AD12961836719B00B837C0 /* VKImageParameters.m */,
 				F3EEFFE218294B0A000BB525 /* VKObject.h */,
 				F3EEFFE318294B0A000BB525 /* VKObject.m */,
+				F3DED12E186C10F500FDF083 /* VKOperation.h */,
+				F3DED12F186C10F500FDF083 /* VKOperation.m */,
 				F3EEFFA41827B726000BB525 /* VKPermissions.h */,
 				F3EEFFA61827B7F1000BB525 /* VKPermissions.m */,
 				F3C754901822680D00964716 /* VKRequest.h */,
@@ -380,8 +388,6 @@
 				F3B7EEAD1843721600104B90 /* VKUploadPhotoRequest.m */,
 				F3D38E81183FA49000D05079 /* VKUploadWallPhotoRequest.h */,
 				F3D38E82183FA49000D05079 /* VKUploadWallPhotoRequest.m */,
-				F3DED12E186C10F500FDF083 /* VKOperation.h */,
-				F3DED12F186C10F500FDF083 /* VKOperation.m */,
 			);
 			name = SDK;
 			sourceTree = "<group>";
@@ -438,6 +444,7 @@
 				F3DED130186C10F500FDF083 /* VKOperation.h in Headers */,
 				F3B7EEC31844B22E00104B90 /* VKUsersArray.h in Headers */,
 				F3D38E6B183CC7C400D05079 /* VKCaptchaViewController.h in Headers */,
+				F378469B1897AA9300DF860E /* NSError+VKError.h in Headers */,
 				F3D38E7B183F72F100D05079 /* VKApiWall.h in Headers */,
 				F3B7EEAE1843721600104B90 /* VKUploadPhotoRequest.h in Headers */,
 				F3BACC5818659493003158DA /* VKBundle.h in Headers */,
@@ -571,6 +578,7 @@
 				F3EEFF3B18241779000BB525 /* VKError.m in Sources */,
 				F3EEFFB91827C0FF000BB525 /* VKAuthorizeController.m in Sources */,
 				F3B7EED31844BE3C00104B90 /* VKPhotoArray.m in Sources */,
+				F378469C1897AA9300DF860E /* NSError+VKError.m in Sources */,
 				F3B7EEAF1843721600104B90 /* VKUploadPhotoRequest.m in Sources */,
 				F3EEFFE518294B0A000BB525 /* VKObject.m in Sources */,
 				F3C75438182133CC00964716 /* VKSdk.m in Sources */,
