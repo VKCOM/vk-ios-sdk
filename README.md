@@ -121,17 +121,17 @@ Requests Sending
 
     [audioReq executeWithResultBlock:^(VKResponse * response) { 
             NSLog(@"Json result: %@", response.json); 
-        } errorBlock:^(VKError * error) { 
+        } errorBlock:^(NSError * error) { 
         if (error.code != VK_API_ERROR) { 
-            [error.request repeat]; 
+            [error.vkError.request repeat]; 
         } else { 
-            NSLog(@"VK error: %@", error.apiError); 
+            NSLog(@"VK error: %@", error); 
         } 
     }];
 
 Error Handling
 ----------
-The VKError class contains the errorCode property. Compare its value with the global constant VK_API_ERROR. If it equals, process the vkError field that contains a description of a VK API error. Otherwise you should handle an http error in the httpError property. 
+Every request can return NSError with domain equal to VKSdkErrorDomain. SDK can return networking error or internal SDK error (e.g. request was canceled). Category NSError+VKError provides vkError property that describes error event. Compare error code with the global constant VK_API_ERROR. If they equal that means you process vkError property as API error. Otherwise you should handle an http error. 
 
 Some errors (e.g., captcha error, validation error) can be proccessed by the SDK. Appropriate delegate methods will be called for this purpose. 
 Below is an example of captcha error processing:
@@ -162,7 +162,7 @@ request2.completeBlock = ^(VKResponse*) { ... };
 
     [batch executeWithResultBlock:^(NSArray *responses) { 
             NSLog(@"Responses: %@", responses); 
-        } errorBlock:^(VKError *error) { 
+        } errorBlock:^(NSError *error) { 
             NSLog(@"Error: %@", error); 
     }];
     
