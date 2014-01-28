@@ -34,7 +34,7 @@
 	[self.callingRequest executeWithResultBlock: ^(VKResponse *response) {
 	    self.callResult.text = [NSString stringWithFormat:@"Result: %@", response];
 	    self.callingRequest = nil;
-	} errorBlock: ^(VKError *error) {
+	} errorBlock: ^(NSError *error) {
 	    self.callResult.text = [NSString stringWithFormat:@"Error: %@", error];
 	    self.callingRequest = nil;
 	}];

@@ -38,7 +38,7 @@
 	VKRequest *request = [[VKApi users] get];
 	[request executeWithResultBlock: ^(VKResponse *response) {
 	    NSLog(@"Result: %@", response);
-	} errorBlock: ^(VKError *error) {
+	} errorBlock: ^(NSError *error) {
 	    NSLog(@"Error: %@", error);
 	}];
 }
@@ -49,7 +49,7 @@
     [request executeWithResultBlock:^(VKResponse *response) {
         NSLog(@"Result: %@", response);
 
-    } errorBlock:^(VKError *error) {
+    } errorBlock:^(NSError *error) {
         NSLog(@"Error: %@", error);
     }];
 }
@@ -63,9 +63,10 @@ static NSString *const UPLOAD_PHOTO = @"Upload photo to wall";
 static NSString *const UPLOAD_PHOTO_ALBUM = @"Upload photo to album";
 static NSString *const UPLOAD_PHOTOS = @"Upload several photos to wall";
 static NSString *const TEST_CAPTCHA = @"Test captcha";
+static NSString *const CALL_UNKNOWN_METHOD = @"Call unknown method";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!labels)
-		labels = @[USERS_GET, USERS_SUBSCRIPTIONS, FRIENDS_GET, FRIENDS_GET_FULL, UPLOAD_PHOTO, UPLOAD_PHOTO_ALBUM, UPLOAD_PHOTOS, TEST_CAPTCHA];
+		labels = @[USERS_GET, USERS_SUBSCRIPTIONS, FRIENDS_GET, FRIENDS_GET_FULL, UPLOAD_PHOTO, UPLOAD_PHOTO_ALBUM, UPLOAD_PHOTOS, TEST_CAPTCHA, CALL_UNKNOWN_METHOD];
 	return labels.count;
 }
 
@@ -97,14 +98,16 @@ static NSString *const TEST_CAPTCHA = @"Test captcha";
 		[self uploadInAlbum];
 	}
 	else if ([label isEqualToString:FRIENDS_GET]) {
-		[VKRequest requestWithMethod:@"wall.get" andParameters:@{ VK_API_OWNER_ID : @"-1" } andHttpMethod:@"GET"];
 		[self callMethod:[[VKApi friends] get]];
 	}
 	else if ([label isEqualToString:FRIENDS_GET_FULL]) {
 		VKRequest *friendsRequest = [[VKApi friends] get:@{ VK_API_FIELDS : @"uid,first_name,last_name,sex,bdate,city,country,photo_50,photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,online_mobile,lists,domain,has_mobile,contacts,connections,site,education,universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message,status,last_seen,common_count,relation,relatives,counters" }];
-		friendsRequest.parseModel = NO;
+//		friendsRequest.parseModel = NO;
         
 		[self callMethod:friendsRequest];
+	}
+    else if ([label isEqualToString:CALL_UNKNOWN_METHOD]) {
+		[self callMethod:[VKRequest requestWithMethod:@"I.am.Lord.Voldemort" andParameters:nil andHttpMethod:@"POST"]];
 	}
 }
 
@@ -125,7 +128,7 @@ static NSString *const TEST_CAPTCHA = @"Test captcha";
 	VKRequest *request = [[VKApiCaptcha new] force];
 	[request executeWithResultBlock: ^(VKResponse *response) {
 	    NSLog(@"Result: %@", response);
-	} errorBlock: ^(VKError *error) {
+	} errorBlock: ^(NSError *error) {
 	    NSLog(@"Error: %@", error);
 	}];
 }
@@ -135,14 +138,16 @@ static NSString *const TEST_CAPTCHA = @"Test captcha";
 	[request executeWithResultBlock: ^(VKResponse *response) {
 	    NSLog(@"Photo: %@", response.json);
         VKPhoto *photoInfo = [(VKPhotoArray*)response.parsedModel objectAtIndex:0];
-	    NSString *photoAttachment = [NSString stringWithFormat:@"photo%@_%@", photoInfo.owner_id, photoInfo.pid];
+	    NSString *photoAttachment = [NSString stringWithFormat:@"photo%@_%@", photoInfo.owner_id, photoInfo.id];
 	    VKRequest *post = [[VKApi wall] post:@{ VK_API_ATTACHMENTS : photoAttachment, VK_API_FRIENDS_ONLY : @(1), VK_API_OWNER_ID : @"-60479154" }];
 	    [post executeWithResultBlock: ^(VKResponse *response) {
 	        NSLog(@"Result: %@", response);
-		} errorBlock: ^(VKError *error) {
+            NSNumber * postId = response.json[@"post_id"];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/wall-60479154_%@", postId]]];
+		} errorBlock: ^(NSError *error) {
 	        NSLog(@"Error: %@", error);
 		}];
-	} errorBlock: ^(VKError *error) {
+	} errorBlock: ^(NSError *error) {
 	    NSLog(@"Error: %@", error);
 	}];
 }
@@ -158,15 +163,17 @@ static NSString *const TEST_CAPTCHA = @"Test captcha";
 	    NSMutableArray *photosAttachments = [NSMutableArray new];
 	    for (VKResponse * resp in responses) {
 	        VKPhoto *photoInfo = [(VKPhotoArray*)resp.parsedModel objectAtIndex:0];
-	        [photosAttachments addObject:[NSString stringWithFormat:@"photo%@_%@", photoInfo.owner_id, photoInfo.pid]];
+	        [photosAttachments addObject:[NSString stringWithFormat:@"photo%@_%@", photoInfo.owner_id, photoInfo.id]];
 		}
 	    VKRequest *post = [[VKApi wall] post:@{ VK_API_ATTACHMENTS : [photosAttachments componentsJoinedByString:@","], VK_API_FRIENDS_ONLY : @(1), VK_API_OWNER_ID : @"-60479154" }];
 	    [post executeWithResultBlock: ^(VKResponse *response) {
 	        NSLog(@"Result: %@", response);
-		} errorBlock: ^(VKError *error) {
+            NSNumber * postId = response.json[@"post_id"];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/wall-60479154_%@", postId]]];
+		} errorBlock: ^(NSError *error) {
 	        NSLog(@"Error: %@", error);
 		}];
-	} errorBlock: ^(VKError *error) {
+	} errorBlock: ^(NSError *error) {
 	    NSLog(@"Error: %@", error);
 	}];
 }
@@ -175,7 +182,9 @@ static NSString *const TEST_CAPTCHA = @"Test captcha";
 	VKRequest *request = [VKApi uploadAlbumPhotoRequest:[UIImage imageNamed:@"fat_awesome"] parameters:[VKImageParameters pngImage] albumId:181808365 groupId:60479154];
 	[request executeWithResultBlock: ^(VKResponse *response) {
 	    NSLog(@"Result: %@", response);
-	} errorBlock: ^(VKError *error) {
+        VKPhoto * photo = [(VKPhotoArray*)response.parsedModel objectAtIndex:0];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/photo-60479154_%@", photo.id]]];
+	} errorBlock: ^(NSError *error) {
 	    NSLog(@"Error: %@", error);
 	}];
 }
