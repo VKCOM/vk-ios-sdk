@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.2 (build 961)" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -50,7 +50,15 @@
 	
 	<option value="instance_methods">Instance Methods</option>
 	
+	<option value="//api/name/initWithArray:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithArray:</option>
+	
+	<option value="//api/name/initWithArray:objectClass:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithArray:objectClass:</option>
+	
 	<option value="//api/name/initWithDictionary:objectClass:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithDictionary:objectClass:</option>
+	
+	<option value="//api/name/objectAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- objectAtIndex:</option>
+	
+	<option value="//api/name/serialize">&nbsp;&nbsp;&nbsp;&nbsp;- serialize</option>
 	
 	
 	
@@ -88,7 +96,15 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithArray:">initWithArray:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithArray:objectClass:">initWithArray:objectClass:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithDictionary:objectClass:">initWithDictionary:objectClass:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/objectAtIndex:">objectAtIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/serialize">serialize</a></span></li>
 	
 </ul></li>
 
@@ -143,7 +159,7 @@
 						
 						
 						
-						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
 
 						<ul class="task-list">
 							<li>
@@ -161,6 +177,38 @@
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/initWithDictionary:objectClass:">&ndash;&nbsp;initWithDictionary:objectClass:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithArray:objectClass:">&ndash;&nbsp;initWithArray:objectClass:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithArray:">&ndash;&nbsp;initWithArray:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/objectAtIndex:">&ndash;&nbsp;objectAtIndex:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/serialize">&ndash;&nbsp;serialize</a></code>
 	</span>
 	
 	
@@ -189,7 +237,7 @@
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) int count</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) int count</code></div>
 
     
 	
@@ -225,7 +273,7 @@
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSArray *items</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSMutableArray *items</code></div>
 
     
 	
@@ -260,13 +308,125 @@
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
 						
 						<div class="section-method">
+	<a name="//api/name/initWithArray:" title="initWithArray:"></a>
+	<h3 class="subsubtitle method-title">initWithArray:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Initialize object with any array. <a href="#//api/name/items">items</a> property is sets as passed array, <a href="#//api/name/count">count</a> is a <a href="#//api/name/count">count</a> of <a href="#//api/name/items">items</a> in passed array</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)initWithArray:(NSArray *)<em>array</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>array</em></dt>
+			<dd><p>API json array</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>objectClass</em></dt>
+			<dd><p>class of <a href="#//api/name/items">items</a> inside of array</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>Initialized object</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKApiObjectArray.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithArray:objectClass:" title="initWithArray:objectClass:"></a>
+	<h3 class="subsubtitle method-title">initWithArray:objectClass:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Initialize object with API json array. This method tries to set all known properties of current class from array</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)initWithArray:(NSArray *)<em>array</em> objectClass:(Class)<em>objectClass</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>array</em></dt>
+			<dd><p>API json array</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>objectClass</em></dt>
+			<dd><p>class of <a href="#//api/name/items">items</a> inside of array</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>Initialized object</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKApiObjectArray.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/initWithDictionary:objectClass:" title="initWithDictionary:objectClass:"></a>
 	<h3 class="subsubtitle method-title">initWithDictionary:objectClass:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Initialize object with API json dictionary. This method tries to set all known properties of current class from dictionare</p>
+		<p>Initialize object with API json dictionary. This method tries to set all known properties of current class from dictionary</p>
 	</div>		
 	
     
@@ -315,6 +475,83 @@
 	
 </div>
 						
+						<div class="section-method">
+	<a name="//api/name/objectAtIndex:" title="objectAtIndex:"></a>
+	<h3 class="subsubtitle method-title">objectAtIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Array funtions</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (id)objectAtIndex:(NSInteger)<em>idx</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKApiObjectArray.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/serialize" title="serialize"></a>
+	<h3 class="subsubtitle method-title">serialize</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Serialize current object into dictionary</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSDictionary *)serialize</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>Key-value dictionary, contains current object</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKApiObject.h</code><br />
+	</div>				
+	
+	
+</div>
+						
 					</div>
 					
 					
@@ -332,7 +569,7 @@
 					<div class="footer-copyright">
 						<p><span class="copyright">&copy; 2014 VK. All rights reserved. (Last updated: 2014-01-28)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
 					</div>
 				</div>
