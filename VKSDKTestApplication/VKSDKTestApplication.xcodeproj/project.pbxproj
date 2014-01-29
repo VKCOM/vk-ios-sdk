@@ -316,10 +316,7 @@
 					"VKDEBUG=1",
 				);
 				INFOPLIST_FILE = "VKSDKTestApplication/VKSDKTestApplication-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/VKSdkWorkspace-ghpvcyvmpixypwgqyfufolinkorb/Build/Products/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -341,10 +338,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VKSDKTestApplication/VKSDKTestApplication-Prefix.pch";
 				INFOPLIST_FILE = "VKSDKTestApplication/VKSDKTestApplication-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/VKSdkWorkspace-ghpvcyvmpixypwgqyfufolinkorb/Build/Products/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
