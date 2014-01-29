@@ -52,7 +52,7 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 + (void)presentThisController:(VKAuthorizeController *)controller {
 	UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:controller];
 
-	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+	if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
 		navigation.navigationBar.barTintColor = VK_COLOR;
 		navigation.navigationBar.tintColor = [UIColor whiteColor];
         navigation.navigationBar.translucent = YES;
@@ -77,7 +77,7 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 
 - (void)loadView {
 	[super loadView];
-	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+	if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
 		self.edgesForExtendedLayout = UIRectEdgeNone;
 	}
 	UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];

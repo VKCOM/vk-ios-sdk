@@ -23,6 +23,7 @@ CVS
 **/!*.xcworkspace/contents.xcworkspacedata
 !xcshareddata
 xcuserdata
+VKSdkWorkspace.xcworkspace/xcshareddata/
 
 #Project files
 [Bb]uild/
@@ -30,3 +31,7 @@ DerivedData/
 
 #CocoaPods
 Pods
+
+#AppCode
+*/.idea/*
+.idea/*
