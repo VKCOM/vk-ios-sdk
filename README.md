@@ -57,8 +57,13 @@ SDK Initialization
 }
 ```
 2) Initialize SDK with your APP_ID for any delegate.
+```
     [VKSdk initialize:delegate andAppId:YOUR_APP_ID];
-    
+    if ([VKSdk wakeUpSession])
+    {
+        //Start working
+    }
+``` 
 See full description of VKSdkDelegate protocol here: http://vkcom.github.io/vk-ios-sdk/Protocols/VKSdkDelegate.html
 
 User Authorization
