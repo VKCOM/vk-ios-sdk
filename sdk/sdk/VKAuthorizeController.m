@@ -38,8 +38,9 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 
 + (void)presentForAuthorizeWithAppId:(NSString *)appId
                       andPermissions:(NSArray *)permissions
-                        revokeAccess:(BOOL)revoke {
-	VKAuthorizeController *controller  = [[VKAuthorizeController alloc] initWith:appId andPermissions:permissions revokeAccess:revoke];
+                        revokeAccess:(BOOL)revoke
+                         displayType:(VKDisplayType) type {
+	VKAuthorizeController *controller  = [[VKAuthorizeController alloc] initWith:appId andPermissions:permissions revokeAccess:revoke displayType:type];
 	[self presentThisController:controller];
 }
 
@@ -108,12 +109,12 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAuthorization:)];
 }
 
-- (instancetype)initWith:(NSString *)appId andPermissions:(NSArray *)permissions revokeAccess:(BOOL)revoke {
+- (instancetype)initWith:(NSString *)appId andPermissions:(NSArray *)permissions revokeAccess:(BOOL)revoke displayType:(VKDisplayType) display {
 	self = [super init];
 	_appId = appId;
 	_scope = [permissions componentsJoinedByString:@","];
     //
-	_redirectUri = [[self class] buildAuthorizationUrl:REDIRECT_URL clientId:_appId scope:_scope revoke:revoke display:@"mobile"];
+	_redirectUri = [[self class] buildAuthorizationUrl:REDIRECT_URL clientId:_appId scope:_scope revoke:revoke display:display];
 	return self;
 }
 

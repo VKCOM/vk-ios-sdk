@@ -35,6 +35,7 @@
 #import "VKApiModels.h"
 #import "NSError+VKError.h"
 
+
 /**
  Global SDK events delegate protocol.
  You should implement it, typically as main view controller or as application delegate.
@@ -162,6 +163,17 @@
  @param inApp If YES, SDK will try to open modal window with webview to authorize. This method strongly not recommended as user should enter his account data in your application. For use modal view add VKSdkResources.bundle to your project.
  */
 + (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth inApp:(BOOL) inApp;
+
+/**
+ Starts authorization process. If VKapp is available in system, it will opens and requests access from user.
+ Otherwise Mobile Safari will be opened for access request.
+ @param permissions Array of permissions for your applications. All permissions you can
+ @param revokeAccess If YES, user will allow logout (to change user)
+ @param forceOAuth SDK will use only oauth authorization, through uiwebview
+ @param inApp If YES, SDK will try to open modal window with webview to authorize. This method strongly not recommended as user should enter his account data in your application. For use modal view add VKSdkResources.bundle to your project.
+ @param displayType Defines view of authorization screen
+ */
++ (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth inApp:(BOOL) inApp display:(VKDisplayType) displayType;
 
 ///-------------------------------
 /// @name Access token methods

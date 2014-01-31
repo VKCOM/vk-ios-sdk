@@ -20,6 +20,9 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+typedef NSString* VKDisplayType;
+static VKDisplayType const VK_DISPLAY_IOS           = @"ios";
+static VKDisplayType const VK_DISPLAY_MOBILE        = @"mobile";
 //Commons
 static NSString *const VK_API_USER_ID              = @"user_id";
 static NSString *const VK_API_USER_IDS             = @"user_ids";

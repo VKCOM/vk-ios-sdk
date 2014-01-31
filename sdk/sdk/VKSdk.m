@@ -73,8 +73,11 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 }
 + (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth inApp:(BOOL) inApp;
 {
-	NSString *clientId = vkSdkInstance->_currentAppId;
-
+	[self authorize:permissions revokeAccess:revokeAccess forceOAuth:forceOAuth inApp:inApp display:VK_DISPLAY_MOBILE];
+}
++ (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth inApp:(BOOL) inApp display:(VKDisplayType) displayType {
+    NSString *clientId = vkSdkInstance->_currentAppId;
+    
     if (!inApp) {
         NSURL *urlToOpen = [NSURL URLWithString:
                             [NSString stringWithFormat:@"vkauth://authorize?client_id=%@&scope=%@&revoke=%d",
@@ -93,10 +96,9 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
         //Authorization through popup webview
         [VKAuthorizeController presentForAuthorizeWithAppId:clientId
                                              andPermissions:permissions
-                                               revokeAccess:revokeAccess];
-        
+                                               revokeAccess:revokeAccess
+                                                displayType:displayType];
     }
-	
 }
 
 #pragma mark Access token

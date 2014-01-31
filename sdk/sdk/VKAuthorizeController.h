@@ -45,10 +45,12 @@
  @param appId Identifier of VK application
  @param permissions Permissions that user specified for application
  @param revoke If YES, user will see permissions list and allow to logout (if logged in already)
+ @param displayType Defines view of authorization screen
  */
 + (void)presentForAuthorizeWithAppId:(NSString *)appId
                       andPermissions:(NSArray *)permissions
-                        revokeAccess:(BOOL)revoke;
+                        revokeAccess:(BOOL)revoke
+                         displayType:(VKDisplayType) displayType;
 /**
  Causes UIWebView in standard UINavigationController be presented for user validation
  @param validationError validation error returned by API
@@ -67,5 +69,5 @@
                            clientId:(NSString *)clientId
                               scope:(NSString *)scope
                              revoke:(BOOL)revoke
-                            display:(NSString *)display;
+                            display:(VKDisplayType)display;
 @end
