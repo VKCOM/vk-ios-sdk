@@ -25,6 +25,7 @@
 @implementation VKSdk
 @synthesize delegate = _delegate;
 static VKSdk *vkSdkInstance = nil;
+static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_DONT_TOUCH_THIS_PLEASE";
 #pragma mark Initialization
 + (void)initialize {
 	NSAssert([VKSdk class] == self, @"Subclassing is not welcome");
@@ -100,8 +101,12 @@ static VKSdk *vkSdkInstance = nil;
 
 #pragma mark Access token
 + (void)setAccessToken:(VKAccessToken *)token {
+    [token saveTokenToDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
+    id oldToken = vkSdkInstance->_accessToken;
 	vkSdkInstance->_accessToken = token;
-	if ([vkSdkInstance->_delegate respondsToSelector:@selector(vkSdkDidReceiveNewToken:)])
+    if (oldToken && [vkSdkInstance->_delegate respondsToSelector:@selector(vkSdkDidRenewToken:)])
+        [vkSdkInstance->_delegate vkSdkDidRenewToken:token];
+	if (!oldToken && [vkSdkInstance->_delegate respondsToSelector:@selector(vkSdkDidReceiveNewToken:)])
 		[vkSdkInstance->_delegate vkSdkDidReceiveNewToken:token];
 }
 
@@ -158,6 +163,13 @@ static VKSdk *vkSdkInstance = nil;
             [[NSHTTPCookieStorage sharedHTTPCookieStorage]
              deleteCookie:cookie];
         }
+}
++(BOOL)wakeUpSession {
+    VKAccessToken * token = [VKAccessToken tokenFromDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
+    vkSdkInstance->_accessToken = token;
+    if (!token.isExpired)
+        return YES;
+    return NO;
 }
 
 @end

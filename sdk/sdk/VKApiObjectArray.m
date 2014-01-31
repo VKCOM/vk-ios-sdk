@@ -55,7 +55,6 @@
     return self;
 }
 - (NSMutableArray*) parseItems:(NSArray*) toParse asClass:(Class) objectClass {
-    NSTimeInterval time = [[NSDate new] timeIntervalSince1970];
     NSMutableArray * listOfParsedObjects = [NSMutableArray new];
     for (id userDictionary in toParse) {
         if ([userDictionary isKindOfClass:objectClass])
@@ -65,7 +64,6 @@
         else
             [listOfParsedObjects addObject:userDictionary];
     }
-    NSLog(@"Parse %@: %f s.", self, [[NSDate new] timeIntervalSince1970] - time);
     return listOfParsedObjects;
     
 }

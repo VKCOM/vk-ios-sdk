@@ -77,6 +77,11 @@
  @param token used token for API requests
  */
 - (void)vkSdkDidAcceptUserToken:(VKAccessToken *)token;
+/**
+ Notifies delegate about receiving new access token
+ @param newToken new token for API requests
+ */
+- (void)vkSdkDidRenewToken:(VKAccessToken *)newToken;
 
 @end
 
@@ -192,6 +197,10 @@
  */
 + (BOOL)processOpenURL:(NSURL *)passedUrl fromApplication:(NSString *)sourceApplication;
 
+/**
+ Make try to read token from defaults and start session again.
+ */
++ (BOOL) wakeUpSession;
 /**
  Forces logout using OAuth (with VKAuthorizeController). Removes all cookies for *.vk.com.
  Has no effect for logout in VK app
