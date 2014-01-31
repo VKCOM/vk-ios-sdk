@@ -45,7 +45,7 @@
 @property (nonatomic, strong) NSString *photo_max_orig;
 @property (nonatomic, strong) NSNumber *online;
 @property (nonatomic, strong) NSNumber *online_mobile;
-@property (nonatomic, strong) NSString *lists;
+@property (nonatomic, strong) NSArray  *lists;
 @property (nonatomic, strong) NSString *domain;
 @property (nonatomic, strong) NSNumber *has_mobile;
 @property (nonatomic, strong) NSDictionary *contacts;

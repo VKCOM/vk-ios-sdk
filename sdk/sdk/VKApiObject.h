@@ -20,7 +20,21 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import <objc/runtime.h>
 #import "VKObject.h"
+/**
+ Helps in objects parsing
+ */
+@interface VKPropertyHelper : NSObject
+@property (nonatomic, readonly) NSString *propertyName;
+@property (nonatomic, readonly) NSString *propertyClassName;
+@property (nonatomic, readonly) Class propertyClass;
+@property (nonatomic, readonly) BOOL isPrimitive;
+@property (nonatomic, readonly) BOOL isModelsArray;
+@property (nonatomic, readonly) BOOL isModel;
+
+-(instancetype) initWith:(objc_property_t) prop;
+@end
 
 /**
  Basic class for API objects
