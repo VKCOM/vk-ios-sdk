@@ -37,9 +37,15 @@ static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
-	[VKSdk initializeWithDelegate:self andAppId:@"3974615" andCustomToken:[VKAccessToken tokenFromDefaults:TOKEN_KEY]];
+	[VKSdk initializeWithDelegate:self andAppId:@"3974615"];
+    if ([VKSdk wakeUpSession])
+    {
+        [self startWorking];
+    }
 }
-
+- (void)startWorking {
+    [self performSegueWithIdentifier:NEXT_CONTROLLER_SEGUE_ID sender:self];
+}
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
 	// Dispose of any resources that can be recreated.
@@ -54,7 +60,7 @@ static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
 }
 
 - (IBAction)authorizeForceOAuthInApp:(id)sender {
-	[VKSdk authorize:@[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_MESSAGES] revokeAccess:YES forceOAuth:YES inApp:YES];
+	[VKSdk authorize:@[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_MESSAGES] revokeAccess:YES forceOAuth:YES inApp:YES display:VK_DISPLAY_IOS];
 }
 
 - (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {
@@ -67,8 +73,7 @@ static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
 }
 
 - (void)vkSdkDidReceiveNewToken:(VKAccessToken *)newToken {
-	[newToken saveTokenToDefaults:TOKEN_KEY];
-	[self performSegueWithIdentifier:NEXT_CONTROLLER_SEGUE_ID sender:self];
+    [self startWorking];
 }
 
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller {
@@ -76,11 +81,11 @@ static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
 }
 
 - (void)vkSdkDidAcceptUserToken:(VKAccessToken *)token {
-	[self performSegueWithIdentifier:NEXT_CONTROLLER_SEGUE_ID sender:self];
+    [self startWorking];
 }
-
 - (void)vkSdkUserDeniedAccess:(VKError *)authorizationError {
 	[[[UIAlertView alloc] initWithTitle:nil message:@"Access denied" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
 }
+
 
 @end
