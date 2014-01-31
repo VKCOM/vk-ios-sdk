@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.2 (build 963)" />
+		<meta name="generator" content="appledoc 2.2 (build 961)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -54,6 +54,8 @@
 	
 	<option value="//api/name/authorize:revokeAccess:forceOAuth:inApp:">&nbsp;&nbsp;&nbsp;&nbsp;+ authorize:revokeAccess:forceOAuth:inApp:</option>
 	
+	<option value="//api/name/authorize:revokeAccess:forceOAuth:inApp:display:">&nbsp;&nbsp;&nbsp;&nbsp;+ authorize:revokeAccess:forceOAuth:inApp:display:</option>
+	
 	<option value="//api/name/forceLogout">&nbsp;&nbsp;&nbsp;&nbsp;+ forceLogout</option>
 	
 	<option value="//api/name/getAccessToken">&nbsp;&nbsp;&nbsp;&nbsp;+ getAccessToken</option>
@@ -69,6 +71,8 @@
 	<option value="//api/name/setAccessToken:">&nbsp;&nbsp;&nbsp;&nbsp;+ setAccessToken:</option>
 	
 	<option value="//api/name/setAccessTokenError:">&nbsp;&nbsp;&nbsp;&nbsp;+ setAccessTokenError:</option>
+	
+	<option value="//api/name/wakeUpSession">&nbsp;&nbsp;&nbsp;&nbsp;+ wakeUpSession</option>
 	
 	
 	
@@ -122,6 +126,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/authorize:revokeAccess:forceOAuth:inApp:">authorize:revokeAccess:forceOAuth:inApp:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/authorize:revokeAccess:forceOAuth:inApp:display:">authorize:revokeAccess:forceOAuth:inApp:display:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/forceLogout">forceLogout</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getAccessToken">getAccessToken</a></span></li>
@@ -137,6 +143,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setAccessToken:">setAccessToken:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setAccessTokenError:">setAccessTokenError:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/wakeUpSession">wakeUpSession</a></span></li>
 	
 </ul></li>
 
@@ -257,6 +265,12 @@
 	</span>
 	
 	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/authorize:revokeAccess:forceOAuth:inApp:display:">+&nbsp;authorize:revokeAccess:forceOAuth:inApp:display:</a></code>
+	</span>
+	
+	
 </li>
 						</ul>
 						
@@ -294,6 +308,12 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/processOpenURL:fromApplication:">+&nbsp;processOpenURL:fromApplication:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/wakeUpSession">+&nbsp;wakeUpSession</a></code>
 	</span>
 	
 	
@@ -554,6 +574,73 @@ Otherwise Mobile Safari will be opened for access request.</p>
 		<dl class="argument-def parameter-def">
 			<dt><em>inApp</em></dt>
 			<dd><p>If YES, SDK will try to open modal window with webview to authorize. This method strongly not recommended as user should enter his account data in your application. For use modal view add VKSdkResources.bundle to your project.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKSdk.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/authorize:revokeAccess:forceOAuth:inApp:display:" title="authorize:revokeAccess:forceOAuth:inApp:display:"></a>
+	<h3 class="subsubtitle method-title">authorize:revokeAccess:forceOAuth:inApp:display:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Starts authorization process. If VKapp is available in system, it will opens and requests access from user.
+Otherwise Mobile Safari will be opened for access request.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)authorize:(NSArray *)<em>permissions</em> revokeAccess:(BOOL)<em>revokeAccess</em> forceOAuth:(BOOL)<em>forceOAuth</em> inApp:(BOOL)<em>inApp</em> display:(VKDisplayType)<em>displayType</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>permissions</em></dt>
+			<dd><p>Array of permissions for your applications. All permissions you can</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>revokeAccess</em></dt>
+			<dd><p>If YES, user will allow logout (to change user)</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>forceOAuth</em></dt>
+			<dd><p>SDK will use only oauth authorization, through uiwebview</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>inApp</em></dt>
+			<dd><p>If YES, SDK will try to open modal window with webview to authorize. This method strongly not recommended as user should enter his account data in your application. For use modal view add VKSdkResources.bundle to your project.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>displayType</em></dt>
+			<dd><p>Defines view of authorization screen</p></dd>
 		</dl>
 		
 	</div>
@@ -948,6 +1035,42 @@ Has no effect for logout in VK app</p>
 	
 </div>
 						
+						<div class="section-method">
+	<a name="//api/name/wakeUpSession" title="wakeUpSession"></a>
+	<h3 class="subsubtitle method-title">wakeUpSession</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Make try to read token from defaults and start session again.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (BOOL)wakeUpSession</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKSdk.h</code><br />
+	</div>				
+	
+	
+</div>
+						
 					</div>
 					
 					
@@ -965,9 +1088,9 @@ Has no effect for logout in VK app</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 VK. All rights reserved. (Last updated: 2014-01-28)</span><br />
+						<p><span class="copyright">&copy; 2014 VK. All rights reserved. (Last updated: 2014-01-31)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
 						
 					</div>
 				</div>
