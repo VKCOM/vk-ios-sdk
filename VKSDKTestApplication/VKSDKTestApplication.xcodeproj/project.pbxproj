@@ -20,7 +20,6 @@
 		F3EEFF761827B1DD000BB525 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EEFF751827B1DD000BB525 /* main.m */; };
 		F3EEFF7A1827B1DD000BB525 /* VKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EEFF791827B1DD000BB525 /* VKAppDelegate.m */; };
 		F3EEFF7C1827B1DD000BB525 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3EEFF7B1827B1DD000BB525 /* Images.xcassets */; };
-		F3EEFF9F1827B27C000BB525 /* VKSdk.h in Resources */ = {isa = PBXBuildFile; fileRef = F3EEFF9E1827B27C000BB525 /* VKSdk.h */; };
 		F3EEFFC01827E990000BB525 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EEFFBE1827E990000BB525 /* TestViewController.m */; };
 		F3EEFFCE1827F9AF000BB525 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFFCD1827F9AF000BB525 /* MobileCoreServices.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		F3EEFFD01827F9B5000BB525 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFFCF1827F9B5000BB525 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -47,7 +46,6 @@
 		F3EEFF791827B1DD000BB525 /* VKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKAppDelegate.m; sourceTree = "<group>"; };
 		F3EEFF7B1827B1DD000BB525 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F3EEFF821827B1DD000BB525 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		F3EEFF9E1827B27C000BB525 /* VKSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VKSdk.h; path = ../sdk/sdk/VKSdk.h; sourceTree = "<group>"; };
 		F3EEFFBD1827E990000BB525 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		F3EEFFBE1827E990000BB525 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		F3EEFFCA1827F6B7000BB525 /* libVKSdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVKSdk.a; path = "../../../../Library/Developer/Xcode/DerivedData/VKSdkWorkspace-ghpvcyvmpixypwgqyfufolinkorb/Build/Products/Debug-iphoneos/libVKSdk.a"; sourceTree = "<group>"; };
@@ -76,7 +74,6 @@
 			isa = PBXGroup;
 			children = (
 				F3BACC5D1865EA30003158DA /* VKSdkResources.bundle */,
-				F3EEFF9E1827B27C000BB525 /* VKSdk.h */,
 				F3EEFF6F1827B1DD000BB525 /* VKSDKTestApplication */,
 				F3EEFF681827B1DD000BB525 /* Frameworks */,
 				F3EEFF671827B1DD000BB525 /* Products */,
@@ -188,7 +185,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3EEFF9F1827B27C000BB525 /* VKSdk.h in Resources */,
 				F3BACC5E1865EA30003158DA /* VKSdkResources.bundle in Resources */,
 				F3DC2446183B811E00E3A93D /* Storyboard.storyboard in Resources */,
 				F3EEFF741827B1DD000BB525 /* InfoPlist.strings in Resources */,

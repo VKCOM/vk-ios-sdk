@@ -83,6 +83,11 @@
 		183C477118B2F1FD00F978DB /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EEFFD4182909F3000BB525 /* NSData+MD5.m */; };
 		183C477218B2F1FD00F978DB /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EEFFD6182909F3000BB525 /* NSString+MD5.m */; };
 		183C477318B2F1FD00F978DB /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EEFFDE1829100C000BB525 /* OrderedDictionary.m */; };
+		183C477418B2F3CF00F978DB /* VKUtil.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3EEFFBB1827C2B6000BB525 /* VKUtil.h */; };
+		183C477518B2F3CF00F978DB /* NSData+AES256.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3EEFFC51827F018000BB525 /* NSData+AES256.h */; };
+		183C477618B2F3CF00F978DB /* NSData+MD5.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3EEFFD3182909F3000BB525 /* NSData+MD5.h */; };
+		183C477718B2F3CF00F978DB /* NSString+MD5.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3EEFFD5182909F3000BB525 /* NSString+MD5.h */; };
+		183C477818B2F3CF00F978DB /* OrderedDictionary.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3EEFFDD1829100C000BB525 /* OrderedDictionary.h */; };
 		18680EAA1834F23500E532C8 /* VKCaptchaView.h in Headers */ = {isa = PBXBuildFile; fileRef = 18680EA81834F23500E532C8 /* VKCaptchaView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F311207618588D4E004A9A40 /* VKHTTPOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = F311207418588D4E004A9A40 /* VKHTTPOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F311207A18588D67004A9A40 /* VKHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F311207818588D67004A9A40 /* VKHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -134,6 +139,11 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				183C477418B2F3CF00F978DB /* VKUtil.h in Copy Files */,
+				183C477518B2F3CF00F978DB /* NSData+AES256.h in Copy Files */,
+				183C477618B2F3CF00F978DB /* NSData+MD5.h in Copy Files */,
+				183C477718B2F3CF00F978DB /* NSString+MD5.h in Copy Files */,
+				183C477818B2F3CF00F978DB /* OrderedDictionary.h in Copy Files */,
 				183C471C18B2EEE800F978DB /* VKApiBase.h in Copy Files */,
 				183C471D18B2EEE800F978DB /* VKApiPhotos.h in Copy Files */,
 				183C471E18B2EEE800F978DB /* VKApiWall.h in Copy Files */,
