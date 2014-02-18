@@ -25,3 +25,9 @@
 @implementation VKUser
 
 @end
+@implementation VKGeoObject
+@end
+@implementation VKCity
+@end
+@implementation VKCountry
+@end

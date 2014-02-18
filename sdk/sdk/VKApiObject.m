@@ -169,7 +169,7 @@ static NSString *getPropertyName(objc_property_t prop) {
     }
     
 	if (PRINT_PARSE_DEBUG_INFO && warnings.count)
-		NSLog(@"Parsing complete. Warnings: %@", warnings);
+		NSLog(@"Parsing %@ complete. Warnings: %@", self, warnings);
 }
 
 - (void)enumPropertiesWithBlock:(void (^)(VKPropertyHelper * helper, int totalProps))processBlock {
