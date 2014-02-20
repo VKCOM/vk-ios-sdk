@@ -58,7 +58,7 @@ SDK Initialization
 ```
 2) Initialize SDK with your APP_ID for any delegate.
 ```
-    [VKSdk initialize:delegate andAppId:YOUR_APP_ID];
+    [VKSdk initializeWithDelegate:delegate andAppId:YOUR_APP_ID];
     if ([VKSdk wakeUpSession])
     {
         //Start working
