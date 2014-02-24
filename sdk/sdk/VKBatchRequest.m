@@ -36,6 +36,16 @@
 	va_end(args);
 	return self;
 }
+
+- (instancetype)initWithRequestsArray:(NSArray *)requests
+{
+	self = [super init];
+    if(self){
+        _requests = [NSMutableArray arrayWithArray:requests];
+    }
+	return self;
+}
+
 - (void)executeWithResultBlock:(void (^)(NSArray *responses))completeBlock errorBlock:(void (^)(NSError *))errorBlock {
 	self.completeBlock  = completeBlock;
 	self.errorBlock     = errorBlock;

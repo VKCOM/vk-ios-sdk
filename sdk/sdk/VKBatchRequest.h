@@ -44,6 +44,12 @@
  */
 - (instancetype)initWithRequests:(VKRequest *)firstRequest, ...NS_REQUIRES_NIL_TERMINATION;
 /**
+ Initializes batch processing with requests array
+ @param requests Array of requests should be loaded.
+ @return Prepared request
+ */
+- (instancetype)initWithRequestsArray:(NSArray *)requests;
+/**
  Executes batch request
  @param completeBlock will receive result of passed requests
  @param errorBlock called if any request did fail
