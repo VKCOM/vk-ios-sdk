@@ -1,0 +1,4 @@
+VKActivity
+==========
+
+VKActivity для UIActivityViewController
