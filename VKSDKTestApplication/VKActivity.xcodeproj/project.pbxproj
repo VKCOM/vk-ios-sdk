@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F3B7EEAB184353CF00104B90 /* ApiCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B7EEAA184353CF00104B90 /* ApiCallViewController.m */; };
+		1C7C32B118C08FEE002BD584 /* VKontakteActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7C32B018C08FEE002BD584 /* VKontakteActivity.m */; };
+		1C7C32BA18C0907F002BD584 /* vk_activity.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7C32B818C0907F002BD584 /* vk_activity.png */; };
+		1C7C32BB18C0907F002BD584 /* vk_activity@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7C32B918C0907F002BD584 /* vk_activity@2x.png */; };
+		1C7C32BD18C09332002BD584 /* example.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C7C32BC18C09332002BD584 /* example.jpg */; };
+		1C7C32C418C0A873002BD584 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7C32C318C0A873002BD584 /* MBProgressHUD.m */; };
 		F3BACC4F18659103003158DA /* libVKSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFFCA1827F6B7000BB525 /* libVKSdk.a */; };
 		F3BACC5E1865EA30003158DA /* VKSdkResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F3BACC5D1865EA30003158DA /* VKSdkResources.bundle */; };
-		F3D38E6F183CD29700D05079 /* VKStartScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D38E6E183CD29700D05079 /* VKStartScreen.m */; };
 		F3D38E74183CFEC300D05079 /* fat_awesome.png in Resources */ = {isa = PBXBuildFile; fileRef = F3D38E73183CFEC300D05079 /* fat_awesome.png */; };
 		F3DC2446183B811E00E3A93D /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3DC2445183B811E00E3A93D /* Storyboard.storyboard */; };
 		F3EEFF6A1827B1DD000BB525 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFF691827B1DD000BB525 /* Foundation.framework */; };
@@ -26,22 +29,25 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F3B7EEA9184353CF00104B90 /* ApiCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiCallViewController.h; sourceTree = "<group>"; };
-		F3B7EEAA184353CF00104B90 /* ApiCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiCallViewController.m; sourceTree = "<group>"; };
+		1C7C32AF18C08FEE002BD584 /* VKontakteActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKontakteActivity.h; sourceTree = "<group>"; };
+		1C7C32B018C08FEE002BD584 /* VKontakteActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKontakteActivity.m; sourceTree = "<group>"; };
+		1C7C32B818C0907F002BD584 /* vk_activity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_activity.png; sourceTree = "<group>"; };
+		1C7C32B918C0907F002BD584 /* vk_activity@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_activity@2x.png"; sourceTree = "<group>"; };
+		1C7C32BC18C09332002BD584 /* example.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = example.jpg; sourceTree = "<group>"; };
+		1C7C32C218C0A873002BD584 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = ../../MBProgressHUD/MBProgressHUD.h; sourceTree = "<group>"; };
+		1C7C32C318C0A873002BD584 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = ../../MBProgressHUD/MBProgressHUD.m; sourceTree = "<group>"; };
 		F3BACC301865902D003158DA /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		F3BACC5D1865EA30003158DA /* VKSdkResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = VKSdkResources.bundle; path = ../VKSdkResources.bundle; sourceTree = "<group>"; };
-		F3D38E6D183CD29700D05079 /* VKStartScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKStartScreen.h; sourceTree = "<group>"; };
-		F3D38E6E183CD29700D05079 /* VKStartScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKStartScreen.m; sourceTree = "<group>"; };
 		F3D38E73183CFEC300D05079 /* fat_awesome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fat_awesome.png; sourceTree = "<group>"; };
 		F3DC2445183B811E00E3A93D /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
-		F3EEFF661827B1DD000BB525 /* VKSDKTestApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKSDKTestApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3EEFF661827B1DD000BB525 /* VKActivity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKActivity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3EEFF691827B1DD000BB525 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F3EEFF6B1827B1DD000BB525 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		F3EEFF6D1827B1DD000BB525 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		F3EEFF711827B1DD000BB525 /* VKSDKTestApplication-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VKSDKTestApplication-Info.plist"; sourceTree = "<group>"; };
+		F3EEFF711827B1DD000BB525 /* VKActivity-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VKActivity-Info.plist"; sourceTree = "<group>"; };
 		F3EEFF731827B1DD000BB525 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F3EEFF751827B1DD000BB525 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F3EEFF771827B1DD000BB525 /* VKSDKTestApplication-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VKSDKTestApplication-Prefix.pch"; sourceTree = "<group>"; };
+		F3EEFF771827B1DD000BB525 /* VKActivity-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VKActivity-Prefix.pch"; sourceTree = "<group>"; };
 		F3EEFF781827B1DD000BB525 /* VKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKAppDelegate.h; sourceTree = "<group>"; };
 		F3EEFF791827B1DD000BB525 /* VKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKAppDelegate.m; sourceTree = "<group>"; };
 		F3EEFF7B1827B1DD000BB525 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -70,6 +76,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C7C32C518C0B4E2002BD584 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				1C7C32C218C0A873002BD584 /* MBProgressHUD.h */,
+				1C7C32C318C0A873002BD584 /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		1C7C32C618C0B577002BD584 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				1C7C32B818C0907F002BD584 /* vk_activity.png */,
+				1C7C32B918C0907F002BD584 /* vk_activity@2x.png */,
+				1C7C32BC18C09332002BD584 /* example.jpg */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
 		F3EEFF5D1827B1DD000BB525 = {
 			isa = PBXGroup;
 			children = (
@@ -83,7 +108,7 @@
 		F3EEFF671827B1DD000BB525 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F3EEFF661827B1DD000BB525 /* VKSDKTestApplication.app */,
+				F3EEFF661827B1DD000BB525 /* VKActivity.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -111,12 +136,12 @@
 				F3EEFF7B1827B1DD000BB525 /* Images.xcassets */,
 				F3EEFF701827B1DD000BB525 /* Supporting Files */,
 				F3DC2445183B811E00E3A93D /* Storyboard.storyboard */,
-				F3D38E6D183CD29700D05079 /* VKStartScreen.h */,
-				F3D38E6E183CD29700D05079 /* VKStartScreen.m */,
 				F3EEFFBD1827E990000BB525 /* TestViewController.h */,
 				F3EEFFBE1827E990000BB525 /* TestViewController.m */,
-				F3B7EEA9184353CF00104B90 /* ApiCallViewController.h */,
-				F3B7EEAA184353CF00104B90 /* ApiCallViewController.m */,
+				1C7C32AF18C08FEE002BD584 /* VKontakteActivity.h */,
+				1C7C32B018C08FEE002BD584 /* VKontakteActivity.m */,
+				1C7C32C618C0B577002BD584 /* images */,
+				1C7C32C518C0B4E2002BD584 /* MBProgressHUD */,
 			);
 			path = VKSDKTestApplication;
 			sourceTree = "<group>";
@@ -125,10 +150,10 @@
 			isa = PBXGroup;
 			children = (
 				F3D38E73183CFEC300D05079 /* fat_awesome.png */,
-				F3EEFF711827B1DD000BB525 /* VKSDKTestApplication-Info.plist */,
+				F3EEFF711827B1DD000BB525 /* VKActivity-Info.plist */,
 				F3EEFF721827B1DD000BB525 /* InfoPlist.strings */,
 				F3EEFF751827B1DD000BB525 /* main.m */,
-				F3EEFF771827B1DD000BB525 /* VKSDKTestApplication-Prefix.pch */,
+				F3EEFF771827B1DD000BB525 /* VKActivity-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -136,9 +161,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F3EEFF651827B1DD000BB525 /* VKSDKTestApplication */ = {
+		F3EEFF651827B1DD000BB525 /* VKActivity */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F3EEFF921827B1DE000BB525 /* Build configuration list for PBXNativeTarget "VKSDKTestApplication" */;
+			buildConfigurationList = F3EEFF921827B1DE000BB525 /* Build configuration list for PBXNativeTarget "VKActivity" */;
 			buildPhases = (
 				F3EEFF621827B1DD000BB525 /* Sources */,
 				F3EEFF631827B1DD000BB525 /* Frameworks */,
@@ -148,9 +173,9 @@
 			);
 			dependencies = (
 			);
-			name = VKSDKTestApplication;
+			name = VKActivity;
 			productName = VKSDKTestApplication;
-			productReference = F3EEFF661827B1DD000BB525 /* VKSDKTestApplication.app */;
+			productReference = F3EEFF661827B1DD000BB525 /* VKActivity.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -163,7 +188,7 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = VK;
 			};
-			buildConfigurationList = F3EEFF611827B1DD000BB525 /* Build configuration list for PBXProject "VKSDKTestApplication" */;
+			buildConfigurationList = F3EEFF611827B1DD000BB525 /* Build configuration list for PBXProject "VKActivity" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -175,7 +200,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F3EEFF651827B1DD000BB525 /* VKSDKTestApplication */,
+				F3EEFF651827B1DD000BB525 /* VKActivity */,
 			);
 		};
 /* End PBXProject section */
@@ -185,8 +210,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C7C32BD18C09332002BD584 /* example.jpg in Resources */,
+				1C7C32BA18C0907F002BD584 /* vk_activity.png in Resources */,
 				F3BACC5E1865EA30003158DA /* VKSdkResources.bundle in Resources */,
 				F3DC2446183B811E00E3A93D /* Storyboard.storyboard in Resources */,
+				1C7C32BB18C0907F002BD584 /* vk_activity@2x.png in Resources */,
 				F3EEFF741827B1DD000BB525 /* InfoPlist.strings in Resources */,
 				F3EEFF7C1827B1DD000BB525 /* Images.xcassets in Resources */,
 				F3D38E74183CFEC300D05079 /* fat_awesome.png in Resources */,
@@ -202,9 +230,9 @@
 			files = (
 				F3EEFFC01827E990000BB525 /* TestViewController.m in Sources */,
 				F3EEFF761827B1DD000BB525 /* main.m in Sources */,
-				F3D38E6F183CD29700D05079 /* VKStartScreen.m in Sources */,
 				F3EEFF7A1827B1DD000BB525 /* VKAppDelegate.m in Sources */,
-				F3B7EEAB184353CF00104B90 /* ApiCallViewController.m in Sources */,
+				1C7C32B118C08FEE002BD584 /* VKontakteActivity.m in Sources */,
+				1C7C32C418C0A873002BD584 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,7 +283,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -288,7 +316,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -306,15 +334,15 @@
 					"$(SRCROOT)/..",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "VKSDKTestApplication/VKSDKTestApplication-Prefix.pch";
+				GCC_PREFIX_HEADER = "VKSDKTestApplication/VKActivity-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"VKDEBUG=1",
 				);
-				INFOPLIST_FILE = "VKSDKTestApplication/VKSDKTestApplication-Info.plist";
+				INFOPLIST_FILE = "VKSDKTestApplication/VKActivity-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = VKActivity;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -332,11 +360,11 @@
 					"$(SRCROOT)/..",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "VKSDKTestApplication/VKSDKTestApplication-Prefix.pch";
-				INFOPLIST_FILE = "VKSDKTestApplication/VKSDKTestApplication-Info.plist";
+				GCC_PREFIX_HEADER = "VKSDKTestApplication/VKActivity-Prefix.pch";
+				INFOPLIST_FILE = "VKSDKTestApplication/VKActivity-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = VKActivity;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -345,7 +373,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F3EEFF611827B1DD000BB525 /* Build configuration list for PBXProject "VKSDKTestApplication" */ = {
+		F3EEFF611827B1DD000BB525 /* Build configuration list for PBXProject "VKActivity" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F3EEFF901827B1DE000BB525 /* Debug */,
@@ -354,7 +382,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F3EEFF921827B1DE000BB525 /* Build configuration list for PBXNativeTarget "VKSDKTestApplication" */ = {
+		F3EEFF921827B1DE000BB525 /* Build configuration list for PBXNativeTarget "VKActivity" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F3EEFF931827B1DE000BB525 /* Debug */,
