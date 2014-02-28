@@ -40,7 +40,7 @@
 }
 
 - (NSString *)activityTitle {
-    return NSLocalizedString(@"VKontakte", @"ВКонтакте");
+    return @"ВКонтакте";
 }
 
 - (UIImage *)activityImage {
@@ -107,10 +107,10 @@
     [self postToWall];
 }
 - (void)vkSdkUserDeniedAccess:(VKError *)authorizationError {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Access denied"
-                                                        message:@"Access denied"
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Доступ запрещён"
+                                                        message:@"Доступ запрещён"
                                                        delegate:self
-                                              cancelButtonTitle:@"Close"
+                                              cancelButtonTitle:@"Закрыть"
                                               otherButtonTitles:nil];
     [alertView show];
     
@@ -131,7 +131,7 @@
     self.HUD = [[MBProgressHUD alloc] initWithView:view];
 	[view addSubview:self.HUD];
     self.HUD.mode = MBProgressHUDModeIndeterminate;
-    self.HUD.labelText = NSLocalizedString(@"UPLOAD_MESSAGE", @"Загрузка...");
+    self.HUD.labelText = @"Загрузка...";
 	[self.HUD show:YES];
    
     NSString *userId = [VKSdk getAccessToken].userId;
@@ -161,7 +161,7 @@
     self.HUD = [[MBProgressHUD alloc] initWithView:view];
 	[view addSubview:self.HUD];
     self.HUD.mode = MBProgressHUDModeIndeterminate;
-    self.HUD.labelText = NSLocalizedString(@"UPLOAD_MESSAGE", @"Загрузка...");
+    self.HUD.labelText = @"Загрузка...";
 	[self.HUD show:YES];
     
     NSString *userId = [VKSdk getAccessToken].userId;
