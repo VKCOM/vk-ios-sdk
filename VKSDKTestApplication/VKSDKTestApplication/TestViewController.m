@@ -43,7 +43,7 @@ static NSString *const SHARE_PHOTO = @"Share photo";
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc]
                                                         initWithActivityItems:items
                                                         applicationActivities:@[vkontakteActivity]];
-    [activityViewController setValue:@"Мировое закулисье" forKey:@"subject"];
+    [activityViewController setValue:@"Противостояние" forKey:@"subject"];
     [activityViewController setCompletionHandler:nil];
     
     [self presentViewController:activityViewController animated:YES completion:nil];
