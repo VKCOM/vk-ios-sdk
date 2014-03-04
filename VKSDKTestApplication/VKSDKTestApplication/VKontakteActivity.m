@@ -42,7 +42,7 @@ static NSString * kAppID= @"3974615";
 }
 
 - (NSString *)activityTitle {
-    return @"ВКонтакте";
+    return @"VKontakte";
 }
 
 - (UIImage *)activityImage {
@@ -108,7 +108,7 @@ static NSString * kAppID= @"3974615";
 	[request executeWithResultBlock: ^(VKResponse *response) {
 	    VKPhoto *photoInfo = [(VKPhotoArray*)response.parsedModel objectAtIndex:0];
 	    NSString *photoAttachment = [NSString stringWithFormat:@"photo%@_%@", photoInfo.owner_id, photoInfo.id];
-        [self postParameters:@{ VK_API_ATTACHMENTS : photoAttachment,
+        [self postToWall:@{ VK_API_ATTACHMENTS : photoAttachment,
                                 VK_API_FRIENDS_ONLY : @(0),
                                 VK_API_OWNER_ID : userId,
                                 VK_API_MESSAGE : [NSString stringWithFormat:@"%@ %@",self.string, [self.URL absoluteString]]}];
@@ -119,12 +119,12 @@ static NSString * kAppID= @"3974615";
 }
 
 -(void)uploadText{
-    [self postParameters:@{ VK_API_FRIENDS_ONLY : @(0),
+    [self postToWall:@{ VK_API_FRIENDS_ONLY : @(0),
                             VK_API_OWNER_ID : [VKSdk getAccessToken].userId,
                             VK_API_MESSAGE : self.string}];
 }
 
--(void)postParameters:(NSDictionary *)params{
+-(void)postToWall:(NSDictionary *)params{
     VKRequest *post = [[VKApi wall] post:params];
     [post executeWithResultBlock: ^(VKResponse *response) {
         NSNumber * postId = response.json[@"post_id"];
@@ -173,10 +173,10 @@ static NSString * kAppID= @"3974615";
     [self postToWall];
 }
 - (void)vkSdkUserDeniedAccess:(VKError *)authorizationError {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Доступ запрещён"
-                                                        message:@"Доступ запрещён"
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                        message:@"Access denied"
                                                        delegate:self
-                                              cancelButtonTitle:@"Закрыть"
+                                              cancelButtonTitle:@"Close"
                                               otherButtonTitles:nil];
     [alertView show];
     
