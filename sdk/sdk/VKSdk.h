@@ -72,17 +72,17 @@
  Notifies delegate about receiving new access token
  @param newToken new token for API requests
  */
-- (void)vkSdkDidReceiveNewToken:(VKAccessToken *)newToken;
+- (void)vkSdkReceivedNewToken:(VKAccessToken *)newToken;
 /**
  Notifies delegate about receiving predefined token (initializeWithDelegate:andAppId:andCustomToken: token is not nil)
  @param token used token for API requests
  */
-- (void)vkSdkDidAcceptUserToken:(VKAccessToken *)token;
+- (void)vkSdkAcceptedUserToken:(VKAccessToken *)token;
 /**
  Notifies delegate about receiving new access token
  @param newToken new token for API requests
  */
-- (void)vkSdkDidRenewToken:(VKAccessToken *)newToken;
+- (void)vkSdkRenewedToken:(VKAccessToken *)newToken;
 
 @end
 

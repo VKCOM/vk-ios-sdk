@@ -49,8 +49,8 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
     
 	if (token) {
 		vkSdkInstance->_accessToken     = token;
-		if ([delegate respondsToSelector:@selector(vkSdkDidAcceptUserToken:)]) {
-			[delegate vkSdkDidAcceptUserToken:token];
+		if ([delegate respondsToSelector:@selector(vkSdkAcceptedUserToken:)]) {
+			[delegate vkSdkAcceptedUserToken:token];
 		}
 	}
 }
@@ -106,10 +106,10 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
     [token saveTokenToDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
     id oldToken = vkSdkInstance->_accessToken;
 	vkSdkInstance->_accessToken = token;
-    if (oldToken && [vkSdkInstance->_delegate respondsToSelector:@selector(vkSdkDidRenewToken:)])
-        [vkSdkInstance->_delegate vkSdkDidRenewToken:token];
-	if (!oldToken && [vkSdkInstance->_delegate respondsToSelector:@selector(vkSdkDidReceiveNewToken:)])
-		[vkSdkInstance->_delegate vkSdkDidReceiveNewToken:token];
+    if (oldToken && [vkSdkInstance->_delegate respondsToSelector:@selector(vkSdkRenewedToken:)])
+        [vkSdkInstance->_delegate vkSdkRenewedToken:token];
+	if (!oldToken && [vkSdkInstance->_delegate respondsToSelector:@selector(vkSdkReceivedNewToken:)])
+		[vkSdkInstance->_delegate vkSdkReceivedNewToken:token];
 }
 
 + (void)setAccessTokenError:(VKError *)error {

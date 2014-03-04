@@ -72,7 +72,7 @@ static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
 	[self authorize:nil];
 }
 
-- (void)vkSdkDidReceiveNewToken:(VKAccessToken *)newToken {
+- (void)vkSdkReceivedNewToken:(VKAccessToken *)newToken {
     [self startWorking];
 }
 
@@ -80,7 +80,7 @@ static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
 	[self presentViewController:controller animated:YES completion:nil];
 }
 
-- (void)vkSdkDidAcceptUserToken:(VKAccessToken *)token {
+- (void)vkSdkAcceptedUserToken:(VKAccessToken *)token {
     [self startWorking];
 }
 - (void)vkSdkUserDeniedAccess:(VKError *)authorizationError {
