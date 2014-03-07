@@ -165,6 +165,8 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
             [[NSHTTPCookieStorage sharedHTTPCookieStorage]
              deleteCookie:cookie];
         }
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:VK_ACCESS_TOKEN_DEFAULTS_KEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 +(BOOL)wakeUpSession {
     VKAccessToken * token = [VKAccessToken tokenFromDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
