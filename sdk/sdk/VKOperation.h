@@ -34,5 +34,5 @@ typedef enum {
 /// This operation state. Value from VKOperationState enum
 @property (readwrite, nonatomic, assign) VKOperationState state;
 /// Operation working lock
-@property (readonly, nonatomic, strong) NSRecursiveLock *lock;
+@property (readwrite, nonatomic, strong) NSRecursiveLock *lock;
 @end

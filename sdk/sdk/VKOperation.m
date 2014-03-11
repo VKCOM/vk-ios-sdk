@@ -77,7 +77,7 @@ static inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperat
 }
 
 @interface VKOperation ()
-@property (readwrite, nonatomic, strong) NSRecursiveLock *lock;
+
 @property (readwrite, nonatomic, assign, getter = isCancelled) BOOL cancelled;
 @end
 @implementation VKOperation

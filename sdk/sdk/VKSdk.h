@@ -67,12 +67,13 @@
  */
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller;
 
-@optional
 /**
  Notifies delegate about receiving new access token
  @param newToken new token for API requests
  */
 - (void)vkSdkReceivedNewToken:(VKAccessToken *)newToken;
+
+@optional
 /**
  Notifies delegate about receiving predefined token (initializeWithDelegate:andAppId:andCustomToken: token is not nil)
  @param token used token for API requests

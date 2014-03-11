@@ -226,11 +226,13 @@ attemptsUsed  = _attemptsUsed;
 
 - (void)provideError:(NSError *)error {
 	error.vkError.request = self;
-	if (self.errorBlock) {
-		self.errorBlock(error);
-	}
-	for (VKRequest *postRequest in _postRequestsQueue)
-		if (postRequest.errorBlock) postRequest.errorBlock(error);
+	dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.errorBlock) {
+            self.errorBlock(error);
+        }
+        for (VKRequest *postRequest in _postRequestsQueue)
+            if (postRequest.errorBlock) postRequest.errorBlock(error);
+    });
 }
 
 - (void)repeat {
