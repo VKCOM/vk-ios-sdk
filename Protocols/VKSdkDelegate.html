@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.2 (build 961)" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -43,13 +43,13 @@
 	
 	<option value="instance_methods">Instance Methods</option>
 	
-	<option value="//api/name/vkSdkDidAcceptUserToken:">&nbsp;&nbsp;&nbsp;&nbsp;- vkSdkDidAcceptUserToken:</option>
-	
-	<option value="//api/name/vkSdkDidReceiveNewToken:">&nbsp;&nbsp;&nbsp;&nbsp;- vkSdkDidReceiveNewToken:</option>
-	
-	<option value="//api/name/vkSdkDidRenewToken:">&nbsp;&nbsp;&nbsp;&nbsp;- vkSdkDidRenewToken:</option>
+	<option value="//api/name/vkSdkAcceptedUserToken:">&nbsp;&nbsp;&nbsp;&nbsp;- vkSdkAcceptedUserToken:</option>
 	
 	<option value="//api/name/vkSdkNeedCaptchaEnter:">&nbsp;&nbsp;&nbsp;&nbsp;- vkSdkNeedCaptchaEnter:</option>
+	
+	<option value="//api/name/vkSdkReceivedNewToken:">&nbsp;&nbsp;&nbsp;&nbsp;- vkSdkReceivedNewToken:</option>
+	
+	<option value="//api/name/vkSdkRenewedToken:">&nbsp;&nbsp;&nbsp;&nbsp;- vkSdkRenewedToken:</option>
 	
 	<option value="//api/name/vkSdkShouldPresentViewController:">&nbsp;&nbsp;&nbsp;&nbsp;- vkSdkShouldPresentViewController:</option>
 	
@@ -85,13 +85,13 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/vkSdkDidAcceptUserToken:">vkSdkDidAcceptUserToken:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/vkSdkDidReceiveNewToken:">vkSdkDidReceiveNewToken:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/vkSdkDidRenewToken:">vkSdkDidRenewToken:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/vkSdkAcceptedUserToken:">vkSdkAcceptedUserToken:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/vkSdkNeedCaptchaEnter:">vkSdkNeedCaptchaEnter:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/vkSdkReceivedNewToken:">vkSdkReceivedNewToken:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/vkSdkRenewedToken:">vkSdkRenewedToken:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/vkSdkShouldPresentViewController:">vkSdkShouldPresentViewController:</a></span></li>
 	
@@ -179,19 +179,19 @@ You should implement it, typically as main view controller or as application del
 	<span class="task-item-suffix">required method</span>
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/vkSdkDidReceiveNewToken:">&ndash;&nbsp;vkSdkDidReceiveNewToken:</a></code>
+		<code><a href="#//api/name/vkSdkReceivedNewToken:">&ndash;&nbsp;vkSdkReceivedNewToken:</a></code>
+	</span>
+	
+	<span class="task-item-suffix">required method</span>
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/vkSdkAcceptedUserToken:">&ndash;&nbsp;vkSdkAcceptedUserToken:</a></code>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/vkSdkDidAcceptUserToken:">&ndash;&nbsp;vkSdkDidAcceptUserToken:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/vkSdkDidRenewToken:">&ndash;&nbsp;vkSdkDidRenewToken:</a></code>
+		<code><a href="#//api/name/vkSdkRenewedToken:">&ndash;&nbsp;vkSdkRenewedToken:</a></code>
 	</span>
 	
 	
@@ -213,8 +213,8 @@ You should implement it, typically as main view controller or as application del
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/vkSdkDidAcceptUserToken:" title="vkSdkDidAcceptUserToken:"></a>
-	<h3 class="subsubtitle method-title">vkSdkDidAcceptUserToken:</h3>
+	<a name="//api/name/vkSdkAcceptedUserToken:" title="vkSdkAcceptedUserToken:"></a>
+	<h3 class="subsubtitle method-title">vkSdkAcceptedUserToken:</h3>
 	
 	
 	
@@ -224,7 +224,7 @@ You should implement it, typically as main view controller or as application del
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)vkSdkDidAcceptUserToken:(VKAccessToken *)<em>token</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)vkSdkAcceptedUserToken:(VKAccessToken *)<em>token</em></code></div>
 
     
 	
@@ -234,98 +234,6 @@ You should implement it, typically as main view controller or as application del
 		<dl class="argument-def parameter-def">
 			<dt><em>token</em></dt>
 			<dd><p>used token for API requests</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/vkSdkDidReceiveNewToken:" title="vkSdkDidReceiveNewToken:"></a>
-	<h3 class="subsubtitle method-title">vkSdkDidReceiveNewToken:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Notifies delegate about receiving new access token</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)vkSdkDidReceiveNewToken:(VKAccessToken *)<em>newToken</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>newToken</em></dt>
-			<dd><p>new token for API requests</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/vkSdkDidRenewToken:" title="vkSdkDidRenewToken:"></a>
-	<h3 class="subsubtitle method-title">vkSdkDidRenewToken:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Notifies delegate about receiving new access token</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)vkSdkDidRenewToken:(VKAccessToken *)<em>newToken</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>newToken</em></dt>
-			<dd><p>new token for API requests</p></dd>
 		</dl>
 		
 	</div>
@@ -373,6 +281,98 @@ You should implement it, typically as main view controller or as application del
 			<dt><em>captchaError</em></dt>
 			<dd><p>error returned from API. You can load captcha image from <b>captchaImg</b> property.
 After user answered current captcha, call answerCaptcha: method with user entered answer.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKSdk.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/vkSdkReceivedNewToken:" title="vkSdkReceivedNewToken:"></a>
+	<h3 class="subsubtitle method-title">vkSdkReceivedNewToken:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Notifies delegate about receiving new access token</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)vkSdkReceivedNewToken:(VKAccessToken *)<em>newToken</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>newToken</em></dt>
+			<dd><p>new token for API requests</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKSdk.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/vkSdkRenewedToken:" title="vkSdkRenewedToken:"></a>
+	<h3 class="subsubtitle method-title">vkSdkRenewedToken:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Notifies delegate about receiving new access token</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)vkSdkRenewedToken:(VKAccessToken *)<em>newToken</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>newToken</em></dt>
+			<dd><p>new token for API requests</p></dd>
 		</dl>
 		
 	</div>
@@ -550,9 +550,9 @@ After user answered current captcha, call answerCaptcha: method with user entere
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 VK. All rights reserved. (Last updated: 2014-01-31)</span><br />
+						<p><span class="copyright">&copy; 2014 VK. All rights reserved. (Last updated: 2014-03-11)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
 					</div>
 				</div>
