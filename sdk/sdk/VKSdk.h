@@ -211,6 +211,10 @@
 + (BOOL)processOpenURL:(NSURL *)passedUrl fromApplication:(NSString *)sourceApplication;
 
 /**
+ * Checks if somebody logged in with SDK
+ */
++ (BOOL) isLoggedIn;
+/**
  Make try to read token from defaults and start session again.
  */
 + (BOOL) wakeUpSession;
