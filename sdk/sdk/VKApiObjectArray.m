@@ -24,7 +24,7 @@
 
 
 @interface VKApiObjectArray ()
-@property (nonatomic, readwrite) int count;
+@property (nonatomic, readwrite) NSUInteger count;
 @end
 
 @implementation VKApiObjectArray

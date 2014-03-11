@@ -26,7 +26,7 @@
 
 +(NSError*) errorWithVkError:(VKError*) vkError {
     NSMutableDictionary *userInfo = [NSMutableDictionary new];
-    int originalCode = vkError.errorCode;
+    NSInteger originalCode = vkError.errorCode;
     if (vkError.apiError)
         vkError = vkError.apiError;
     userInfo[NSLocalizedDescriptionKey] = vkError.errorMessage ? vkError.errorMessage : NSLocalizedStringFromTable(@"Something went wrong", nil, @"");

@@ -27,7 +27,7 @@
  */
 @interface VKApiObjectArray : VKApiObject <NSFastEnumeration>
 /// Count of items in array
-@property (nonatomic, readonly) int count;
+@property (nonatomic, readonly) NSUInteger count;
 /// Parsed array items
 @property (nonatomic, strong) NSMutableArray * items;
 
