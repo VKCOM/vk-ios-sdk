@@ -170,10 +170,10 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 }
 +(BOOL)wakeUpSession {
     VKAccessToken * token = [VKAccessToken tokenFromDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
+    if (!token || token.isExpired)
+        return NO;
     vkSdkInstance->_accessToken = token;
-    if (!token.isExpired)
-        return YES;
-    return NO;
+    return YES;
 }
 
 @end

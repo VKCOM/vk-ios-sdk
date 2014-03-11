@@ -23,6 +23,16 @@
 #import <Foundation/Foundation.h>
 #import "VKApiObject.h"
 
+@interface VKGeoObject : VKApiObject
+@property (nonatomic, strong) NSNumber * id;
+@property (nonatomic, strong) NSString * title;
+@end
+
+@interface VKCity : VKGeoObject
+@end
+@interface VKCountry : VKGeoObject
+@end
+
 /**
  User type of VK API. See descriptions here https://vk.com/dev/fields
  */
@@ -34,8 +44,8 @@
 @property (nonatomic, strong) NSString *last_name;
 @property (nonatomic, strong) NSNumber *sex;
 @property (nonatomic, strong) NSString *bdate;
-@property (nonatomic, strong) NSString *city;
-@property (nonatomic, strong) NSString *country;
+@property (nonatomic, strong) VKCity *city;
+@property (nonatomic, strong) VKCountry *country;
 @property (nonatomic, strong) NSString *photo_50;
 @property (nonatomic, strong) NSString *photo_100;
 @property (nonatomic, strong) NSString *photo_200_orig;
@@ -61,7 +71,7 @@
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) NSDictionary *last_seen;
 @property (nonatomic, strong) NSNumber *common_count;
-@property (nonatomic, strong) NSString *relation;
+@property (nonatomic, strong) NSNumber *relation;
 @property (nonatomic, strong) NSArray  *relatives;
 @property (nonatomic, strong) NSDictionary *counters;
 #endif

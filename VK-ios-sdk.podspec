@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "VK-ios-sdk"
-  s.version      = "1.0.5"
+  s.version      = "1.0.6.1"
   s.summary      = "Library for working with VK."
   s.homepage     = "http://vk.com/dev/sdk"
   s.license      = 'MIT'
