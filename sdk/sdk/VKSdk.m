@@ -167,6 +167,7 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
         }
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:VK_ACCESS_TOKEN_DEFAULTS_KEY];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    vkSdkInstance->_accessToken = nil;
 }
 +(BOOL)wakeUpSession {
     VKAccessToken * token = [VKAccessToken tokenFromDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
