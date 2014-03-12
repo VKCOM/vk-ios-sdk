@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name         = "VK-ios-sdk"
   s.version      = "1.0.6.2"
   s.summary      = "Library for working with VK."
-  s.homepage     = "http://vk.com/dev/sdk"
+  s.homepage     = "https://vk.com/dev/ios_sdk"
   s.license      = 'MIT'
   s.author       = { "Roman Truba" => "dreddkr@gmail.com" }
   s.platform     = :ios, '5.0'

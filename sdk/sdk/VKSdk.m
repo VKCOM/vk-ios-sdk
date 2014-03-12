@@ -106,9 +106,12 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
     [token saveTokenToDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
     id oldToken = vkSdkInstance->_accessToken;
 	vkSdkInstance->_accessToken = token;
-    if (oldToken && [vkSdkInstance->_delegate respondsToSelector:@selector(vkSdkRenewedToken:)])
+    BOOL respondsToRenew = [vkSdkInstance->_delegate respondsToSelector:@selector(vkSdkRenewedToken:)],
+         respondsToReceive = [vkSdkInstance->_delegate respondsToSelector:@selector(vkSdkReceivedNewToken:)];
+    
+    if (oldToken && respondsToRenew)
         [vkSdkInstance->_delegate vkSdkRenewedToken:token];
-	if (!oldToken && [vkSdkInstance->_delegate respondsToSelector:@selector(vkSdkReceivedNewToken:)])
+	if ((!oldToken || (oldToken && !respondsToRenew)) && respondsToReceive)
 		[vkSdkInstance->_delegate vkSdkReceivedNewToken:token];
 }
 
