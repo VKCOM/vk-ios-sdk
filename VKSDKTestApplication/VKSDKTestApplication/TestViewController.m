@@ -27,6 +27,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleDone target:self action:@selector(logout:)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -188,5 +189,8 @@ static NSString *const CALL_UNKNOWN_METHOD = @"Call unknown method";
 	    NSLog(@"Error: %@", error);
 	}];
 }
-
+- (void) logout:(id) sender {
+    [VKSdk forceLogout];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 @end

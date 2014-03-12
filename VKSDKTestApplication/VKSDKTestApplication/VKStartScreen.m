@@ -24,6 +24,7 @@
 
 static NSString *const TOKEN_KEY = @"my_application_access_token";
 static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
+static NSArray  * SCOPE = nil;
 @implementation VKStartScreen
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -35,6 +36,7 @@ static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
 }
 
 - (void)viewDidLoad {
+    SCOPE = @[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_MESSAGES];
 	[super viewDidLoad];
     
 	[VKSdk initializeWithDelegate:self andAppId:@"3974615"];
@@ -52,15 +54,15 @@ static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
 }
 
 - (IBAction)authorize:(id)sender {
-	[VKSdk authorize:@[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_MESSAGES] revokeAccess:YES];
+	[VKSdk authorize:SCOPE revokeAccess:YES];
 }
 
 - (IBAction)authorizeForceOAuth:(id)sender {
-	[VKSdk authorize:@[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_MESSAGES] revokeAccess:YES forceOAuth:YES];
+	[VKSdk authorize:SCOPE revokeAccess:YES forceOAuth:YES];
 }
 
 - (IBAction)authorizeForceOAuthInApp:(id)sender {
-	[VKSdk authorize:@[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_MESSAGES] revokeAccess:YES forceOAuth:YES inApp:YES display:VK_DISPLAY_IOS];
+	[VKSdk authorize:SCOPE revokeAccess:YES forceOAuth:YES inApp:YES display:VK_DISPLAY_IOS];
 }
 
 - (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {

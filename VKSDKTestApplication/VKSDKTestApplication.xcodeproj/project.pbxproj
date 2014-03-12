@@ -25,7 +25,32 @@
 		F3EEFFD01827F9B5000BB525 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFFCF1827F9B5000BB525 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F33F0DE018D0759A00DD8B80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F33F0DDB18D0759A00DD8B80 /* sdk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3C7542D182133CC00964716;
+			remoteInfo = VKSdk;
+		};
+		F33F0DE218D0759A00DD8B80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F33F0DDB18D0759A00DD8B80 /* sdk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F3BACC401865905B003158DA;
+			remoteInfo = VKSdkResources;
+		};
+		F33F0DE418D075A100DD8B80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F33F0DDB18D0759A00DD8B80 /* sdk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F3C7542C182133CC00964716;
+			remoteInfo = VKSdk;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		F33F0DDB18D0759A00DD8B80 /* sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = sdk.xcodeproj; path = ../sdk/sdk.xcodeproj; sourceTree = "<group>"; };
 		F3B7EEA9184353CF00104B90 /* ApiCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiCallViewController.h; sourceTree = "<group>"; };
 		F3B7EEAA184353CF00104B90 /* ApiCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiCallViewController.m; sourceTree = "<group>"; };
 		F3BACC301865902D003158DA /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -70,6 +95,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F33F0DDC18D0759A00DD8B80 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F33F0DE118D0759A00DD8B80 /* libVKSdk.a */,
+				F33F0DE318D0759A00DD8B80 /* VKSdkResources.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F3EEFF5D1827B1DD000BB525 = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +111,7 @@
 				F3EEFF6F1827B1DD000BB525 /* VKSDKTestApplication */,
 				F3EEFF681827B1DD000BB525 /* Frameworks */,
 				F3EEFF671827B1DD000BB525 /* Products */,
+				F33F0DDB18D0759A00DD8B80 /* sdk.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -147,6 +182,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F33F0DE518D075A100DD8B80 /* PBXTargetDependency */,
 			);
 			name = VKSDKTestApplication;
 			productName = VKSDKTestApplication;
@@ -160,7 +196,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = VK;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = VK;
 			};
 			buildConfigurationList = F3EEFF611827B1DD000BB525 /* Build configuration list for PBXProject "VKSDKTestApplication" */;
@@ -173,12 +209,35 @@
 			mainGroup = F3EEFF5D1827B1DD000BB525;
 			productRefGroup = F3EEFF671827B1DD000BB525 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F33F0DDC18D0759A00DD8B80 /* Products */;
+					ProjectRef = F33F0DDB18D0759A00DD8B80 /* sdk.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F3EEFF651827B1DD000BB525 /* VKSDKTestApplication */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F33F0DE118D0759A00DD8B80 /* libVKSdk.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libVKSdk.a;
+			remoteRef = F33F0DE018D0759A00DD8B80 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F33F0DE318D0759A00DD8B80 /* VKSdkResources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = VKSdkResources.bundle;
+			remoteRef = F33F0DE218D0759A00DD8B80 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F3EEFF641827B1DD000BB525 /* Resources */ = {
@@ -210,6 +269,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		F33F0DE518D075A100DD8B80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = VKSdk;
+			targetProxy = F33F0DE418D075A100DD8B80 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		F3EEFF721827B1DD000BB525 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -226,7 +293,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -265,7 +331,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -316,6 +381,7 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "../**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -338,6 +404,7 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "../**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
