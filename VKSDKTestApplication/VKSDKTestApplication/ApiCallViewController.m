@@ -31,9 +31,11 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.methodName.text = self.callingRequest.methodName;
+    self.callingRequest.debugTiming = YES;
 	[self.callingRequest executeWithResultBlock: ^(VKResponse *response) {
 	    self.callResult.text = [NSString stringWithFormat:@"Result: %@", response];
 	    self.callingRequest = nil;
+        NSLog(@"%@", response.request.requestTiming);
 	} errorBlock: ^(NSError *error) {
 	    self.callResult.text = [NSString stringWithFormat:@"Error: %@", error];
 	    self.callingRequest = nil;
