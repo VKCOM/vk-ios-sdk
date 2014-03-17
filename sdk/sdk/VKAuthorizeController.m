@@ -135,7 +135,6 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 #pragma mark Web view work
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-	NSLog(@"%@", request);
 	_lastRequest = request;
 	NSString *urlString = [[request URL] absoluteString];
 	_statusBar.text = urlString;
