@@ -65,6 +65,9 @@ static NSString *const UPLOAD_PHOTO_ALBUM = @"Upload photo to album";
 static NSString *const UPLOAD_PHOTOS = @"Upload several photos to wall";
 static NSString *const TEST_CAPTCHA = @"Test captcha";
 static NSString *const CALL_UNKNOWN_METHOD = @"Call unknown method";
+
+//Fields
+static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,city,country,photo_50,photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,online_mobile,lists,domain,has_mobile,contacts,connections,site,education,universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message,status,last_seen,common_count,relation,relatives,counters";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!labels)
 		labels = @[USERS_GET, USERS_SUBSCRIPTIONS, FRIENDS_GET, FRIENDS_GET_FULL, UPLOAD_PHOTO, UPLOAD_PHOTO_ALBUM, UPLOAD_PHOTOS, TEST_CAPTCHA, CALL_UNKNOWN_METHOD];
@@ -81,10 +84,11 @@ static NSString *const CALL_UNKNOWN_METHOD = @"Call unknown method";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSString *label = labels[indexPath.row];
 	if ([label isEqualToString:USERS_GET]) {
-		[self callMethod:[[VKApi users] get:@{ VK_API_FIELDS : @"uid,first_name,last_name,sex,bdate,city,country,photo_50,photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,online_mobile,lists,domain,has_mobile,contacts,connections,site,education,universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message,status,last_seen,common_count,relation,relatives,counters" }]];
+		[self callMethod:[[VKApi users] get:@{ VK_API_FIELDS : ALL_USER_FIELDS }]];
+
 	}
 	else if ([label isEqualToString:USERS_SUBSCRIPTIONS]) {
-        [self callMethod:[VKRequest requestWithMethod:@"users.getFollowers" andParameters:@{VK_API_USER_ID : @"1", VK_API_COUNT : @(1000), VK_API_FIELDS : @"uid,first_name,last_name,sex,bdate,city,country,photo_50,photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,online_mobile,lists,domain,has_mobile,contacts,connections,site,education,universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message,status,last_seen,common_count,relation,relatives,counters"} andHttpMethod:@"GET" classOfModel:[VKUsersArray class]]];
+        [self callMethod:[VKRequest requestWithMethod:@"users.getFollowers" andParameters:@{VK_API_USER_ID : @"1", VK_API_COUNT : @(1000), VK_API_FIELDS : ALL_USER_FIELDS} andHttpMethod:@"GET" classOfModel:[VKUsersArray class]]];
 	}
 	else if ([label isEqualToString:UPLOAD_PHOTO]) {
 		[self uploadPhoto];
@@ -102,9 +106,7 @@ static NSString *const CALL_UNKNOWN_METHOD = @"Call unknown method";
 		[self callMethod:[[VKApi friends] get]];
 	}
 	else if ([label isEqualToString:FRIENDS_GET_FULL]) {
-		VKRequest *friendsRequest = [[VKApi friends] get:@{ VK_API_FIELDS : @"uid,first_name,last_name,sex,bdate,city,country,photo_50,photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,online_mobile,lists,domain,has_mobile,contacts,connections,site,education,universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message,status,last_seen,common_count,relation,relatives,counters"}];
-//		friendsRequest.parseModel = NO;
-        
+		VKRequest *friendsRequest = [[VKApi friends] get:@{ VK_API_FIELDS : ALL_USER_FIELDS}];
 		[self callMethod:friendsRequest];
 	}
     else if ([label isEqualToString:CALL_UNKNOWN_METHOD]) {
