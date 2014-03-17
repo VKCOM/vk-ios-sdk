@@ -65,12 +65,13 @@ static NSString *const UPLOAD_PHOTO_ALBUM = @"Upload photo to album";
 static NSString *const UPLOAD_PHOTOS = @"Upload several photos to wall";
 static NSString *const TEST_CAPTCHA = @"Test captcha";
 static NSString *const CALL_UNKNOWN_METHOD = @"Call unknown method";
+static NSString *const TEST_VALIDATION = @"Test validation";
 
 //Fields
 static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,city,country,photo_50,photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,online_mobile,lists,domain,has_mobile,contacts,connections,site,education,universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message,status,last_seen,common_count,relation,relatives,counters";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!labels)
-		labels = @[USERS_GET, USERS_SUBSCRIPTIONS, FRIENDS_GET, FRIENDS_GET_FULL, UPLOAD_PHOTO, UPLOAD_PHOTO_ALBUM, UPLOAD_PHOTOS, TEST_CAPTCHA, CALL_UNKNOWN_METHOD];
+		labels = @[USERS_GET, USERS_SUBSCRIPTIONS, FRIENDS_GET, FRIENDS_GET_FULL, UPLOAD_PHOTO, UPLOAD_PHOTO_ALBUM, UPLOAD_PHOTOS, TEST_CAPTCHA, CALL_UNKNOWN_METHOD, TEST_VALIDATION];
 	return labels.count;
 }
 
@@ -112,6 +113,9 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
     else if ([label isEqualToString:CALL_UNKNOWN_METHOD]) {
 		[self callMethod:[VKRequest requestWithMethod:@"I.am.Lord.Voldemort" andParameters:nil andHttpMethod:@"POST"]];
 	}
+    else if ([label isEqualToString:TEST_VALIDATION]) {
+        [self callMethod:[VKRequest requestWithMethod:@"account.testValidation" andParameters:nil andHttpMethod:@"GET"]];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

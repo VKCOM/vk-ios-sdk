@@ -144,6 +144,7 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 		token.accessToken   = parametersDict[@"access_token"];
 		token.secret        = parametersDict[@"secret"];
 		token.userId        = parametersDict[@"user_id"];
+        [token saveTokenToDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
 	}
 	else {
 		VKAccessToken *token = [VKAccessToken tokenFromUrlString:parametersString];
@@ -153,10 +154,10 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 }
 
 + (BOOL)processOpenURL:(NSURL *)passedUrl fromApplication:(NSString *)sourceApplication {
-	if (([sourceApplication isEqualToString:@"com.vk.odnoletkov.client"] ||
+	if ([sourceApplication isEqualToString:@"com.vk.odnoletkov.client"] ||
          [sourceApplication isEqualToString:@"com.vk.client"] ||
-         [sourceApplication isEqualToString:@"com.apple.mobilesafari"]) &&
-        [passedUrl.scheme isEqualToString:[NSString stringWithFormat:@"vk%@", vkSdkInstance->_currentAppId]]
+         ([sourceApplication isEqualToString:@"com.apple.mobilesafari"] &&
+        [passedUrl.scheme isEqualToString:[NSString stringWithFormat:@"vk%@", vkSdkInstance->_currentAppId]])
         )
 		return [self processOpenURL:passedUrl];
 	return NO;

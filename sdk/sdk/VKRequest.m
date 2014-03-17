@@ -315,8 +315,8 @@
 
 - (BOOL)processCommonError:(VKError *)error {
 	if (error.errorCode == VK_API_ERROR) {
+        error.apiError.request = self;
 		if (error.apiError.errorCode == 14) {
-			error.apiError.request = self;
 			[[VKSdk instance].delegate vkSdkNeedCaptchaEnter:error.apiError];
 			return YES;
 		}

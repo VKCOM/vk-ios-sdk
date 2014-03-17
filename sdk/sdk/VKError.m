@@ -38,6 +38,9 @@
 		internalError.captchaImg = JSON[VK_API_CAPTCHA_IMG];
 		internalError.captchaSid = JSON[VK_API_CAPTCHA_SID];
 	}
+    if (internalError.errorCode == 17) {
+        internalError.redirectUri = JSON[VK_API_REDIRECT_URI];
+    }
     
 	VKError *mainError = [VKError errorWithCode:VK_API_ERROR];
 	mainError.apiError = internalError;

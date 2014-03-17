@@ -32,6 +32,7 @@
 	NSString        *_appId;
 	NSString        *_scope;
 	NSString        *_redirectUri;
+    UIActivityIndicatorView * _activityMark;
 	UILabel         *_warningLabel;
 	UILabel         *_statusBar;
 	VKError         *_validationError;

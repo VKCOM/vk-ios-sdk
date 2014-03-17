@@ -84,19 +84,16 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 	UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
 	view.backgroundColor = [UIColor colorWithRed:240.0f / 255 green:242.0f / 255 blue:245.0f / 255 alpha:1.0f];
 	self.view = view;
-	UIActivityIndicatorView *activityMark = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-	activityMark.center = view.center;
-	activityMark.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-	[activityMark startAnimating];
-	[view addSubview:activityMark];
+	_activityMark = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+	[_activityMark startAnimating];
+	[view addSubview:_activityMark];
     
-	_warningLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, activityMark.frame.origin.y + activityMark.frame.size.height * 1.2, 300, 50)];
+	_warningLabel = [[UILabel alloc] init];
 	_warningLabel.numberOfLines = 3;
 	_warningLabel.hidden = YES;
 	_warningLabel.textColor = VK_COLOR;
 	_warningLabel.textAlignment = NSTextAlignmentCenter;
 	_warningLabel.font = [UIFont boldSystemFontOfSize:15];
-	_warningLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 	[view addSubview:_warningLabel];
     
 	_webView = [[UIWebView alloc] initWithFrame:view.bounds];
@@ -107,6 +104,20 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 	_webView.scrollView.clipsToBounds = NO;
 	[view addSubview:_webView];
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAuthorization:)];
+
+    [self setElementsPositions:self.interfaceOrientation duration:0];
+}
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [self setElementsPositions:toInterfaceOrientation duration:duration];
+}
+-(void) setElementsPositions:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    CGRect appFrame = [[UIScreen mainScreen] bounds];
+    CGFloat width = UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? appFrame.size.width : appFrame.size.height;
+    CGFloat height = UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? appFrame.size.height : appFrame.size.width;
+    [UIView animateWithDuration:duration animations:^{
+        _activityMark.center = CGPointMake(width / 2, height / 2 - 64);
+        _warningLabel.frame  = CGRectMake(10, _activityMark.frame.origin.y + _activityMark.frame.size.height * 1.2, width - 20, 50);
+    }];
 }
 
 - (instancetype)initWith:(NSString *)appId andPermissions:(NSArray *)permissions revokeAccess:(BOOL)revoke displayType:(VKDisplayType) display {
@@ -183,8 +194,10 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 #pragma mark Cancelation and dismiss
 
 - (void)cancelAuthorization:(id)sender {
-	VKError *error = [VKError errorWithCode:VK_API_CANCELED];
-	[VKSdk setAccessTokenError:error];
+    if (!_validationError) {
+        VKError *error = [VKError errorWithCode:VK_API_CANCELED];
+        [VKSdk setAccessTokenError:error];
+    }
 	[self dismiss];
 }
 

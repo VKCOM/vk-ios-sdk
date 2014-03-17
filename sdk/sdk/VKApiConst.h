@@ -91,6 +91,8 @@ static NSString *const VK_API_REQUEST_PARAMS       = @"request_params";
 static NSString *const VK_API_CAPTCHA_IMG          = @"captcha_img";
 static NSString *const VK_API_CAPTCHA_SID          = @"captcha_sid";
 static NSString *const VK_API_CAPTCHA_KEY          = @"captcha_key";
+static NSString *const VK_API_REDIRECT_URI         = @"redirect_uri";
+
 
 //Photos
 static NSString *const VK_API_PHOTO                = @"photo";
