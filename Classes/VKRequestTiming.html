@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>VKApiCaptcha Class Reference</title>
+		<title>VKRequestTiming Class Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
@@ -16,7 +16,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">VKApiCaptcha Class Reference</h1>
+				<h1 class="hideInXcode">VKRequestTiming Class Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -37,13 +37,21 @@
 	
 	
 	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/finishTime">&nbsp;&nbsp;&nbsp;&nbsp;finishTime</option>
+	
+	<option value="//api/name/loadTime">&nbsp;&nbsp;&nbsp;&nbsp;loadTime</option>
+	
+	<option value="//api/name/parseTime">&nbsp;&nbsp;&nbsp;&nbsp;parseTime</option>
+	
+	<option value="//api/name/startTime">&nbsp;&nbsp;&nbsp;&nbsp;startTime</option>
+	
+	<option value="//api/name/totalTime">&nbsp;&nbsp;&nbsp;&nbsp;totalTime</option>
 	
 	
 	
 	
-	<option value="instance_methods">Instance Methods</option>
-	
-	<option value="//api/name/force">&nbsp;&nbsp;&nbsp;&nbsp;- force</option>
 	
 	
 	
@@ -67,22 +75,30 @@
 
 
 
-
-
-
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/force">force</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/finishTime">finishTime</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/loadTime">loadTime</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/parseTime">parseTime</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/startTime">startTime</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/totalTime">totalTime</a></span></li>
 	
 </ul></li>
+
+
+
+
 
 
 			</ul>
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="VKApiCaptcha Class Reference" name="top"></a>
+				<a title="VKRequestTiming Class Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -91,7 +107,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">VKApiCaptcha Class Reference</h1>
+						<h1 class="title title-header">VKRequestTiming Class Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -99,10 +115,10 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Inherits from</td>
-	<td class="specification-value"><a href="../Classes/VKApiBase.html">VKApiBase</a> : VKObject : NSObject</td>
+	<td class="specification-value">VKObject : NSObject</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">VKApiCaptcha.h<br />VKApiCaptcha.m</td>
+	<td class="specification-value">VKRequest.h<br />VKRequest.m</td>
 </tr>
 						</tbody></table></div>
 					
@@ -112,7 +128,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Methods for captcha work. Currently, it is 1 method for forcing captcha response</p>
+						<p>Creates and debug timings for <a href="../Classes/VKRequest.html">VKRequest</a></p>
 					</div>
 					
 					
@@ -130,9 +146,33 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/force">&ndash;&nbsp;force</a></code>
+		<code><a href="#//api/name/startTime">&nbsp;&nbsp;startTime</a></code>
 	</span>
+	<span class="task-item-suffix">property</span>
 	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/finishTime">&nbsp;&nbsp;finishTime</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/loadTime">&nbsp;&nbsp;loadTime</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/parseTime">&nbsp;&nbsp;parseTime</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/totalTime">&nbsp;&nbsp;totalTime</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
 	
 </li>
 						</ul>
@@ -143,36 +183,27 @@
 					
 					
 					
-					
-					
-					
-					
 					<div class="section section-methods">
-						<a title="Instance Methods" name="instance_methods"></a>
-						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/force" title="force"></a>
-	<h3 class="subsubtitle method-title">force</h3>
+	<a name="//api/name/finishTime" title="finishTime"></a>
+	<h3 class="subsubtitle method-title">finishTime</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Returns error for captcha debugging</p>
+		<p>Date of request <a href="#//api/name/finished">finished</a> (after all operations)</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (VKRequest *)force</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSDate *finishTime</code></div>
 
     
 	
 	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Request to load</p>
-	</div>
 	
 	
 	
@@ -186,13 +217,161 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKApiCaptcha.h</code><br />
+		<code class="declared-in-ref">VKRequest.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/loadTime" title="loadTime"></a>
+	<h3 class="subsubtitle method-title">loadTime</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Interval of networking load time</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSTimeInterval loadTime</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKRequest.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/parseTime" title="parseTime"></a>
+	<h3 class="subsubtitle method-title">parseTime</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Interval of model parsing time</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSTimeInterval parseTime</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKRequest.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/startTime" title="startTime"></a>
+	<h3 class="subsubtitle method-title">startTime</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Date of request start</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSDate *startTime</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKRequest.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/totalTime" title="totalTime"></a>
+	<h3 class="subsubtitle method-title">totalTime</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Total time, as difference (<a href="#//api/name/finishTime">finishTime</a> - <a href="#//api/name/startTime">startTime</a>)</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSTimeInterval totalTime</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKRequest.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 					</div>
+					
+					
+					
+					
 					
 					
                     
