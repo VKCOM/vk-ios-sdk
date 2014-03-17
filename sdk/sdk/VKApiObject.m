@@ -30,6 +30,10 @@
 #define PRINT_PARSE_DEBUG_INFO NO
 #endif
 
+static NSString *const INT_NAME = @"int";
+static NSString *const DOUBLE_NAME = @"double";
+static NSString *const ID_NAME = @"id";
+
 static NSMutableDictionary * classesProperties = nil;
 
 static NSString *getPropertyType(objc_property_t property) {
@@ -40,14 +44,19 @@ static NSString *getPropertyType(objc_property_t property) {
 	NSString *propertyType = [typeAttribute substringFromIndex:1];
 	const char *rawPropertyType = [propertyType UTF8String];
     
-	if (strcmp(rawPropertyType, @encode(float)) == 0) {
-		return @"float";
+	if (strcmp(rawPropertyType, @encode(float)) == 0 ||
+        strcmp(rawPropertyType, @encode(CGFloat)) == 0 ||
+        strcmp(rawPropertyType, @encode(double)) == 0) {
+		return DOUBLE_NAME;
 	}
-	else if (strcmp(rawPropertyType, @encode(int)) == 0) {
-		return @"int";
+	else if (strcmp(rawPropertyType, @encode(int)) == 0 ||
+             strcmp(rawPropertyType, @encode(long)) == 0 ||
+             strcmp(rawPropertyType, @encode(NSInteger)) == 0 ||
+             strcmp(rawPropertyType, @encode(NSUInteger)) == 0) {
+		return INT_NAME;
 	}
 	else if (strcmp(rawPropertyType, @encode(id)) == 0) {
-		return @"id";
+		return ID_NAME;
 	}
     
 	if ([typeAttribute hasPrefix:@"T@"] && [typeAttribute length] > 1) {
@@ -84,7 +93,7 @@ static NSString *getPropertyName(objc_property_t prop) {
     self.property = prop;
     self.propertyName = getPropertyName(prop);
     _propertyClassName = getPropertyType(self.property);
-    _isPrimitive = [@[@"int", @"float", @"double", @"long", @"id"] containsObject:_propertyClassName];
+    _isPrimitive = [@[DOUBLE_NAME, INT_NAME, ID_NAME] containsObject:_propertyClassName];
     if (!_isPrimitive) {
         _propertyClass = NSClassFromString(_propertyClassName);
         if(!(_isModelsArray = [_propertyClass isSubclassOfClass:[VKApiObjectArray class]])) {
