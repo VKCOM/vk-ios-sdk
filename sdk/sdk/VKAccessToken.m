@@ -70,6 +70,8 @@ static NSString *const CREATED = @"created";
 	return [self tokenFromUrlString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
 }
 -(BOOL)isExpired {
+    if (_accessToken == nil)
+        return YES;
     int expiresIn = [self.expiresIn intValue];
     return  expiresIn > 0 && expiresIn + self.created < [[NSDate new] timeIntervalSince1970];
 }
@@ -99,8 +101,9 @@ static NSString *const CREATED = @"created";
 }
 
 - (NSData *)serialize {
-    NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithObjects:@[self.accessToken, self.expiresIn, self.userId, @(self.created)]
-                                                                    forKeys:@[ACCESS_TOKEN, EXPIRES_IN, USER_ID, CREATED]];
+    NSMutableDictionary * dict =
+        [NSMutableDictionary dictionaryWithObjects:@[self.accessToken, self.expiresIn, self.userId, @(self.created)]
+                                           forKeys:@[ACCESS_TOKEN, EXPIRES_IN, USER_ID, CREATED]];
 	if (self.secret)
 		[dict setObject:self.secret forKey:SECRET];
 	if (self.httpsRequired)
