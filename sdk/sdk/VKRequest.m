@@ -193,6 +193,7 @@
 		}
 	    [self provideResponse:JSON];
 	} failure: ^(VKHTTPOperation *operation, NSError *error) {
+        [_requestTiming loaded];
 	    if (operation.response.statusCode == 200) {
 	        [self provideResponse:operation.responseJson];
 	        return;
@@ -206,6 +207,7 @@
         
 	    VKError *vkErr = [VKError errorWithCode:operation.response.statusCode];
 	    [self provideError:[error copyWithVkError:vkErr]];
+        [_requestTiming finished];
 	}];
 	[self setupProgress:operation];
     return operation;

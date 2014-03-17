@@ -27,11 +27,19 @@
 #import "OrderedDictionary.h"
 #import "VKHTTPOperation.h"
 
+/**
+ Creates and debug timings for VKRequest
+ */
 @interface VKRequestTiming : VKObject
+/// Date of request start
 @property (nonatomic, strong) NSDate * startTime;
+/// Date of request finished (after all operations)
 @property (nonatomic, strong) NSDate * finishTime;
+/// Interval of networking load time
 @property (nonatomic, assign) NSTimeInterval loadTime;
+/// Interval of model parsing time
 @property (nonatomic, assign) NSTimeInterval parseTime;
+/// Total time, as difference (finishTime - startTime)
 @property (nonatomic, readonly) NSTimeInterval totalTime;
 @end
 
