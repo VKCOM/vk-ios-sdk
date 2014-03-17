@@ -26,6 +26,7 @@
 #import <Foundation/Foundation.h>
 #import "VKOperation.h"
 
+static NSString *const VKNetworkingOperationDidStart = @"VKNetworkingOperationDidStart";
 @class VKRequest;
 /**
  VK URL operation subclassing NSOperation.

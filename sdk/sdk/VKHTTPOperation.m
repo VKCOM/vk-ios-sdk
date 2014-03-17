@@ -31,6 +31,7 @@ NSString *const VKNetworkingOperationFailingURLRequestErrorKey = @"VKNetworkingO
 NSString *const VKNetworkingOperationFailingURLResponseErrorKey = @"VKNetworkingOperationFailingURLResponseErrorKey";
 
 
+
 typedef void (^VKURLConnectionOperationProgressBlock)(NSUInteger bytes, long long totalBytes, long long totalBytesExpected);
 @interface VKHTTPOperation ()
 @property (readwrite, nonatomic, assign, getter = isCancelled) BOOL cancelled;
@@ -315,6 +316,7 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 
 - (void)operationDidStart {
 	[self.lock lock];
+    [[NSNotificationCenter defaultCenter] postNotificationName:VKNetworkingOperationDidStart object:self];
 	if (![self isCancelled]) {
 		self.connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:NO];
         

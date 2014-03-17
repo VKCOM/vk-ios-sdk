@@ -27,6 +27,14 @@
 #import "OrderedDictionary.h"
 #import "VKHTTPOperation.h"
 
+@interface VKRequestTiming : VKObject
+@property (nonatomic, strong) NSDate * startTime;
+@property (nonatomic, strong) NSDate * finishTime;
+@property (nonatomic, assign) NSTimeInterval loadTime;
+@property (nonatomic, assign) NSTimeInterval parseTime;
+@property (nonatomic, readonly) NSTimeInterval totalTime;
+@end
+
 /**
  Class for execution API-requests
  */
@@ -70,8 +78,10 @@
 @property (nonatomic, assign) BOOL secure;
 /// Sets current system language as default for API data
 @property (nonatomic, assign) BOOL useSystemLanguage;
-/// Set to false if you don't need automatic model parsing
+/// Set to NO if you don't need automatic model parsing
 @property (nonatomic, assign) BOOL parseModel;
+/// Set to YES if you need info about request timing
+@property (nonatomic, assign) BOOL debugTiming;
 /// Returns method for current request, e.g. users.get
 @property (nonatomic, readonly) NSString *methodName;
 /// Returns HTTP-method for current request
@@ -80,7 +90,8 @@
 @property (nonatomic, readonly) NSDictionary *methodParameters;
 /// Returns http operation that can be enqueued
 @property (nonatomic, readonly) NSOperation *executionOperation;
-
+/// Returns info about request timings
+@property (nonatomic, readonly) VKRequestTiming *requestTiming;
 ///-------------------------------
 /// @name Preparing requests
 ///-------------------------------

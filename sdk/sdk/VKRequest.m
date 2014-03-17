@@ -31,16 +31,32 @@
 
 #define SUPPORTED_LANGS_ARRAY @[@"ru", @"en", @"ua", @"es", @"fi", @"de", @"it"]
 
+@interface VKRequestTiming ()
+{
+    NSDate *_parseStartTime;
+}
+@end
+@implementation VKRequestTiming
+
+-(NSString *)description {
+    return [NSString stringWithFormat:@"<VKRequestTiming: %p (load: %f, parse: %f, total: %f)",
+            self, _loadTime, _parseTime, self.totalTime];
+}
+-(void) started { _startTime = [NSDate new]; }
+-(void) loaded  { _loadTime  = [[NSDate new] timeIntervalSinceDate:_startTime]; }
+-(void) parseStarted { _parseStartTime = [NSDate new]; }
+-(void) parseFinished { _parseTime = [[NSDate new] timeIntervalSinceDate:_parseStartTime]; }
+-(void) finished { _finishTime = [NSDate new]; }
+-(NSTimeInterval)totalTime { return [_finishTime timeIntervalSinceDate:_startTime]; }
+@end
+
 @interface VKRequest ()
 @property (readwrite, assign) int attemptsUsed;
+@property (nonatomic, readwrite, strong) VKRequestTiming *requestTiming;
 @end
 
 @implementation VKRequest
-@synthesize methodName = _methodName,
-methodParameters = _methodParameters,
-httpMethod = _httpMethod,
-preferredLang = _preferredLang,
-attemptsUsed  = _attemptsUsed;
+@synthesize preferredLang = _preferredLang;
 #pragma mark Init
 + (instancetype)requestWithMethod:(NSString *)method andParameters:(NSDictionary *)parameters andHttpMethod:(NSString *)httpMethod {
 	VKRequest *newRequest = [VKRequest new];
@@ -163,7 +179,12 @@ attemptsUsed  = _attemptsUsed;
     VKHTTPOperation * operation = [VKHTTPOperation operationWithRequest:self];
 	if (!operation)
 		return nil;
+    if (_debugTiming) {
+        _requestTiming = [VKRequestTiming new];
+    }
+    
 	[operation setCompletionBlockWithSuccess: ^(VKHTTPOperation *operation, id JSON) {
+        [_requestTiming loaded];
 	    if ([JSON objectForKey:@"error"]) {
 	        VKError *error = [VKError errorWithJson:[JSON objectForKey:@"error"]];
 	        if ([self processCommonError:error]) return;
@@ -172,12 +193,10 @@ attemptsUsed  = _attemptsUsed;
 		}
 	    [self provideResponse:JSON];
 	} failure: ^(VKHTTPOperation *operation, NSError *error) {
-#ifdef DEBUG
 	    if (operation.response.statusCode == 200) {
 	        [self provideResponse:operation.responseJson];
 	        return;
 		}
-#endif
 	    if (self.attempts == 0 || ++self.attemptsUsed < self.attempts) {
 	        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^(void) {
 	            [self start];
@@ -195,9 +214,15 @@ attemptsUsed  = _attemptsUsed;
 	_executionOperation = self.executionOperation;
     if (_executionOperation == nil)
         return;
+    if (self.debugTiming) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(operationDidStart:) name:VKNetworkingOperationDidStart object:nil];
+    }
 	[[VKHTTPClient getClient] enqueueOperation:_executionOperation];
 }
-
+- (void) operationDidStart:(NSNotification*) notification {
+    if (notification.object == _executionOperation)
+        [self.requestTiming started];
+}
 - (void)provideResponse:(id)JSON {
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
 	    VKResponse *vkResp = [VKResponse new];
@@ -206,10 +231,12 @@ attemptsUsed  = _attemptsUsed;
 	        vkResp.json = JSON[@"response"];
             
 	        if (self.parseModel && _modelClass) {
+                [_requestTiming parseStarted];
 	            id object = [_modelClass alloc];
 	            if ([object respondsToSelector:@selector(initWithDictionary:)]) {
 	                vkResp.parsedModel = [object initWithDictionary:JSON];
 				}
+                [_requestTiming parseFinished];
 			}
 		}
 	    else
@@ -217,6 +244,7 @@ attemptsUsed  = _attemptsUsed;
         
 	    for (VKRequest *postRequest in _postRequestsQueue)
 			[postRequest start];
+        [_requestTiming finished];
 	    dispatch_sync(dispatch_get_main_queue(), ^{
 	        if (self.completeBlock)
 				self.completeBlock(vkResp);
@@ -321,6 +349,9 @@ attemptsUsed  = _attemptsUsed;
 - (void)setPreferredLang:(NSString *)preferredLang {
 	_preferredLang = preferredLang;
 	self.useSystemLanguage = NO;
+}
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
