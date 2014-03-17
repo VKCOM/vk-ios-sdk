@@ -21,7 +21,6 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKAccessToken.h"
-#import "NSData+AES256.h"
 #import "VKUtil.h"
 #import "VKSdk.h"
 
@@ -37,7 +36,6 @@ static NSString *const USER_ID = @"user_id";
 static NSString *const SECRET = @"secret";
 static NSString *const HTTPS_REQUIRED = @"https_required";
 static NSString *const CREATED = @"created";
-static NSString *const TOKEN_KEY = @"VK is the best";
 
 + (instancetype)tokenFromUrlString:(NSString *)urlString {
 	NSDictionary *parameters   = [VKUtil explodeQueryString:urlString];
@@ -59,14 +57,14 @@ static NSString *const TOKEN_KEY = @"VK is the best";
 }
 
 + (instancetype)tokenFromFile:(NSString *)filePath {
-	NSData *data = [[NSData dataWithContentsOfFile:filePath] decryptWithKey:TOKEN_KEY];
+	NSData *data = [NSData dataWithContentsOfFile:filePath];
 	if (!data)
 		return nil;
 	return [self tokenFromUrlString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
 }
 
 + (instancetype)tokenFromDefaults:(NSString *)defaultsKey {
-	NSData *data = [[[NSUserDefaults standardUserDefaults] objectForKey:defaultsKey] decryptWithKey:TOKEN_KEY];
+	NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:defaultsKey];
 	if (!data)
 		return nil;
 	return [self tokenFromUrlString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
@@ -110,8 +108,7 @@ static NSString *const TOKEN_KEY = @"VK is the best";
     NSMutableArray * result = [NSMutableArray new];
     for (NSString * key in dict)
         [result addObject:[NSString stringWithFormat:@"%@=%@", key, dict[key]]];
-	NSData *data = [NSData dataWithData:[[result componentsJoinedByString:@"&"] dataUsingEncoding:NSUTF8StringEncoding]];
-	return [data encryptWithKey:TOKEN_KEY];
+	return [[result componentsJoinedByString:@"&"] dataUsingEncoding:NSUTF8StringEncoding];
 }
 
 @end

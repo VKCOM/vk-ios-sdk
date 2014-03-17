@@ -79,12 +79,10 @@
 		183C476D18B2F1ED00F978DB /* VKSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C75437182133CC00964716 /* VKSdk.m */; };
 		183C476E18B2F1FD00F978DB /* VKUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = F3EEFFBB1827C2B6000BB525 /* VKUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		183C476F18B2F1FD00F978DB /* VKUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F349DC531832693000D0DCB3 /* VKUtil.m */; };
-		183C477018B2F1FD00F978DB /* NSData+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EEFFC61827F018000BB525 /* NSData+AES256.m */; };
 		183C477118B2F1FD00F978DB /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EEFFD4182909F3000BB525 /* NSData+MD5.m */; };
 		183C477218B2F1FD00F978DB /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EEFFD6182909F3000BB525 /* NSString+MD5.m */; };
 		183C477318B2F1FD00F978DB /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EEFFDE1829100C000BB525 /* OrderedDictionary.m */; };
 		183C477418B2F3CF00F978DB /* VKUtil.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3EEFFBB1827C2B6000BB525 /* VKUtil.h */; };
-		183C477518B2F3CF00F978DB /* NSData+AES256.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3EEFFC51827F018000BB525 /* NSData+AES256.h */; };
 		183C477618B2F3CF00F978DB /* NSData+MD5.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3EEFFD3182909F3000BB525 /* NSData+MD5.h */; };
 		183C477718B2F3CF00F978DB /* NSString+MD5.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3EEFFD5182909F3000BB525 /* NSString+MD5.h */; };
 		183C477818B2F3CF00F978DB /* OrderedDictionary.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3EEFFDD1829100C000BB525 /* OrderedDictionary.h */; };
@@ -125,7 +123,6 @@
 		F3EEFFA51827B726000BB525 /* VKPermissions.h in Headers */ = {isa = PBXBuildFile; fileRef = F3EEFFA41827B726000BB525 /* VKPermissions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3EEFFA91827BB18000BB525 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFFA81827BB18000BB525 /* UIKit.framework */; };
 		F3EEFFB81827C0FF000BB525 /* VKAuthorizeController.h in Headers */ = {isa = PBXBuildFile; fileRef = F3EEFFB61827C0FF000BB525 /* VKAuthorizeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F3EEFFC71827F018000BB525 /* NSData+AES256.h in Headers */ = {isa = PBXBuildFile; fileRef = F3EEFFC51827F018000BB525 /* NSData+AES256.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3EEFFD7182909F3000BB525 /* NSData+MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = F3EEFFD3182909F3000BB525 /* NSData+MD5.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3EEFFDA182909F3000BB525 /* NSString+MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = F3EEFFD5182909F3000BB525 /* NSString+MD5.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3EEFFDF1829100C000BB525 /* OrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = F3EEFFDD1829100C000BB525 /* OrderedDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -140,7 +137,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				183C477418B2F3CF00F978DB /* VKUtil.h in Copy Files */,
-				183C477518B2F3CF00F978DB /* NSData+AES256.h in Copy Files */,
 				183C477618B2F3CF00F978DB /* NSData+MD5.h in Copy Files */,
 				183C477718B2F3CF00F978DB /* NSString+MD5.h in Copy Files */,
 				183C477818B2F3CF00F978DB /* OrderedDictionary.h in Copy Files */,
@@ -268,8 +264,6 @@
 		F3EEFFB71827C0FF000BB525 /* VKAuthorizeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKAuthorizeController.m; sourceTree = "<group>"; };
 		F3EEFFBB1827C2B6000BB525 /* VKUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKUtil.h; sourceTree = "<group>"; };
 		F3EEFFBC1827C582000BB525 /* VKSdkVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKSdkVersion.h; sourceTree = "<group>"; };
-		F3EEFFC51827F018000BB525 /* NSData+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+AES256.h"; sourceTree = "<group>"; };
-		F3EEFFC61827F018000BB525 /* NSData+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+AES256.m"; sourceTree = "<group>"; };
 		F3EEFFD3182909F3000BB525 /* NSData+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MD5.h"; sourceTree = "<group>"; };
 		F3EEFFD4182909F3000BB525 /* NSData+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MD5.m"; sourceTree = "<group>"; };
 		F3EEFFD5182909F3000BB525 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
@@ -480,8 +474,6 @@
 			children = (
 				F3EEFFBB1827C2B6000BB525 /* VKUtil.h */,
 				F349DC531832693000D0DCB3 /* VKUtil.m */,
-				F3EEFFC51827F018000BB525 /* NSData+AES256.h */,
-				F3EEFFC61827F018000BB525 /* NSData+AES256.m */,
 				F3EEFFD3182909F3000BB525 /* NSData+MD5.h */,
 				F3EEFFD4182909F3000BB525 /* NSData+MD5.m */,
 				F3EEFFD5182909F3000BB525 /* NSString+MD5.h */,
@@ -533,7 +525,6 @@
 				F3B7EEAE1843721600104B90 /* VKUploadPhotoRequest.h in Headers */,
 				F3BACC5818659493003158DA /* VKBundle.h in Headers */,
 				F3EEFFD7182909F3000BB525 /* NSData+MD5.h in Headers */,
-				F3EEFFC71827F018000BB525 /* NSData+AES256.h in Headers */,
 				F3C755831823BDE800964716 /* VKSdk.h in Headers */,
 				F3D38E83183FA49000D05079 /* VKUploadWallPhotoRequest.h in Headers */,
 			);
@@ -643,7 +634,6 @@
 				183C474918B2F1ED00F978DB /* VKApiWall.m in Sources */,
 				183C475E18B2F1ED00F978DB /* VKHTTPOperation.m in Sources */,
 				183C476318B2F1ED00F978DB /* VKRequest.m in Sources */,
-				183C477018B2F1FD00F978DB /* NSData+AES256.m in Sources */,
 				183C474D18B2F1ED00F978DB /* VKApiObject.m in Sources */,
 				183C476618B2F1ED00F978DB /* VKUploadPhotoRequest.m in Sources */,
 				183C475318B2F1ED00F978DB /* VKUsersArray.m in Sources */,
