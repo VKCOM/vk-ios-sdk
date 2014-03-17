@@ -79,7 +79,7 @@ Generally, [VKSdk authorize:scope]; is enough for your needs.
 
 When succeeded, the following method of delegate will be called:
 
-    -(void) vkSdkDidReceiveNewToken:(VKAccessToken*) newToken;
+    -(void) vkSdkReceivedNewToken:(VKAccessToken*) newToken;
 
 In case of error (e.g., user canceled authorization):
 
