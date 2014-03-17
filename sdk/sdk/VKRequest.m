@@ -280,7 +280,6 @@ attemptsUsed  = _attemptsUsed;
 	//Then we generate "request string" /method/{METHOD_NAME}?{GET_PARAMS}{POST_PARAMS}
 	NSString *requestString = [NSString stringWithFormat:@"/method/%@?%@", _methodName, [paramsArray componentsJoinedByString:@"&"]];
 	requestString = [requestString stringByAppendingString:token.secret];
-	NSLog(@"%@", requestString);
 	return [requestString MD5];
 }
 
