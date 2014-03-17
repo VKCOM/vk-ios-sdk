@@ -39,7 +39,7 @@
 @implementation VKRequestTiming
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"<VKRequestTiming: %p (load: %f, parse: %f, total: %f)",
+    return [NSString stringWithFormat:@"<VKRequestTiming: %p (load: %f, parse: %f, total: %f)>",
             self, _loadTime, _parseTime, self.totalTime];
 }
 -(void) started { _startTime = [NSDate new]; }
