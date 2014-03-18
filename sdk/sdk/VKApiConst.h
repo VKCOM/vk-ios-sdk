@@ -21,8 +21,8 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 typedef NSString* VKDisplayType;
-static VKDisplayType const VK_DISPLAY_IOS           = @"ios";
-static VKDisplayType const VK_DISPLAY_MOBILE        = @"mobile";
+static VKDisplayType const VK_DISPLAY_IOS          = @"ios";
+static VKDisplayType const VK_DISPLAY_MOBILE       = @"mobile";
 //Commons
 static NSString *const VK_API_USER_ID              = @"user_id";
 static NSString *const VK_API_USER_IDS             = @"user_ids";
@@ -39,6 +39,7 @@ static NSString *const VK_API_SIG                  = @"sig";
 
 //get users
 static NSString *const VK_API_NAME_CASE            = @"name_case";
+static NSString *const VK_API_ORDER                = @"order";
 
 //Get subscriptions
 static NSString *const VK_API_EXTENDED             = @"extended";
