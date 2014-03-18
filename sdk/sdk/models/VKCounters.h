@@ -1,5 +1,5 @@
 //
-//  VKApiModels.h
+//  VKCounters.h
 //
 //  Copyright (c) 2014 VK.com
 //
@@ -20,13 +20,27 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "VKApiObjectArray.h"
-#import "VKAudio.h"
-#import "VKPhoto.h"
-#import "VKLikes.h"
-#import "VKUser.h"
-#import "VKRelative.h"
-#import "VKCounters.h"
-#import "VKLikes.h"
-#import "VKSchool.h"
-#import "VKUniversity.h"
+#import "VKApiObject.h"
+@interface VKCounters : VKApiObject
+@property (nonatomic, strong) NSNumber *friends;
+@property (nonatomic, strong) NSNumber *messages;
+@property (nonatomic, strong) NSNumber *photos;
+@property (nonatomic, strong) NSNumber *videos;
+@property (nonatomic, strong) NSNumber *notifications;
+@property (nonatomic, strong) NSNumber *groups;
+@property (nonatomic, strong) NSNumber *gifts;
+@property (nonatomic, strong) NSNumber *events;
+
+@property (nonatomic, strong) NSNumber *albums;
+@property (nonatomic, strong) NSNumber *audios;
+@property (nonatomic, strong) NSNumber *online_friends;
+@property (nonatomic, strong) NSNumber *mutual_friends;
+@property (nonatomic, strong) NSNumber *user_videos;
+@property (nonatomic, strong) NSNumber *followers;
+@property (nonatomic, strong) NSNumber *user_photos;
+@property (nonatomic, strong) NSNumber *subscriptions;
+@property (nonatomic, strong) NSNumber *documents;
+@property (nonatomic, strong) NSNumber *topics;
+@property (nonatomic, strong) NSNumber *pages;
+
+@end

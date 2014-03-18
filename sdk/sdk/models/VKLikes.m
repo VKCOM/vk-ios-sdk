@@ -1,5 +1,5 @@
 //
-//  VKSdkVersion.h
+//  VKLikes.m
 //
 //  Copyright (c) 2014 VK.com
 //
@@ -20,5 +20,8 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#define VK_SDK_VERSION @"1.0.6.4"
-#define VK_SDK_API_VERSION @"5.14"
+#import "VKLikes.h"
+
+@implementation VKLikes
+
+@end

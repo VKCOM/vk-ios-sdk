@@ -1,5 +1,5 @@
 //
-//  VKSdkVersion.h
+//  VKUniversity.h
 //
 //  Copyright (c) 2014 VK.com
 //
@@ -11,7 +11,7 @@
 //  subject to the following conditions:
 //
 //  The above copyright notice and this permission notice shall be included in all
-//  copies or substantial portions of the Software.
+//  copies or suabstantial portions of the Software.
 //
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
@@ -20,5 +20,23 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#define VK_SDK_VERSION @"1.0.6.4"
-#define VK_SDK_API_VERSION @"5.14"
+#import "VKApiObjectArray.h"
+
+@interface VKUniversity : VKApiObject
+
+@property (nonatomic, strong) NSNumber *id;
+@property (nonatomic, strong) NSNumber *country;
+@property (nonatomic, strong) NSNumber *city;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSNumber *faculty;
+@property (nonatomic, strong) NSString *faculty_name;
+@property (nonatomic, strong) NSNumber *chair;
+@property (nonatomic, strong) NSString *chair_name;
+@property (nonatomic, strong) NSNumber *graduation;
+@property (nonatomic, strong) NSString *education_form;
+@property (nonatomic, strong) NSString *education_status;
+
+@end
+
+@interface VKUniversities : VKApiObjectArray
+@end

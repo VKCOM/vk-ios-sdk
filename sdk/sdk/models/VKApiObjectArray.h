@@ -1,7 +1,7 @@
 //
 //  VKApiObjectArray.h
 //
-//  Copyright (c) 2013 VK.com
+//  Copyright (c) 2014 VK.com
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -11,7 +11,7 @@
 //  subject to the following conditions:
 //
 //  The above copyright notice and this permission notice shall be included in all
-//  copies or substantial portions of the Software.
+//  copies or suabstantial portions of the Software.
 //
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS

@@ -1,7 +1,7 @@
 //
-//  VKPhoto.h
+//  VKApiObject.h
 //
-//  Copyright (c) 2013 VK.com
+//  Copyright (c) 2014 VK.com
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -20,27 +20,39 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "VKApiObject.h"
-
-@class VKLikes;
+#import <objc/runtime.h>
+#import "VKObject.h"
 /**
- Photo type of VK API. See descriptions here https://vk.com/dev/photo
+ Helps in objects parsing
  */
-@interface VKPhoto : VKApiObject
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-@property (nonatomic, strong) NSNumber *id;
-@property (nonatomic, strong) NSNumber *album_id;
-@property (nonatomic, strong) NSNumber *owner_id;
-@property (nonatomic, strong) NSString *photo_75;
-@property (nonatomic, strong) NSString *photo_130;
-@property (nonatomic, strong) NSString *photo_604;
-@property (nonatomic, strong) NSString *photo_807;
-@property (nonatomic, strong) NSString *photo_1280;
-@property (nonatomic, strong) NSString *photo_2560;
-@property (nonatomic, strong) NSNumber *width;
-@property (nonatomic, strong) NSNumber *height;
-@property (nonatomic, strong) NSString *text;
-@property (nonatomic, strong) NSNumber *date;
-#endif
+@interface VKPropertyHelper : VKObject
+@property (nonatomic, readonly) NSString *propertyName;
+@property (nonatomic, readonly) NSString *propertyClassName;
+@property (nonatomic, readonly) Class propertyClass;
+@property (nonatomic, readonly) BOOL isPrimitive;
+@property (nonatomic, readonly) BOOL isModelsArray;
+@property (nonatomic, readonly) BOOL isModel;
+
+-(instancetype) initWith:(objc_property_t) prop;
+@end
+
+/**
+ Basic class for API objects
+ */
+@interface VKApiObject : VKObject
+/// If it possible, contains object fields from JSON as it is
+@property (nonatomic, strong) NSDictionary * fields;
+
+/**
+ Initialize object with API json dictionary. This method tries to set all known properties of current class from dictionare
+ @param dict API json dictionary
+ @return Initialized object
+ */
+- (instancetype) initWithDictionary:(NSDictionary *)dict;
+
+/**
+ Serialize current object into dictionary
+ @return Key-value dictionary, contains current object
+ */
+- (NSDictionary *)serialize;
 @end

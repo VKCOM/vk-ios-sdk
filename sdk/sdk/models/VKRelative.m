@@ -1,7 +1,7 @@
 //
-//  VKPhoto.m
+//  VKRelative.m
 //
-//  Copyright (c) 2013 VK.com
+//  Copyright (c) 2014 VK.com
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -11,7 +11,7 @@
 //  subject to the following conditions:
 //
 //  The above copyright notice and this permission notice shall be included in all
-//  copies or substantial portions of the Software.
+//  copies or suabstantial portions of the Software.
 //
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
@@ -20,9 +20,15 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "VKPhoto.h"
-#import "VKLikes.h"
+#import "VKRelative.h"
 
-@implementation VKPhoto
+@implementation VKRelative
 
+@end
+
+@implementation VKRelativities
+-(instancetype)initWithDictionary:(NSDictionary *)dict
+{
+    return [super initWithDictionary:dict objectClass:[VKRelative class]];
+}
 @end

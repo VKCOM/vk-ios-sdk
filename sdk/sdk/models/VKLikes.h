@@ -1,7 +1,7 @@
 //
-//  VKApiObject.h
+//  VKLikes.h
 //
-//  Copyright (c) 2013 VK.com
+//  Copyright (c) 2014 VK.com
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -20,39 +20,16 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <objc/runtime.h>
-#import "VKObject.h"
+#import <Foundation/Foundation.h>
+#import "VKApiObject.h"
 /**
- Helps in objects parsing
+ Likes type of VK API
  */
-@interface VKPropertyHelper : NSObject
-@property (nonatomic, readonly) NSString *propertyName;
-@property (nonatomic, readonly) NSString *propertyClassName;
-@property (nonatomic, readonly) Class propertyClass;
-@property (nonatomic, readonly) BOOL isPrimitive;
-@property (nonatomic, readonly) BOOL isModelsArray;
-@property (nonatomic, readonly) BOOL isModel;
-
--(instancetype) initWith:(objc_property_t) prop;
-@end
-
-/**
- Basic class for API objects
- */
-@interface VKApiObject : VKObject
-/// If it possible, contains object fields from JSON as it is
-@property (nonatomic, strong) NSDictionary * fields;
-
-/**
- Initialize object with API json dictionary. This method tries to set all known properties of current class from dictionare
- @param dict API json dictionary
- @return Initialized object
- */
-- (instancetype) initWithDictionary:(NSDictionary *)dict;
-
-/**
- Serialize current object into dictionary
- @return Key-value dictionary, contains current object
- */
-- (NSDictionary *)serialize;
+@interface VKLikes : VKApiObject
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+@property (nonatomic, strong) NSNumber *count;
+@property (nonatomic, strong) NSNumber *user_likes;
+@property (nonatomic, strong) NSNumber *can_like;
+@property (nonatomic, strong) NSNumber *can_publish;
+#endif
 @end
