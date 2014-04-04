@@ -51,25 +51,6 @@
 @protected
     /// Working operation for this request
 	NSOperation *_executionOperation;
-@private
-	/// Selected method name
-	NSString *_methodName;
-	/// HTTP method for loading
-	NSString *_httpMethod;
-	/// Passed parameters for method
-	NSDictionary *_methodParameters;
-	/// Method parametes with common parameters
-	OrderedDictionary *_preparedParameters;
-	/// How much times request was loaded
-	int _attemptsUsed;
-	/// Url for uploading files
-	NSString *_uploadUrl;
-	/// Requests that should be called after current request.
-	NSMutableArray *_postRequestsQueue;
-	/// Class for model parsing
-	Class _modelClass;
-	/// Paths to photos
-	NSArray *_photoObjects;
 }
 /// Specify language for API request
 @property (nonatomic, strong) NSString *preferredLang;
@@ -90,6 +71,8 @@
 @property (nonatomic, assign) BOOL parseModel;
 /// Set to YES if you need info about request timing
 @property (nonatomic, assign) BOOL debugTiming;
+/// Timeout for this request
+@property (nonatomic, assign) NSInteger requestTimeout;
 /// Returns method for current request, e.g. users.get
 @property (nonatomic, readonly) NSString *methodName;
 /// Returns HTTP-method for current request
@@ -100,6 +83,7 @@
 @property (nonatomic, readonly) NSOperation *executionOperation;
 /// Returns info about request timings
 @property (nonatomic, readonly) VKRequestTiming *requestTiming;
+
 ///-------------------------------
 /// @name Preparing requests
 ///-------------------------------

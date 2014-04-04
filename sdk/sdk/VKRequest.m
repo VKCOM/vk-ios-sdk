@@ -36,6 +36,7 @@
     NSDate *_parseStartTime;
 }
 @end
+
 @implementation VKRequestTiming
 
 -(NSString *)description {
@@ -51,8 +52,25 @@
 @end
 
 @interface VKRequest ()
-@property (readwrite, assign) int attemptsUsed;
 @property (nonatomic, readwrite, strong) VKRequestTiming *requestTiming;
+/// Selected method name
+@property (nonatomic, strong) NSString *methodName;
+/// HTTP method for loading
+@property (nonatomic, strong) NSString *httpMethod;
+/// Passed parameters for method
+@property (nonatomic, strong) NSDictionary *methodParameters;
+/// Method parametes with common parameters
+@property (nonatomic, strong) OrderedDictionary *preparedParameters;
+/// Url for uploading files
+@property (nonatomic, strong) NSString *uploadUrl;
+/// Requests that should be called after current request.
+@property (nonatomic, strong) NSMutableArray *postRequestsQueue;
+/// Class for model parsing
+@property (nonatomic, strong) Class modelClass;
+/// Paths to photos
+@property (nonatomic, strong) NSArray *photoObjects;
+/// How much times request was loaded
+@property (readwrite, assign) int attemptsUsed;
 @end
 
 @implementation VKRequest
@@ -61,33 +79,34 @@
 + (instancetype)requestWithMethod:(NSString *)method andParameters:(NSDictionary *)parameters andHttpMethod:(NSString *)httpMethod {
 	VKRequest *newRequest = [VKRequest new];
 	//Common parameters
-	newRequest.parseModel         = YES;
+	newRequest.parseModel       = YES;
+    newRequest.requestTimeout   = 30;
     
-	newRequest->_methodName       = method;
-	newRequest->_methodParameters = parameters;
-	newRequest->_httpMethod       = httpMethod;
+	newRequest.methodName       = method;
+	newRequest.methodParameters = parameters;
+	newRequest.httpMethod       = httpMethod;
     
 	return newRequest;
 }
 
 + (instancetype)requestWithMethod:(NSString *)method andParameters:(NSDictionary *)parameters andHttpMethod:(NSString *)httpMethod classOfModel:(Class)modelClass {
 	VKRequest *request = [self requestWithMethod:method andParameters:parameters andHttpMethod:httpMethod];
-	request->_modelClass = modelClass;
+	request.modelClass = modelClass;
 	return request;
 }
 
 + (instancetype)photoRequestWithPostUrl:(NSString *)url withPhotos:(NSArray *)photoObjects;
 {
-	VKRequest *newRequest  = [VKRequest new];
+	VKRequest *newRequest   = [VKRequest new];
 	newRequest.attempts     = 0;
-	newRequest->_httpMethod = @"POST";
-	newRequest->_uploadUrl  = url;
-	newRequest->_photoObjects = photoObjects;
+	newRequest.httpMethod = @"POST";
+	newRequest.uploadUrl  = url;
+	newRequest.photoObjects = photoObjects;
 	return newRequest;
 }
 - (id)init {
 	self = [super init];
-	self->_attemptsUsed     = 0;
+	self.attemptsUsed       = 0;
 	//If system language is not supported, we use english
 	self.preferredLang      = @"en";
     //By default there is 1 attempt for loading.
@@ -166,7 +185,7 @@
 	else {
 		request = [[VKHTTPClient getClient] multipartFormRequestWithMethod:@"POST" path:_uploadUrl images:_photoObjects];
 	}
-    
+    [request setTimeoutInterval:self.requestTimeout];
 	[request setValue:nil forHTTPHeaderField:@"Accept-Language"];
 	return request;
 }
