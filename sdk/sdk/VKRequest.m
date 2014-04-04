@@ -134,33 +134,30 @@
 			[_preparedParameters setObject:self.methodParameters[key] forKey:key];
 		}
 		VKAccessToken *token = [VKSdk getAccessToken];
-		if (token == nil) {
-			VKError *error = [VKError errorWithCode:VK_API_REQUEST_NOT_PREPARED];
-			error.errorMessage = @"Access token is nil";
-			[self provideError:[NSError errorWithVkError:error]];
-			return nil;
-		}
-		[_preparedParameters setObject:token.accessToken forKey:VK_API_ACCESS_TOKEN];
-		if (!(self.secure || token.secret) || token.httpsRequired)
-			self.secure = YES;
-        
-		//Set actual version of API
-		[_preparedParameters setObject:VK_SDK_API_VERSION forKey:@"v"];
-		//Set preferred language for request
-		[_preparedParameters setObject:self.preferredLang forKey:VK_API_LANG];
-		//Set current access token from SDK object
-        
-		if (self.secure) {
-			//If request is secure, we need all urls as https
-			[_preparedParameters setObject:@"1" forKey:@"https"];
-		}
-		if (token.secret) {
-			//If it not, generate signature of request
-			NSString *sig = [self generateSig:_preparedParameters token:token];
-			[_preparedParameters setObject:sig forKey:VK_API_SIG];
-		}
-		//From that moment you cannot modify parameters.
-		//Specially for http loading
+		if (token != nil) {
+            
+            [_preparedParameters setObject:token.accessToken forKey:VK_API_ACCESS_TOKEN];
+            if (!(self.secure || token.secret) || token.httpsRequired)
+                self.secure = YES;
+            
+            //Set actual version of API
+            [_preparedParameters setObject:VK_SDK_API_VERSION forKey:@"v"];
+            //Set preferred language for request
+            [_preparedParameters setObject:self.preferredLang forKey:VK_API_LANG];
+            //Set current access token from SDK object
+            
+            if (self.secure) {
+                //If request is secure, we need all urls as https
+                [_preparedParameters setObject:@"1" forKey:@"https"];
+            }
+            if (token.secret) {
+                //If it not, generate signature of request
+                NSString *sig = [self generateSig:_preparedParameters token:token];
+                [_preparedParameters setObject:sig forKey:VK_API_SIG];
+            }
+            //From that moment you cannot modify parameters.
+            //Specially for http loading
+        }
 	}
     
 	NSMutableURLRequest *request = nil;
