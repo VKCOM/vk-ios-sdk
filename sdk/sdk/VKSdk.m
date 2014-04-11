@@ -76,6 +76,11 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 	[self authorize:permissions revokeAccess:revokeAccess forceOAuth:forceOAuth inApp:inApp display:VK_DISPLAY_MOBILE];
 }
 + (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth inApp:(BOOL) inApp display:(VKDisplayType) displayType {
+    if (![permissions containsObject:VK_PER_OFFLINE]) {
+        permissions = [permissions mutableCopy];
+        [(NSMutableArray*)permissions addObject:VK_PER_OFFLINE];
+    }
+    
     NSString *clientId = vkSdkInstance->_currentAppId;
     
     if (!inApp) {
