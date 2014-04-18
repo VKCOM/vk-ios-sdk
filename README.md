@@ -85,6 +85,10 @@ In case of error (e.g., user canceled authorization):
 
     -(void) vkSdkUserDeniedAccess:(VKError*) authorizationError;
 
+To get the User ID after authorization use method of VKAccessToken class
+
+    [[VKSdk getAccessToken] userId] //Return NSString - authorized user id
+
 API Requests
 ==========
 
