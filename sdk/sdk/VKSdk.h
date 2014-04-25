@@ -147,7 +147,6 @@
 + (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess;
 /**
  Starts authorization process.
- Otherwise Mobile Safari will be opened for access request.
  @param permissions Array of permissions for your applications. All permissions you can
  @param revokeAccess If YES, user will allow logout (to change user)
  @param forceOAuth If YES, SDK will use only oauth authorization through mobile safari. Otherwise, it will try to authorize through VK application
@@ -156,7 +155,6 @@
 
 /**
  Starts authorization process.
- Otherwise Mobile Safari will be opened for access request.
  @param permissions Array of permissions for your applications. All permissions you can
  @param revokeAccess If YES, user will allow logout (to change user)
  @param forceOAuth If YES, SDK will use only oauth authorization through mobile safari. Otherwise, it will try to authorize through VK application
@@ -166,7 +164,6 @@
 
 /**
  Starts authorization process. 
- Otherwise Mobile Safari will be opened for access request.
  @param permissions Array of permissions for your applications. All permissions you can
  @param revokeAccess If YES, user will allow logout (to change user)
  @param forceOAuth If YES, SDK will use only oauth authorization through mobile safari. Otherwise, it will try to authorize through VK application
