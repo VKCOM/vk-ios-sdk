@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>NSError(VKError) Category Reference</title>
+		<title>VKBanInfo Class Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
@@ -16,7 +16,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">NSError(VKError) Category Reference</h1>
+				<h1 class="hideInXcode">VKBanInfo Class Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -25,6 +25,8 @@
 				<li id="jumpto_button" role="navigation">
 					<select id="jumpTo">
 	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
 	
 	
 	
@@ -37,21 +39,19 @@
 	
 	<option value="properties">Properties</option>
 	
-	<option value="//api/name/vkError">&nbsp;&nbsp;&nbsp;&nbsp;vkError</option>
+	<option value="//api/name/admin_id">&nbsp;&nbsp;&nbsp;&nbsp;admin_id</option>
+	
+	<option value="//api/name/comment">&nbsp;&nbsp;&nbsp;&nbsp;comment</option>
+	
+	<option value="//api/name/date">&nbsp;&nbsp;&nbsp;&nbsp;date</option>
+	
+	<option value="//api/name/end_date">&nbsp;&nbsp;&nbsp;&nbsp;end_date</option>
+	
+	<option value="//api/name/reason">&nbsp;&nbsp;&nbsp;&nbsp;reason</option>
 	
 	
 	
 	
-	<option value="class_methods">Class Methods</option>
-	
-	<option value="//api/name/errorWithVkError:">&nbsp;&nbsp;&nbsp;&nbsp;+ errorWithVkError:</option>
-	
-	
-	
-	
-	<option value="instance_methods">Instance Methods</option>
-	
-	<option value="//api/name/copyWithVkError:">&nbsp;&nbsp;&nbsp;&nbsp;- copyWithVkError:</option>
 	
 	
 	
@@ -62,6 +62,8 @@
 		<nav id="tocContainer" class="isShowingTOC">
 			<ul id="toc" role="tree">
 				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
 
 
 
@@ -75,32 +77,28 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/vkError">vkError</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/admin_id">admin_id</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/comment">comment</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/date">date</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/end_date">end_date</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/reason">reason</a></span></li>
 	
 </ul></li>
 
 
 
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/errorWithVkError:">errorWithVkError:</a></span></li>
-	
-</ul></li>
 
-
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/copyWithVkError:">copyWithVkError:</a></span></li>
-	
-</ul></li>
 
 
 			</ul>
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="NSError(VKError) Category Reference" name="top"></a>
+				<a title="VKBanInfo Class Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -109,20 +107,31 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">NSError(VKError) Category Reference</h1>
+						<h1 class="title title-header">VKBanInfo Class Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
 					
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value"><a href="../Classes/VKApiObject.html">VKApiObject</a> : VKObject : NSObject</td>
+</tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">NSError+VKError.h<br />NSError+VKError.m</td>
+	<td class="specification-value">VKUser.h</td>
 </tr>
 						</tbody></table></div>
 					
                     
                     
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>User type of VK API. See descriptions here <a href="https://vk.com/dev/fields">https://vk.com/dev/fields</a></p>
+					</div>
+					
+					
 					
 					
 					
@@ -137,21 +146,33 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/vkError">&nbsp;&nbsp;vkError</a></code>
+		<code><a href="#//api/name/admin_id">&nbsp;&nbsp;admin_id</a></code>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/errorWithVkError:">+&nbsp;errorWithVkError:</a></code>
+		<code><a href="#//api/name/date">&nbsp;&nbsp;date</a></code>
 	</span>
-	
+	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/copyWithVkError:">&ndash;&nbsp;copyWithVkError:</a></code>
+		<code><a href="#//api/name/reason">&nbsp;&nbsp;reason</a></code>
 	</span>
+	<span class="task-item-suffix">property</span>
 	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/comment">&nbsp;&nbsp;comment</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/end_date">&nbsp;&nbsp;end_date</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
 	
 </li>
 						</ul>
@@ -167,18 +188,18 @@
 						<h2 class="subtitle subtitle-methods">Properties</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/vkError" title="vkError"></a>
-	<h3 class="subsubtitle method-title">vkError</h3>
+	<a name="//api/name/admin_id" title="admin_id"></a>
+	<h3 class="subsubtitle method-title">admin_id</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Returns vk error associated with that NSError</p>
+		<p>идентификатор администратора, который добавил пользователя в черный список;</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) VKError *vkError</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSNumber *admin_id</code></div>
 
     
 	
@@ -196,52 +217,29 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSError+VKError.h</code><br />
+		<code class="declared-in-ref">VKUser.h</code><br />
 	</div>				
 	
 	
 </div>
-						
-					</div>
-					
-					
-					
-					<div class="section section-methods">
-						<a title="Class Methods" name="class_methods"></a>
-						<h2 class="subtitle subtitle-methods">Class Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/errorWithVkError:" title="errorWithVkError:"></a>
-	<h3 class="subsubtitle method-title">errorWithVkError:</h3>
+	<a name="//api/name/comment" title="comment"></a>
+	<h3 class="subsubtitle method-title">comment</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Create new NSError with <a href="../Classes/VKError.html">VKError</a></p>
+		<p>текст комментария</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (NSError *)errorWithVkError:(VKError *)<em>vkError</em></code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSString *comment</code></div>
 
     
 	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>vkError</em></dt>
-			<dd><p>Source error</p></dd>
-		</dl>
-		
-	</div>
 	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>New error with VKSdkErrorDomain domain</p>
-	</div>
 	
 	
 	
@@ -255,52 +253,29 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSError+VKError.h</code><br />
+		<code class="declared-in-ref">VKUser.h</code><br />
 	</div>				
 	
 	
 </div>
-						
-					</div>
-					
-					
-					
-					<div class="section section-methods">
-						<a title="Instance Methods" name="instance_methods"></a>
-						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/copyWithVkError:" title="copyWithVkError:"></a>
-	<h3 class="subsubtitle method-title">copyWithVkError:</h3>
+	<a name="//api/name/date" title="date"></a>
+	<h3 class="subsubtitle method-title">date</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Copies user info from this NSError into new error, with adding <a href="../Classes/VKError.html">VKError</a></p>
+		<p>дата добавления пользователя в черный список;</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (NSError *)copyWithVkError:(VKError *)<em>vkError</em></code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSNumber *date</code></div>
 
     
 	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>vkError</em></dt>
-			<dd><p>Source error</p></dd>
-		</dl>
-		
-	</div>
 	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>New error with this error domain, code and user info</p>
-	</div>
 	
 	
 	
@@ -314,13 +289,89 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSError+VKError.h</code><br />
+		<code class="declared-in-ref">VKUser.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/end_date" title="end_date"></a>
+	<h3 class="subsubtitle method-title">end_date</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>дата, когда пользователь будет разбанен.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSNumber *end_date</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKUser.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/reason" title="reason"></a>
+	<h3 class="subsubtitle method-title">reason</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>причина добавления пользователя в черный список;</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSNumber *reason</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKUser.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 					</div>
+					
+					
+					
+					
 					
 					
                     
