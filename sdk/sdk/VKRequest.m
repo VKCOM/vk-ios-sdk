@@ -154,7 +154,9 @@
 		}
 		VKAccessToken *token = [VKSdk getAccessToken];
 		if (token != nil) {
-			[_preparedParameters setObject:token.accessToken forKey:VK_API_ACCESS_TOKEN];
+            if (token.accessToken != nil) {
+                [_preparedParameters setObject:token.accessToken forKey:VK_API_ACCESS_TOKEN];
+            }
             if (!(self.secure || token.secret) || token.httpsRequired)
                 self.secure = YES;
 		}
