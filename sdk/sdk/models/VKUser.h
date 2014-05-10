@@ -116,7 +116,7 @@
 @property (nonatomic, strong) NSNumber *university;
 @property (nonatomic, strong) VKUniversities *universities;
 @property (nonatomic, strong) VKSchools *schools;
-@property (nonatomic, strong) NSNumber *graduation;fa
+@property (nonatomic, strong) NSNumber *graduation;
 @property (nonatomic, strong) NSNumber *friendState;
 @property (nonatomic, strong) NSString *faculty_name;
 @property (nonatomic, strong) NSString *university_name;
