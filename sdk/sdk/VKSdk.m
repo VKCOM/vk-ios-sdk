@@ -105,6 +105,9 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
                                                 displayType:displayType];
     }
 }
++(BOOL) vkAppMayExists {
+    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"vkauth://authorize"]];
+}
 
 #pragma mark Access token
 + (void)setAccessToken:(VKAccessToken *)token {

@@ -219,6 +219,11 @@
  Has no effect for logout in VK app
  */
 + (void) forceLogout;
+
+/**
+ * Checks if there is some application, which may process authorize url
+ */
++ (BOOL) vkAppMayExists;
 // Deny allocating more SDK
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 + (instancetype)alloc __attribute__((unavailable("alloc not available, call initialize: or instance instead")));
