@@ -22,8 +22,9 @@
 
 #import "VKUser.h"
 
+@implementation VKLastSeen
+@end
 @implementation VKUser
-
 @end
 @implementation VKGeoObject
 @end
