@@ -66,12 +66,13 @@ static NSString *const UPLOAD_PHOTOS = @"Upload several photos to wall";
 static NSString *const TEST_CAPTCHA = @"Test captcha";
 static NSString *const CALL_UNKNOWN_METHOD = @"Call unknown method";
 static NSString *const TEST_VALIDATION = @"Test validation";
+static NSString *const MAKE_SYNCHRONOUS = @"Make synchronous request";
 
 //Fields
 static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,city,country,photo_50,photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,online_mobile,lists,domain,has_mobile,contacts,connections,site,education,universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message,status,last_seen,common_count,relation,relatives,counters";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!labels)
-		labels = @[USERS_GET, USERS_SUBSCRIPTIONS, FRIENDS_GET, FRIENDS_GET_FULL, UPLOAD_PHOTO, UPLOAD_PHOTO_ALBUM, UPLOAD_PHOTOS, TEST_CAPTCHA, CALL_UNKNOWN_METHOD, TEST_VALIDATION];
+		labels = @[USERS_GET, USERS_SUBSCRIPTIONS, FRIENDS_GET, FRIENDS_GET_FULL, UPLOAD_PHOTO, UPLOAD_PHOTO_ALBUM, UPLOAD_PHOTOS, TEST_CAPTCHA, CALL_UNKNOWN_METHOD, TEST_VALIDATION,MAKE_SYNCHRONOUS];
 	return labels.count;
 }
 
@@ -86,7 +87,6 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
 	NSString *label = labels[indexPath.row];
 	if ([label isEqualToString:USERS_GET]) {
 		[self callMethod:[[VKApi users] get:@{ VK_API_FIELDS : ALL_USER_FIELDS }]];
-
 	}
 	else if ([label isEqualToString:USERS_SUBSCRIPTIONS]) {
         [self callMethod:[VKRequest requestWithMethod:@"users.getFollowers" andParameters:@{VK_API_USER_ID : @"1", VK_API_COUNT : @(1000), VK_API_FIELDS : ALL_USER_FIELDS} andHttpMethod:@"GET" classOfModel:[VKUsersArray class]]];
@@ -115,7 +115,24 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
 	}
     else if ([label isEqualToString:TEST_VALIDATION]) {
         [self callMethod:[VKRequest requestWithMethod:@"account.testValidation" andParameters:nil andHttpMethod:@"GET"]];
+    } else if ([label isEqualToString:MAKE_SYNCHRONOUS]) {
+        VKUsersArray * users = [self loadUsers];
+        NSLog(@"users %@", users);
     }
+}
+-(VKUsersArray*) loadUsers {
+    __block VKUsersArray *users;
+    VKRequest *request = [[VKApi friends] get:@{ @"user_id" : @1 }];
+    request.waitUntilDone = YES;
+    [request executeWithResultBlock:^(VKResponse *response)
+     {
+         users = response.parsedModel;
+     }
+      errorBlock:^(NSError *error)
+     {
+         
+     }];
+    return users;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

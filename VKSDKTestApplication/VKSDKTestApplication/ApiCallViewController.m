@@ -32,7 +32,7 @@
 	[super viewDidLoad];
 	self.methodName.text = self.callingRequest.methodName;
     self.callingRequest.debugTiming = YES;
-    self.callingRequest.requestTimeout = 3;
+    self.callingRequest.requestTimeout = 10;
 	[self.callingRequest executeWithResultBlock: ^(VKResponse *response) {
 	    self.callResult.text = [NSString stringWithFormat:@"Result: %@", response];
 	    self.callingRequest = nil;
