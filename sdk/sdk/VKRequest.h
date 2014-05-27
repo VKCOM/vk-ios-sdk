@@ -73,6 +73,10 @@
 @property (nonatomic, assign) BOOL debugTiming;
 /// Timeout for this request
 @property (nonatomic, assign) NSInteger requestTimeout;
+/// Sets dispatch queue for returning result
+@property (nonatomic, assign) dispatch_queue_t responseQueue;
+/// Set to YES if you need to freeze current thread for response
+@property (nonatomic, assign) BOOL waitUntilDone;
 /// Returns method for current request, e.g. users.get
 @property (nonatomic, readonly) NSString *methodName;
 /// Returns HTTP-method for current request
@@ -83,6 +87,7 @@
 @property (nonatomic, readonly) NSOperation *executionOperation;
 /// Returns info about request timings
 @property (nonatomic, readonly) VKRequestTiming *requestTiming;
+
 
 ///-------------------------------
 /// @name Preparing requests
