@@ -52,6 +52,10 @@
 @end
 
 @interface VKRequest ()
+{
+    /// Semaphore for blocking current thread
+    dispatch_semaphore_t _waitUntilDoneSemaphore;
+}
 @property (nonatomic, readwrite, strong) VKRequestTiming *requestTiming;
 /// Selected method name
 @property (nonatomic, strong) NSString *methodName;
@@ -71,8 +75,6 @@
 @property (nonatomic, strong) NSArray *photoObjects;
 /// How much times request was loaded
 @property (readwrite, assign) int attemptsUsed;
-/// Semaphore for blocking current thread
-@property (nonatomic, strong) dispatch_semaphore_t waitUntilDoneSemaphore;
 /// This request response
 @property (nonatomic, strong)   VKResponse *response;
 /// This request error
@@ -253,9 +255,9 @@
         [[VKHTTPClient getClient] enqueueOperation:_executionOperation];
     } else {
         [self setOperation:(VKHTTPOperation*)_executionOperation responseQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)];
-        self.waitUntilDoneSemaphore = dispatch_semaphore_create(0);
+        _waitUntilDoneSemaphore = dispatch_semaphore_create(0);
         [[VKHTTPClient getClient] enqueueOperation:_executionOperation];
-        dispatch_semaphore_wait(self.waitUntilDoneSemaphore, DISPATCH_TIME_FOREVER);
+        dispatch_semaphore_wait(_waitUntilDoneSemaphore, DISPATCH_TIME_FOREVER);
         [self finishRequest];
     }
 }
@@ -287,7 +289,7 @@
         [_requestTiming finished];
         self.response = vkResp;
         if (self.waitUntilDone) {
-            dispatch_semaphore_signal(self.waitUntilDoneSemaphore);
+            dispatch_semaphore_signal(_waitUntilDoneSemaphore);
         } else {
             dispatch_sync(self.responseQueue, ^{
                 [self finishRequest];
@@ -301,7 +303,7 @@
 	error.vkError.request = self;
     self.error = error;
     if (self.waitUntilDone) {
-        dispatch_semaphore_signal(self.waitUntilDoneSemaphore);
+        dispatch_semaphore_signal(_waitUntilDoneSemaphore);
     }
     else {
         dispatch_async(self.responseQueue, ^{
