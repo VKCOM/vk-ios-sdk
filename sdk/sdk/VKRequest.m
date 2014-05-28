@@ -72,7 +72,7 @@
 /// How much times request was loaded
 @property (readwrite, assign) int attemptsUsed;
 /// Semaphore for blocking current thread
-@property (nonatomic, assign) dispatch_semaphore_t waitUntilDoneSemaphore;
+@property (nonatomic, strong) dispatch_semaphore_t waitUntilDoneSemaphore;
 /// This request response
 @property (nonatomic, strong)   VKResponse *response;
 /// This request error
@@ -252,12 +252,10 @@
     if (!self.waitUntilDone) {
         [[VKHTTPClient getClient] enqueueOperation:_executionOperation];
     } else {
-        self.responseQueue = dispatch_get_current_queue();
         [self setOperation:(VKHTTPOperation*)_executionOperation responseQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)];
         self.waitUntilDoneSemaphore = dispatch_semaphore_create(0);
         [[VKHTTPClient getClient] enqueueOperation:_executionOperation];
         dispatch_semaphore_wait(self.waitUntilDoneSemaphore, DISPATCH_TIME_FOREVER);
-        dispatch_release(self.waitUntilDoneSemaphore);
         [self finishRequest];
     }
 }
