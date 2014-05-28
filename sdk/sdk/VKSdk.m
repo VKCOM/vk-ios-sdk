@@ -22,6 +22,18 @@
 
 #import "VKSdk.h"
 #import "VKAuthorizeController.h"
+
+typedef enum : NSUInteger {
+    VKAuthorizationInitialized,
+    VKAuthorizationVkApp,
+    VKAuthorizationWebview,
+    VKAuthorizationSafari
+} VKAuthorizationState;
+
+@interface VKSdk ()
+@property (nonatomic, assign) VKAuthorizationState authState;
+@end
+
 @implementation VKSdk
 @synthesize delegate = _delegate;
 static VKSdk *vkSdkInstance = nil;
@@ -29,7 +41,7 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 #pragma mark Initialization
 + (void)initialize {
 	NSAssert([VKSdk class] == self, @"Subclassing is not welcome");
-	vkSdkInstance = [[super alloc] initUniqueInstance];
+	
 }
 
 + (instancetype)instance {
@@ -44,6 +56,7 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 }
 
 + (void)initializeWithDelegate:(id <VKSdkDelegate> )delegate andAppId:(NSString *)appId andCustomToken:(VKAccessToken *)token {
+    vkSdkInstance = [[super alloc] initUniqueInstance];
 	vkSdkInstance->_delegate            = delegate;
 	vkSdkInstance->_currentAppId        = appId;
     
@@ -56,7 +69,9 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 }
 
 - (instancetype)initUniqueInstance {
-	return [super init];
+    self = [super init];
+    self.authState = VKAuthorizationInitialized;
+	return self;
 }
 
 #pragma mark Authorization
@@ -69,7 +84,12 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 }
 
 + (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth {
-    [self authorize:permissions revokeAccess:revokeAccess forceOAuth:forceOAuth inApp:NO];
+    //Если не VK app, то необходимо открыть сначала web view
+    if ([VKSdk instance].authState == VKAuthorizationInitialized && ![self vkAppMayExists]) {
+        [self authorize:permissions revokeAccess:revokeAccess forceOAuth:forceOAuth inApp:YES];
+    } else {
+        [self authorize:permissions revokeAccess:revokeAccess forceOAuth:forceOAuth inApp:NO];
+    }
 }
 + (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth inApp:(BOOL) inApp;
 {
@@ -88,21 +108,26 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
                             [NSString stringWithFormat:@"vkauth://authorize?client_id=%@&scope=%@&revoke=%d",
                              clientId,
                              [permissions componentsJoinedByString:@","], revokeAccess ? 1:0]];
-        if (!forceOAuth && [[UIApplication sharedApplication] canOpenURL:urlToOpen])
-            [[UIApplication sharedApplication] openURL:urlToOpen];
-        else
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:
-                                                        [VKAuthorizeController buildAuthorizationUrl:[NSString stringWithFormat:@"vk%@://authorize", clientId]
-                                                                                            clientId:clientId
-                                                                                               scope:[permissions componentsJoinedByString:@","]
-                                                                                              revoke:revokeAccess
-                                                                                             display:@"mobile"]]];
+        if (!forceOAuth && [[UIApplication sharedApplication] canOpenURL:urlToOpen]) {
+            [VKSdk instance].authState = VKAuthorizationVkApp;
+        }
+        else {
+            
+            urlToOpen = [NSURL URLWithString:[VKAuthorizeController buildAuthorizationUrl:[NSString stringWithFormat:@"vk%@://authorize", clientId]
+                                                                                 clientId:clientId
+                                                                                    scope:[permissions componentsJoinedByString:@","]
+                                                                                   revoke:revokeAccess
+                                                                                  display:@"mobile"]];
+            [VKSdk instance].authState = VKAuthorizationSafari;
+        }
+        [[UIApplication sharedApplication] openURL:urlToOpen];
     } else {
         //Authorization through popup webview
         [VKAuthorizeController presentForAuthorizeWithAppId:clientId
                                              andPermissions:permissions
                                                revokeAccess:revokeAccess
                                                 displayType:displayType];
+        [VKSdk instance].authState = VKAuthorizationWebview;
     }
 }
 +(BOOL) vkAppMayExists {
