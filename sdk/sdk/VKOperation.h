@@ -35,4 +35,6 @@ typedef enum {
 @property (readwrite, nonatomic, assign) VKOperationState state;
 /// Operation working lock
 @property (readwrite, nonatomic, strong) NSRecursiveLock *lock;
+/// Sets dispatch queue for returning result
+@property (nonatomic, assign) dispatch_queue_t responseQueue;
 @end

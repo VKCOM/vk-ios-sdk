@@ -93,7 +93,6 @@
 	newRequest.methodName       = method;
 	newRequest.methodParameters = parameters;
 	newRequest.httpMethod       = httpMethod;
-    newRequest.responseQueue    = dispatch_get_main_queue();
 	return newRequest;
 }
 
@@ -407,6 +406,12 @@
 			lang = _preferredLang;
 	}
 	return lang;
+}
+-(dispatch_queue_t)responseQueue {
+    if (!_responseQueue) {
+        return dispatch_get_main_queue();
+    }
+    return _responseQueue;
 }
 
 - (void)setPreferredLang:(NSString *)preferredLang {

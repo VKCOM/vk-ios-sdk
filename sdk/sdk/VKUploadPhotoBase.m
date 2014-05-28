@@ -30,7 +30,9 @@ extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperat
 
 @implementation VKUploadPhotoBase
 - (NSOperation *)executionOperation {
-	return _executionOperation = [VKUploadImageOperation operationWithUploadRequest:self];
+	_executionOperation = [VKUploadImageOperation operationWithUploadRequest:self];
+    [(VKOperation*)_executionOperation setResponseQueue:self.responseQueue];
+    return _executionOperation;
 }
 
 - (VKRequest *)getServerRequest {
@@ -69,6 +71,7 @@ extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperat
 	self.state = VKOperationExecutingState;
     
 	VKRequest *serverRequest = [_uploadRequest getServerRequest];
+    serverRequest.responseQueue = self.responseQueue;
 	serverRequest.completeBlock = ^(VKResponse *response) {
 		NSData *imageData = nil;
 		switch (_uploadRequest.imageParameters.imageType) {
@@ -86,9 +89,11 @@ extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperat
 		_uploadRequest.image = nil;
 		VKRequest *postFileRequest = [VKRequest photoRequestWithPostUrl:response.json[@"upload_url"] withPhotos:@[[VKUploadImage objectWithData:imageData andParams:_uploadRequest.imageParameters]]];
 		postFileRequest.progressBlock = _uploadRequest.progressBlock;
+        postFileRequest.responseQueue = self.responseQueue;
 		self.lastLoadingRequest = postFileRequest;
 		[postFileRequest executeWithResultBlock: ^(VKResponse *response) {
 		    VKRequest *saveRequest = [_uploadRequest getSaveRequest:response];
+            saveRequest.responseQueue = self.responseQueue;
 		    self.lastLoadingRequest = saveRequest;
 		    [saveRequest executeWithResultBlock: ^(VKResponse *response) {
 		        response.request = _uploadRequest;
