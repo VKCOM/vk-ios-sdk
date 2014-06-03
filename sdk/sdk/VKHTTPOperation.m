@@ -34,7 +34,7 @@ NSString *const VKNetworkingOperationFailingURLResponseErrorKey = @"VKNetworking
 
 typedef void (^VKURLConnectionOperationProgressBlock)(NSUInteger bytes, long long totalBytes, long long totalBytesExpected);
 @interface VKHTTPOperation ()
-@property (readwrite, nonatomic, assign, getter = isCancelled) BOOL cancelled;
+@property (readwrite, nonatomic, assign, getter = isCancelled) BOOL wasCanceled;
 @property (readwrite, nonatomic, strong) NSRecursiveLock *lock;
 @property (readwrite, nonatomic, strong) NSURLConnection *connection;
 @property (readwrite, nonatomic, strong) NSURLRequest *request;
@@ -453,7 +453,7 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 	}
     
 	self.state = (VKOperationState)[aDecoder decodeIntegerForKey : @"state"];
-	self.cancelled = [aDecoder decodeBoolForKey:@"isCancelled"];
+	self.wasCanceled = [aDecoder decodeBoolForKey:@"isCancelled"];
 	self.response = [aDecoder decodeObjectForKey:@"response"];
 	self.error = [aDecoder decodeObjectForKey:@"error"];
 	self.responseData = [aDecoder decodeObjectForKey:@"responseData"];
