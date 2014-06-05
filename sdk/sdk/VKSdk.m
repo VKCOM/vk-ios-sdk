@@ -170,7 +170,8 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 	}
 	NSDictionary *parametersDict = [VKUtil explodeQueryString:parametersString];
     BOOL inAppCheck = [urlString hasPrefix:@"https://oauth.vk.com"];
-	if (inAppCheck && (parametersDict[@"cancel"] || parametersDict[@"error"] || parametersDict[@"fail"])) {
+    if ( (!inAppCheck && parametersDict[@"error"]) ||
+              (inAppCheck && (parametersDict[@"cancel"] || parametersDict[@"error"] || parametersDict[@"fail"] ) ) ) {
 		VKError *error     = [VKError errorWithQuery:parametersDict];
 		[VKSdk setAccessTokenError:error];
 		return NO;
