@@ -77,12 +77,13 @@ static NSString *const CREATED = @"created";
 }
 - (void) checkIfExpired
 {
-    if (self.isExpired)
+    if (_accessToken && self.isExpired)
         [[[VKSdk instance] delegate] vkSdkTokenHasExpired:self];
 }
 - (NSString *)accessToken
 {
-    [self checkIfExpired];
+    if (_accessToken)
+        [self checkIfExpired];
     return _accessToken;
 }
 - (void)saveTokenToFile:(NSString *)filePath {

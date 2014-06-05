@@ -150,7 +150,6 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 }
 
 + (void)setAccessTokenError:(VKError *)error {
-	vkSdkInstance->_accessToken = nil;
 	[vkSdkInstance->_delegate vkSdkUserDeniedAccess:error];
 }
 
@@ -160,36 +159,34 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 
 + (BOOL)processOpenURL:(NSURL *)passedUrl {
 	NSString *urlString = [passedUrl absoluteString];
-    if (![urlString hasPrefix:[NSString stringWithFormat:@"vk%@://authorize", [[self instance] currentAppId] ]])
-    {
-        return NO;
-    }
     NSRange rangeOfHash = [urlString rangeOfString:@"#"];
     if (rangeOfHash.location == NSNotFound) {
         return NO;
     }
+    
 	NSString *parametersString = [urlString substringFromIndex:rangeOfHash.location + 1];
 	if (parametersString.length == 0) {
-		VKError *error = [VKError errorWithCode:VK_API_CANCELED];
-		[VKSdk setAccessTokenError:error];
 		return NO;
 	}
 	NSDictionary *parametersDict = [VKUtil explodeQueryString:parametersString];
-    
-	if (parametersDict[@"error"] || parametersDict[@"fail"]) {
+    BOOL inAppCheck = [urlString hasPrefix:@"https://oauth.vk.com"];
+	if (inAppCheck && (parametersDict[@"cancel"] || parametersDict[@"error"] || parametersDict[@"fail"])) {
 		VKError *error     = [VKError errorWithQuery:parametersDict];
 		[VKSdk setAccessTokenError:error];
 		return NO;
 	}
-	else if (parametersDict[@"success"]) {
+	else if (inAppCheck && parametersDict[@"success"]) {
 		VKAccessToken *token = [VKSdk getAccessToken];
-		token.accessToken   = parametersDict[@"access_token"];
-		token.secret        = parametersDict[@"secret"];
-		token.userId        = parametersDict[@"user_id"];
+        token.accessToken   = parametersDict[@"access_token"] ? : token.accessToken;
+		token.secret        = parametersDict[@"secret"]       ? : token.secret;
+        token.userId        = parametersDict[@"user_id"]      ? : token.userId;
         [token saveTokenToDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
 	}
 	else {
 		VKAccessToken *token = [VKAccessToken tokenFromUrlString:parametersString];
+        if (!token.accessToken) {
+            return NO;
+        }
 		[VKSdk setAccessToken:token];
 	}
 	return YES;
