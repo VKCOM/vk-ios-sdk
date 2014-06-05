@@ -159,7 +159,11 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 
 + (BOOL)processOpenURL:(NSURL *)passedUrl {
 	NSString *urlString = [passedUrl absoluteString];
-	NSString *parametersString = [urlString substringFromIndex:[urlString rangeOfString:@"#"].location + 1];
+    NSRange rangeOfHash = [urlString rangeOfString:@"#"];
+    if (rangeOfHash.location == NSNotFound) {
+        return NO;
+    }
+	NSString *parametersString = [urlString substringFromIndex:rangeOfHash.location + 1];
 	if (parametersString.length == 0) {
 		VKError *error = [VKError errorWithCode:VK_API_CANCELED];
 		[VKSdk setAccessTokenError:error];
