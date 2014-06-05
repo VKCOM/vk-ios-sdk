@@ -39,5 +39,6 @@ static NSString *const VK_PER_STATS        = @"stats";
 static NSString *const VK_PER_ADS          = @"ads";
 static NSString *const VK_PER_OFFLINE      = @"offline";
 static NSString *const VK_PER_NOHTTPS      = @"nohttps";
+static NSString *const VK_PER_DIRECT       = @"direct";
 
 NSArray *parseVkPermissionsFromInteger(int permissionsValue);
