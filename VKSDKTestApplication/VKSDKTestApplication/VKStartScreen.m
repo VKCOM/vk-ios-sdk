@@ -27,14 +27,6 @@ static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
 static NSArray  * SCOPE = nil;
 @implementation VKStartScreen
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	if (self) {
-		// Custom initialization
-	}
-	return self;
-}
-
 - (void)viewDidLoad {
     SCOPE = @[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS];
 	[super viewDidLoad];
