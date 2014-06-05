@@ -32,6 +32,7 @@ typedef enum : NSUInteger {
 
 @interface VKSdk ()
 @property (nonatomic, assign) VKAuthorizationState authState;
+@property (nonatomic, readonly) NSString * currentAppId;
 @end
 
 @implementation VKSdk
@@ -101,7 +102,7 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
         [(NSMutableArray*)permissions addObject:VK_PER_OFFLINE];
     }
     
-    NSString *clientId = vkSdkInstance->_currentAppId;
+    NSString *clientId = vkSdkInstance.currentAppId;
     
     if (!inApp) {
         NSURL *urlToOpen = [NSURL URLWithString:
@@ -159,6 +160,10 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 
 + (BOOL)processOpenURL:(NSURL *)passedUrl {
 	NSString *urlString = [passedUrl absoluteString];
+    if (![urlString hasPrefix:[NSString stringWithFormat:@"vk%@://authorize", [[self instance] currentAppId] ]])
+    {
+        return NO;
+    }
     NSRange rangeOfHash = [urlString rangeOfString:@"#"];
     if (rangeOfHash.location == NSNotFound) {
         return NO;
@@ -194,7 +199,7 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 	if ([sourceApplication isEqualToString:@"com.vk.odnoletkov.client"] ||
          [sourceApplication isEqualToString:@"com.vk.client"] ||
          ([sourceApplication isEqualToString:@"com.apple.mobilesafari"] &&
-        [passedUrl.scheme isEqualToString:[NSString stringWithFormat:@"vk%@", vkSdkInstance->_currentAppId]])
+        [passedUrl.scheme isEqualToString:[NSString stringWithFormat:@"vk%@", vkSdkInstance.currentAppId]])
         )
 		return [self processOpenURL:passedUrl];
 	return NO;
@@ -223,6 +228,10 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
         return NO;
     vkSdkInstance->_accessToken = token;
     return YES;
+}
+
+-(NSString *)currentAppId {
+    return _currentAppId;
 }
 
 @end
