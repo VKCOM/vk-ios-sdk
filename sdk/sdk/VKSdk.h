@@ -90,11 +90,7 @@
  Entry point for using VK sdk. Should be initialized at application start
  */
 @interface VKSdk : NSObject
-{
-@private
-	VKAccessToken *_accessToken;            ///< access token for API-requests
-	NSString *_currentAppId;                ///< app id for current application
-}
+
 ///-------------------------------
 /// @name Delegate
 ///-------------------------------

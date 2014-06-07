@@ -31,12 +31,14 @@ typedef enum : NSUInteger {
 } VKAuthorizationState;
 
 @interface VKSdk ()
+
 @property (nonatomic, assign) VKAuthorizationState authState;
-@property (nonatomic, readonly) NSString * currentAppId;
+@property (nonatomic, strong) NSString * currentAppId;
+@property (nonatomic, strong) VKAccessToken *accessToken;
+
 @end
 
 @implementation VKSdk
-@synthesize delegate = _delegate;
 static VKSdk *vkSdkInstance = nil;
 static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_DONT_TOUCH_THIS_PLEASE";
 #pragma mark Initialization
@@ -53,16 +55,19 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 }
 
 + (void)initializeWithDelegate:(id <VKSdkDelegate> )delegate andAppId:(NSString *)appId {
-	[self initializeWithDelegate:delegate andAppId:appId andCustomToken:nil];
+	[self initializeWithDelegate:delegate andAppId:appId andCustomToken:vkSdkInstance.accessToken];
 }
 
-+ (void)initializeWithDelegate:(id <VKSdkDelegate> )delegate andAppId:(NSString *)appId andCustomToken:(VKAccessToken *)token {
-    vkSdkInstance = [[super alloc] initUniqueInstance];
-	vkSdkInstance->_delegate            = delegate;
-	vkSdkInstance->_currentAppId        = appId;
++ (void)initializeWithDelegate:(id <VKSdkDelegate> )delegate andAppId:(NSString *)appId andCustomToken:(VKAccessToken *)token
+{
+    if (!vkSdkInstance) {
+        vkSdkInstance               = [[super alloc] initUniqueInstance];
+        vkSdkInstance.delegate      = delegate;
+        vkSdkInstance.currentAppId  = appId;
+    }
     
 	if (token) {
-		vkSdkInstance->_accessToken     = token;
+		vkSdkInstance.accessToken   = token;
 		if ([delegate respondsToSelector:@selector(vkSdkAcceptedUserToken:)]) {
 			[delegate vkSdkAcceptedUserToken:token];
 		}
