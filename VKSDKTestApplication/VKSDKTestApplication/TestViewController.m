@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleDone target:self action:@selector(logout:)];x
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleDone target:self action:@selector(logout:)];
 }
 
 - (void)didReceiveMemoryWarning {
