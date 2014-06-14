@@ -61,13 +61,13 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 + (void)initializeWithDelegate:(id <VKSdkDelegate> )delegate andAppId:(NSString *)appId andCustomToken:(VKAccessToken *)token
 {
     if (!vkSdkInstance) {
-        vkSdkInstance               = [[super alloc] initUniqueInstance];
-        vkSdkInstance.delegate      = delegate;
-        vkSdkInstance.currentAppId  = appId;
+        vkSdkInstance           = [[super alloc] initUniqueInstance];
     }
+    vkSdkInstance.delegate      = delegate;
+    vkSdkInstance.currentAppId  = appId;
     
-	if (token) {
-		vkSdkInstance.accessToken   = token;
+	if (token && token != vkSdkInstance.accessToken) {
+		vkSdkInstance.accessToken = token;
 		if ([delegate respondsToSelector:@selector(vkSdkAcceptedUserToken:)]) {
 			[delegate vkSdkAcceptedUserToken:token];
 		}
