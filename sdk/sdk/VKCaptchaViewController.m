@@ -49,7 +49,13 @@
 	}
 	[controller presentViewController:self animated:YES completion:nil];
 }
+
 -(UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 @end
