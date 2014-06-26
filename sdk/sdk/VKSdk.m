@@ -24,10 +24,11 @@
 #import "VKAuthorizeController.h"
 
 typedef enum : NSUInteger {
-    VKAuthorizationInitialized,
-    VKAuthorizationVkApp,
-    VKAuthorizationWebview,
-    VKAuthorizationSafari
+    VKAuthorizationNone        = 0,
+    VKAuthorizationInitialized = 1,
+    VKAuthorizationVkApp       = 1 << 1,
+    VKAuthorizationWebview     = 1 << 2,
+    VKAuthorizationSafari      = 1 << 3
 } VKAuthorizationState;
 
 @interface VKSdk ()
@@ -90,8 +91,14 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 }
 
 + (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth {
+    if ([VKSdk instance].authState == VKAuthorizationInitialized &&
+        [vkSdkInstance.delegate respondsToSelector:@selector(vkSdkIsBasicAuthorization)]) {
+        [VKSdk instance].authState = [vkSdkInstance.delegate vkSdkIsBasicAuthorization] ? VKAuthorizationInitialized : VKAuthorizationVkApp;
+    }
+    
     //Если не VK app, то необходимо открыть сначала web view
-    if ([VKSdk instance].authState == VKAuthorizationInitialized && ![self vkAppMayExists]) {
+    if (![self vkAppMayExists] &&
+        [VKSdk instance].authState == VKAuthorizationInitialized) {
         [self authorize:permissions revokeAccess:revokeAccess forceOAuth:forceOAuth inApp:YES];
     } else {
         [self authorize:permissions revokeAccess:revokeAccess forceOAuth:forceOAuth inApp:NO];

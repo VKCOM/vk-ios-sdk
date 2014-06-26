@@ -35,6 +35,7 @@
 #import "NSError+VKError.h"
 #import "VKApiModels.h"
 
+
 /**
  Global SDK events delegate protocol.
  You should implement it, typically as main view controller or as application delegate.
@@ -84,6 +85,11 @@
  */
 - (void)vkSdkRenewedToken:(VKAccessToken *)newToken;
 
+/**
+ Applications which not using VK SDK as main way of application use should override that method and return false.
+ By default returns YES.
+ */
+- (BOOL)vkSdkIsBasicAuthorization;
 @end
 
 /**
