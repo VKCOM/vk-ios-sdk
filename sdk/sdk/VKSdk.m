@@ -90,6 +90,12 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
 }
 
 + (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth {
+	
+	if ([[VKSdk instance].delegate respondsToSelector:@selector(vkSdkAuthorizationAllowFallbackToSafari)]) {
+		if (![[VKSdk instance].delegate vkSdkAuthorizationAllowFallbackToSafari])
+			[VKSdk instance].authState = VKAuthorizationInitialized;
+	}
+	
     //Если не VK app, то необходимо открыть сначала web view
     if ([VKSdk instance].authState == VKAuthorizationInitialized && ![self vkAppMayExists]) {
         [self authorize:permissions revokeAccess:revokeAccess forceOAuth:forceOAuth inApp:YES];
