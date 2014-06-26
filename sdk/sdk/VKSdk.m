@@ -95,7 +95,11 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
         [vkSdkInstance.delegate respondsToSelector:@selector(vkSdkIsBasicAuthorization)]) {
         [VKSdk instance].authState = [vkSdkInstance.delegate vkSdkIsBasicAuthorization] ? VKAuthorizationInitialized : VKAuthorizationVkApp;
     }
-    
+    //pull #87
+	if ([[VKSdk instance].delegate respondsToSelector:@selector(vkSdkAuthorizationAllowFallbackToSafari)]) {
+		if (![[VKSdk instance].delegate vkSdkAuthorizationAllowFallbackToSafari])
+			[VKSdk instance].authState = VKAuthorizationInitialized;
+	}
     //Если не VK app, то необходимо открыть сначала web view
     if (![self vkAppMayExists] &&
         [VKSdk instance].authState == VKAuthorizationInitialized) {

@@ -84,6 +84,11 @@
  @param newToken new token for API requests
  */
 - (void)vkSdkRenewedToken:(VKAccessToken *)newToken;
+/**
+ Requests delegate about fallback to Safari during authorization procedure
+ @param fallback If YES, SDK will use Safari when VK app not installed and previous authorization was not succeeded. If NO, SDK will use webView
+ */
+- (BOOL)vkSdkAuthorizationAllowFallbackToSafari;
 
 /**
  Applications which not using VK SDK as main way of application use should override that method and return false.
