@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/VKCOM/vk-ios-sdk.git", :tag => s.version.to_s }
   s.source_files  = 'sdk/**/*.{h,m}'
   s.public_header_files = 'sdk/**/*.h'
-  s.resources     = "sdk/SDK resources/*.png"
+  s.resources     = "VKSdkResources.bundle"
   s.frameworks    = 'Foundation','UIKit'
   s.requires_arc = true
 end
