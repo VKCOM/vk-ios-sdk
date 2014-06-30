@@ -71,7 +71,7 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
                               scope:(NSString *)scope
                              revoke:(BOOL)revoke
                             display:(NSString *)display {
-	return [NSString stringWithFormat:@"https://oauth.vk.com/authorize?client_id=%@&scope=%@&redirect_uri=%@&display=%@&v=%@&response_type=token&revoke=%d", clientId, scope, redirectUri, display, VK_SDK_API_VERSION, revoke ? 1:0];
+	return [NSString stringWithFormat:@"https://oauth.vk.com/authorize?client_id=%@&scope=%@&redirect_uri=%@&display=%@&v=%@&response_type=token&revoke=%d&sdk_version=%@", clientId, scope, redirectUri, display, VK_SDK_API_VERSION, revoke ? 1:0, VK_SDK_VERSION];
 }
 
 #pragma mark View prepare

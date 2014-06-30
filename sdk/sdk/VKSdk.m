@@ -42,6 +42,7 @@ typedef enum : NSUInteger {
 @implementation VKSdk
 static VKSdk *vkSdkInstance = nil;
 static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_DONT_TOUCH_THIS_PLEASE";
+static NSString * VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 #pragma mark Initialization
 + (void)initialize {
 	NSAssert([VKSdk class] == self, @"Subclassing is not welcome");
@@ -122,19 +123,18 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
     
     if (!inApp) {
         NSURL *urlToOpen = [NSURL URLWithString:
-                            [NSString stringWithFormat:@"vkauth://authorize?client_id=%@&scope=%@&revoke=%d",
-                             clientId,
-                             [permissions componentsJoinedByString:@","], revokeAccess ? 1:0]];
+                            [NSString stringWithFormat:@"%@?client_id=%@&scope=%@&revoke=%d&sdk_version=%@", VK_AUTHORIZE_URL_STRING, clientId, [permissions componentsJoinedByString:@","], revokeAccess ? 1:0, VK_SDK_VERSION]
+                            ];
         if (!forceOAuth && [[UIApplication sharedApplication] canOpenURL:urlToOpen]) {
             [VKSdk instance].authState = VKAuthorizationVkApp;
         }
         else {
-            
-            urlToOpen = [NSURL URLWithString:[VKAuthorizeController buildAuthorizationUrl:[NSString stringWithFormat:@"vk%@://authorize", clientId]
-                                                                                 clientId:clientId
-                                                                                    scope:[permissions componentsJoinedByString:@","]
-                                                                                   revoke:revokeAccess
-                                                                                  display:@"mobile"]];
+            urlToOpen = [NSURL URLWithString:
+                         [VKAuthorizeController buildAuthorizationUrl:[NSString stringWithFormat:@"vk%@://authorize", clientId]
+                                                             clientId:clientId
+                                                                scope:[permissions componentsJoinedByString:@","]
+                                                               revoke:revokeAccess
+                                                              display:@"mobile"]];
             [VKSdk instance].authState = VKAuthorizationSafari;
         }
         [[UIApplication sharedApplication] openURL:urlToOpen];
@@ -148,7 +148,7 @@ static NSString * VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_
     }
 }
 +(BOOL) vkAppMayExists {
-    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"vkauth://authorize"]];
+    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:VK_AUTHORIZE_URL_STRING]];
 }
 
 #pragma mark Access token
