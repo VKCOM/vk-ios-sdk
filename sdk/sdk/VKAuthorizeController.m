@@ -153,7 +153,7 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 		[self setRightBarButtonActivity];
 	}
 	if ([urlString hasPrefix:REDIRECT_URL]) {
-		if ([VKSdk processOpenURL:[request URL] fromApplication:@"com.vk.client"] && _validationError)
+		if ([VKSdk processOpenURL:[request URL] fromApplication:VK_ORIGINAL_CLIENT_BUNDLE] && _validationError)
 			[_validationError.request repeat];
         
 		[self dismiss];
