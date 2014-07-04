@@ -212,6 +212,7 @@ static NSString * VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 + (BOOL)processOpenURL:(NSURL *)passedUrl fromApplication:(NSString *)sourceApplication {
 	if ([sourceApplication isEqualToString:@"com.vk.odnoletkov.client"] ||
          [sourceApplication isEqualToString:VK_ORIGINAL_CLIENT_BUNDLE] ||
+         [sourceApplication isEqualToString:VK_ORIGINAL_HD_CLIENT_BUNDLE] ||
          (
           ([sourceApplication isEqualToString:@"com.apple.mobilesafari"] || !sourceApplication) &&
            [passedUrl.scheme  isEqualToString:[NSString stringWithFormat:@"vk%@", vkSdkInstance.currentAppId]]
