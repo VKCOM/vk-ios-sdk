@@ -26,18 +26,15 @@
 
 #ifdef DEBUG
 
-#define DLog(...) NSLog(@"%s %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__])
 #define ALog(...) [[NSAssertionHandler currentHandler] handleFailureInFunction:[NSString stringWithCString:__PRETTY_FUNCTION__ encoding:NSUTF8StringEncoding] file:[NSString stringWithCString:__FILE__ encoding:NSUTF8StringEncoding] lineNumber:__LINE__ description:__VA_ARGS__]
 
 #else
 
-#define DLog(...) do { } while (0)
 #define ALog(...) NSLog(@"%s %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__])
 
 #endif
 
 #define ZAssert(condition, ...) do { if (!(condition)) { ALog(__VA_ARGS__); }} while(0)
-
 
 #import "VKSdk.h"
 #import "VKAuthorizeController.h"
@@ -258,12 +255,8 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
 	} else {
 
         NSMutableString *newParametersString = [parametersString mutableCopy];
-        [newParametersString appendString:@"&permissions="];
-        for (NSString *perm in vkSdkInstance.permissions) {
-            [newParametersString appendFormat:@"%@,", perm];
-        }
-        [newParametersString deleteCharactersInRange:NSMakeRange(newParametersString.length - 1, 1)];
-
+        [newParametersString appendFormat:@"&permissions=%@", [vkSdkInstance.permissions componentsJoinedByString:@","]];
+        
 		VKAccessToken *token = [VKAccessToken tokenFromUrlString:newParametersString];
 		if (!token.accessToken) {
 			return NO;
@@ -274,8 +267,9 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
 }
 
 + (BOOL)processOpenURL:(NSURL *)passedUrl fromApplication:(NSString *)sourceApplication {
-	if ([sourceApplication isEqualToString:@"com.vk.odnoletkov.client"] ||
-	    [sourceApplication isEqualToString:VK_ORIGINAL_CLIENT_BUNDLE] ||
+	if ([sourceApplication isEqualToString:@"com.vk.odnoletkov.client"]  ||
+	    [sourceApplication isEqualToString:VK_ORIGINAL_CLIENT_BUNDLE]    ||
+        [sourceApplication isEqualToString:VK_ORIGINAL_HD_CLIENT_BUNDLE] ||
 	    (
          ([sourceApplication isEqualToString:@"com.apple.mobilesafari"] || !sourceApplication) &&
          [passedUrl.scheme isEqualToString:[NSString stringWithFormat:@"vk%@", vkSdkInstance.currentAppId]]
