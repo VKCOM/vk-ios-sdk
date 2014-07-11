@@ -48,12 +48,12 @@
 /**
  Initialize object with any array. items property is sets as passed array, count is a count of items in passed array
  @param array API json array
- @param objectClass class of items inside of array
  @return Initialized object
  */
 - (instancetype) initWithArray:(NSArray*) array;
 
 /// Array funtions
+
 - (id) objectAtIndex:(NSInteger) idx;
 - (id) objectAtIndexedSubscript:(NSUInteger)idx NS_AVAILABLE(10_8, 6_0);
 - (NSEnumerator *)objectEnumerator;

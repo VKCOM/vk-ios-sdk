@@ -25,6 +25,10 @@
 
 static NSString *const VKSdkErrorDomain = @"VKSdkErrorDomain";
 static NSString *VkErrorDescriptionKey  = @"VkErrorDescriptionKey";
+
+/**
+ * Category with implementation of VK error
+ */
 @interface NSError (VKError)
 
 /// Returns vk error associated with that NSError

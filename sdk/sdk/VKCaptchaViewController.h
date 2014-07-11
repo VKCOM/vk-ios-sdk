@@ -23,11 +23,7 @@
 #import <UIKit/UIKit.h>
 #import "VKError.h"
 /**
- Controller fo displaying captcha. Example use:
- @code
- VKCaptchaViewController * vc = [VKCaptchaViewController captchaControllerWithError:captchaError];
- [vc presentIn:someController];
- @endcode
+ Controller fo displaying captcha.
  */
 @interface VKCaptchaViewController : UIViewController
 {

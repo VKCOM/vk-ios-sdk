@@ -84,13 +84,13 @@
  */
 - (void)vkSdkRenewedToken:(VKAccessToken *)newToken;
 /**
- Requests delegate about fallback to Safari during authorization procedure
- @param fallback If YES, SDK will use Safari when VK app not installed and previous authorization was not succeeded. If NO, SDK will use webView
+ Requests delegate about redirect to Safari during authorization procedure. 
+ By default returns YES
  */
 - (BOOL)vkSdkAuthorizationAllowFallbackToSafari;
 
 /**
- Applications which not using VK SDK as main way of application use should override that method and return false.
+ Applications which not using VK SDK as main way of authentication should override this method and return NO.
  By default returns YES.
  */
 - (BOOL)vkSdkIsBasicAuthorization;
