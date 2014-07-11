@@ -19,6 +19,10 @@
 //  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+//  --------------------------------------------------------------------------------
+//
+//  Modified by Ruslan Kavetsky
 
 #import <Foundation/Foundation.h>
 #import "VKObject.h"
@@ -28,19 +32,28 @@
 @interface VKAccessToken : VKObject
 
 /// String token for use in request parameters
-@property (nonatomic, strong) NSString *accessToken;
+@property (nonatomic, readonly) NSString *accessToken;
+
 /// Time when token expires
-@property (nonatomic, strong) NSString *expiresIn;
+@property (nonatomic, readonly) NSString *expiresIn;
+
 /// Current user id for this token
-@property (nonatomic, strong) NSString *userId;
+@property (nonatomic, readonly) NSString *userId;
+
 /// User secret to sign requests (if nohttps used)
-@property (nonatomic, strong) NSString *secret;
+@property (nonatomic, readonly) NSString *secret;
+
 /// If user sets "Always use HTTPS" setting in his profile, it will be true
 @property (nonatomic, assign) BOOL httpsRequired;
+
 /// Indicates time of token creation
 @property (nonatomic, readonly) NSTimeInterval created;
+
 /// Return YES if token has expired
 @property (nonatomic, readonly) BOOL isExpired;
+
+// Permisiions assosiated with token
+@property (nonatomic, readonly) NSArray *permissions;
 
 /**
  Retrieve token from key-value query string
@@ -48,6 +61,15 @@
  @return parsed token
  */
 + (instancetype)tokenFromUrlString:(NSString *)urlString;
+
+/**
+ Create token with existing properties
+ @param accessToken token string
+ @param secret secret
+ @param userId user id
+ @return new token
+ */
++ (instancetype)tokenWithToken:(NSString *)accessToken secret:(NSString *)secret userId:(NSString *)userId;
 
 /**
  Retrieve token from file. Token must be saved into file with saveTokenToFile method
