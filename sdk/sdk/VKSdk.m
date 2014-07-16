@@ -251,6 +251,9 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
         VKAccessToken *token = [VKAccessToken tokenWithToken:parametersDict[@"access_token"] ? : prevToken.accessToken
                                                       secret:parametersDict[@"secret"] ? : prevToken.secret
                                                       userId:parametersDict[@"user_id"] ? : prevToken.userId];
+        token.expiresIn     = prevToken.expiresIn;
+        token.permissions   = prevToken.permissions;
+        token.httpsRequired = prevToken.httpsRequired;
 		[token saveTokenToDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
 	} else {
 
@@ -291,7 +294,7 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
 	[[NSUserDefaults standardUserDefaults] synchronize];
 
     if (vkSdkInstance) {
-        vkSdkInstance->_accessToken = nil;
+        vkSdkInstance.accessToken = nil;
         vkSdkInstance.permissions = nil;
     }
 }
