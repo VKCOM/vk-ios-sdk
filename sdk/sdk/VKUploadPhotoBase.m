@@ -22,6 +22,7 @@
 
 #import "VKUploadPhotoBase.h"
 #import "VKImageParameters.h"
+#import "VKUploadImage.h"
 
 extern inline NSString *VKKeyPathFromOperationState(VKOperationState state);
 extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperationState toState, BOOL isCancelled);
@@ -87,7 +88,8 @@ extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperat
 				break;
 		}
 		_uploadRequest.image = nil;
-		VKRequest *postFileRequest = [VKRequest photoRequestWithPostUrl:response.json[@"upload_url"] withPhotos:@[[VKUploadImage objectWithData:imageData andParams:_uploadRequest.imageParameters]]];
+		VKRequest *postFileRequest = [VKRequest photoRequestWithPostUrl:response.json[@"upload_url"]
+                                                             withPhotos:@[[VKUploadImage uploadImageWithData:imageData andParams:_uploadRequest.imageParameters]]];
 		postFileRequest.progressBlock = _uploadRequest.progressBlock;
         postFileRequest.responseQueue = self.responseQueue;
 		self.lastLoadingRequest = postFileRequest;

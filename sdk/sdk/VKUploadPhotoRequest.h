@@ -35,5 +35,5 @@
  @param groupId ID of group (without minus sign) on which wall image should be posted (or nil)
  @return Completed request for executing
  */
-- (instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters albumId:(int)albumId groupId:(int)groupId;
+- (instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters albumId:(NSInteger)albumId groupId:(NSInteger)groupId;
 @end

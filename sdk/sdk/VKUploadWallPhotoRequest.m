@@ -23,7 +23,7 @@
 #import "VKUploadWallPhotoRequest.h"
 #import "VKApi.h"
 @implementation VKUploadWallPhotoRequest
-- (instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters userId:(long long)userId groupId:(int)groupId {
+- (instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters userId:(NSInteger)userId groupId:(NSInteger)groupId {
 	self = [super init];
 	self.image            = image;
 	self.imageParameters  = parameters;
