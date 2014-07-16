@@ -27,6 +27,7 @@
 #import "VKHTTPOperation.h"
 #import "VKSdkVersion.h"
 #import "VKImageParameters.h"
+#import "VKUploadImage.h"
 
 static VKHTTPClient *__clientInstance = nil;
 static NSString const *VK_API_URI = @"api.vk.com/method/";
