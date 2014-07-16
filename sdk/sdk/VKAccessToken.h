@@ -35,25 +35,25 @@
 @property (nonatomic, readonly) NSString *accessToken;
 
 /// Time when token expires
-@property (nonatomic, readonly) NSString *expiresIn;
+@property (nonatomic, strong) NSString *expiresIn;
 
 /// Current user id for this token
-@property (nonatomic, readonly) NSString *userId;
+@property (nonatomic, strong) NSString *userId;
 
 /// User secret to sign requests (if nohttps used)
-@property (nonatomic, readonly) NSString *secret;
+@property (nonatomic, strong) NSString *secret;
 
 /// If user sets "Always use HTTPS" setting in his profile, it will be true
 @property (nonatomic, assign) BOOL httpsRequired;
 
 /// Indicates time of token creation
-@property (nonatomic, readonly) NSTimeInterval created;
+@property (nonatomic, assign) NSTimeInterval created;
 
 /// Return YES if token has expired
-@property (nonatomic, readonly) BOOL isExpired;
+@property (nonatomic, assign) BOOL isExpired;
 
 // Permisiions assosiated with token
-@property (nonatomic, readonly) NSArray *permissions;
+@property (nonatomic, strong) NSArray *permissions;
 
 /**
  Retrieve token from key-value query string

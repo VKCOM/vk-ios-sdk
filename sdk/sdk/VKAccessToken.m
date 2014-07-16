@@ -160,11 +160,11 @@ static NSString *const PERMISSIONS    = @"permissions";
 
 - (NSData *)serialize {
     NSMutableDictionary * dict = [@{
-                                    ACCESS_TOKEN: self.accessToken,
-                                    EXPIRES_IN : self.expiresIn,
-                                    USER_ID : self.userId,
+                                    ACCESS_TOKEN : self.accessToken ? : @"",
+                                    EXPIRES_IN : self.expiresIn  ? : @"0",
+                                    USER_ID : self.userId  ? : @"0",
                                     CREATED : @(self.created),
-                                    PERMISSIONS : self.permissions
+                                    PERMISSIONS : self.permissions ? : @""
                                     } mutableCopy];
 
 	if (self.secret)
