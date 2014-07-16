@@ -28,6 +28,7 @@
 #import "VKApiWall.h"
 #import "VKApiConst.h"
 #import "VKApiCaptcha.h"
+#import "VKApiGroups.h"
 #import "VKImageParameters.h"
 #import "VKApiModels.h"
 /**
@@ -55,6 +56,11 @@
  */
 + (VKApiFriends *)friends;
 /**
+ https://vk.com/dev/friends
+ Returns object for preparing requests to groups part of API
+ */
++ (VKApiGroups *)groups;
+/**
  Create new request with parameters. See documentation for methods here https://vk.com/dev/methods
  @param method API-method name, e.g. audio.get
  @param parameters method parameters
@@ -74,8 +80,8 @@
  */
 + (VKRequest *)uploadWallPhotoRequest:(UIImage *)image
                            parameters:(VKImageParameters *)parameters
-                               userId:(long long)userId
-                              groupId:(int)groupId;
+                               userId:(NSInteger)userId
+                              groupId:(NSInteger)groupId;
 
 /**
  Uploads photo in user or group album
@@ -86,8 +92,8 @@
  */
 + (VKRequest *)uploadAlbumPhotoRequest:(UIImage *)image
                             parameters:(VKImageParameters *)parameters
-                               albumId:(int)albumId
-                               groupId:(int)groupId;
+                               albumId:(NSInteger)albumId
+                               groupId:(NSInteger)groupId;
 
 
 

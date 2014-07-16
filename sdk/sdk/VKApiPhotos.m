@@ -23,11 +23,11 @@
 #import "VKApiPhotos.h"
 #import "VKPhoto.h"
 @implementation VKApiPhotos
-- (VKRequest *)getUploadServer:(int)albumId {
+- (VKRequest *)getUploadServer:(NSInteger)albumId {
 	return [self prepareRequestWithMethodName:@"getUploadServer" andParameters:@{ VK_API_ALBUM_ID : @(albumId) }];
 }
 
-- (VKRequest *)getUploadServer:(int)albumId andGroupId:(int)groupId {
+- (VKRequest *)getUploadServer:(NSInteger)albumId andGroupId:(NSInteger)groupId {
 	return [self prepareRequestWithMethodName:@"getUploadServer" andParameters:@{ VK_API_ALBUM_ID : @(albumId), VK_API_GROUP_ID : @(groupId) }];
 }
 
@@ -35,7 +35,7 @@
 	return [self prepareRequestWithMethodName:@"getWallUploadServer" andParameters:nil];
 }
 
-- (VKRequest *)getWallUploadServer:(int)groupId {
+- (VKRequest *)getWallUploadServer:(NSInteger)groupId {
 	return [self prepareRequestWithMethodName:@"getWallUploadServer" andParameters:@{ VK_API_GROUP_ID : @(groupId) }];
 }
 

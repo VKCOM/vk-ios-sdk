@@ -39,6 +39,9 @@
 + (VKApiFriends *)friends {
 	return [VKApiFriends new];
 }
++ (VKApiGroups *)groups {
+    return [VKApiGroups new];
+}
 
 + (VKRequest *)requestWithMethod:(NSString *)method
                    andParameters:(NSDictionary *)parameters
@@ -48,15 +51,15 @@
 
 + (VKRequest *)uploadWallPhotoRequest:(UIImage *)image
                            parameters:(VKImageParameters *)parameters
-                               userId:(long long)userId
-                              groupId:(int)groupId {
+                               userId:(NSInteger)userId
+                              groupId:(NSInteger)groupId {
 	return [[VKUploadWallPhotoRequest alloc] initWithImage:image parameters:parameters userId:userId groupId:groupId];
 }
 
 + (VKRequest *)uploadAlbumPhotoRequest:(UIImage *)image
                             parameters:(VKImageParameters *)parameters
-                               albumId:(int)albumId
-                               groupId:(int)groupId {
+                               albumId:(NSInteger)albumId
+                               groupId:(NSInteger)groupId {
 	return [[VKUploadPhotoRequest alloc] initWithImage:image parameters:parameters albumId:albumId groupId:groupId];
 }
 

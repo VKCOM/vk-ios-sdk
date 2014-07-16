@@ -30,3 +30,4 @@
 #import "VKLikes.h"
 #import "VKSchool.h"
 #import "VKUniversity.h"
+#import "VKGroup.h"

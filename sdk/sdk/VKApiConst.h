@@ -72,6 +72,7 @@ static NSString *const VK_API_INTERESTS            = @"interests";
 static NSString *const VK_API_COMPANY              = @"company";
 static NSString *const VK_API_POSITION             = @"position";
 static NSString *const VK_API_GROUP_ID             = @"group_id";
+static NSString *const VK_API_GROUP_IDS            = @"group_ids";
 
 static NSString *const VK_API_FRIENDS_ONLY         = @"friends_only";
 static NSString *const VK_API_FROM_GROUP           = @"from_group";
