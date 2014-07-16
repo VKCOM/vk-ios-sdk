@@ -32,6 +32,21 @@
 
 @end
 
+@interface VKAuthorizeController ()
+@property (nonatomic, strong) UIWebView       *webView;
+@property (nonatomic, strong) NSString        *appId;
+@property (nonatomic, strong) NSString        *scope;
+@property (nonatomic, strong) NSString        *redirectUri;
+@property (nonatomic, strong) UIActivityIndicatorView * activityMark;
+@property (nonatomic, strong) UILabel         *warningLabel;
+@property (nonatomic, strong) UILabel         *statusBar;
+@property (nonatomic, strong) VKError         *validationError;
+@property (nonatomic, strong) NSURLRequest    *lastRequest;
+@property (nonatomic, weak)   UINavigationController *navigationController;
+@property (nonatomic, assign) BOOL             finished;
+
+@end
+
 @implementation VKAuthorizeController
 
 static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
@@ -46,7 +61,7 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 
 + (void)presentForValidation:(VKError *)validationError {
 	VKAuthorizeController *controller  = [[VKAuthorizeController alloc] init];
-	controller->_validationError = validationError;
+	controller.validationError = validationError;
 	[self presentThisController:controller];
 }
 
@@ -63,7 +78,7 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 	controller.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
 	[VKSdk.instance.delegate vkSdkShouldPresentViewController:navigation];
     
-	controller->_nc = navigation;
+	controller.navigationController = navigation;
 }
 
 + (NSString *)buildAuthorizationUrl:(NSString *)redirectUri
@@ -103,7 +118,7 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 	_webView.scrollView.bounces = NO;
 	_webView.scrollView.clipsToBounds = NO;
 	[view addSubview:_webView];
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAuthorization:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[VKBundle localizedString:@"Cancel"] style:UIBarButtonItemStyleBordered target:self action:@selector(cancelAuthorization:)];
 
     [self setElementsPositions:self.interfaceOrientation duration:0];
 }
@@ -203,10 +218,10 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 
 - (void)dismiss {
 	_finished = YES;
-	if (_nc.isBeingDismissed)
+	if (_navigationController.isBeingDismissed)
 		return;
-	if (!_nc.isBeingPresented) {
-		[_nc.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+	if (!_navigationController.isBeingPresented) {
+		[_navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 	}
 	else {
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^(void) {

@@ -26,21 +26,7 @@
  Controller for authorization through webview (if VK app not available)
  */
 @interface VKAuthorizeController : UIViewController <UIWebViewDelegate>
-{
-@private
-	UIWebView       *_webView;
-	NSString        *_appId;
-	NSString        *_scope;
-	NSString        *_redirectUri;
-    UIActivityIndicatorView * _activityMark;
-	UILabel         *_warningLabel;
-	UILabel         *_statusBar;
-	VKError         *_validationError;
-	NSURLRequest    *_lastRequest;
-    
-	__weak UINavigationController *_nc;
-	BOOL             _finished;
-}
+
 /**
  Causes UIWebView in standard UINavigationController be presented in SDK delegate
  @param appId Identifier of VK application
