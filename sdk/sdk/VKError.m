@@ -61,20 +61,20 @@
 }
 
 - (NSString *)description {
-//	if (self.httpError) {
-//		return [NSString stringWithFormat:@"<VKError: %p; HTTP error {%@}>", self, self.httpError];
-//	}
-//	else {
-//		if (self.errorCode == VK_API_ERROR)
-//			return [NSString stringWithFormat:@"<VKError: %p; Internal API error {%@}>",
-//			        self, self.apiError];
-//		else if (self.errorCode == VK_API_CANCELED)
-//			return [NSString stringWithFormat:@"<VKError: %p; SDK error (request canceled)>", self];
-//		else if (self.errorCode == VK_API_REQUEST_NOT_PREPARED)
-//			return [NSString stringWithFormat:@"<VKError: %p; SDK error (request not prepared)>", self];
-//		return [NSString stringWithFormat:@"<VKError: %p; API error {code: %d; message: %@; params: %@; captcha_sid: %@; captcha_img: %@}>", self, self.errorCode, self.errorMessage, self.requestParams, self.captchaSid, self.captchaImg];
-//	}
-    return [NSString stringWithFormat:@"<VKError: %p;>", self];
+	if (self.httpError) {
+		return [NSString stringWithFormat:@"<VKError: %p; HTTP error {%@}>", self, self.httpError];
+	}
+	else {
+		if (self.errorCode == VK_API_ERROR)
+			return [NSString stringWithFormat:@"<VKError: %p; Internal API error {%@}>",
+			        self, self.apiError];
+		else if (self.errorCode == VK_API_CANCELED)
+			return [NSString stringWithFormat:@"<VKError: %p; SDK error (request canceled)>", self];
+		else if (self.errorCode == VK_API_REQUEST_NOT_PREPARED)
+			return [NSString stringWithFormat:@"<VKError: %p; SDK error (request not prepared)>", self];
+		return [NSString stringWithFormat:@"<VKError: %p; API error {code: %ld; message: %@;}>", self, (long)self.errorCode, self.errorMessage];
+	}
+//    return [NSString stringWithFormat:@"<VKError: %p;>", self];
 }
 
 @end
