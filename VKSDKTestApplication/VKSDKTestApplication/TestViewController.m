@@ -21,7 +21,6 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "TestViewController.h"
-#import "VKSdk.h"
 #import "ApiCallViewController.h"
 @implementation TestViewController
 
