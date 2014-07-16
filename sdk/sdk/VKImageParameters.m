@@ -63,12 +63,4 @@
 }
 
 @end
-@implementation VKUploadImage
-+ (instancetype)objectWithData:(NSData *)data andParams:(VKImageParameters *)params {
-	VKUploadImage *image   = [VKUploadImage new];
-	image.imageData         = data;
-	image.parameters        = params;
-	return image;
-}
 
-@end

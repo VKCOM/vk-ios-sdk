@@ -66,20 +66,4 @@ typedef enum VKImageType {
 - (NSString *)mimeType;
 @end
 
-/**
- Contains image data with image description
- */
-@interface VKUploadImage : VKObject
 
-/// Bytes of image
-@property (nonatomic, strong) NSData *imageData;
-/// Image basic info
-@property (nonatomic, strong) VKImageParameters *parameters;
-/**
- Create new image data representation used for upload
- @param data Bytes of image
- @param params Image basic info
- @return Prepared object for using in upload
- */
-+ (instancetype)objectWithData:(NSData *)data andParams:(VKImageParameters *)params;
-@end
