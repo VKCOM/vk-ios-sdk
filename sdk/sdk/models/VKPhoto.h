@@ -42,6 +42,7 @@
 @property (nonatomic, strong) NSNumber *height;
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) NSNumber *date;
+@property (nonatomic, readonly) NSString *attachmentString;
 #endif
 @end
 

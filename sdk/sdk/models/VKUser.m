@@ -32,6 +32,8 @@
 @end
 @implementation VKCountry
 @end
+@implementation VKExports
+@end
 
 @implementation VKUsersArray
 -(instancetype)initWithDictionary:(NSDictionary *)dict

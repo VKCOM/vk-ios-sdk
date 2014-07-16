@@ -24,7 +24,9 @@
 #import "VKLikes.h"
 
 @implementation VKPhoto
-
+-(NSString *)attachmentString {
+    return [NSString stringWithFormat:@"photo%@_%@",_owner_id, _id];
+}
 @end
 
 @implementation VKPhotoArray
