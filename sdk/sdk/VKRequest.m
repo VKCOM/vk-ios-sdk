@@ -51,6 +51,8 @@
 -(NSTimeInterval)totalTime { return [_finishTime timeIntervalSinceDate:_startTime]; }
 @end
 
+static NSOperationQueue * requestsProcessingQueue;
+
 @interface VKRequest ()
 {
     /// Semaphore for blocking current thread
@@ -79,10 +81,21 @@
 @property (nonatomic, strong)   VKResponse *response;
 /// This request error
 @property (nonatomic, strong)   NSError    *error;
+
 @end
 
 @implementation VKRequest
 @synthesize preferredLang = _preferredLang;
+
++ (NSOperationQueue*) processingQueue {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        requestsProcessingQueue = [NSOperationQueue new];
+        requestsProcessingQueue.maxConcurrentOperationCount = 3;
+    });
+    return requestsProcessingQueue;
+}
+
 #pragma mark Init
 + (instancetype)requestWithMethod:(NSString *)method andParameters:(NSDictionary *)parameters andHttpMethod:(NSString *)httpMethod {
 	VKRequest *newRequest = [VKRequest new];
@@ -208,31 +221,36 @@
     }
     
 	[operation setCompletionBlockWithSuccess: ^(VKHTTPOperation *operation, id JSON) {
-        [_requestTiming loaded];
-	    if ([JSON objectForKey:@"error"]) {
-	        VKError *error = [VKError errorWithJson:[JSON objectForKey:@"error"]];
-	        if ([self processCommonError:error]) return;
-	        [self provideError:[NSError errorWithVkError:error]];
-	        return;
-		}
-	    [self provideResponse:JSON];
+        [[VKRequest processingQueue] addOperation:[NSBlockOperation blockOperationWithBlock:^{
+            [_requestTiming loaded];
+            if ([JSON objectForKey:@"error"]) {
+                VKError *error = [VKError errorWithJson:[JSON objectForKey:@"error"]];
+                if ([self processCommonError:error]) return;
+                [self provideError:[NSError errorWithVkError:error]];
+                return;
+            }
+            [self provideResponse:JSON];
+        }]];
 	} failure: ^(VKHTTPOperation *operation, NSError *error) {
-        [_requestTiming loaded];
-	    if (operation.response.statusCode == 200) {
-	        [self provideResponse:operation.responseJson];
-	        return;
-		}
-	    if (self.attempts == 0 || ++self.attemptsUsed < self.attempts) {
-	        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), self.responseQueue,
-                           ^(void) {
-                                [self start];
-                            });
-	        return;
-		}
+        [[VKRequest processingQueue] addOperation:[NSBlockOperation blockOperationWithBlock:^{
+            [_requestTiming loaded];
+            if (operation.response.statusCode == 200) {
+                [self provideResponse:operation.responseJson];
+                return;
+            }
+            if (self.attempts == 0 || ++self.attemptsUsed < self.attempts) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), self.responseQueue,
+                               ^(void) {
+                                   [self start];
+                               });
+                return;
+            }
+            
+            VKError *vkErr = [VKError errorWithCode:operation.response.statusCode];
+            [self provideError:[error copyWithVkError:vkErr]];
+            [_requestTiming finished];
+        }]];
         
-	    VKError *vkErr = [VKError errorWithCode:operation.response.statusCode];
-	    [self provideError:[error copyWithVkError:vkErr]];
-        [_requestTiming finished];
 	}];
     [self setOperation:operation responseQueue:self.responseQueue];
 	[self setupProgress:operation];
@@ -260,42 +278,39 @@
         [self finishRequest];
     }
 }
-- (void) operationDidStart:(NSNotification*) notification {
+- (void)operationDidStart:(NSNotification*) notification {
     if (notification.object == _executionOperation)
         [self.requestTiming started];
 }
 - (void)provideResponse:(id)JSON {
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-	    VKResponse *vkResp = [VKResponse new];
-	    vkResp.request      = self;
-	    if (JSON[@"response"]) {
-	        vkResp.json = JSON[@"response"];
-            
-	        if (self.parseModel && _modelClass) {
-                [_requestTiming parseStarted];
-	            id object = [_modelClass alloc];
-	            if ([object respondsToSelector:@selector(initWithDictionary:)]) {
-	                vkResp.parsedModel = [object initWithDictionary:JSON];
-				}
-                [_requestTiming parseFinished];
-			}
-		}
-	    else
-			vkResp.json = JSON;
+    VKResponse *vkResp = [VKResponse new];
+    vkResp.request      = self;
+    if (JSON[@"response"]) {
+        vkResp.json = JSON[@"response"];
         
-	    for (VKRequest *postRequest in _postRequestsQueue)
-			[postRequest start];
-        [_requestTiming finished];
-        self.response = vkResp;
-        if (self.waitUntilDone) {
-            dispatch_semaphore_signal(_waitUntilDoneSemaphore);
-        } else {
-            dispatch_sync(self.responseQueue, ^{
-                [self finishRequest];
-            });
+        if (self.parseModel && _modelClass) {
+            [_requestTiming parseStarted];
+            id object = [_modelClass alloc];
+            if ([object respondsToSelector:@selector(initWithDictionary:)]) {
+                vkResp.parsedModel = [object initWithDictionary:JSON];
+            }
+            [_requestTiming parseFinished];
         }
-        
-	});
+    }
+    else
+        vkResp.json = JSON;
+    
+    for (VKRequest *postRequest in _postRequestsQueue)
+        [postRequest start];
+    [_requestTiming finished];
+    self.response = vkResp;
+    if (self.waitUntilDone) {
+        dispatch_semaphore_signal(_waitUntilDoneSemaphore);
+    } else {
+        dispatch_async(self.responseQueue, ^{
+            [self finishRequest];
+        });
+    }
 }
 
 - (void)provideError:(NSError *)error {
@@ -376,18 +391,33 @@
 - (BOOL)processCommonError:(VKError *)error {
 	if (error.errorCode == VK_API_ERROR) {
         error.apiError.request = self;
+        if (error.apiError.errorCode == 6) {
+            //Too many requests per second
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), self.responseQueue, ^{
+                [self repeat];
+            });
+            return YES;
+        }
 		if (error.apiError.errorCode == 14) {
-			[[VKSdk instance].delegate vkSdkNeedCaptchaEnter:error.apiError];
+            //Captcha
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [[VKSdk instance].delegate vkSdkNeedCaptchaEnter:error.apiError];
+            });
 			return YES;
 		}
 		else if (error.apiError.errorCode == 16) {
+            //Https required
 			VKAccessToken *token = [VKSdk getAccessToken];
 			token.httpsRequired = YES;
 			[self repeat];
 			return YES;
 		}
 		else if (error.apiError.errorCode == 17) {
-			[VKAuthorizeController presentForValidation:error.apiError];
+            //Validation needed
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [VKAuthorizeController presentForValidation:error.apiError];
+            });
+			
 			return YES;
 		}
 	}
