@@ -27,7 +27,10 @@
 	static dispatch_once_t onceToken;
 	static NSBundle *myLibraryResourcesBundle = nil;
 	dispatch_once(&onceToken, ^{
-	    myLibraryResourcesBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"VKSdkResources" withExtension:@"bundle"]];
+        NSURL * url = [[NSBundle mainBundle] URLForResource:@"VKSdkResources" withExtension:@"bundle"];
+        if (url) {
+            myLibraryResourcesBundle = [NSBundle bundleWithURL:url];
+        }
 	});
 	return myLibraryResourcesBundle;
 }
@@ -42,4 +45,7 @@
 	return imageFromMyLibraryBundle;
 }
 
++ (NSString*)localizedString:(NSString*)string {
+    return [[self vkLibraryResourcesBundle] localizedStringForKey:string value:string table:nil];
+}
 @end
