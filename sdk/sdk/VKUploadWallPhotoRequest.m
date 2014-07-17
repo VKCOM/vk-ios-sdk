@@ -31,7 +31,9 @@
 	self.groupId          = groupId;
 	return self;
 }
-
+-(NSString *)methodName {
+    return @"VKUploadWallPhotoRequest";
+}
 - (VKRequest *)getServerRequest {
 	if (self.groupId != 0)
 		return [[VKApi photos] getWallUploadServer:self.groupId];

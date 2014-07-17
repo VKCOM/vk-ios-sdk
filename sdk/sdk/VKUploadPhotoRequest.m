@@ -31,7 +31,9 @@
 	self.groupId          = groupId;
 	return self;
 }
-
+-(NSString *)methodName {
+    return @"VKUploadPhotoRequest";
+}
 - (VKRequest *)getServerRequest {
 	if (self.albumId && self.groupId)
 		return [[VKApi photos] getUploadServer:self.albumId andGroupId:self.groupId];
