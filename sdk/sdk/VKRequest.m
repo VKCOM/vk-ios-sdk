@@ -139,7 +139,7 @@ static NSOperationQueue * requestsProcessingQueue;
 
 - (NSString *)description {
 //	return [NSString stringWithFormat:@"<VKRequest: %p>\nMethod: %@ (%@)\nparameters: %@", self, _methodName, _httpMethod, _methodParameters];
-    return [NSString stringWithFormat:@"<VKRequest: %p; Method: %@ (%@)>", self, _methodName, _httpMethod];
+    return [NSString stringWithFormat:@"<VKRequest: %p; Method: %@ (%@)>", self, self.methodName, self.httpMethod];
 }
 
 #pragma mark Execution
@@ -448,6 +448,10 @@ static NSOperationQueue * requestsProcessingQueue;
 	_preferredLang = preferredLang;
 	self.useSystemLanguage = NO;
 }
+-(BOOL)isExecuting {
+    return _executionOperation.isExecuting;
+}
+
 -(void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.responseQueue = nil;

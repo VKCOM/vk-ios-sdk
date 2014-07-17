@@ -87,6 +87,8 @@
 @property (nonatomic, readonly) NSOperation *executionOperation;
 /// Returns info about request timings
 @property (nonatomic, readonly) VKRequestTiming *requestTiming;
+/// Return YES if current request was started
+@property (nonatomic, readonly) BOOL isExecuting;
 
 
 ///-------------------------------
