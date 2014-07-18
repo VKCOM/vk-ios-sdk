@@ -66,12 +66,13 @@ static NSString *const TEST_CAPTCHA = @"Test captcha";
 static NSString *const CALL_UNKNOWN_METHOD = @"Call unknown method";
 static NSString *const TEST_VALIDATION = @"Test validation";
 static NSString *const MAKE_SYNCHRONOUS = @"Make synchronous request";
+static NSString *const SHARE_DIALOG = @"Test share dialog";
 
 //Fields
 static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,city,country,photo_50,photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,online_mobile,lists,domain,has_mobile,contacts,connections,site,education,universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message,status,last_seen,common_count,relation,relatives,counters";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!labels)
-		labels = @[USERS_GET, USERS_SUBSCRIPTIONS, FRIENDS_GET, FRIENDS_GET_FULL, UPLOAD_PHOTO, UPLOAD_PHOTO_ALBUM, UPLOAD_PHOTOS, TEST_CAPTCHA, CALL_UNKNOWN_METHOD, TEST_VALIDATION,MAKE_SYNCHRONOUS];
+		labels = @[USERS_GET, USERS_SUBSCRIPTIONS, FRIENDS_GET, FRIENDS_GET_FULL, UPLOAD_PHOTO, UPLOAD_PHOTO_ALBUM, UPLOAD_PHOTOS, TEST_CAPTCHA, CALL_UNKNOWN_METHOD, TEST_VALIDATION,MAKE_SYNCHRONOUS,SHARE_DIALOG];
 	return labels.count;
 }
 
@@ -114,9 +115,17 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
 	}
     else if ([label isEqualToString:TEST_VALIDATION]) {
         [self callMethod:[VKRequest requestWithMethod:@"account.testValidation" andParameters:nil andHttpMethod:@"GET"]];
-    } else if ([label isEqualToString:MAKE_SYNCHRONOUS]) {
+    }
+    else if ([label isEqualToString:MAKE_SYNCHRONOUS]) {
         VKUsersArray * users = [self loadUsers];
         NSLog(@"users %@", users);
+    }
+    else if ([label isEqualToString:SHARE_DIALOG]) {
+        VKShareDialogController * shareDialog = [VKShareDialogController new];
+        shareDialog.text = @"Your share text here";
+        shareDialog.uploadImages = @[[VKUploadImage uploadImageWithImage:[UIImage imageNamed:@"apple"]  andParams:[VKImageParameters jpegImageWithQuality:0.9]]];
+        shareDialog.otherAttachmentsStrings = @[@"https://vk.com/dev/ios_sdk"];
+        [shareDialog presentIn:self];
     }
 }
 -(VKUsersArray*) loadUsers {
@@ -157,7 +166,7 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
 }
 
 - (void)uploadPhoto {
-	VKRequest *request = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"fat_awesome"] parameters:[VKImageParameters pngImage] userId:0 groupId:60479154];
+	VKRequest *request = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"apple"] parameters:[VKImageParameters pngImage] userId:0 groupId:60479154];
 	[request executeWithResultBlock: ^(VKResponse *response) {
 	    NSLog(@"Photo: %@", response.json);
         VKPhoto *photoInfo = [(VKPhotoArray*)response.parsedModel objectAtIndex:0];
@@ -176,10 +185,10 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
 }
 
 - (void)uploadPhotos {
-	VKRequest *request1 = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"fat_awesome"] parameters:[VKImageParameters pngImage] userId:0 groupId:60479154];
-	VKRequest *request2 = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"fat_awesome"] parameters:[VKImageParameters pngImage] userId:0 groupId:60479154];
-	VKRequest *request3 = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"fat_awesome"] parameters:[VKImageParameters pngImage] userId:0 groupId:60479154];
-	VKRequest *request4 = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"fat_awesome"] parameters:[VKImageParameters pngImage] userId:0 groupId:60479154];
+	VKRequest *request1 = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"apple"] parameters:[VKImageParameters pngImage] userId:0 groupId:60479154];
+	VKRequest *request2 = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"apple"] parameters:[VKImageParameters pngImage] userId:0 groupId:60479154];
+	VKRequest *request3 = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"apple"] parameters:[VKImageParameters pngImage] userId:0 groupId:60479154];
+	VKRequest *request4 = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"apple"] parameters:[VKImageParameters pngImage] userId:0 groupId:60479154];
 	VKBatchRequest *batch = [[VKBatchRequest alloc] initWithRequests:request1, request2, request3, request4, nil];
 	[batch executeWithResultBlock: ^(NSArray *responses) {
 	    NSLog(@"Photos: %@", responses);

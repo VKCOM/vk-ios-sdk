@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F36114A3197678B00085898F /* VKSdkResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F33F0DE318D0759A00DD8B80 /* VKSdkResources.bundle */; };
+		F36114C21976DC770085898F /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114C11976DC770085898F /* apple.png */; };
 		F3B7EEAB184353CF00104B90 /* ApiCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B7EEAA184353CF00104B90 /* ApiCallViewController.m */; };
 		F3BACC4F18659103003158DA /* libVKSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFFCA1827F6B7000BB525 /* libVKSdk.a */; };
-		F3BACC5E1865EA30003158DA /* VKSdkResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F3BACC5D1865EA30003158DA /* VKSdkResources.bundle */; };
 		F3D38E6F183CD29700D05079 /* VKStartScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D38E6E183CD29700D05079 /* VKStartScreen.m */; };
-		F3D38E74183CFEC300D05079 /* fat_awesome.png in Resources */ = {isa = PBXBuildFile; fileRef = F3D38E73183CFEC300D05079 /* fat_awesome.png */; };
 		F3DC2446183B811E00E3A93D /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3DC2445183B811E00E3A93D /* Storyboard.storyboard */; };
 		F3EEFF6A1827B1DD000BB525 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFF691827B1DD000BB525 /* Foundation.framework */; };
 		F3EEFF6C1827B1DD000BB525 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFF6B1827B1DD000BB525 /* CoreGraphics.framework */; };
@@ -51,13 +51,13 @@
 
 /* Begin PBXFileReference section */
 		F33F0DDB18D0759A00DD8B80 /* sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = sdk.xcodeproj; path = ../sdk/sdk.xcodeproj; sourceTree = "<group>"; };
+		F36114AA197687050085898F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F36114C11976DC770085898F /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple.png; sourceTree = "<group>"; };
 		F3B7EEA9184353CF00104B90 /* ApiCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiCallViewController.h; sourceTree = "<group>"; };
 		F3B7EEAA184353CF00104B90 /* ApiCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiCallViewController.m; sourceTree = "<group>"; };
 		F3BACC301865902D003158DA /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		F3BACC5D1865EA30003158DA /* VKSdkResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = VKSdkResources.bundle; path = ../VKSdkResources.bundle; sourceTree = "<group>"; };
 		F3D38E6D183CD29700D05079 /* VKStartScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKStartScreen.h; sourceTree = "<group>"; };
 		F3D38E6E183CD29700D05079 /* VKStartScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKStartScreen.m; sourceTree = "<group>"; };
-		F3D38E73183CFEC300D05079 /* fat_awesome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fat_awesome.png; sourceTree = "<group>"; };
 		F3DC2445183B811E00E3A93D /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		F3EEFF661827B1DD000BB525 /* VKSDKTestApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKSDKTestApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3EEFF691827B1DD000BB525 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -107,7 +107,6 @@
 		F3EEFF5D1827B1DD000BB525 = {
 			isa = PBXGroup;
 			children = (
-				F3BACC5D1865EA30003158DA /* VKSdkResources.bundle */,
 				F3EEFF6F1827B1DD000BB525 /* VKSDKTestApplication */,
 				F3EEFF681827B1DD000BB525 /* Frameworks */,
 				F3EEFF671827B1DD000BB525 /* Products */,
@@ -159,7 +158,7 @@
 		F3EEFF701827B1DD000BB525 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F3D38E73183CFEC300D05079 /* fat_awesome.png */,
+				F36114C11976DC770085898F /* apple.png */,
 				F3EEFF711827B1DD000BB525 /* VKSDKTestApplication-Info.plist */,
 				F3EEFF721827B1DD000BB525 /* InfoPlist.strings */,
 				F3EEFF751827B1DD000BB525 /* main.m */,
@@ -205,6 +204,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ru,
 			);
 			mainGroup = F3EEFF5D1827B1DD000BB525;
 			productRefGroup = F3EEFF671827B1DD000BB525 /* Products */;
@@ -244,11 +244,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3BACC5E1865EA30003158DA /* VKSdkResources.bundle in Resources */,
+				F36114A3197678B00085898F /* VKSdkResources.bundle in Resources */,
 				F3DC2446183B811E00E3A93D /* Storyboard.storyboard in Resources */,
 				F3EEFF741827B1DD000BB525 /* InfoPlist.strings in Resources */,
 				F3EEFF7C1827B1DD000BB525 /* Images.xcassets in Resources */,
-				F3D38E74183CFEC300D05079 /* fat_awesome.png in Resources */,
+				F36114C21976DC770085898F /* apple.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +282,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F3EEFF731827B1DD000BB525 /* en */,
+				F36114AA197687050085898F /* ru */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -377,7 +378,7 @@
 					"VKDEBUG=1",
 				);
 				INFOPLIST_FILE = "VKSDKTestApplication/VKSDKTestApplication-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -402,7 +403,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VKSDKTestApplication/VKSDKTestApplication-Prefix.pch";
 				INFOPLIST_FILE = "VKSDKTestApplication/VKSDKTestApplication-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
