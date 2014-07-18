@@ -1,8 +1,7 @@
 vk-ios-sdk
 ==========
 
-Library for working with VK API, authorization through VK app, using VK functions. Supported iOS from 5.0
-
+Library for working with VK API, authorization through VK app, using VK functions. Supported iOS from 6.0
 Prepare for Using VK SDK
 ----------
 
@@ -30,7 +29,7 @@ CocoaPods is a dependency manager for Objective-C, which automates and simplifie
 
 Podfile
 
-    platform :ios, '5.0'
+    platform :ios, '6.0'
     pod "VK-ios-sdk"
     
 Then import the main header.
