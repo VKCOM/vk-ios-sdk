@@ -21,7 +21,7 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
-#import <VKSdk/VKSdk.h>
+
 @interface VKStartScreen : UIViewController <VKSdkDelegate>
 
 @end
