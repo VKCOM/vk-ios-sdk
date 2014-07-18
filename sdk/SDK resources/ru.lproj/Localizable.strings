@@ -1,0 +1,25 @@
+/* 
+  localizable.strings
+  sdk
+
+  Created by Roman Truba on 16.07.14.
+  Copyright (c) 2014 VK. All rights reserved.
+*/
+"Cancel"="Отмена";
+"Done"  ="Готово";
+"NewMessageText"="Введите текст сообщения..";
+"NewPost"="Новая запись";
+"NewPostHint%@"="Новая запись на %@";
+"YourWall"="Вашей стене";
+"GroupWall"="стене сообщества";
+"UserWall%@"="стене %@";
+"DenyPostingOn%@Wall" = "Вам запрещено размещать записи на стене %@";
+"UserNotAuthorized"   = "Вы не авторизованы через ВКонтакте";
+"Enter"="Войти";
+"ErrorWhilePosting" = "Во время выполнения запроса произошла ошибка. Пожалуйста, попробуйте позднее";
+"Link%@" = "Ссылка: %@";
+"FriendsOnly" = "Только для друзей";
+"ExportTwitter" = "Экспорт в Twitter";
+"ExportFacebook" = "Экспорт в Facebook";
+"ExportInstagram" = "Экспорт в Instagram";
+"ExportLivejournal" = "Экспорт в LiveJournal";

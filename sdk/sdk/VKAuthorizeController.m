@@ -29,6 +29,15 @@
 - (UIStatusBarStyle)preferredStatusBarStyle {
 	return [[self.viewControllers lastObject] preferredStatusBarStyle];
 }
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return [[self.viewControllers lastObject] supportedInterfaceOrientations];
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return [[self.viewControllers lastObject] preferredInterfaceOrientationForPresentation];
+}
 
 @end
 

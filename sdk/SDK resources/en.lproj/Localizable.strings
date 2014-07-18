@@ -1,0 +1,26 @@
+/* 
+  localizable.strings
+  sdk
+
+  Created by Roman Truba on 16.07.14.
+  Copyright (c) 2014 VK. All rights reserved.
+*/
+
+"Cancel"="Cancel";
+"Done"="Done";
+"NewMessageText"="Enter your message..";
+"NewPost"="New post";
+"NewPostHint%@"="New post on %@";
+"YourWall"="Your wall";
+"GroupWall"="community wall";
+"UserWall%@"="%@ wall";
+"DenyPostingOn%@Wall" = "You are not allowed to post on %@ wall";
+"UserNotAuthorized"   = "You are not authorized in VK";
+"Enter"="Enter";
+"ErrorWhilePosting" = "An error accuired while executing your request. Please, try later";
+"Link%@" = "Link: %@";
+"FriendsOnly" = "Only for friends";
+"ExportTwitter" = "Export to Twitter";
+"ExportFacebook" = "Export to Facebook";
+"ExportInstagram" = "Export to Instagram";
+"ExportLivejournal" = "Export to LiveJournal";
