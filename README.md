@@ -176,3 +176,18 @@ request2.completeBlock = ^(VKResponse*) { ... };
     
 4) The result of each method returns to a corresponding completeBlock. The responses array contains responses of the requests in order they have been passed.
 
+Working with Share dialog
+==========
+Share dialog allows you to create a user friendly dialog for sharing text and photos from your application directly to VK. See the Share dialog usage example:
+```
+VKShareDialogController * shareDialog = [VKShareDialogController new]; //1
+shareDialog.text = @"Your share text here"; //2
+shareDialog.uploadImages = @[[VKUploadImage uploadImageWithImage:[UIImage imageNamed:@"apple"] andParams:[VKImageParameters jpegImageWithQuality:0.9]]]; //3
+shareDialog.otherAttachmentsStrings = @[@"https://vk.com/dev/ios_sdk"]; //4
+[shareDialog presentIn:self]; //5
+```
+1 - create an instance of a dialog controller as usual.
+2 - attach some text information to a dialog. Notice that users can change this information.
+3 - attach an images array to a dialog using the special helper class. Notice that if you upload a PNG image it should have no alpha channel (will be replaced with black color).
+4 - attach links to your pages (supports only links attachment for now)
+5 - call the special method for correctly displaying a dialog in your view controllers.
