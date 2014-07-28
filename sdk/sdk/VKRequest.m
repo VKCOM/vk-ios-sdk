@@ -98,7 +98,7 @@ static NSOperationQueue * requestsProcessingQueue;
 
 #pragma mark Init
 + (instancetype)requestWithMethod:(NSString *)method andParameters:(NSDictionary *)parameters andHttpMethod:(NSString *)httpMethod {
-	VKRequest *newRequest = [VKRequest new];
+	VKRequest *newRequest = [self new];
 	//Common parameters
 	newRequest.parseModel       = YES;
     newRequest.requestTimeout   = 30;
@@ -117,7 +117,7 @@ static NSOperationQueue * requestsProcessingQueue;
 
 + (instancetype)photoRequestWithPostUrl:(NSString *)url withPhotos:(NSArray *)photoObjects;
 {
-	VKRequest *newRequest   = [VKRequest new];
+	VKRequest *newRequest   = [self new];
 	newRequest.attempts     = 0;
 	newRequest.httpMethod = @"POST";
 	newRequest.uploadUrl  = url;
