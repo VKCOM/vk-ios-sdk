@@ -118,9 +118,9 @@ static NSOperationQueue * requestsProcessingQueue;
 + (instancetype)photoRequestWithPostUrl:(NSString *)url withPhotos:(NSArray *)photoObjects;
 {
 	VKRequest *newRequest   = [VKRequest new];
-	newRequest.attempts     = 0;
-	newRequest.httpMethod = @"POST";
-	newRequest.uploadUrl  = url;
+	newRequest.attempts     = 10;
+	newRequest.httpMethod   = @"POST";
+	newRequest.uploadUrl    = url;
 	newRequest.photoObjects = photoObjects;
 	return newRequest;
 }
