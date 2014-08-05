@@ -63,6 +63,8 @@
 		F33F0E9318D840DD00DD8B80 /* VKUniversity.m in Sources */ = {isa = PBXBuildFile; fileRef = F33F0E7818D83CE200DD8B80 /* VKUniversity.m */; };
 		F33F0E9418D840DD00DD8B80 /* VKUser.h in Headers */ = {isa = PBXBuildFile; fileRef = F33F0E5D18D83B5900DD8B80 /* VKUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F33F0E9518D840DD00DD8B80 /* VKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = F33F0E5E18D83B5900DD8B80 /* VKUser.m */; };
+		F355BB25199140FC0036AB89 /* VKUploadMessagesPhotoRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F355BB23199140FC0036AB89 /* VKUploadMessagesPhotoRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F355BB26199140FC0036AB89 /* VKUploadMessagesPhotoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F355BB24199140FC0036AB89 /* VKUploadMessagesPhotoRequest.m */; };
 		F3611499197674450085898F /* VKShareDialogController.h in Headers */ = {isa = PBXBuildFile; fileRef = F3611496197674450085898F /* VKShareDialogController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F361149A197674450085898F /* VKShareDialogController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3611497197674450085898F /* VKShareDialogController.m */; };
 		F361149B197676870085898F /* VKShareDialogController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3611498197674450085898F /* VKShareDialogController.xib */; };
@@ -168,6 +170,8 @@
 		F33F0E7D18D83E0A00DD8B80 /* VKRelative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKRelative.h; sourceTree = "<group>"; };
 		F33F0E7E18D83E0A00DD8B80 /* VKRelative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKRelative.m; sourceTree = "<group>"; };
 		F349DC531832693000D0DCB3 /* VKUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUtil.m; sourceTree = "<group>"; };
+		F355BB23199140FC0036AB89 /* VKUploadMessagesPhotoRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKUploadMessagesPhotoRequest.h; sourceTree = "<group>"; };
+		F355BB24199140FC0036AB89 /* VKUploadMessagesPhotoRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUploadMessagesPhotoRequest.m; sourceTree = "<group>"; };
 		F3611496197674450085898F /* VKShareDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKShareDialogController.h; path = ShareDialog/VKShareDialogController.h; sourceTree = "<group>"; };
 		F3611497197674450085898F /* VKShareDialogController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKShareDialogController.m; path = ShareDialog/VKShareDialogController.m; sourceTree = "<group>"; };
 		F3611498197674450085898F /* VKShareDialogController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VKShareDialogController.xib; path = ShareDialog/VKShareDialogController.xib; sourceTree = "<group>"; };
@@ -429,12 +433,12 @@
 		F3EEFF4218241A29000BB525 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				F3EEFF3D18241781000BB525 /* VKApi.h */,
+				F3EEFF3E18241781000BB525 /* VKApi.m */,
 				F33F0E5018D83B5900DD8B80 /* models */,
 				F3B7EEBB18439E1100104B90 /* methods */,
 				F3EEFF5818251EF9000BB525 /* VKApiConst.h */,
 				F39DB95018868C06009609FB /* VKApiModels.h */,
-				F3EEFF3D18241781000BB525 /* VKApi.h */,
-				F3EEFF3E18241781000BB525 /* VKApi.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -469,14 +473,16 @@
 				F3C754931822684500964716 /* VKResponse.h */,
 				F3C754941822684500964716 /* VKResponse.m */,
 				F3EEFFBC1827C582000BB525 /* VKSdkVersion.h */,
-				F3B7EEDF1845F3D500104B90 /* VKUploadPhotoBase.h */,
-				F3B7EEE01845F3D500104B90 /* VKUploadPhotoBase.m */,
 				F3B7EEAC1843721600104B90 /* VKUploadPhotoRequest.h */,
-				F3B7EEAD1843721600104B90 /* VKUploadPhotoRequest.m */,
 				F3D38E81183FA49000D05079 /* VKUploadWallPhotoRequest.h */,
-				F3D38E82183FA49000D05079 /* VKUploadWallPhotoRequest.m */,
 				F36114AB19768F260085898F /* VKUploadImage.h */,
 				F36114AC19768F260085898F /* VKUploadImage.m */,
+				F3B7EEDF1845F3D500104B90 /* VKUploadPhotoBase.h */,
+				F3B7EEE01845F3D500104B90 /* VKUploadPhotoBase.m */,
+				F3B7EEAD1843721600104B90 /* VKUploadPhotoRequest.m */,
+				F3D38E82183FA49000D05079 /* VKUploadWallPhotoRequest.m */,
+				F355BB23199140FC0036AB89 /* VKUploadMessagesPhotoRequest.h */,
+				F355BB24199140FC0036AB89 /* VKUploadMessagesPhotoRequest.m */,
 			);
 			name = SDK;
 			sourceTree = "<group>";
@@ -538,6 +544,7 @@
 				F3D38E7B183F72F100D05079 /* VKApiWall.h in Headers */,
 				F33F0E8E18D840DD00DD8B80 /* VKPhoto.h in Headers */,
 				F33F0E9218D840DD00DD8B80 /* VKUniversity.h in Headers */,
+				F355BB25199140FC0036AB89 /* VKUploadMessagesPhotoRequest.h in Headers */,
 				F3B7EEAE1843721600104B90 /* VKUploadPhotoRequest.h in Headers */,
 				F33F0E8218D840DD00DD8B80 /* VKRelative.h in Headers */,
 				F3611499197674450085898F /* VKShareDialogController.h in Headers */,
@@ -658,6 +665,7 @@
 			files = (
 				183C474A18B2F1ED00F978DB /* VKApiUsers.m in Sources */,
 				183C476418B2F1ED00F978DB /* VKResponse.m in Sources */,
+				F355BB26199140FC0036AB89 /* VKUploadMessagesPhotoRequest.m in Sources */,
 				183C474C18B2F1ED00F978DB /* VKApiFriends.m in Sources */,
 				F33F0E8F18D840DD00DD8B80 /* VKPhoto.m in Sources */,
 				F33F0E8518D840DD00DD8B80 /* VKApiObject.m in Sources */,
