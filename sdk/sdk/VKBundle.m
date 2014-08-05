@@ -38,7 +38,7 @@
 		return imageFromMainBundle;
 	}
     
-	UIImage *imageFromMyLibraryBundle = [UIImage imageWithContentsOfFile:[[self vkLibraryResourcesBundle] pathForResource:name ofType:@"png"]];
+	UIImage *imageFromMyLibraryBundle = [UIImage imageWithContentsOfFile:[[VKBundle vkLibraryResourcesBundle] pathForResource:name ofType:@"png"]];
 	return imageFromMyLibraryBundle;
 }
 
