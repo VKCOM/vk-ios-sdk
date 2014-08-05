@@ -237,6 +237,8 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
 
 	NSString *parametersString = [urlString substringFromIndex:rangeOfHash.location + 1];
 	if (parametersString.length == 0) {
+        VKError *error     = [VKError errorWithQuery:@{@"cancel" : @1}];
+		[VKSdk setAccessTokenError:error];
 		return NO;
 	}
 	NSDictionary *parametersDict = [VKUtil explodeQueryString:parametersString];
