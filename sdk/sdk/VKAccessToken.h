@@ -55,6 +55,9 @@
 // Permisiions assosiated with token
 @property (nonatomic, strong) NSArray *permissions;
 
+// User email (if passed)
+@property (nonatomic, readwrite, copy) NSString *email;
+
 /**
  Retrieve token from key-value query string
  @param urlString string that contains URL-query part with token. E.g. access_token=ffffff&expires_in=0...

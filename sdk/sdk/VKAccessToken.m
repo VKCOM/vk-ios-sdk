@@ -37,6 +37,7 @@ static NSString *const ACCESS_TOKEN   = @"access_token";
 static NSString *const EXPIRES_IN     = @"expires_in";
 static NSString *const USER_ID        = @"user_id";
 static NSString *const SECRET         = @"secret";
+static NSString *const EMAIL          = @"email";
 static NSString *const HTTPS_REQUIRED = @"https_required";
 static NSString *const CREATED        = @"created";
 static NSString *const PERMISSIONS    = @"permissions";
@@ -77,6 +78,7 @@ static NSString *const PERMISSIONS    = @"permissions";
         _expiresIn             = parameters[EXPIRES_IN];
         _userId                = parameters[USER_ID];
         _secret                = parameters[SECRET];
+        _email                 = parameters[EMAIL];
         _httpsRequired         = NO;
 
         NSString *permissionsString = parameters[PERMISSIONS];

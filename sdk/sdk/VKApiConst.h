@@ -77,6 +77,7 @@ static NSString *const VK_API_GROUP_IDS            = @"group_ids";
 static NSString *const VK_API_FRIENDS_ONLY         = @"friends_only";
 static NSString *const VK_API_FROM_GROUP           = @"from_group";
 static NSString *const VK_API_MESSAGE              = @"message";
+static NSString *const VK_API_ATTACHMENT           = @"attachment";
 static NSString *const VK_API_ATTACHMENTS          = @"attachments";
 static NSString *const VK_API_SERVICES             = @"services";
 static NSString *const VK_API_SIGNED               = @"signed";
