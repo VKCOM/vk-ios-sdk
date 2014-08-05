@@ -28,7 +28,7 @@ static NSArray  * SCOPE = nil;
 @implementation VKStartScreen
 
 - (void)viewDidLoad {
-    SCOPE = @[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS];
+    SCOPE = @[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_EMAIL, VK_PER_MESSAGES];
 	[super viewDidLoad];
     
 	[VKSdk initializeWithDelegate:self andAppId:@"3974615"];
