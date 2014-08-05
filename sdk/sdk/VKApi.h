@@ -95,7 +95,15 @@
                                albumId:(NSInteger)albumId
                                groupId:(NSInteger)groupId;
 
-
+/**
+ Uploads photo for messaging
+ @param image image used for saving to post
+ @param parameters parameters for image to be uploaded
+ @param albumId target album ID. Required
+ @param groupId target group ID (positive). May be nil
+ */
++ (VKRequest *)uploadMessagePhotoRequest:(UIImage *)image
+                              parameters:(VKImageParameters *)parameters;
 
 
 @end

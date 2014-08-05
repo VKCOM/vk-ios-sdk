@@ -23,6 +23,7 @@
 #import "VKApi.h"
 #import "VKUploadWallPhotoRequest.h"
 #import "VKUploadPhotoRequest.h"
+#import "VKUploadMessagesPhotoRequest.h"
 @implementation VKApi
 + (VKApiUsers *)users {
 	return [VKApiUsers new];
@@ -61,6 +62,9 @@
                                albumId:(NSInteger)albumId
                                groupId:(NSInteger)groupId {
 	return [[VKUploadPhotoRequest alloc] initWithImage:image parameters:parameters albumId:albumId groupId:groupId];
+}
++(VKRequest *)uploadMessagePhotoRequest:(UIImage *)image parameters:(VKImageParameters *)parameters {
+    return [[VKUploadMessagesPhotoRequest alloc] initWithImage:image parameters:parameters];
 }
 
 @end

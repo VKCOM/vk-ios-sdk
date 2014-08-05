@@ -37,6 +37,7 @@
 @property (nonatomic, strong) VKImageParameters *imageParameters;
 /// Image to upload
 @property (nonatomic, strong) UIImage * image;
+- (instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters;
 @end
 
 /**

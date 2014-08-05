@@ -24,16 +24,12 @@
 #import "VKApi.h"
 @implementation VKUploadWallPhotoRequest
 - (instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters userId:(NSInteger)userId groupId:(NSInteger)groupId {
-	self = [super init];
-	self.image            = image;
-	self.imageParameters  = parameters;
+	self = [super initWithImage:image parameters:parameters];
 	self.userId           = userId;
 	self.groupId          = groupId;
 	return self;
 }
--(NSString *)methodName {
-    return @"VKUploadWallPhotoRequest";
-}
+
 - (VKRequest *)getServerRequest {
 	if (self.groupId != 0)
 		return [[VKApi photos] getWallUploadServer:self.groupId];

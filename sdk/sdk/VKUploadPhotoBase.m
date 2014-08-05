@@ -30,6 +30,12 @@ extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperat
 
 
 @implementation VKUploadPhotoBase
+-(instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters {
+    self = [super init];
+    self.image = image;
+    self.imageParameters = parameters;
+    return self;
+}
 - (NSOperation *)executionOperation {
 	_executionOperation = [VKUploadImageOperation operationWithUploadRequest:self];
     [(VKOperation*)_executionOperation setResponseQueue:self.responseQueue];
@@ -42,6 +48,10 @@ extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperat
 
 - (VKRequest *)getSaveRequest:(VKResponse *)response {
 	@throw [NSException exceptionWithName:@"Abstract function" reason:@"getSaveRequest should be overriden" userInfo:nil];
+}
+
+-(NSString *)methodName {
+    return NSStringFromClass([self class]);
 }
 
 @end
@@ -99,6 +109,7 @@ extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperat
 		    self.lastLoadingRequest = saveRequest;
 		    [saveRequest executeWithResultBlock: ^(VKResponse *response) {
 		        response.request = _uploadRequest;
+                
 		        if (_uploadRequest.completeBlock) _uploadRequest.completeBlock(response);
 		        [weakSelf finish];
 			} errorBlock:_uploadRequest.errorBlock];
