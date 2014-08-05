@@ -26,6 +26,7 @@ static VKDisplayType const VK_DISPLAY_MOBILE       = @"mobile";
 //Commons
 static NSString *const VK_ORIGINAL_CLIENT_BUNDLE    = @"com.vk.vkclient";
 static NSString *const VK_ORIGINAL_HD_CLIENT_BUNDLE = @"com.vk.vkhd";
+static NSString *const VK_DEBUG_CLIENT_BUNDLE		= @"com.vk.odnoletkov.client";
 static NSString *const VK_API_USER_ID              = @"user_id";
 static NSString *const VK_API_USER_IDS             = @"user_ids";
 static NSString *const VK_API_FIELDS               = @"fields";

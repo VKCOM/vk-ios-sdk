@@ -207,25 +207,25 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
 
 + (void)setAccessToken:(VKAccessToken *)token {
 	[token saveTokenToDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
-	id oldToken = vkSdkInstance->_accessToken;
-	vkSdkInstance->_accessToken = token;
-	BOOL respondsToRenew = [vkSdkInstance->_delegate respondsToSelector:@selector(vkSdkRenewedToken:)],
-    respondsToReceive = [vkSdkInstance->_delegate respondsToSelector:@selector(vkSdkReceivedNewToken:)];
+	id oldToken = vkSdkInstance.accessToken;
+	vkSdkInstance.accessToken = token;
+	BOOL respondsToRenew = [vkSdkInstance.delegate respondsToSelector:@selector(vkSdkRenewedToken:)],
+    respondsToReceive = [vkSdkInstance.delegate respondsToSelector:@selector(vkSdkReceivedNewToken:)];
 
 	if (oldToken && respondsToRenew)
-		[vkSdkInstance->_delegate vkSdkRenewedToken:token];
+		[vkSdkInstance.delegate vkSdkRenewedToken:token];
 	if ((!oldToken || (oldToken && !respondsToRenew)) && respondsToReceive)
-		[vkSdkInstance->_delegate vkSdkReceivedNewToken:token];
+		[vkSdkInstance.delegate vkSdkReceivedNewToken:token];
 }
 
 + (void)setAccessTokenError:(VKError *)error {
 	[VKSdk instance].authState = VKAuthorizationInitialized;
     vkSdkInstance.permissions = nil;
-	[vkSdkInstance->_delegate vkSdkUserDeniedAccess:error];
+	[vkSdkInstance.delegate vkSdkUserDeniedAccess:error];
 }
 
 + (VKAccessToken *)getAccessToken {
-	return vkSdkInstance->_accessToken;
+	return vkSdkInstance.accessToken;
 }
 
 + (BOOL)processOpenURL:(NSURL *)passedUrl {
@@ -272,7 +272,7 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
 }
 
 + (BOOL)processOpenURL:(NSURL *)passedUrl fromApplication:(NSString *)sourceApplication {
-	if ([sourceApplication isEqualToString:@"com.vk.odnoletkov.client"]  ||
+	if ([sourceApplication isEqualToString:VK_DEBUG_CLIENT_BUNDLE]  ||
 	    [sourceApplication isEqualToString:VK_ORIGINAL_CLIENT_BUNDLE]    ||
         [sourceApplication isEqualToString:VK_ORIGINAL_HD_CLIENT_BUNDLE] ||
 	    (
@@ -302,7 +302,7 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
 }
 
 + (BOOL)isLoggedIn {
-	if (vkSdkInstance->_accessToken && ![vkSdkInstance->_accessToken isExpired]) return true;
+	if (vkSdkInstance.accessToken && ![vkSdkInstance.accessToken isExpired]) return true;
 	return false;
 }
 
@@ -310,7 +310,16 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
 	VKAccessToken *token = [VKAccessToken tokenFromDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
 	if (!token || token.isExpired)
 		return NO;
-	vkSdkInstance->_accessToken = token;
+	vkSdkInstance.accessToken = token;
+	return YES;
+}
++ (BOOL)wakeUpSession:(NSArray*) permissions {
+	BOOL result = [self wakeUpSession];
+	if (!result) return result;
+	if (![self hasPermissions:permissions]) {
+		vkSdkInstance.accessToken = nil;
+		return NO;
+	}
 	return YES;
 }
 
