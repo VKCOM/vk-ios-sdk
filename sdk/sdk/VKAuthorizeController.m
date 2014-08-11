@@ -27,16 +27,22 @@
 @implementation UINavigationController (LastControllerBar)
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-	return [[self.viewControllers lastObject] preferredStatusBarStyle];
+    if (self.viewControllers.count)
+        return [[self.viewControllers lastObject] preferredStatusBarStyle];
+    return UIStatusBarStyleDefault;
 }
 -(NSUInteger)supportedInterfaceOrientations
 {
-    return [[self.viewControllers lastObject] supportedInterfaceOrientations];
+    if (self.viewControllers.count)
+        return [[self.viewControllers lastObject] supportedInterfaceOrientations];
+    return UIInterfaceOrientationMaskAll;
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
-    return [[self.viewControllers lastObject] preferredInterfaceOrientationForPresentation];
+    if (self.viewControllers.count)
+        return [[self.viewControllers lastObject] preferredInterfaceOrientationForPresentation];
+    return UIInterfaceOrientationPortrait;
 }
 
 @end
