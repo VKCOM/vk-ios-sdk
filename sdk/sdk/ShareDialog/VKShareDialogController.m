@@ -371,7 +371,11 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.textView becomeFirstResponder];
+    //Workaround ipad landscape appearing bug
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
+        [self.textView becomeFirstResponder];
+    });
+    
 }
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
