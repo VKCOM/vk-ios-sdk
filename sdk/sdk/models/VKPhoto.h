@@ -22,13 +22,12 @@
 
 #import "VKApiObject.h"
 #import "VKApiObjectArray.h"
-
+#import "VKPhotoSize.h"
 @class VKLikes;
 /**
  Photo type of VK API. See descriptions here https://vk.com/dev/photo
  */
 @interface VKPhoto : VKApiObject
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
 @property (nonatomic, strong) NSNumber *id;
 @property (nonatomic, strong) NSNumber *album_id;
 @property (nonatomic, strong) NSNumber *owner_id;
@@ -42,8 +41,8 @@
 @property (nonatomic, strong) NSNumber *height;
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) NSNumber *date;
+@property (nonatomic, strong) VKPhotoSizes *sizes;
 @property (nonatomic, readonly) NSString *attachmentString;
-#endif
 @end
 
 

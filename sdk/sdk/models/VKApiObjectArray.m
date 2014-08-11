@@ -28,6 +28,9 @@
 @end
 
 @implementation VKApiObjectArray
+-(instancetype)initWithDictionary:(NSDictionary *)dict {
+    return [self initWithDictionary:dict objectClass:self.objectClass];
+}
 -(instancetype)initWithDictionary:(NSDictionary *)dict objectClass:(Class)objectClass
 {
     id response = dict[@"response"];
@@ -49,10 +52,7 @@
     return self;
 }
 -(instancetype)initWithArray:(NSArray*) array {
-    self = [super init];
-    self.items = [array mutableCopy];
-    self.count = self.items.count;
-    return self;
+    return [self initWithArray:array objectClass:self.objectClass];
 }
 - (NSMutableArray*) parseItems:(NSArray*) toParse asClass:(Class) objectClass {
     NSMutableArray * listOfParsedObjects = [NSMutableArray new];
@@ -114,4 +114,5 @@
     }
     [dict setObject:result forKey:name];
 }
+-(Class)objectClass { return [VKApiObject class]; }
 @end

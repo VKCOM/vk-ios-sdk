@@ -66,4 +66,5 @@
 - (id) lastObject;
 
 -(void)serializeTo:(NSMutableDictionary*) dict withName:(NSString*) name;
+-(Class)objectClass;
 @end
