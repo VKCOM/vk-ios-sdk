@@ -7,6 +7,7 @@
 //
 
 #import "VKUploadMessagesPhotoRequest.h"
+#import "VKPhoto.h"
 @implementation VKUploadMessagesPhotoRequest
 - (VKRequest *)getServerRequest {
 	return [VKRequest requestWithMethod:@"photos.getMessagesUploadServer" andParameters:nil andHttpMethod:@"POST"];

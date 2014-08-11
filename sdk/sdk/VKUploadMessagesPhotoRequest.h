@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 VK. All rights reserved.
 //
 
-#import <VKSdk/VKSdk.h>
 #import "VKUploadPhotoBase.h"
+
 @interface VKUploadMessagesPhotoRequest : VKUploadPhotoBase
 
 @end
