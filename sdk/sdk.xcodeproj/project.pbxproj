@@ -103,6 +103,8 @@
 		F3D38E7B183F72F100D05079 /* VKApiWall.h in Headers */ = {isa = PBXBuildFile; fileRef = F3D38E79183F72F100D05079 /* VKApiWall.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3D38E7F183F7B4800D05079 /* VKBatchRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F3D38E7D183F7B4800D05079 /* VKBatchRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3D38E83183FA49000D05079 /* VKUploadWallPhotoRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F3D38E81183FA49000D05079 /* VKUploadWallPhotoRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F3D751321998AF4100B06DBA /* VKPhotoSize.h in Headers */ = {isa = PBXBuildFile; fileRef = F3D751301998AF4100B06DBA /* VKPhotoSize.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F3D751331998AF4100B06DBA /* VKPhotoSize.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D751311998AF4100B06DBA /* VKPhotoSize.m */; };
 		F3DED130186C10F500FDF083 /* VKOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = F3DED12E186C10F500FDF083 /* VKOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3EEFF3A18241779000BB525 /* VKError.h in Headers */ = {isa = PBXBuildFile; fileRef = F3EEFF3818241779000BB525 /* VKError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3EEFF3F18241781000BB525 /* VKApi.h in Headers */ = {isa = PBXBuildFile; fileRef = F3EEFF3D18241781000BB525 /* VKApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -235,6 +237,8 @@
 		F3D38E7E183F7B4800D05079 /* VKBatchRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKBatchRequest.m; sourceTree = "<group>"; };
 		F3D38E81183FA49000D05079 /* VKUploadWallPhotoRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKUploadWallPhotoRequest.h; sourceTree = "<group>"; };
 		F3D38E82183FA49000D05079 /* VKUploadWallPhotoRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUploadWallPhotoRequest.m; sourceTree = "<group>"; };
+		F3D751301998AF4100B06DBA /* VKPhotoSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKPhotoSize.h; sourceTree = "<group>"; };
+		F3D751311998AF4100B06DBA /* VKPhotoSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKPhotoSize.m; sourceTree = "<group>"; };
 		F3DED12E186C10F500FDF083 /* VKOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKOperation.h; sourceTree = "<group>"; };
 		F3DED12F186C10F500FDF083 /* VKOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKOperation.m; sourceTree = "<group>"; };
 		F3EEFF3818241779000BB525 /* VKError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKError.h; sourceTree = "<group>"; };
@@ -308,6 +312,8 @@
 				F33F0E5E18D83B5900DD8B80 /* VKUser.m */,
 				F36114B71976C3830085898F /* VKGroup.h */,
 				F36114B81976C3830085898F /* VKGroup.m */,
+				F3D751301998AF4100B06DBA /* VKPhotoSize.h */,
+				F3D751311998AF4100B06DBA /* VKPhotoSize.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -550,6 +556,7 @@
 				F3611499197674450085898F /* VKShareDialogController.h in Headers */,
 				F3BACC5818659493003158DA /* VKBundle.h in Headers */,
 				F3EEFFD7182909F3000BB525 /* NSData+MD5.h in Headers */,
+				F3D751321998AF4100B06DBA /* VKPhotoSize.h in Headers */,
 				F36114BD1976C4C00085898F /* VKApiGroups.h in Headers */,
 				F36114B91976C3830085898F /* VKGroup.h in Headers */,
 				F3C755831823BDE800964716 /* VKSdk.h in Headers */,
@@ -687,6 +694,7 @@
 				183C475B18B2F1ED00F978DB /* VKBundle.m in Sources */,
 				F33F0E8B18D840DD00DD8B80 /* VKCounters.m in Sources */,
 				183C475418B2F1ED00F978DB /* VKApi.m in Sources */,
+				F3D751331998AF4100B06DBA /* VKPhotoSize.m in Sources */,
 				F33F0E9518D840DD00DD8B80 /* VKUser.m in Sources */,
 				183C476718B2F1ED00F978DB /* VKUploadWallPhotoRequest.m in Sources */,
 				183C475718B2F1ED00F978DB /* VKCaptchaViewController.m in Sources */,
