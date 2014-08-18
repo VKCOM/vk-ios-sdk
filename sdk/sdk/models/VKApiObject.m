@@ -131,6 +131,8 @@ static NSString *getPropertyName(objc_property_t prop) {
                 propDict = [NSMutableDictionary dictionaryWithCapacity:totalProps];
             propDict[helper.propertyName] = helper;
         }];
+        if (!propDict)
+            propDict = [NSMutableDictionary new];
         classesProperties[className] = propDict;
     }
     NSMutableArray * warnings = PRINT_PARSE_DEBUG_INFO ? [NSMutableArray new] : nil;
