@@ -27,6 +27,9 @@
 @end
 
 @implementation VKGroup
+
+@synthesize description = _description;
+
 @end
 
 @implementation VKGroups
