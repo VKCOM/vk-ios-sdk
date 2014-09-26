@@ -211,7 +211,7 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
 }
 
 - (void)uploadInAlbum {
-	VKRequest *request = [VKApi uploadAlbumPhotoRequest:[UIImage imageNamed:@"fat_awesome"] parameters:[VKImageParameters pngImage] albumId:181808365 groupId:60479154];
+	VKRequest *request = [VKApi uploadAlbumPhotoRequest:[UIImage imageNamed:@"apple"] parameters:[VKImageParameters pngImage] albumId:181808365 groupId:60479154];
 	[request executeWithResultBlock: ^(VKResponse *response) {
 	    NSLog(@"Result: %@", response);
         VKPhoto * photo = [(VKPhotoArray*)response.parsedModel objectAtIndex:0];
