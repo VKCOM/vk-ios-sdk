@@ -116,14 +116,23 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 	self.view = view;
 	_activityMark = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 	[_activityMark startAnimating];
+    _activityMark.center = CGPointMake(view.frame.size.width / 2, view.frame.size.height / 2);
+    _activityMark.autoresizingMask =
+        UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |
+        UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 	[view addSubview:_activityMark];
     
-	_warningLabel = [[UILabel alloc] init];
+	_warningLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, _activityMark.frame.origin.y + _activityMark.frame.size.height + 20,
+                                                              self.view.frame.size.width - 20, 30)];
+    _warningLabel.autoresizingMask =
+        UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |
+        UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 	_warningLabel.numberOfLines = 3;
 	_warningLabel.hidden = YES;
 	_warningLabel.textColor = VK_COLOR;
 	_warningLabel.textAlignment = NSTextAlignmentCenter;
 	_warningLabel.font = [UIFont boldSystemFontOfSize:15];
+    _warningLabel.text = VKLocalizedString(@"Please check your internet connection");
 	[view addSubview:_warningLabel];
     
 	_webView = [[UIWebView alloc] initWithFrame:view.bounds];
@@ -134,27 +143,12 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 	_webView.scrollView.clipsToBounds = NO;
 	[view addSubview:_webView];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[VKBundle localizedString:@"Cancel"] style:UIBarButtonItemStyleBordered target:self action:@selector(cancelAuthorization:)];
-
-    [self setElementsPositions:self.interfaceOrientation duration:0];
-}
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [self setElementsPositions:toInterfaceOrientation duration:duration];
-}
--(void) setElementsPositions:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    CGRect appFrame = [[UIScreen mainScreen] bounds];
-    CGFloat width = UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? appFrame.size.width : appFrame.size.height;
-    CGFloat height = UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? appFrame.size.height : appFrame.size.width;
-    [UIView animateWithDuration:duration animations:^{
-        _activityMark.center = CGPointMake(width / 2, height / 2 - 64);
-        _warningLabel.frame  = CGRectMake(10, _activityMark.frame.origin.y + _activityMark.frame.size.height * 1.2, width - 20, 50);
-    }];
 }
 
 - (instancetype)initWith:(NSString *)appId andPermissions:(NSArray *)permissions revokeAccess:(BOOL)revoke displayType:(VKDisplayType) display {
 	self = [super init];
 	_appId = appId;
 	_scope = [permissions componentsJoinedByString:@","];
-    //
 	_redirectUri = [[self class] buildAuthorizationUrl:REDIRECT_URL clientId:_appId scope:_scope revoke:revoke display:display];
 	return self;
 }
@@ -196,7 +190,6 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 	if (_finished) return;
 	if ([error code] != NSURLErrorCancelled) {
 		_warningLabel.hidden = NO;
-		_warningLabel.text = NSLocalizedString(@"Please check your internet connection", @"Check internet");
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(500 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^(void) {
 		    [webView loadRequest:_lastRequest];
 		    if (!self.navigationItem.rightBarButtonItem)
