@@ -40,7 +40,7 @@
 }
 
 - (VKRequest *)prepareRequestWithMethodName:(NSString *)methodName andParameters:(NSDictionary *)methodParameters {
-	return [self prepareRequestWithMethodName:methodName andParameters:methodParameters andHttpMethod:@"GET"];
+	return [self prepareRequestWithMethodName:methodName andParameters:methodParameters andHttpMethod:@"POST"];
 }
 
 - (VKRequest *)prepareRequestWithMethodName:(NSString *)methodName andParameters:(NSDictionary *)methodParameters andHttpMethod:(NSString *)httpMethod {

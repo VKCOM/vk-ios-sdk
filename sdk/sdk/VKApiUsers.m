@@ -29,12 +29,12 @@
 }
 
 - (VKRequest *)get:(NSDictionary *)params {
-	return [self prepareRequestWithMethodName:@"get" andParameters:params andHttpMethod:@"GET" andClassOfModel:[VKUsersArray class]];
+	return [self prepareRequestWithMethodName:@"get" andParameters:params andHttpMethod:@"POST" andClassOfModel:[VKUsersArray class]];
 }
 
 #pragma mark search
 - (VKRequest *)search:(NSDictionary *)params {
-	return [self prepareRequestWithMethodName:@"search" andParameters:params andHttpMethod:@"GET" andClassOfModel:[VKUsersArray class]];
+	return [self prepareRequestWithMethodName:@"search" andParameters:params andHttpMethod:@"POST" andClassOfModel:[VKUsersArray class]];
 }
 
 #pragma mark isAppUser
