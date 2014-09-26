@@ -47,6 +47,10 @@
 		});
 		return;
 	}
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        self.modalPresentationStyle = UIModalPresentationFormSheet;
+        self.modalTransitionStyle   = UIModalTransitionStyleCrossDissolve;
+    }
 	[controller presentViewController:self animated:YES completion:nil];
 }
 
