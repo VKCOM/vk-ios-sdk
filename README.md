@@ -45,6 +45,11 @@ Add the sdk/sdk.xcodeproj file to your project. In the Application settings open
 
 Using SDK
 ==========
+Pre-requirements
+----------
+If your application is using VK SDK to provide basic application functions, your app may be rejected by default (reason 10.6, see this issue #64), because SDK trying authorize user in Safari.
+If you making such application, implement `-(BOOL)vkSdkIsBasicAuthorization;` delegate method for tell SDK authorize with UIWebView first.
+
 SDK Initialization
 ----------
 1) Put this code to the application delegate method  application:openURL:sourceApplication:annotation:
