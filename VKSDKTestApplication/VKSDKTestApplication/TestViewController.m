@@ -125,6 +125,13 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
         shareDialog.text = @"Your share text here";
         shareDialog.uploadImages = @[[VKUploadImage uploadImageWithImage:[UIImage imageNamed:@"apple"]  andParams:[VKImageParameters jpegImageWithQuality:0.9]]];
         shareDialog.otherAttachmentsStrings = @[@"https://vk.com/dev/ios_sdk"];
+        shareDialog.completionHandler = ^(VKShareDialogControllerResult result){
+            if (result == VKShareDialogControllerResultCancelled){
+                NSLog(@"Share dialog cancelled");
+            }else{
+                NSLog(@"Share dialog done");
+            }
+        };
         [shareDialog presentIn:self];
     }
 }

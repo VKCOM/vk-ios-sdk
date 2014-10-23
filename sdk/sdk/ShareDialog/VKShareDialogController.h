@@ -7,6 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+
+typedef NS_ENUM(NSInteger, VKShareDialogControllerResult){
+    VKShareDialogControllerResultCancelled,
+    VKShareDialogControllerResultDone
+};
+
+typedef void (^VKShareDialogControllerCompletionHandler) (VKShareDialogControllerResult result);
+
+
 /**
  * Creates dialog for sharing some information from your app to user wall in VK
  */
@@ -22,6 +31,10 @@
 
 /// You can post not only on user wall, but also his friends walls and groups walls
 @property (nonatomic, strong) NSNumber *ownerId;
+
+/// You can receive information about sharing state
+@property (nonatomic, strong) VKShareDialogControllerCompletionHandler completionHandler;
+
 
 /**
  Correctly presents current view controller in another

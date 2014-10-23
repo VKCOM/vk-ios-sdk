@@ -504,6 +504,8 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
 
 -(void) close:(id) sender {
     [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    if (_completionHandler != NULL)
+        _completionHandler(VKShareDialogControllerResultCancelled);
 }
 -(void) sendMessage:(id) sender {
     self.textView.editable  = NO;
@@ -537,6 +539,9 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
     
     [post executeWithResultBlock:^(VKResponse *response) {
         [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        if (_completionHandler != NULL){
+            _completionHandler(VKShareDialogControllerResultDone);
+        }
     } errorBlock:^(NSError *error) {
         self.navigationItem.rightBarButtonItem  = nil;
         self.navigationItem.rightBarButtonItems = [self rightBarButtonItems];
