@@ -330,6 +330,9 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
 @property (nonatomic, strong) VKPostSettings *postSettings;
 @property (nonatomic, assign) BOOL prepared;
 @property (nonatomic, strong) id<VKSdkDelegate> originalSdkDelegate;
+
+@property BOOL needAuthorize;
+
 @end
 
 @implementation VKShareDialogController
@@ -371,6 +374,14 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    if (self.needAuthorize)
+    {
+        self.needAuthorize = NO;
+        
+        [self authorize:nil];
+    }
+    
     //Workaround ipad landscape appearing bug
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
         [self.textView becomeFirstResponder];
@@ -386,7 +397,7 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
         self.navigationItem.titleView = self.loadingView;
         [self prepare];
     } else {
-        [self authorize:nil];
+        self.needAuthorize = YES;
 //        self.loadingView.hidden = YES;
 //        self.textView.editable  = NO;
 //        self.textView.textColor = [UIColor lightGrayColor];
