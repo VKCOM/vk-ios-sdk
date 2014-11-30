@@ -371,6 +371,9 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
     self.textView.textAlignment = NSTextAlignmentLeft;
     
     self.navigationItem.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Cancel") style:UIBarButtonItemStyleBordered target:self action:@selector(close:)];
+    
+    _originalSdkDelegate = [VKSdk instance].delegate;
+    [VKSdk instance].delegate = self;
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -442,6 +445,8 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
 }
 -(void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [VKSdk instance].delegate = _originalSdkDelegate;
 }
 -(void)prepare {
     if (!_ownerId) {
@@ -566,10 +571,7 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
     [self.navigationController pushViewController:vc animated:YES];
 }
 -(void) authorize:(id) sender {
-    _originalSdkDelegate = [VKSdk instance].delegate;
-    [VKSdk instance].delegate = self;
     [VKSdk authorize:@[VK_PER_WALL,VK_PER_GROUPS,VK_PER_PHOTOS] revokeAccess:YES];
-    [VKSdk instance].delegate = _originalSdkDelegate;
 }
 - (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {
     VKCaptchaViewController * captcha = [VKCaptchaViewController captchaControllerWithError:captchaError];
@@ -582,6 +584,8 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
 
 - (void)vkSdkUserDeniedAccess:(VKError *)authorizationError {
     [_originalSdkDelegate vkSdkUserDeniedAccess:authorizationError];
+    
+    [self close:nil];
 }
 
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller {
