@@ -34,7 +34,7 @@ static NSArray  * SCOPE = nil;
 	[VKSdk initializeWithDelegate:self andAppId:@"3974615"];
     if ([VKSdk wakeUpSession])
     {
-//        [self startWorking];
+        [self startWorking];
     }
 }
 - (void)startWorking {
@@ -59,9 +59,11 @@ static NSArray  * SCOPE = nil;
 - (IBAction)openShareDialog:(id)sender {
     VKShareDialogController * shareDialog = [VKShareDialogController new];
     shareDialog.text         = @"This post created using #vksdk #ios";
-//    shareDialog.uploadImages = @[[VKUploadImage uploadImageWithImage:[UIImage imageNamed:@"apple"]  andParams:[VKImageParameters jpegImageWithQuality:0.9]]];
-    shareDialog.vkImages     = @[@"896232_342105854",@"896232_342105854",@"896232_342105854",@"-10889156_348122347",@"7840938_319411365",@"9136205_342755379",@"896232_344365405"];
+    shareDialog.vkImages     = @[@"-10889156_348122347",@"7840938_319411365",@"-60479154_333497085"];
     shareDialog.shareLink    = [[VKShareLink alloc] initWithTitle:@"Super puper link, but nobody knows" link:[NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]];
+    [shareDialog setCompletionHandler:^(VKShareDialogControllerResult result) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
     [self presentViewController:shareDialog animated:YES completion:nil];
 }
 

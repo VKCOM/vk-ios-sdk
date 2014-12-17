@@ -8,14 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "VKObject.h"
+#import "VKUploadImage.h"
 
 
 typedef NS_ENUM(NSInteger, VKShareDialogControllerResult){
     VKShareDialogControllerResultCancelled,
     VKShareDialogControllerResultDone
 };
-
-typedef void (^VKShareDialogControllerCompletionHandler) (VKShareDialogControllerResult result);
 
 /*
  * Link representation for share dialog
@@ -50,8 +49,10 @@ typedef void (^VKShareDialogControllerCompletionHandler) (VKShareDialogControlle
 @property (nonatomic, strong) NSArray     *requestedScope;
 
 /// You can receive information about sharing state
-@property (nonatomic, copy)   VKShareDialogControllerCompletionHandler completionHandler;
+@property (nonatomic, copy)   void (^completionHandler)(VKShareDialogControllerResult result);
 
+/// Flag meaning the share viewcontroller manage it's presentation state by itself
+@property (nonatomic, assign) BOOL dismissAutomatically;
 /**
  Correctly presents current view controller in another
  @param viewController Parent view controller

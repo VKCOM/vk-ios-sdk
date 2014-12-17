@@ -26,6 +26,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    self.navigationController.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleDone target:self action:@selector(logout:)];
 }
 
@@ -67,12 +68,13 @@ static NSString *const CALL_UNKNOWN_METHOD = @"Call unknown method";
 static NSString *const TEST_VALIDATION = @"Test validation";
 static NSString *const MAKE_SYNCHRONOUS = @"Make synchronous request";
 static NSString *const SHARE_DIALOG = @"Test share dialog";
+static NSString *const TEST_ACTIVITY = @"Test VKActivity";
 
 //Fields
 static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,city,country,photo_50,photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online,online_mobile,lists,domain,has_mobile,contacts,connections,site,education,universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message,status,last_seen,common_count,relation,relatives,counters";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!labels)
-		labels = @[USERS_GET, USERS_SUBSCRIPTIONS, FRIENDS_GET, FRIENDS_GET_FULL, UPLOAD_PHOTO, UPLOAD_PHOTO_ALBUM, UPLOAD_PHOTOS, TEST_CAPTCHA, CALL_UNKNOWN_METHOD, TEST_VALIDATION,MAKE_SYNCHRONOUS,SHARE_DIALOG];
+		labels = @[USERS_GET, USERS_SUBSCRIPTIONS, FRIENDS_GET, FRIENDS_GET_FULL, UPLOAD_PHOTO, UPLOAD_PHOTO_ALBUM, UPLOAD_PHOTOS, TEST_CAPTCHA, CALL_UNKNOWN_METHOD, TEST_VALIDATION,MAKE_SYNCHRONOUS,SHARE_DIALOG,TEST_ACTIVITY];
 	return labels.count;
 }
 
@@ -122,17 +124,27 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
     }
     else if ([label isEqualToString:SHARE_DIALOG]) {
         VKShareDialogController * shareDialog = [VKShareDialogController new];
-        shareDialog.text = @"Your share text here";
-        shareDialog.uploadImages = @[[VKUploadImage uploadImageWithImage:[UIImage imageNamed:@"apple"]  andParams:[VKImageParameters jpegImageWithQuality:0.9]]];
-//        shareDialog.otherAttachmentsStrings = @[@"https://vk.com/dev/ios_sdk"];
-        shareDialog.completionHandler = ^(VKShareDialogControllerResult result){
-            if (result == VKShareDialogControllerResultCancelled){
-                NSLog(@"Share dialog cancelled");
-            }else{
-                NSLog(@"Share dialog done");
-            }
-        };
-        [self.navigationController pushViewController:shareDialog animated:YES];
+        shareDialog.text         = @"This post created using #vksdk #ios";
+        shareDialog.vkImages     = @[@"-10889156_348122347",@"7840938_319411365",@"-60479154_333497085"];
+        shareDialog.shareLink    = [[VKShareLink alloc] initWithTitle:@"Super puper link, but nobody knows" link:[NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]];
+        [shareDialog setCompletionHandler:^(VKShareDialogControllerResult result) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [self presentViewController:shareDialog animated:YES completion:nil];
+    }
+    else if ([label isEqualToString:TEST_ACTIVITY]) {
+        NSArray *items = @[[UIImage imageNamed:@"apple"], @"Check out information about VK SDK" , [NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]];
+        UIActivityViewController *activityViewController = [[UIActivityViewController alloc]
+                                                            initWithActivityItems:items
+                                                            applicationActivities:@[[VKActivity new]]];
+        [activityViewController setValue:@"VK SDK" forKey:@"subject"];
+        [activityViewController setCompletionHandler:nil];
+        if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+            UIPopoverPresentationController *popover = activityViewController.popoverPresentationController;
+            popover.sourceView = self.view;
+            popover.sourceRect = [tableView rectForRowAtIndexPath:indexPath];
+        }
+        [self presentViewController:activityViewController animated:YES completion:nil];
     }
 }
 -(VKUsersArray*) loadUsers {

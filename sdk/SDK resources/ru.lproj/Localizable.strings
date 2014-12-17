@@ -17,9 +17,10 @@
 "UserNotAuthorized"   = "Вы не авторизованы через ВКонтакте";
 "Enter"="Войти";
 "ErrorWhilePosting" = "Во время выполнения запроса произошла ошибка. Пожалуйста, попробуйте позднее";
-"Link%@" = "Ссылка: %@";
+"Link" = "Ссылка";
 "FriendsOnly" = "Только для друзей";
 "ExportTwitter" = "Экспорт в Twitter";
 "ExportFacebook" = "Экспорт в Facebook";
 "ExportLivejournal" = "Экспорт в LiveJournal";
 "PostSettings" = "Настройки записи";
+"VK" = "ВКонтакте";

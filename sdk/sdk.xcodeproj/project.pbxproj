@@ -87,6 +87,14 @@
 		183C477118B2F1FD00F978DB /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EEFFD4182909F3000BB525 /* NSData+MD5.m */; };
 		183C477218B2F1FD00F978DB /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EEFFD6182909F3000BB525 /* NSString+MD5.m */; };
 		183C477318B2F1FD00F978DB /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EEFFDE1829100C000BB525 /* OrderedDictionary.m */; };
+		F3062B801A4185FF006B57F9 /* ic_vk_ios7_activity_logo~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F3062B7F1A4185FD006B57F9 /* ic_vk_ios7_activity_logo~ipad.png */; };
+		F32ADDC61A4170C9009A9FD6 /* VKActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = F32ADDC51A4170C9009A9FD6 /* VKActivity.m */; };
+		F32ADDC71A4176F1009A9FD6 /* VKActivity.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F32ADDC41A4170C9009A9FD6 /* VKActivity.h */; };
+		F32ADDCD1A417CE9009A9FD6 /* ic_vk_activity_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F32ADDC81A417C4C009A9FD6 /* ic_vk_activity_logo.png */; };
+		F32ADDCE1A417CE9009A9FD6 /* ic_vk_activity_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F32ADDC91A417C4C009A9FD6 /* ic_vk_activity_logo@2x.png */; };
+		F32ADDCF1A417CE9009A9FD6 /* ic_vk_activity_logo@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F32ADDCA1A417C4C009A9FD6 /* ic_vk_activity_logo@2x~ipad.png */; };
+		F32ADDD01A417CE9009A9FD6 /* ic_vk_activity_logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F32ADDCB1A417C4C009A9FD6 /* ic_vk_activity_logo@3x.png */; };
+		F32ADDD11A417CE9009A9FD6 /* ic_vk_activity_logo~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F32ADDCC1A417C4C009A9FD6 /* ic_vk_activity_logo~ipad.png */; };
 		F33F0E8318D840DD00DD8B80 /* VKRelative.m in Sources */ = {isa = PBXBuildFile; fileRef = F33F0E7E18D83E0A00DD8B80 /* VKRelative.m */; };
 		F33F0E8518D840DD00DD8B80 /* VKApiObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F33F0E5218D83B5900DD8B80 /* VKApiObject.m */; };
 		F33F0E8718D840DD00DD8B80 /* VKApiObjectArray.m in Sources */ = {isa = PBXBuildFile; fileRef = F33F0E5418D83B5900DD8B80 /* VKApiObjectArray.m */; };
@@ -103,8 +111,6 @@
 		F36114AE19768F260085898F /* VKUploadImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F36114AC19768F260085898F /* VKUploadImage.m */; };
 		F36114B319768FDD0085898F /* vk_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114AF19768FD70085898F /* vk_settings.png */; };
 		F36114B419768FDD0085898F /* vk_settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114B019768FD70085898F /* vk_settings@2x.png */; };
-		F36114B519768FDD0085898F /* vk_activity.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114B119768FD70085898F /* vk_activity.png */; };
-		F36114B619768FDD0085898F /* vk_activity@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114B219768FD70085898F /* vk_activity@2x.png */; };
 		F36114BA1976C3830085898F /* VKGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = F36114B81976C3830085898F /* VKGroup.m */; };
 		F36114BE1976C4C00085898F /* VKApiGroups.m in Sources */ = {isa = PBXBuildFile; fileRef = F36114BC1976C4C00085898F /* VKApiGroups.m */; };
 		F36114C71977DC2D0085898F /* ic_deleteattach.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114C31977DC2D0085898F /* ic_deleteattach.png */; };
@@ -149,6 +155,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				F32ADDC71A4176F1009A9FD6 /* VKActivity.h in Copy Files */,
 				132CF7E319D2B3360084884D /* VKApi.h in Copy Files */,
 				132CF7E419D2B3360084884D /* VKRelative.h in Copy Files */,
 				132CF7E519D2B3360084884D /* VKApiObject.h in Copy Files */,
@@ -208,10 +215,18 @@
 /* Begin PBXFileReference section */
 		18680EA81834F23500E532C8 /* VKCaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKCaptchaView.h; sourceTree = "<group>"; };
 		18680EA91834F23500E532C8 /* VKCaptchaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKCaptchaView.m; sourceTree = "<group>"; };
+		F3062B7F1A4185FD006B57F9 /* ic_vk_ios7_activity_logo~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_vk_ios7_activity_logo~ipad.png"; sourceTree = "<group>"; };
 		F311207418588D4E004A9A40 /* VKHTTPOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKHTTPOperation.h; sourceTree = "<group>"; };
 		F311207518588D4E004A9A40 /* VKHTTPOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKHTTPOperation.m; sourceTree = "<group>"; };
 		F311207818588D67004A9A40 /* VKHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKHTTPClient.h; sourceTree = "<group>"; };
 		F311207918588D67004A9A40 /* VKHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKHTTPClient.m; sourceTree = "<group>"; };
+		F32ADDC41A4170C9009A9FD6 /* VKActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKActivity.h; sourceTree = "<group>"; };
+		F32ADDC51A4170C9009A9FD6 /* VKActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKActivity.m; sourceTree = "<group>"; };
+		F32ADDC81A417C4C009A9FD6 /* ic_vk_activity_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_vk_activity_logo.png; sourceTree = "<group>"; };
+		F32ADDC91A417C4C009A9FD6 /* ic_vk_activity_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_vk_activity_logo@2x.png"; sourceTree = "<group>"; };
+		F32ADDCA1A417C4C009A9FD6 /* ic_vk_activity_logo@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_vk_activity_logo@2x~ipad.png"; sourceTree = "<group>"; };
+		F32ADDCB1A417C4C009A9FD6 /* ic_vk_activity_logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_vk_activity_logo@3x.png"; sourceTree = "<group>"; };
+		F32ADDCC1A417C4C009A9FD6 /* ic_vk_activity_logo~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_vk_activity_logo~ipad.png"; sourceTree = "<group>"; };
 		F33F0E5118D83B5900DD8B80 /* VKApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKApiObject.h; sourceTree = "<group>"; };
 		F33F0E5218D83B5900DD8B80 /* VKApiObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKApiObject.m; sourceTree = "<group>"; };
 		F33F0E5318D83B5900DD8B80 /* VKApiObjectArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKApiObjectArray.h; sourceTree = "<group>"; };
@@ -243,8 +258,6 @@
 		F36114AC19768F260085898F /* VKUploadImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUploadImage.m; sourceTree = "<group>"; };
 		F36114AF19768FD70085898F /* vk_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_settings.png; sourceTree = "<group>"; };
 		F36114B019768FD70085898F /* vk_settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_settings@2x.png"; sourceTree = "<group>"; };
-		F36114B119768FD70085898F /* vk_activity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_activity.png; sourceTree = "<group>"; };
-		F36114B219768FD70085898F /* vk_activity@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_activity@2x.png"; sourceTree = "<group>"; };
 		F36114B71976C3830085898F /* VKGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKGroup.h; sourceTree = "<group>"; };
 		F36114B81976C3830085898F /* VKGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKGroup.m; sourceTree = "<group>"; };
 		F36114BB1976C4C00085898F /* VKApiGroups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKApiGroups.h; sourceTree = "<group>"; };
@@ -399,6 +412,8 @@
 				F3D38E6A183CC7C400D05079 /* VKCaptchaViewController.m */,
 				F3611496197674450085898F /* VKShareDialogController.h */,
 				F3611497197674450085898F /* VKShareDialogController.m */,
+				F32ADDC41A4170C9009A9FD6 /* VKActivity.h */,
+				F32ADDC51A4170C9009A9FD6 /* VKActivity.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -427,6 +442,12 @@
 		F3BACC431865905B003158DA /* SDK resources */ = {
 			isa = PBXGroup;
 			children = (
+				F3062B7F1A4185FD006B57F9 /* ic_vk_ios7_activity_logo~ipad.png */,
+				F32ADDC81A417C4C009A9FD6 /* ic_vk_activity_logo.png */,
+				F32ADDC91A417C4C009A9FD6 /* ic_vk_activity_logo@2x.png */,
+				F32ADDCA1A417C4C009A9FD6 /* ic_vk_activity_logo@2x~ipad.png */,
+				F32ADDCB1A417C4C009A9FD6 /* ic_vk_activity_logo@3x.png */,
+				F32ADDCC1A417C4C009A9FD6 /* ic_vk_activity_logo~ipad.png */,
 				F3A1D1F01A40436A00EFEC74 /* Disclosure.png */,
 				F3A1D1F11A40436A00EFEC74 /* Disclosure@2x.png */,
 				F3A1D1F21A40436A00EFEC74 /* Disclosure@3x.png */,
@@ -447,8 +468,6 @@
 				F36114D01978060F0085898F /* img_newpostattachlink@2x.png */,
 				F36114A4197684870085898F /* Localizable.strings */,
 				F3BACC441865905B003158DA /* Supporting Files */,
-				F36114B119768FD70085898F /* vk_activity.png */,
-				F36114B219768FD70085898F /* vk_activity@2x.png */,
 				F36114AF19768FD70085898F /* vk_settings.png */,
 				F36114B019768FD70085898F /* vk_settings@2x.png */,
 			);
@@ -667,23 +686,27 @@
 				F3A1D1F51A40436A00EFEC74 /* Disclosure@3x.png in Resources */,
 				F3A1D1F41A40436A00EFEC74 /* Disclosure@2x.png in Resources */,
 				F39A00BA1A3A019A00167AEB /* BlueBtn@2x.png in Resources */,
+				F3062B801A4185FF006B57F9 /* ic_vk_ios7_activity_logo~ipad.png in Resources */,
+				F32ADDCE1A417CE9009A9FD6 /* ic_vk_activity_logo@2x.png in Resources */,
 				F39A00BC1A3A019A00167AEB /* ic_vk_logo_nb@3x.png in Resources */,
 				F36114B419768FDD0085898F /* vk_settings@2x.png in Resources */,
-				F36114B519768FDD0085898F /* vk_activity.png in Resources */,
+				F32ADDD01A417CE9009A9FD6 /* ic_vk_activity_logo@3x.png in Resources */,
 				F3A1D1F31A40436A00EFEC74 /* Disclosure.png in Resources */,
-				F36114B619768FDD0085898F /* vk_activity@2x.png in Resources */,
 				F36114A9197685810085898F /* Localizable.strings in Resources */,
 				F39A00B61A3A019A00167AEB /* BlueBtn_pressed.png in Resources */,
 				F3BACC62186883E8003158DA /* ic_vk_logo_nb@2x.png in Resources */,
+				F32ADDCF1A417CE9009A9FD6 /* ic_vk_activity_logo@2x~ipad.png in Resources */,
 				F3BACC481865905B003158DA /* InfoPlist.strings in Resources */,
 				F36114C71977DC2D0085898F /* ic_deleteattach.png in Resources */,
 				F36114D11978060F0085898F /* img_newpostattachlink.png in Resources */,
 				F39A00B91A3A019A00167AEB /* BlueBtn.png in Resources */,
+				F32ADDCD1A417CE9009A9FD6 /* ic_vk_activity_logo.png in Resources */,
 				F3BACC61186883E8003158DA /* ic_vk_logo_nb.png in Resources */,
 				F39A00B71A3A019A00167AEB /* BlueBtn_pressed@2x.png in Resources */,
 				F36114C91977DC2D0085898F /* ic_deletephoto.png in Resources */,
 				F39A00B81A3A019A00167AEB /* BlueBtn_pressed@3x.png in Resources */,
 				F36114C81977DC2D0085898F /* ic_deleteattach@2x.png in Resources */,
+				F32ADDD11A417CE9009A9FD6 /* ic_vk_activity_logo~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,6 +745,7 @@
 				F33F0E8918D840DD00DD8B80 /* VKAudio.m in Sources */,
 				183C476618B2F1ED00F978DB /* VKUploadPhotoRequest.m in Sources */,
 				183C476118B2F1ED00F978DB /* VKOperation.m in Sources */,
+				F32ADDC61A4170C9009A9FD6 /* VKActivity.m in Sources */,
 				183C475B18B2F1ED00F978DB /* VKBundle.m in Sources */,
 				F33F0E8B18D840DD00DD8B80 /* VKCounters.m in Sources */,
 				183C475418B2F1ED00F978DB /* VKApi.m in Sources */,

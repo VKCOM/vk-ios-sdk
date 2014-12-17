@@ -359,6 +359,7 @@ typedef enum CornerFlag {
 
 - (void)presentIn:(UIViewController *)viewController __deprecated {
     [viewController presentViewController:self animated:YES completion:nil];
+    self.dismissAutomatically = YES;
 }
 -(void)viewDidLoad {
     [super viewDidLoad];
@@ -368,10 +369,6 @@ typedef enum CornerFlag {
         internalNavigation.automaticallyAdjustsScrollViewInsets = NO;
     }
     
-    targetShareDialog.navigationItem.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Cancel") style:UIBarButtonItemStyleBordered target:self action:@selector(close:)];
-}
--(void) close:(id) sender {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 -(void) setUploadImages:(NSArray *)uploadImages {
     _uploadImages = [uploadImages filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
@@ -635,8 +632,8 @@ typedef enum CornerFlag {
 
 -(void) setTargetLink:(VKShareLink *)targetLink {
     _targetLink     = targetLink;
-    _linkTitle.text = targetLink.title;
-    _linkHost.text  = targetLink.link.host;
+    _linkTitle.text = [targetLink.title     stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    _linkHost.text  = [targetLink.link.host stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [self sizeToFit];
 }
 @end
@@ -810,16 +807,16 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     [_contentScrollView addSubview:_linkAttachView];
     [self setNeedsLayout];
 }
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
 @end
 
 ///-------------------------------
 /// @name Internal view controller, root for share dialog navigation controller
 ///-------------------------------
 @interface VKShareDialogControllerInternal ()
-//@property (nonatomic, strong) IBOutlet UILabel *hintLabel;
-//@property (nonatomic, strong) IBOutlet VKPlaceholderTextView *textView;
 @property (nonatomic, readonly) UICollectionView *attachmentsScrollView;
-//@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *loadingView;
 @property (nonatomic, strong) UIBarButtonItem *sendButton;
 @property (nonatomic, strong) NSMutableArray *attachmentsArray;
 @property (nonatomic, strong) id targetOwner;
@@ -859,10 +856,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     [super viewDidLoad];
     UIImage *image = [VKBundle vkLibraryImageNamed:@"ic_vk_logo_nb"];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
-    
-//    [self resizeToInterfaceOrientation:self.interfaceOrientation];
     self.navigationItem.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Cancel") style:UIBarButtonItemStyleBordered target:self action:@selector(close:)];
-    
     _originalSdkDelegate = [VKSdk instance].delegate;
     [VKSdk instance].delegate = self;
 }
@@ -899,67 +893,40 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 -(void)prepare {
-    if (!_parent.ownerId) {
-        _parent.ownerId = @([VKSdk getAccessToken].userId.integerValue);
-    }
+
     _postSettings = [VKPostSettings new];
-    if (_parent.ownerId.integerValue > 0) {
-        [[[VKApi users] get:@{VK_API_USER_ID : _parent.ownerId, VK_API_FIELDS : @"first_name_acc,can_post,sex,exports"}] executeWithResultBlock:^(VKResponse *response) {
-            VKUser * user = [response.parsedModel firstObject];
-            self.targetOwner = user;
-            NSInteger currentUserId = [VKSdk getAccessToken].userId.integerValue;
-            if (user.id.integerValue == currentUserId) {
-                //Установить в 0, чтобы была возможность настройки отобразить
-                _postSettings.friendsOnly           = @0;
-                if (user.exports.twitter) {
-                    _postSettings.exportTwitter     = @0;
-                }
-                if (user.exports.facebook) {
-                    _postSettings.exportFacebook    = @0;
-                }
-                if (user.exports.livejournal) {
-                    _postSettings.exportLivejournal = @0;
-                }
-                [self createAttachments];
-            } else {
-                if (!user.can_post.boolValue) {
-                    [self denyPostingOnWall:user.first_name_acc];
-                } else {
-                    [self createAttachments];
-                }
-            }
-        } errorBlock:nil];
-    } else {
-        [[[VKApi groups] getById:@{VK_API_GROUP_IDS : @(-_parent.ownerId.integerValue), VK_API_FIELDS : @"can_post"}] executeWithResultBlock:^(VKResponse *response) {
-            VKGroup * group = [response.parsedModel firstObject];
-            self.targetOwner = group;
-            if (!group.can_post.boolValue) {
-                [self denyPostingOnWall:group.name];
-            } else {
-                [self createAttachments];
-            }
-        } errorBlock:nil];
-    }
+    [self createAttachments];
+    [[[VKApi users] get:@{VK_API_FIELDS : @"first_name_acc,can_post,sex,exports"}] executeWithResultBlock:^(VKResponse *response) {
+        VKUser * user = [response.parsedModel firstObject];
+        //Set this flags as @0 to show in the interface
+        _postSettings.friendsOnly           = @0;
+        if (user.exports.twitter) {
+            _postSettings.exportTwitter     = @0;
+        }
+        if (user.exports.facebook) {
+            _postSettings.exportFacebook    = @0;
+        }
+        if (user.exports.livejournal) {
+            _postSettings.exportLivejournal = @0;
+        }
+    } errorBlock:nil];
     self.prepared = YES;
 
 }
 -(NSArray*) rightBarButtonItems {
     if (!_sendButton) {
-        _sendButton = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Done") style:VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? UIBarButtonItemStyleBordered : UIBarButtonItemStyleDone target:self action:@selector(sendMessage:)];
+        _sendButton = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Done") style:UIBarButtonItemStyleDone target:self action:@selector(sendMessage:)];
     }
     return @[_sendButton];
 }
--(void)denyPostingOnWall:(NSString*)ownerName {
-    _sendButton.enabled = NO;
-    self.navigationItem.rightBarButtonItems = nil;
-    self.navigationItem.rightBarButtonItem = _sendButton;
-}
-
 
 -(void) close:(id) sender {
-    [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-    if (_parent.completionHandler != NULL)
+    if (_parent.completionHandler != NULL) {
         _parent.completionHandler(VKShareDialogControllerResultCancelled);
+    }
+    if (_parent.dismissAutomatically) {
+        [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 -(void) sendMessage:(id) sender {
@@ -984,8 +951,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     }
     
     VKRequest * post = [[VKApi wall] post:@{VK_API_MESSAGE : textView.text ? : @"",
-                                            VK_API_ATTACHMENTS : [attachStrings componentsJoinedByString:@","],
-                                            VK_API_OWNER_ID : _parent.ownerId}];
+                                            VK_API_ATTACHMENTS : [attachStrings componentsJoinedByString:@","]}];
     NSMutableArray * exports = [NSMutableArray new];
     if (_postSettings.friendsOnly.boolValue)       [post addExtraParameters:@{VK_API_FRIENDS_ONLY : @1}];
     if (_postSettings.exportTwitter.boolValue)     [exports addObject:@"twitter"];
@@ -994,9 +960,11 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     if (exports.count) [post addExtraParameters:@{VK_API_SERVICES : [exports componentsJoinedByString:@","]}];
     
     [post executeWithResultBlock:^(VKResponse *response) {
-        [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
         if (_parent.completionHandler != NULL){
             _parent.completionHandler(VKShareDialogControllerResultDone);
+        }
+        if (_parent.dismissAutomatically) {
+            [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
         }
     } errorBlock:^(NSError *error) {
         self.navigationItem.rightBarButtonItem  = nil;
@@ -1026,7 +994,6 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 }
 
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller {
-//    [self presentViewController:controller animated:YES completion:nil];
     if ([controller isKindOfClass:[UINavigationController class]]) {
         UINavigationController *nav = (UINavigationController*)controller;
         UIViewController *target = nav.viewControllers[0];
@@ -1059,12 +1026,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         attach.preview      = [img.sourceImage vkRoundCornersImage:0.0f resultSize:size];
         [self.attachmentsArray addObject:attach];
         
-        VKRequest *uploadRequest;
-        if (_parent.ownerId.integerValue > 0) {
-            uploadRequest = [VKApi uploadWallPhotoRequest:img.sourceImage parameters:img.parameters userId:_parent.ownerId.integerValue groupId:0];
-        } else {
-            uploadRequest = [VKApi uploadWallPhotoRequest:img.sourceImage parameters:img.parameters userId:0 groupId:-(_parent.ownerId.integerValue)];
-        }
+        VKRequest *uploadRequest = [VKApi uploadWallPhotoRequest:img.sourceImage parameters:img.parameters userId:0 groupId:0];
         
         [uploadRequest setCompleteBlock:^(VKResponse *res) {
             VKPhoto * photo = [res.parsedModel firstObject];
@@ -1083,69 +1045,72 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         attach.uploadingRequest = uploadRequest;
     }
     
-    NSMutableDictionary *attachById = [NSMutableDictionary new];
-    for (NSString *photo in _parent.vkImages) {
-        NSAssert([photo isKindOfClass:[NSString class]], @"vkImages must contains only string photo ids");
-        if (attachById[photo]) continue;
-        VKUploadingAttachment * attach = [VKUploadingAttachment new];
-        attach.attachSize       = CGSizeMake(kAttachmentsViewSize, kAttachmentsViewSize);
-        attach.attachmentString = [@"photo" stringByAppendingString:photo];
-        attach.isDownloading    = YES;
-        [self.attachmentsArray addObject:attach];
-        attachById[photo] = attach;
-    }
-    VKRequest *req = [VKRequest requestWithMethod:@"photos.getById" andParameters:@{@"photos" : [_parent.vkImages componentsJoinedByString:@","], @"photo_sizes" : @1} andHttpMethod:@"GET" classOfModel:[VKPhotoArray class]];
-    [req setCompleteBlock:^(VKResponse *res) {
-        VKPhotoArray *photos = res.parsedModel;
-        NSArray * requiredSizes = @[@"p", @"q", @"m"];
-        for (VKPhoto *photo in photos) {
-            NSString *photoSrc = nil;
-            for (NSString *type in requiredSizes) {
-                photoSrc = [photo.sizes photoSizeWithType:type].src;
-                if (photoSrc) break;
-            }
-            if (!photoSrc) {
-                continue;
-            }
-            
-            NSString *photoId = [NSString stringWithFormat:@"%@_%@", photo.owner_id, photo.id];
-            VKUploadingAttachment *attach = attachById[photoId];
-            
-            [attachById removeObjectForKey:photoId];
-            
-            VKHTTPOperation *imageLoad = [[VKHTTPOperation alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:photoSrc] ] ];
-            [imageLoad setCompletionBlockWithSuccess:^(VKHTTPOperation *operation, id responseObject) {
-                UIImage * result = [UIImage imageWithData:operation.responseData];
-                result = [result vkRoundCornersImage:0 resultSize:CGSizeMake(kAttachmentsViewSize, kAttachmentsViewSize)];
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    attach.preview = result;
-                    attach.isDownloading = NO;
-                    NSInteger index = [self.attachmentsArray indexOfObject:attach];
-                    [self.attachmentsScrollView performBatchUpdates:^{
-                        [self.attachmentsScrollView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
-                    } completion:nil];
-                    
-                });
-                
-            } failure:^(VKHTTPOperation *operation, NSError *error) {
-                [self removeAttachIfExists:attach];
-                [self.attachmentsScrollView reloadData];
-            }];
-            imageLoad.successCallbackQueue = imageProcessingQueue;
-            [[VKHTTPClient getClient] enqueueOperation:imageLoad];
+    if (_parent.vkImages.count) {
+        NSMutableDictionary *attachById = [NSMutableDictionary new];
+        for (NSString *photo in _parent.vkImages) {
+            NSAssert([photo isKindOfClass:[NSString class]], @"vkImages must contains only string photo ids");
+            if (attachById[photo]) continue;
+            VKUploadingAttachment * attach = [VKUploadingAttachment new];
+            attach.attachSize       = CGSizeMake(kAttachmentsViewSize, kAttachmentsViewSize);
+            attach.attachmentString = [@"photo" stringByAppendingString:photo];
+            attach.isDownloading    = YES;
+            [self.attachmentsArray addObject:attach];
+            attachById[photo] = attach;
         }
-        [self.attachmentsScrollView performBatchUpdates:^{
-            for (VKUploadingAttachment *attach in attachById.allValues) {
-                NSInteger index = [self.attachmentsArray indexOfObject:attach];
-                if (index != NSNotFound) {
-                    [self.attachmentsArray removeObjectAtIndex:index];
-                    [self.attachmentsScrollView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
+        
+        VKRequest *req = [VKRequest requestWithMethod:@"photos.getById" andParameters:@{@"photos" : [_parent.vkImages componentsJoinedByString:@","], @"photo_sizes" : @1} andHttpMethod:@"GET" classOfModel:[VKPhotoArray class]];
+        [req setCompleteBlock:^(VKResponse *res) {
+            VKPhotoArray *photos = res.parsedModel;
+            NSArray * requiredSizes = @[@"p", @"q", @"m"];
+            for (VKPhoto *photo in photos) {
+                NSString *photoSrc = nil;
+                for (NSString *type in requiredSizes) {
+                    photoSrc = [photo.sizes photoSizeWithType:type].src;
+                    if (photoSrc) break;
                 }
+                if (!photoSrc) {
+                    continue;
+                }
+                
+                NSString *photoId = [NSString stringWithFormat:@"%@_%@", photo.owner_id, photo.id];
+                VKUploadingAttachment *attach = attachById[photoId];
+                
+                [attachById removeObjectForKey:photoId];
+                
+                VKHTTPOperation *imageLoad = [[VKHTTPOperation alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:photoSrc] ] ];
+                [imageLoad setCompletionBlockWithSuccess:^(VKHTTPOperation *operation, id responseObject) {
+                    UIImage * result = [UIImage imageWithData:operation.responseData];
+                    result = [result vkRoundCornersImage:0 resultSize:CGSizeMake(kAttachmentsViewSize, kAttachmentsViewSize)];
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        attach.preview = result;
+                        attach.isDownloading = NO;
+                        NSInteger index = [self.attachmentsArray indexOfObject:attach];
+                        [self.attachmentsScrollView performBatchUpdates:^{
+                            [self.attachmentsScrollView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
+                        } completion:nil];
+                        
+                    });
+                    
+                } failure:^(VKHTTPOperation *operation, NSError *error) {
+                    [self removeAttachIfExists:attach];
+                    [self.attachmentsScrollView reloadData];
+                }];
+                imageLoad.successCallbackQueue = imageProcessingQueue;
+                [[VKHTTPClient getClient] enqueueOperation:imageLoad];
             }
-        } completion:nil];
-        [self.attachmentsScrollView reloadData];
-    }];
-    [req start];
+            [self.attachmentsScrollView performBatchUpdates:^{
+                for (VKUploadingAttachment *attach in attachById.allValues) {
+                    NSInteger index = [self.attachmentsArray indexOfObject:attach];
+                    if (index != NSNotFound) {
+                        [self.attachmentsArray removeObjectAtIndex:index];
+                        [self.attachmentsScrollView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
+                    }
+                }
+            } completion:nil];
+            [self.attachmentsScrollView reloadData];
+        }];
+        [req start];
+    }
     [self.attachmentsScrollView reloadData];
     
     if (_parent.shareLink) {
@@ -1153,23 +1118,6 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         [view setShareLink:_parent.shareLink];
         [view layoutIfNeeded];
     }
-    //Attach other attachments
-//    for (NSString *attachStr in _parent.otherAttachmentsStrings) {
-//        if (![attachStr hasPrefix:@"http"]) {
-//            NSLog(@"Non-links attachments are not supported yet");
-//            return;
-//        }
-//        VKUploadingAttachment * attach = [VKUploadingAttachment new];
-//        attach.isUploaded = YES;
-//        attach.attachSize = CGSizeMake(120, 90);
-//        attach.attachmentString = attachStr;
-//        [self.attachmentsArray addObject:attach];
-//    }
-    
-//
-//    [self.attachmentsScrollView registerClass:[VKOtherAttachCell class]     forCellWithReuseIdentifier:@"VKOtherAttachCell"];
-//    self.attachmentsScrollView.delegate   = self;
-//    self.attachmentsScrollView.dataSource = self;
 }
 
 #pragma mark - UICollectionView work
@@ -1306,9 +1254,7 @@ static NSString * const SETTINGS_LIVEJOURNAL    = @"ExportLivejournal";
         self.currentSettings.exportLivejournal = @(sender.on);
     }
 }
--(UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
+
 @end
 
 @implementation AnimatedTransitioning
@@ -1335,6 +1281,7 @@ static NSString * const SETTINGS_LIVEJOURNAL    = @"ExportLivejournal";
     CGRect finalFrame = [transitionContext finalFrameForViewController:toVC];
     if (!finalFrame.size.width || !finalFrame.size.height) {
         finalFrame = fromVC.view.frame;
+        finalFrame.origin = CGPointMake(0, 0);
     }
     [toVC.view setFrame:finalFrame];
     if (self.isPresenting) {
@@ -1364,7 +1311,7 @@ static NSString * const SETTINGS_LIVEJOURNAL    = @"ExportLivejournal";
 
 -(instancetype)initWithTitle:(NSString *)title link:(NSURL *)link {
     self = [super init];
-    self.title = title;
+    self.title = title ? : VKLocalizedString(@"Link");
     self.link  = link;
     return self;
 }

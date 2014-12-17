@@ -18,9 +18,10 @@
 "UserNotAuthorized"   = "You are not authorized with VK";
 "Enter"="Enter";
 "ErrorWhilePosting" = "An error accuired while executing your request. Please, try later";
-"Link%@" = "Link: %@";
+"Link" = "Link";
 "FriendsOnly" = "Only for friends";
 "ExportTwitter" = "Export to Twitter";
 "ExportFacebook" = "Export to Facebook";
 "ExportLivejournal" = "Export to LiveJournal";
 "PostSettings" = "Post settings";
+"VK" = "VK";
