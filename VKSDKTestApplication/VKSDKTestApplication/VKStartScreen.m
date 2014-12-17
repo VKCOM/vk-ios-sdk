@@ -34,7 +34,7 @@ static NSArray  * SCOPE = nil;
 	[VKSdk initializeWithDelegate:self andAppId:@"3974615"];
     if ([VKSdk wakeUpSession])
     {
-        [self startWorking];
+//        [self startWorking];
     }
 }
 - (void)startWorking {
@@ -56,6 +56,15 @@ static NSArray  * SCOPE = nil;
 - (IBAction)authorizeForceOAuthInApp:(id)sender {
 	[VKSdk authorize:SCOPE revokeAccess:YES forceOAuth:YES inApp:YES display:VK_DISPLAY_IOS];
 }
+- (IBAction)openShareDialog:(id)sender {
+    VKShareDialogController * shareDialog = [VKShareDialogController new];
+    shareDialog.text         = @"This post created using #vksdk #ios";
+//    shareDialog.uploadImages = @[[VKUploadImage uploadImageWithImage:[UIImage imageNamed:@"apple"]  andParams:[VKImageParameters jpegImageWithQuality:0.9]]];
+    shareDialog.vkImages     = @[@"896232_342105854",@"896232_342105854",@"896232_342105854",@"-10889156_348122347",@"7840938_319411365",@"9136205_342755379",@"896232_344365405"];
+    shareDialog.shareLink    = [[VKShareLink alloc] initWithTitle:@"Super puper link, but nobody knows" link:[NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]];
+    [self presentViewController:shareDialog animated:YES completion:nil];
+}
+
 
 - (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {
 	VKCaptchaViewController *vc = [VKCaptchaViewController captchaControllerWithError:captchaError];

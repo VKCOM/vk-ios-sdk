@@ -12,10 +12,12 @@
 #import "VKUploadImage.h"
 #import "VKApi.h"
 #import "VKSdk.h"
+#import "VKHTTPClient.h"
 
 ///----------------------------
 /// @name Processing preview images
 ///----------------------------
+
 typedef enum CornerFlag {
     CornerFlagTopLeft = 0x01,
     CornerFlagTopRight = 0x02,
@@ -107,23 +109,300 @@ typedef enum CornerFlag {
 @end
 
 ///----------------------------
+/// @name Attachment cells
+///----------------------------
+
+@interface VKPhotoAttachmentCell : UICollectionViewCell
+@property (nonatomic, assign) CGFloat progress;
+@property (nonatomic, strong) UIProgressView *progressView;
+@property (nonatomic, strong) UIActivityIndicatorView *activity;
+@property (nonatomic, strong) UIButton *deleteButton;
+@property (nonatomic, strong) UIImageView *attachImageView;
+@property (nonatomic, copy) void(^onDeleteBlock)(void);
+@end
+
+@implementation VKPhotoAttachmentCell
+
+-(instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    
+    self.attachImageView             = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame))];
+    self.attachImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.contentView addSubview:self.attachImageView];
+    
+    self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(5, CGRectGetHeight(frame) - 20, CGRectGetWidth(frame) - 10, 10)];
+    self.progressView.hidden = YES;
+    [self.contentView addSubview:self.progressView];
+    
+    self.activity     = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.activity.frame = CGRectMake(roundf((frame.size.width  - self.activity.frame.size.width)  / 2),
+                                     roundf((frame.size.height - self.activity.frame.size.height) / 2),
+                                     self.activity.frame.size.width,
+                                     self.activity.frame.size.height);
+    self.activity.hidesWhenStopped = YES;
+    
+    self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 24, 0, 24, 24)];
+    self.deleteButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    self.deleteButton.showsTouchWhenHighlighted = YES;
+    self.deleteButton.exclusiveTouch            = YES;
+    [self.deleteButton setBackgroundImage:VKImageNamed(@"ic_deletephoto") forState:UIControlStateNormal];
+    [self.deleteButton addTarget:self action:@selector(cancelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.contentView addSubview:self.deleteButton];
+    
+    return self;
+}
+-(void)setProgress:(CGFloat)progress {
+    _progress = progress;
+    if (progress > 0) {
+        [self addSubview:self.progressView];
+        [self.activity removeFromSuperview];
+        self.progressView.hidden   = NO;
+        self.progressView.progress = progress;
+    } else {
+        [self.progressView removeFromSuperview];
+        if (!self.activity.superview) {
+            [self addSubview:self.activity];
+            [self.activity startAnimating];
+        }
+    }
+}
+-(void)hideProgress {
+    self.progressView.hidden = YES;
+    [self.activity stopAnimating];
+    [self.activity removeFromSuperview];
+}
+-(void)cancelButtonClick:(UIButton*) sender {
+    if (_onDeleteBlock) {
+        _onDeleteBlock();
+    }
+}
+-(void)willMoveToSuperview:(UIView *)newSuperview {
+    if (!newSuperview) {
+        self.onDeleteBlock = nil;
+    }
+}
+@end
+
+@interface VKUploadingAttachment : VKObject
+@property (nonatomic, assign) BOOL          isUploaded;
+@property (nonatomic, assign) BOOL          isDownloading;
+@property (nonatomic, assign) CGSize        attachSize;
+@property (nonatomic, strong) NSString      *attachmentString;
+@property (nonatomic, strong) UIImage       *preview;
+@property (nonatomic, strong) VKUploadImage *targetUpload;
+@property (nonatomic, weak)   VKRequest     *uploadingRequest;
+@end
+
+
+@implementation VKUploadingAttachment
+@end
+
+///----------------------------
+/// @name Privacy settings class
+///----------------------------
+@interface VKPostSettings : VKObject
+@property (nonatomic, strong) NSNumber *friendsOnly;
+@property (nonatomic, strong) NSNumber *exportTwitter;
+@property (nonatomic, strong) NSNumber *exportFacebook;
+@property (nonatomic, strong) NSNumber *exportLivejournal;
+@end
+@implementation VKPostSettings
+@end
+
+@interface VKShareSettingsController : UITableViewController
+@property (nonatomic, strong) VKPostSettings *currentSettings;
+-(instancetype) initWithPostSettings:(VKPostSettings*) settings;
+@end
+
+
+
+@interface VKShareDialogControllerInternal : UIViewController <UITextViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, VKSdkDelegate>
+@property (nonatomic, weak)   VKShareDialogController *parent;
+@end
+
+///-------------------------------
+/// @name Animated transition for iOS 7 semi-transparent view
+///-------------------------------
+
+@interface AnimatedTransitioning : NSObject <UIViewControllerAnimatedTransitioning>
+@property (nonatomic, assign) BOOL isPresenting;
+@end
+
+///-------------------------------
+/// @name Presentation view controller for dialog
+///-------------------------------
+
+@interface VKShareDialogController () <UIViewControllerTransitioningDelegate>
+@end
+@implementation VKShareDialogController {
+    UINavigationController          *internalNavigation;
+    VKShareDialogControllerInternal *targetShareDialog;
+}
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) return nil;
+    AnimatedTransitioning *controller = [[AnimatedTransitioning alloc]init];
+    controller.isPresenting = YES;
+    return controller;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) return nil;
+    AnimatedTransitioning *controller = [[AnimatedTransitioning alloc]init];
+    return controller;
+}
+
+- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
+    return nil;
+}
+
+- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator {
+    return nil;
+}
+-(instancetype)init {
+    self = [super init];
+    internalNavigation = [[UINavigationController alloc] initWithRootViewController:targetShareDialog = [VKShareDialogControllerInternal new]];
+    targetShareDialog.parent = self;
+    
+    [self addChildViewController:internalNavigation];
+    
+    self.requestedScope = @[VK_PER_WALL,VK_PER_PHOTOS];
+    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        self.modalPresentationStyle = UIModalPresentationCustom;
+        self.transitioningDelegate  = self;
+        self.modalTransitionStyle   = UIModalTransitionStyleCrossDissolve;
+    } 
+    return self;
+}
+-(void)loadView {
+    self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.view.backgroundColor     = [UIColor colorWithWhite:0 alpha:0.4f];
+    self.view.autoresizingMask    = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.view.autoresizesSubviews = NO;
+    
+    internalNavigation.view.layer.cornerRadius = 10;
+    internalNavigation.view.clipsToBounds = YES;
+    [self.view addSubview:internalNavigation.view];
+}
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self rotateToInterfaceOrientation:self.interfaceOrientation appear:YES];
+}
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [self rotateToInterfaceOrientation:toInterfaceOrientation appear:NO];
+}
+
+- (void)rotateToInterfaceOrientation:(UIInterfaceOrientation) orientation appear:(BOOL) onAppear {
+    static const CGFloat landscapeWidthCoef  = 0.8f;
+    static const CGFloat landscapeHeightCoef = 0.8f;
+    static const CGFloat portraitWidthCoef   = 0.9f;
+    static const CGFloat portraitHeightCoef  = 0.7f;
+    static const CGFloat ipadWidth           = 500.f;
+    static const CGFloat ipadHeight          = 500.f;
+    
+    CGSize selfSize = self.view.frame.size;
+    CGSize viewSize;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        viewSize = CGSizeMake(ipadWidth, ipadHeight);
+    } else {
+        if (VK_SYSTEM_VERSION_LESS_THAN(@"8.0")) {
+            if (!onAppear && !UIInterfaceOrientationIsPortrait(orientation)) {
+                CGFloat w = selfSize.width;
+                selfSize.width  = selfSize.height;
+                selfSize.height = w;
+            }
+            
+            if (UIInterfaceOrientationIsLandscape(orientation)) {
+                viewSize = CGSizeMake(roundf(selfSize.width * landscapeWidthCoef), roundf(selfSize.height * landscapeHeightCoef));
+            } else {
+                viewSize = CGSizeMake(roundf(selfSize.width * portraitWidthCoef),  roundf(selfSize.height * portraitHeightCoef));
+            }
+        } else {
+            if (UIInterfaceOrientationIsLandscape(orientation)) {
+                viewSize = CGSizeMake(roundf(selfSize.width * landscapeWidthCoef), roundf(selfSize.height * landscapeHeightCoef));
+            } else {
+                viewSize = CGSizeMake(roundf(selfSize.width * portraitWidthCoef),  roundf(selfSize.height * portraitHeightCoef));
+            }
+        }
+    }
+    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") || onAppear || UIInterfaceOrientationIsPortrait(orientation)) {
+        internalNavigation.view.frame = CGRectMake( roundf((CGRectGetWidth (self.view.frame) - viewSize.width)  / 2),
+                                                    roundf((CGRectGetHeight(self.view.frame) - viewSize.height) / 2),
+                                                    viewSize.width, viewSize.height );
+    } else if (UIInterfaceOrientationIsLandscape(orientation)) {
+        internalNavigation.view.frame = CGRectMake( roundf((CGRectGetHeight(self.view.frame) - viewSize.width)  / 2),
+                                                    roundf((CGRectGetWidth (self.view.frame) - viewSize.height) / 2),
+                                                    viewSize.width, viewSize.height );
+    }
+    if (VK_SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+        if (self.presentingViewController.modalPresentationStyle != UIModalPresentationCurrentContext) {
+            CGRect frame = self.view.frame;
+            frame.origin = CGPointZero;
+            internalNavigation.view.frame = frame;
+            internalNavigation.view.layer.cornerRadius = 3;
+        }
+    }
+}
+-(BOOL)shouldAutorotate {
+    return YES;
+}
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return YES;
+}
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAll;
+}
+
+- (void)presentIn:(UIViewController *)viewController __deprecated {
+    [viewController presentViewController:self animated:YES completion:nil];
+}
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        internalNavigation.navigationBar.barTintColor           = VK_COLOR;
+        internalNavigation.navigationBar.tintColor              = [UIColor whiteColor];
+        internalNavigation.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    
+    targetShareDialog.navigationItem.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Cancel") style:UIBarButtonItemStyleBordered target:self action:@selector(close:)];
+}
+-(void) close:(id) sender {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+-(void) setUploadImages:(NSArray *)uploadImages {
+    _uploadImages = [uploadImages filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        BOOL result = [evaluatedObject isKindOfClass:[VKUploadImage class]];
+        if (!result) {
+            NSLog(@"Object %@ not accepted, because it must subclass VKUploadImage", evaluatedObject);
+        }
+        return result;
+    } ] ];
+}
+@end
+
+
+///----------------------------
 /// @name Placeholder textview for comment field
 ///----------------------------
 /**
- * From http://stackoverflow.com/a/1704469/1271424
- * Author: Jason George
+ * Author: Jason George;
+ * Source: http://stackoverflow.com/a/1704469/1271424
  */
-@interface VKPlaceHolderTextView : UITextView
+@interface VKPlaceholderTextView : UITextView
 
 @property (nonatomic, strong) NSString *placeholder;
 @property (nonatomic, strong) UIColor *placeholderColor;
-@property (nonatomic, strong) UILabel *placeHolderLabel;
+@property (nonatomic, strong) UILabel *placeholderLabel;
 
 -(void)textChanged:(NSNotification*)notification;
 
 @end
 
-@implementation VKPlaceHolderTextView
+@implementation VKPlaceholderTextView
 
 - (void)dealloc
 {
@@ -157,173 +436,390 @@ typedef enum CornerFlag {
 
 - (void)textChanged:(NSNotification *)notification
 {
+    if (notification.object != self) return;
     if(!self.placeholder.length) {
         return;
     }
     if (!self.text.length) {
-        [[self viewWithTag:999] setHidden:NO];
+        [_placeholderLabel setHidden:NO];
     } else {
-        [[self viewWithTag:999] setHidden:YES];
+        [_placeholderLabel setHidden:YES];
     }
 }
 
 - (void)setText:(NSString *)text {
     [super setText:text];
-    [self textChanged:nil];
+    if (!self.text.length) {
+        [_placeholderLabel setHidden:NO];
+    } else {
+        [_placeholderLabel setHidden:YES];
+    }
 }
 -(void)setPlaceholder:(NSString *)placeholder {
     _placeholder = placeholder;
     if(placeholder.length)
     {
-        if (_placeHolderLabel == nil )
+        if (_placeholderLabel == nil )
         {
             UIEdgeInsets inset = self.contentInset;
             if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
                 inset = self.textContainerInset;
             }
-            _placeHolderLabel = [[UILabel alloc] initWithFrame:CGRectMake(inset.left + 4, inset.top, self.bounds.size.width - inset.left - inset.right,0)];
-            _placeHolderLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            _placeHolderLabel.numberOfLines = 0;
-            _placeHolderLabel.font = self.font;
-            _placeHolderLabel.backgroundColor = [UIColor clearColor];
-            _placeHolderLabel.textColor = self.placeholderColor;
-            _placeHolderLabel.alpha = 0;
-            _placeHolderLabel.tag = 999;
-            [self addSubview:_placeHolderLabel];
+            _placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(inset.left + 4, inset.top, self.bounds.size.width - inset.left - inset.right,0)];
+            _placeholderLabel.font          = self.font;
+            _placeholderLabel.hidden        = YES;
+            _placeholderLabel.textColor     = self.placeholderColor;
+            _placeholderLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            _placeholderLabel.numberOfLines = 0;
+            _placeholderLabel.backgroundColor  = [UIColor clearColor];
+            [self addSubview:_placeholderLabel];
         }
         
-        _placeHolderLabel.text = placeholder;
-        [_placeHolderLabel sizeToFit];
-        [self sendSubviewToBack:_placeHolderLabel];
+        _placeholderLabel.text = placeholder;
+        [_placeholderLabel sizeToFit];
+        [self sendSubviewToBack:_placeholderLabel];
     }
     
     if( self.text.length == 0 && placeholder.length )
     {
-        [[self viewWithTag:999] setAlpha:1];
+        [_placeholderLabel setHidden:NO];
     }
+}
+/**
+ * iOS 7 text view measurement.
+ * Author: tarmes;
+ * Source: http://stackoverflow.com/a/19047464/1271424
+ */
+- (CGFloat)measureHeightOfUITextView
+{
+    UITextView *textView = self;
+    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
+    {
+        CGRect frame = textView.bounds;
+        
+        // Take account of the padding added around the text.
+        
+        UIEdgeInsets textContainerInsets = textView.textContainerInset;
+        UIEdgeInsets contentInsets = textView.contentInset;
+        
+        CGFloat leftRightPadding = textContainerInsets.left + textContainerInsets.right + textView.textContainer.lineFragmentPadding * 2 + contentInsets.left + contentInsets.right;
+        CGFloat topBottomPadding = textContainerInsets.top + textContainerInsets.bottom + contentInsets.top + contentInsets.bottom;
+        
+        frame.size.width -= leftRightPadding;
+        frame.size.height -= topBottomPadding;
+        
+        NSString *textToMeasure = textView.text.length ? textView.text : _placeholder;
+        if ([textToMeasure hasSuffix:@"\n"])
+        {
+            textToMeasure = [NSString stringWithFormat:@"%@-", textView.text];
+        }
+        
+        // NSString class method: boundingRectWithSize:options:attributes:context is
+        // available only on ios7.0 sdk.
+        
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
+        
+        NSDictionary *attributes = @{ NSFontAttributeName: textView.font, NSParagraphStyleAttributeName : paragraphStyle };
+        
+        CGRect size = [textToMeasure boundingRectWithSize:CGSizeMake(CGRectGetWidth(frame), MAXFLOAT)
+                                                  options:NSStringDrawingUsesLineFragmentOrigin
+                                               attributes:attributes
+                                                  context:nil];
+        
+        CGFloat measuredHeight = ceilf(CGRectGetHeight(size) + topBottomPadding);
+        return measuredHeight;
+    }
+    else
+    {
+        if (self.text.length && textView.contentSize.height > 0) {
+            return MAX(textView.contentSize.height + self.contentInset.top + self.contentInset.bottom, 36.0f);
+        }
+        return [self.placeholder sizeWithFont:self.font constrainedToSize:CGSizeMake(self.frame.size.width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping].height + self.contentInset.top + self.contentInset.bottom;
+    }
+}
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    if (VK_SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+        CGSize size = self.contentSize;
+        size.width  = size.width - self.contentInset.left - self.contentInset.right;
+        [self setContentSize:size];
+    }
+    
 }
 @end
 
 ///----------------------------
-/// @name Attachment cells
+/// @name Special kind of button for privacy settings
 ///----------------------------
 
-@interface VKPhotoAttachmentCell : UICollectionViewCell
-@property (nonatomic, assign) CGFloat progress;
-@property (nonatomic, strong) UIProgressView *progressView;
-@property (nonatomic, strong) UIButton *deleteButton;
-@property (nonatomic, strong) UIImageView *attachImageView;
-@property (nonatomic, copy) void(^onDeleteBlock)(void);
+@interface VKPrivacyButton : UIButton
 @end
 
-@implementation VKPhotoAttachmentCell
+@implementation VKPrivacyButton
+-(instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    CGFloat separatorHeight = 1 / [UIScreen mainScreen].scale;
+    UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, separatorHeight)];
+    topSeparatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [topSeparatorView setBackgroundColor:[VKUtil colorWithRGB:0xc8cacc]];
+    [self addSubview:topSeparatorView];
+    [self setImage:VKImageNamed(@"Disclosure") forState:UIControlStateNormal];
+    [self setBackgroundColor:[VKUtil colorWithRGB:0xfafbfc]];
+    return self;
+}
+- (void) setHighlighted:(BOOL)highlighted {
+    [super setHighlighted:highlighted];
+    
+    if (highlighted) {
+        self.backgroundColor = [VKUtil colorWithRGB:0xd9d9d9];
+    }
+    else {
+        self.backgroundColor = [VKUtil colorWithRGB:0xfafbfc];
+    }
+}
+- (CGRect)imageRectForContentRect:(CGRect)contentRect
+{
+    CGRect frame = [super imageRectForContentRect:contentRect];
+    frame.origin.x = CGRectGetMaxX(contentRect) - CGRectGetWidth(frame) -  self.imageEdgeInsets.right + self.imageEdgeInsets.left;
+    return frame;
+}
+
+- (CGRect)titleRectForContentRect:(CGRect)contentRect
+{
+    CGRect frame = [super titleRectForContentRect:contentRect];
+    frame.origin.x = CGRectGetMinX(frame) - CGRectGetWidth([self imageRectForContentRect:contentRect]);
+    return frame;
+}
+@end
+
+@interface VKLinkAttachView : UIView
+@property (nonatomic, strong) UILabel *linkTitle;
+@property (nonatomic, strong) UILabel *linkHost;
+@property (nonatomic, strong) VKShareLink *targetLink;
+@end
+
+@implementation VKLinkAttachView
 
 -(instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     
-    self.attachImageView             = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame))];
-    self.attachImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.contentView addSubview:self.attachImageView];
+    _linkTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 21)];
+    _linkTitle.font = [UIFont systemFontOfSize:16];
+    _linkTitle.textColor = [VKUtil colorWithRGB:0x4978ad];
+    _linkTitle.backgroundColor = [UIColor clearColor];
+    _linkTitle.numberOfLines = 1;
+    [self addSubview:_linkTitle];
     
-    self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(5, CGRectGetHeight(frame) - 20, CGRectGetWidth(frame) - 10, 10)];
-    self.progressView.hidden = YES;
-    [self.contentView addSubview:self.progressView];
+    _linkHost = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 21)];
+    _linkHost.font = [UIFont systemFontOfSize:16];
+    _linkHost.textColor = [VKUtil colorWithRGB:0x999999];
+    _linkHost.backgroundColor = [UIColor clearColor];
+    _linkHost.numberOfLines = 1;
+    [self addSubview:_linkHost];
     
-    self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 24, 0, 24, 24)];
-    self.deleteButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    self.deleteButton.showsTouchWhenHighlighted = YES;
-    self.deleteButton.exclusiveTouch            = YES;
-    [self.deleteButton setBackgroundImage:VKImageNamed(@"ic_deletephoto") forState:UIControlStateNormal];
-    [self.deleteButton addTarget:self action:@selector(cancelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:self.deleteButton];
+    self.backgroundColor = [UIColor clearColor];
     
     return self;
 }
--(void)setProgress:(CGFloat)progress {
-    self.progressView.hidden   = NO;
-    _progress = progress;
-    self.progressView.progress = progress;
+
+-(void)sizeToFit {
+    [_linkTitle sizeToFit];
+    _linkTitle.frame = CGRectMake(0, 0, self.frame.size.width, _linkHost.frame.size.height);
+    [_linkHost  sizeToFit];
+    _linkHost.frame = CGRectMake(0, CGRectGetMaxY(_linkTitle.frame) + 2, self.frame.size.width, _linkHost.frame.size.height);
+    self.frame      = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, CGRectGetMaxY(_linkHost.frame));
 }
--(void)hideProgress {
-    self.progressView.hidden   = YES;
-}
--(void)cancelButtonClick:(UIButton*) sender {
-    if (_onDeleteBlock) {
-        _onDeleteBlock();
-    }
-}
--(void)willMoveToSuperview:(UIView *)newSuperview {
-    if (!newSuperview) {
-        self.onDeleteBlock = nil;
-    }
+
+-(void) setTargetLink:(VKShareLink *)targetLink {
+    _targetLink     = targetLink;
+    _linkTitle.text = targetLink.title;
+    _linkHost.text  = targetLink.link.host;
+    [self sizeToFit];
 }
 @end
 
-@interface VKOtherAttachCell : VKPhotoAttachmentCell
-@property (nonatomic, strong) UILabel *attachLabel;
+///-------------------------------
+/// @name View for internal share dialog controller
+///-------------------------------
+static const CGFloat kAttachmentsViewSize = 100.0f;
+@interface VKShareDialogView : UIView <UITextViewDelegate>
+@property (nonatomic, strong) UIView   *notAuthorizedView;
+@property (nonatomic, strong) UILabel  *notAuthorizedLabel;
+@property (nonatomic, strong) UIButton *notAuthorizedButton;
+@property (nonatomic, strong) UIScrollView     *contentScrollView;
+@property (nonatomic, strong) UIButton         *privacyButton;
+@property (nonatomic, strong) UICollectionView *attachmentsCollection;
+@property (nonatomic, strong) VKPlaceholderTextView *textView;
+@property (nonatomic, strong) VKLinkAttachView *linkAttachView;
 @end
 
-@implementation VKOtherAttachCell
+@implementation VKShareDialogView {
+    CGFloat lastTextViewHeight;
+}
 
 -(instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    self.attachImageView.contentMode = UIViewContentModeScaleToFill;
-    [self.deleteButton setBackgroundImage:VKImageNamed(@"ic_deleteattach") forState:UIControlStateNormal];
+    self.backgroundColor = [VKUtil colorWithRGB:0xfafbfc];
+    {
+        //View for authorizing, adds only when user is not authorized
+        _notAuthorizedView = [[UIView alloc] initWithFrame:self.bounds];
+        _notAuthorizedView.backgroundColor  = [UIColor clearColor];
+        _notAuthorizedView.backgroundColor  = [VKUtil colorWithRGB:0xf2f2f5];
+        _notAuthorizedView.autoresizingMask = UIViewAutoresizingNone;
+        _notAuthorizedView.autoresizesSubviews = NO;
+        
+        _notAuthorizedLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, CGRectGetWidth(_notAuthorizedView.frame) - 20, 0)];
+        _notAuthorizedLabel.text = VKLocalizedString(@"UserNotAuthorized");
+        _notAuthorizedLabel.font = [UIFont systemFontOfSize:15];
+        _notAuthorizedLabel.textColor     = [VKUtil colorWithRGB:0x737980];
+        _notAuthorizedLabel.textAlignment = NSTextAlignmentCenter;
+        _notAuthorizedLabel.numberOfLines = 0;
+        _notAuthorizedLabel.backgroundColor = [UIColor clearColor];
+        [_notAuthorizedView addSubview:_notAuthorizedLabel];
+        
+        _notAuthorizedButton  = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 33)];
+        [_notAuthorizedButton setTitle:VKLocalizedString(@"Enter") forState:UIControlStateNormal];
+        [_notAuthorizedButton setContentEdgeInsets:UIEdgeInsetsMake(4, 15, 4, 15)];
+        _notAuthorizedButton.titleLabel.font = [UIFont systemFontOfSize:15];
+        [_notAuthorizedView addSubview:_notAuthorizedButton];
+        
+        UIImage *buttonBg = VKImageNamed(@"BlueBtn");
+        buttonBg          = [buttonBg stretchableImageWithLeftCapWidth:floor(buttonBg.size.width / 2) topCapHeight:floorf(buttonBg.size.height / 2)];
+        [_notAuthorizedButton setBackgroundImage:buttonBg forState:UIControlStateNormal];
+        
+        buttonBg = VKImageNamed(@"BlueBtn_pressed");
+        buttonBg = [buttonBg stretchableImageWithLeftCapWidth:floor(buttonBg.size.width / 2) topCapHeight:floorf(buttonBg.size.height / 2)];
+        [_notAuthorizedButton setBackgroundImage:buttonBg forState:UIControlStateHighlighted];
+        
+    }
     
-    self.attachLabel           = [[UILabel alloc] initWithFrame:CGRectMake(5, 50, CGRectGetWidth(frame) - 10, CGRectGetHeight(frame) - 50)];
-    self.attachLabel.textColor = [UIColor colorWithRed:144.0f/255 green:147.0f/255 blue:153.0f/255 alpha:1.0f];
-    self.attachLabel.font      = [UIFont systemFontOfSize:12];
-    self.attachLabel.textAlignment = NSTextAlignmentCenter;
-    self.attachLabel.numberOfLines = 2;
-    self.attachLabel.lineBreakMode = NSLineBreakByCharWrapping;
-    self.attachLabel.backgroundColor = [UIColor clearColor];
-    [self.contentView addSubview:self.attachLabel];
+    _contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+    _contentScrollView.contentInset          = UIEdgeInsetsMake(0, 0, 44, 0);
+    _contentScrollView.autoresizingMask      = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    _contentScrollView.scrollIndicatorInsets = _contentScrollView.contentInset;
+    [self addSubview:_contentScrollView];
     
+    _privacyButton = [[VKPrivacyButton alloc] initWithFrame:CGRectMake(0, frame.size.height - 44, frame.size.width, 44)];
+    _privacyButton.titleLabel.font   = [UIFont systemFontOfSize:16];
+    _privacyButton.autoresizingMask  = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    _privacyButton.contentEdgeInsets = UIEdgeInsetsMake(0, 14, 0, 14);
+    _privacyButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [_privacyButton setTitle:VKLocalizedString(@"PostSettings") forState:UIControlStateNormal];
+    [_privacyButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self addSubview:_privacyButton];
+    
+    _textView = [[VKPlaceholderTextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 36)];
+    
+    _textView.backgroundColor  = [UIColor clearColor];
+    _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        _textView.textContainerInset          = UIEdgeInsetsMake(12, 10, 12, 10);
+        _textView.textContainer.lineBreakMode = NSLineBreakByWordWrapping;
+
+    } else {
+        _textView.frame = CGRectMake(0, 0, frame.size.width - 20, 36);
+        _textView.contentInset = UIEdgeInsetsMake(12, 10, 12, 0);
+    }
+    _textView.font          = [UIFont systemFontOfSize:16.0f];
+    _textView.delegate      = self;
+    _textView.textAlignment = NSTextAlignmentLeft;
+    _textView.returnKeyType = UIReturnKeyDone;
+    _textView.placeholder   = VKLocalizedString(@"NewMessageText");
+    [_contentScrollView addSubview:_textView];
+    
+    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+    layout.scrollDirection             = UICollectionViewScrollDirectionHorizontal;
+    layout.minimumInteritemSpacing     = 12;
+    
+    _attachmentsCollection                 = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, kAttachmentsViewSize) collectionViewLayout:layout];
+    _attachmentsCollection.contentInset    = UIEdgeInsetsMake(0, 16, 0, 16);
+    _attachmentsCollection.backgroundColor = [UIColor clearColor];
+    _attachmentsCollection.showsHorizontalScrollIndicator = NO;
+    [_attachmentsCollection registerClass:[VKPhotoAttachmentCell class] forCellWithReuseIdentifier:@"VKPhotoAttachmentCell"];
+    [_contentScrollView addSubview:_attachmentsCollection];
     return self;
 }
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    
+    if (_notAuthorizedView.superview) {
+        _notAuthorizedView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+        CGSize notAuthorizedTextBoundingSize = CGSizeMake(CGRectGetWidth(_notAuthorizedView.frame) - 20, CGFLOAT_MAX);
+        CGSize notAuthorizedTextSize;
+        if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+            NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+            paragraphStyle.alignment     = NSTextAlignmentLeft;
+            
+            NSDictionary * attributes    = @{NSFontAttributeName : _notAuthorizedLabel.font,
+                                             NSParagraphStyleAttributeName : paragraphStyle};
+            
+            notAuthorizedTextSize = [_notAuthorizedLabel.text boundingRectWithSize:notAuthorizedTextBoundingSize
+                                                                          options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+                                                                       attributes:attributes
+                                                                          context:nil].size;
+        } else {
+            notAuthorizedTextSize = [_notAuthorizedLabel.text sizeWithFont:_notAuthorizedLabel.font
+                                                        constrainedToSize:notAuthorizedTextBoundingSize
+                                                            lineBreakMode:NSLineBreakByWordWrapping];
+        }
+        
+        [_notAuthorizedButton sizeToFit];
+        
+        _notAuthorizedLabel.frame   = CGRectMake(10, (CGRectGetHeight(_notAuthorizedView.frame) - notAuthorizedTextSize.height - CGRectGetHeight(_notAuthorizedButton.frame)) / 2, notAuthorizedTextBoundingSize.width, notAuthorizedTextSize.height);
+        
+        _notAuthorizedButton.center = CGPointMake(_notAuthorizedLabel.center.x, CGRectGetMaxY(_notAuthorizedLabel.frame) + CGRectGetHeight(_notAuthorizedButton.frame));
+    }
+    //Workaround for iOS 6 - ignoring contentInset.right
+    _textView.frame = CGRectMake(0, 0, self.frame.size.width - (VK_SYSTEM_VERSION_LESS_THAN(@"7.0") ? 20 : 0), [_textView measureHeightOfUITextView]);
+    [self positionSubviews];
+}
+-(void)positionSubviews {
+    lastTextViewHeight = _textView.frame.size.height;
+    _attachmentsCollection.frame = CGRectMake(0, lastTextViewHeight, self.frame.size.width, kAttachmentsViewSize);
+    if (_linkAttachView) {
+        _linkAttachView.frame = CGRectMake(14, CGRectGetMaxY(_attachmentsCollection.frame) + 5, self.frame.size.width - 20, 0);
+        [_linkAttachView sizeToFit];
+    }
+    
+    _contentScrollView.contentSize = CGSizeMake(self.frame.size.width, _linkAttachView ? CGRectGetMaxY(_linkAttachView.frame) : CGRectGetMaxY(_attachmentsCollection.frame));
+}
 
+-(void)textViewDidChange:(UITextView *)textView {
+    CGFloat newHeight = [_textView measureHeightOfUITextView];
+    if (fabs(newHeight - lastTextViewHeight) > 1) {
+        textView.frame = CGRectMake(0, 0, self.frame.size.width - (VK_SYSTEM_VERSION_LESS_THAN(@"7.0") ? 20 : 0), newHeight);
+        [textView layoutIfNeeded];
+        [UIView animateWithDuration:0.2 animations:^{
+            [self positionSubviews];
+        }];
+    }
+}
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        [textView endEditing:YES];
+    }
+    return YES;
+}
+-(void)setShareLink:(VKShareLink*) link {
+    _linkAttachView = [[VKLinkAttachView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 0)];
+    _linkAttachView.targetLink = link;
+    [_contentScrollView addSubview:_linkAttachView];
+    [self setNeedsLayout];
+}
 @end
 
-@interface VKUploadingAttachment : VKObject
-@property (nonatomic, assign) BOOL          isUploaded;
-@property (nonatomic, assign) CGSize        attachSize;
-@property (nonatomic, strong) NSString      *attachmentString;
-@property (nonatomic, strong) UIImage       *preview;
-@property (nonatomic, strong) VKUploadImage *targetUpload;
-@property (nonatomic, weak)   VKRequest     *uploadingRequest;
-@end
-
-
-@implementation VKUploadingAttachment
-@end
-
-///----------------------------
-/// @name Share dialog main controller
-///----------------------------
-
-@interface VKPostSettings : VKObject
-@property (nonatomic, strong) NSNumber *friendsOnly;
-@property (nonatomic, strong) NSNumber *exportTwitter;
-@property (nonatomic, strong) NSNumber *exportFacebook;
-@property (nonatomic, strong) NSNumber *exportLivejournal;
-@property (nonatomic, strong) NSNumber *exportInstagram;
-@end
-@implementation VKPostSettings
-@end
-
-@interface VKShareSettingsController : UITableViewController
-@property (nonatomic, strong) VKPostSettings *currentSettings;
--(instancetype) initWithPostSettings:(VKPostSettings*) settings;
-@end
-
-
-static NSInteger kAttachmentsViewHeight = 90.0f;
-
-@interface VKShareDialogController () <UITextViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, VKSdkDelegate>
-@property (nonatomic, strong) IBOutlet UILabel *hintLabel;
-@property (nonatomic, strong) IBOutlet VKPlaceHolderTextView *textView;
-@property (nonatomic, strong) IBOutlet UICollectionView *attachmentsScrollView;
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *loadingView;
+///-------------------------------
+/// @name Internal view controller, root for share dialog navigation controller
+///-------------------------------
+@interface VKShareDialogControllerInternal ()
+//@property (nonatomic, strong) IBOutlet UILabel *hintLabel;
+//@property (nonatomic, strong) IBOutlet VKPlaceholderTextView *textView;
+@property (nonatomic, readonly) UICollectionView *attachmentsScrollView;
+//@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *loadingView;
 @property (nonatomic, strong) UIBarButtonItem *sendButton;
 @property (nonatomic, strong) NSMutableArray *attachmentsArray;
 @property (nonatomic, strong) id targetOwner;
@@ -331,45 +827,40 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
 @property (nonatomic, assign) BOOL prepared;
 @property (nonatomic, strong) id<VKSdkDelegate> originalSdkDelegate;
 
-@property BOOL needAuthorize;
-
 @end
 
-@implementation VKShareDialogController
-
--(void)presentIn:(UIViewController *)viewController {
-    UINavigationController * vc = [[UINavigationController alloc] initWithRootViewController:self];
-    vc.modalPresentationStyle = UIModalPresentationFormSheet;
-    vc.modalTransitionStyle   = UIModalTransitionStyleCrossDissolve;
-    [viewController presentViewController:vc animated:YES completion:nil];
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-        vc.view.superview.bounds = CGRectMake(0, 0, 600, 300);
-    }
+@implementation VKShareDialogControllerInternal {
+    dispatch_queue_t imageProcessingQueue;
 }
-
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    return [super initWithNibName:@"VKShareDialogController" bundle:[VKBundle vkLibraryResourcesBundle]];
+- (instancetype)init {
+    self = [super init];
+    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    imageProcessingQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+    return self;
+}
+- (void)loadView {
+    VKShareDialogView *view = [[VKShareDialogView alloc] initWithFrame:CGRectMake(0, 0, 600, 600)];
+    view.attachmentsCollection.delegate   = self;
+    view.attachmentsCollection.dataSource = self;
+    [view.notAuthorizedButton addTarget:self action:@selector(authorize:) forControlEvents:UIControlEventTouchUpInside];
+    [view.privacyButton       addTarget:self action:@selector(openSettings:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.view = view;
+}
+-(UICollectionView *)attachmentsScrollView {
+    VKShareDialogView *view = (VKShareDialogView*)self.view;
+    return view.attachmentsCollection;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        self.navigationController.navigationBar.barTintColor = VK_COLOR;
-        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
-    [self resizeToInterfaceOrientation:self.interfaceOrientation];
-    self.textView.editable = NO;
-    UIEdgeInsets insets = UIEdgeInsetsMake(0, 8, 0, 8);
-    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        self.textView.textContainerInset = insets;
-    } else {
-        self.textView.contentInset  = insets;
-    }
-    self.textView.textAlignment = NSTextAlignmentLeft;
+    UIImage *image = [VKBundle vkLibraryImageNamed:@"ic_vk_logo_nb"];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
     
+//    [self resizeToInterfaceOrientation:self.interfaceOrientation];
     self.navigationItem.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Cancel") style:UIBarButtonItemStyleBordered target:self action:@selector(close:)];
     
     _originalSdkDelegate = [VKSdk instance].delegate;
@@ -377,108 +868,60 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    if (self.needAuthorize)
-    {
-        self.needAuthorize = NO;
-        
-        [self authorize:nil];
-    }
-    
-    //Workaround ipad landscape appearing bug
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
-        [self.textView becomeFirstResponder];
-    });
-    
 }
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (self.prepared) return;
+    VKShareDialogView *view = (VKShareDialogView*)self.view;
     if ([VKSdk wakeUpSession]) {
-        self.loadingView.hidden = NO;
-        [self.loadingView startAnimating];
-        self.navigationItem.titleView = self.loadingView;
+        [view.notAuthorizedView removeFromSuperview];
+        view.textView.text = _parent.text;
         [self prepare];
     } else {
-        self.needAuthorize = YES;
-//        self.loadingView.hidden = YES;
-//        self.textView.editable  = NO;
-//        self.textView.textColor = [UIColor lightGrayColor];
-//        self.textView.textAlignment = NSTextAlignmentCenter;
-//        self.textView.text = VKLocalizedString(@"UserNotAuthorized");
-//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Enter") style:UIBarButtonItemStyleBordered target:self action:@selector(authorize:)];
+        VKShareDialogView *view = (VKShareDialogView*)self.view;
+        [view addSubview:view.notAuthorizedView];
+        [view layoutSubviews];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(viewWillAppear:)
                                                      name:UIApplicationDidBecomeActiveNotification
                                                    object:nil];
     }
 }
--(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [self resizeToInterfaceOrientation:toInterfaceOrientation];
-}
--(void)resizeToInterfaceOrientation:(UIInterfaceOrientation) toInterfaceOrientation {
-    CGRect bounds = self.view.bounds;
-    CGFloat navigationBarH = 0;
-    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
-        navigationBarH = 64.0f;
-        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-            navigationBarH = 44.0f;
-        }
-    } else {
-        navigationBarH = 52.0f;
-        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-            navigationBarH = 44.0f;
-        }
-    }
-    if (VK_SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-        navigationBarH = 0;
-    }
-    
-    self.textView.frame    = CGRectMake(0, navigationBarH + 5, bounds.size.width, 90 + (self.attachmentsArray.count ? 0 : kAttachmentsViewHeight));
-//    self.loadingView.frame = CGRectMake(
-//                                        (CGRectGetWidth(self.textView.frame) - CGRectGetWidth(self.loadingView.frame)) / 2,
-//                                        CGRectGetMinY(self.textView.frame) + (CGRectGetHeight(self.textView.frame)   - CGRectGetHeight(self.loadingView.frame)) / 2,
-//                                        CGRectGetWidth(self.loadingView.frame),
-//                                        CGRectGetHeight(self.loadingView.frame));
-//    self.vkImage.frame     = CGRectMake(CGRectGetMinX(self.vkImage.frame), CGRectGetMinY(self.loadingView.frame), CGRectGetWidth(self.vkImage.frame), CGRectGetHeight(self.vkImage.frame));
-    self.attachmentsScrollView.frame = CGRectMake(0, CGRectGetMaxY(self.textView.frame) + 5, bounds.size.width, (self.attachmentsArray.count ? kAttachmentsViewHeight : 0));
-}
--(void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
     [VKSdk instance].delegate = _originalSdkDelegate;
 }
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 -(void)prepare {
-    if (!_ownerId) {
-        _ownerId = @([VKSdk getAccessToken].userId.integerValue);
+    if (!_parent.ownerId) {
+        _parent.ownerId = @([VKSdk getAccessToken].userId.integerValue);
     }
     _postSettings = [VKPostSettings new];
-    if (self.ownerId.integerValue > 0) {
-        [[[VKApi users] get:@{VK_API_USER_ID : self.ownerId, VK_API_FIELDS : @"first_name_acc,can_post,sex,exports"}] executeWithResultBlock:^(VKResponse *response) {
+    if (_parent.ownerId.integerValue > 0) {
+        [[[VKApi users] get:@{VK_API_USER_ID : _parent.ownerId, VK_API_FIELDS : @"first_name_acc,can_post,sex,exports"}] executeWithResultBlock:^(VKResponse *response) {
             VKUser * user = [response.parsedModel firstObject];
             self.targetOwner = user;
             NSInteger currentUserId = [VKSdk getAccessToken].userId.integerValue;
             if (user.id.integerValue == currentUserId) {
-                self.hintLabel.text = [NSString stringWithFormat:VKLocalizedString(@"NewPostHint%@"), VKLocalizedString(@"YourWall")];
-                
                 //Установить в 0, чтобы была возможность настройки отобразить
                 _postSettings.friendsOnly           = @0;
                 if (user.exports.twitter) {
-                    _postSettings.exportTwitter     = @1;
+                    _postSettings.exportTwitter     = @0;
                 }
                 if (user.exports.facebook) {
-                    _postSettings.exportFacebook    = @1;
-                }
-                if (user.exports.instagram) {
-                    _postSettings.exportInstagram   = @1;
+                    _postSettings.exportFacebook    = @0;
                 }
                 if (user.exports.livejournal) {
-                    _postSettings.exportLivejournal = @1;
+                    _postSettings.exportLivejournal = @0;
                 }
                 [self createAttachments];
             } else {
-                NSString * userHintText = [NSString stringWithFormat:VKLocalizedString(@"UserWall%@"), user.first_name_acc];
-                self.hintLabel.text = [NSString stringWithFormat:VKLocalizedString(@"NewPostHint%@"), userHintText];
                 if (!user.can_post.boolValue) {
                     [self denyPostingOnWall:user.first_name_acc];
                 } else {
@@ -487,8 +930,7 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
             }
         } errorBlock:nil];
     } else {
-        self.hintLabel.text = [NSString stringWithFormat:VKLocalizedString(@"NewPostHint%@"), VKLocalizedString(@"GroupWall")];
-        [[[VKApi groups] getById:@{VK_API_GROUP_IDS : @(-_ownerId.integerValue), VK_API_FIELDS : @"can_post"}] executeWithResultBlock:^(VKResponse *response) {
+        [[[VKApi groups] getById:@{VK_API_GROUP_IDS : @(-_parent.ownerId.integerValue), VK_API_FIELDS : @"can_post"}] executeWithResultBlock:^(VKResponse *response) {
             VKGroup * group = [response.parsedModel firstObject];
             self.targetOwner = group;
             if (!group.can_post.boolValue) {
@@ -503,29 +945,27 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
 }
 -(NSArray*) rightBarButtonItems {
     if (!_sendButton) {
-        _sendButton = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Done") style:UIBarButtonItemStyleDone target:self action:@selector(sendMessage:)];
+        _sendButton = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Done") style:VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? UIBarButtonItemStyleBordered : UIBarButtonItemStyleDone target:self action:@selector(sendMessage:)];
     }
     return @[_sendButton];
-    return @[_sendButton, [[UIBarButtonItem alloc] initWithImage:VKImageNamed(@"vk_settings") landscapeImagePhone:nil style:UIBarButtonItemStyleBordered target:self action:@selector(openSettings:)]] ;
 }
 -(void)denyPostingOnWall:(NSString*)ownerName {
     _sendButton.enabled = NO;
     self.navigationItem.rightBarButtonItems = nil;
     self.navigationItem.rightBarButtonItem = _sendButton;
-    self.textView.editable  = NO;
-    self.textView.textColor = [UIColor lightGrayColor];
-    self.textView.text      = [NSString stringWithFormat:VKLocalizedString(@"DenyPostingOn%@Wall"), ownerName];
 }
 
 
 -(void) close:(id) sender {
     [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-    if (_completionHandler != NULL)
-        _completionHandler(VKShareDialogControllerResultCancelled);
+    if (_parent.completionHandler != NULL)
+        _parent.completionHandler(VKShareDialogControllerResultCancelled);
 }
+
 -(void) sendMessage:(id) sender {
-    self.textView.editable  = NO;
-    [self.textView endEditing:YES];
+    UITextView *textView = ((VKShareDialogView*)self.view).textView;
+    textView.editable = NO;
+    [textView endEditing:YES];
     self.navigationItem.rightBarButtonItems = nil;
     UIActivityIndicatorView * activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     self.navigationItem.rightBarButtonItem  = [[UIBarButtonItem alloc] initWithCustomView:activity];
@@ -533,36 +973,36 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
     
     NSMutableArray *attachStrings = [NSMutableArray arrayWithCapacity:_attachmentsArray.count];
     for (VKUploadingAttachment * attach in _attachmentsArray) {
-        if (!attach.isUploaded) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self sendMessage:sender];
-            });
+        if (!attach.attachmentString) {
+            [self performSelector:@selector(sendMessage:) withObject:sender afterDelay:1.0f];
             return;
         }
         [attachStrings addObject:attach.attachmentString];
     }
+    if (_parent.shareLink) {
+        [attachStrings addObject:[_parent.shareLink.link absoluteString]];
+    }
     
-    VKRequest * post = [[VKApi wall] post:@{VK_API_MESSAGE : self.textView.text ? : @"",
+    VKRequest * post = [[VKApi wall] post:@{VK_API_MESSAGE : textView.text ? : @"",
                                             VK_API_ATTACHMENTS : [attachStrings componentsJoinedByString:@","],
-                                            VK_API_OWNER_ID : self.ownerId}];
+                                            VK_API_OWNER_ID : _parent.ownerId}];
     NSMutableArray * exports = [NSMutableArray new];
     if (_postSettings.friendsOnly.boolValue)       [post addExtraParameters:@{VK_API_FRIENDS_ONLY : @1}];
     if (_postSettings.exportTwitter.boolValue)     [exports addObject:@"twitter"];
     if (_postSettings.exportFacebook.boolValue)    [exports addObject:@"facebook"];
-    if (_postSettings.exportInstagram.boolValue)   [exports addObject:@"instagram"];
-    if (_postSettings.exportLivejournal.boolValue) [exports addObject:@"livajournal"];
-//    if (exports.count) [post addExtraParameters:@{VK_API_SERVICES : [exports componentsJoinedByString:@","]}];
+    if (_postSettings.exportLivejournal.boolValue) [exports addObject:@"livejournal"];
+    if (exports.count) [post addExtraParameters:@{VK_API_SERVICES : [exports componentsJoinedByString:@","]}];
     
     [post executeWithResultBlock:^(VKResponse *response) {
         [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-        if (_completionHandler != NULL){
-            _completionHandler(VKShareDialogControllerResultDone);
+        if (_parent.completionHandler != NULL){
+            _parent.completionHandler(VKShareDialogControllerResultDone);
         }
     } errorBlock:^(NSError *error) {
         self.navigationItem.rightBarButtonItem  = nil;
         self.navigationItem.rightBarButtonItems = [self rightBarButtonItems];
-        self.textView.editable                  = YES;
-        [self.textView becomeFirstResponder];
+        textView.editable                       = YES;
+        [textView becomeFirstResponder];
         [[[UIAlertView alloc] initWithTitle:nil message:VKLocalizedString(@"ErrorWhilePosting") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
@@ -571,120 +1011,165 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
     [self.navigationController pushViewController:vc animated:YES];
 }
 -(void) authorize:(id) sender {
-    [VKSdk authorize:@[VK_PER_WALL,VK_PER_GROUPS,VK_PER_PHOTOS] revokeAccess:YES];
+    [VKSdk instance].delegate = self;
+    [VKSdk authorize:_parent.requestedScope revokeAccess:YES];
 }
 - (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {
     VKCaptchaViewController * captcha = [VKCaptchaViewController captchaControllerWithError:captchaError];
-    [self presentViewController:captcha animated:YES completion:nil];
+    [self.navigationController presentViewController:captcha animated:YES completion:nil];
 }
 
 - (void)vkSdkTokenHasExpired:(VKAccessToken *)expiredToken {
-    [_originalSdkDelegate vkSdkTokenHasExpired:expiredToken];
 }
 
 - (void)vkSdkUserDeniedAccess:(VKError *)authorizationError {
-    [_originalSdkDelegate vkSdkUserDeniedAccess:authorizationError];
-    
-    [self close:nil];
 }
 
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller {
-    [self presentViewController:controller animated:YES completion:nil];
+//    [self presentViewController:controller animated:YES completion:nil];
+    if ([controller isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *nav = (UINavigationController*)controller;
+        UIViewController *target = nav.viewControllers[0];
+        nav.viewControllers = @[];
+        [self.navigationController pushViewController:target animated:YES];
+    } else {
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 - (void)vkSdkReceivedNewToken:(VKAccessToken *)newToken {
-    [_originalSdkDelegate vkSdkReceivedNewToken:newToken];
-}
 
--(UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
 }
--(NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationPortrait;
-}
-
 
 #pragma mark -Attachments
--(void) setUploadImages:(NSArray *)uploadImages {
-    _uploadImages = [uploadImages filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        BOOL result = [evaluatedObject isKindOfClass:[VKUploadImage class]];
-        if (!result) {
-            NSLog(@"Object %@ not accepted, because it must subclass VKUploadImage", evaluatedObject);
-        }
-        return result;
-    } ] ];
-}
--(void) setOtherAttachmentsStrings:(NSArray *)otherAttachmentsStrings {
-    _otherAttachmentsStrings = [otherAttachmentsStrings filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        BOOL result = [evaluatedObject isKindOfClass:[NSString class]];
-        if (!result) {
-            NSLog(@"Object %@ not accepted, because it must be NSString like wall1_1", evaluatedObject);
-        }
-        return result;
-    } ] ];
-}
 
 -(void) createAttachments {
-    UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.font      = [UIFont boldSystemFontOfSize:17.0f];
-    titleLabel.text      = VKLocalizedString(@"NewPost");
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    [titleLabel sizeToFit];
-    self.navigationItem.titleView = titleLabel;
-    
     self.navigationItem.rightBarButtonItems = [self rightBarButtonItems];
-    self.textView.editable    = YES;
-    self.textView.textColor   = [UIColor blackColor];
-    self.textView.textAlignment = NSTextAlignmentLeft;
-    self.textView.placeholder = VKLocalizedString(@"NewMessageText");
-    self.textView.text        = self.text;
-    [self.loadingView stopAnimating];
     
-    
-    CGFloat maxHeight = kAttachmentsViewHeight;
+    CGFloat maxHeight = kAttachmentsViewSize;
     self.attachmentsArray = [NSMutableArray new];
     //Attach and upload images
-    for (VKUploadImage * img in _uploadImages) {
+    for (VKUploadImage * img in _parent.uploadImages) {
         CGSize size = img.sourceImage.size;
         size = CGSizeMake(MAX(floor(size.width * maxHeight / size.height), 50), maxHeight);
         VKUploadingAttachment * attach = [VKUploadingAttachment new];
-        attach.isUploaded = NO;
-        attach.attachSize = size;
+        attach.isUploaded   = NO;
+        attach.attachSize   = size;
         attach.targetUpload = img;
-        attach.preview      = [img.sourceImage vkRoundCornersImage:10.0f resultSize:size];
+        attach.preview      = [img.sourceImage vkRoundCornersImage:0.0f resultSize:size];
         [self.attachmentsArray addObject:attach];
-    }
-    
-    //Attach other attachments
-    for (NSString *attachStr in _otherAttachmentsStrings) {
-        if (![attachStr hasPrefix:@"http"]) {
-            NSLog(@"Non-links attachments are not supported yet");
-            return;
+        
+        VKRequest *uploadRequest;
+        if (_parent.ownerId.integerValue > 0) {
+            uploadRequest = [VKApi uploadWallPhotoRequest:img.sourceImage parameters:img.parameters userId:_parent.ownerId.integerValue groupId:0];
+        } else {
+            uploadRequest = [VKApi uploadWallPhotoRequest:img.sourceImage parameters:img.parameters userId:0 groupId:-(_parent.ownerId.integerValue)];
         }
-        VKUploadingAttachment * attach = [VKUploadingAttachment new];
-        attach.isUploaded = YES;
-        attach.attachSize = CGSizeMake(120, 90);
-        attach.attachmentString = attachStr;
-        [self.attachmentsArray addObject:attach];
-    }
-    
-    [self.attachmentsScrollView registerClass:[VKPhotoAttachmentCell class] forCellWithReuseIdentifier:@"VKPhotoAttachmentCell"];
-    [self.attachmentsScrollView registerClass:[VKOtherAttachCell class]     forCellWithReuseIdentifier:@"VKOtherAttachCell"];
-    self.attachmentsScrollView.delegate   = self;
-    self.attachmentsScrollView.dataSource = self;
-    
-    if (self.attachmentsArray.count) {
-        [UIView animateWithDuration:0.25 animations:^{
-            [self resizeToInterfaceOrientation:self.interfaceOrientation];
+        
+        [uploadRequest setCompleteBlock:^(VKResponse *res) {
+            VKPhoto * photo = [res.parsedModel firstObject];
+            attach.isUploaded = YES;
+            attach.attachmentString = photo.attachmentString;
+            attach.uploadingRequest = nil;
+            [self.attachmentsScrollView reloadData];
         }];
+        [uploadRequest setErrorBlock:^(NSError *error) {
+            NSLog(@"Error: %@", error.vkError);
+            [self removeAttachIfExists:attach];
+            attach.uploadingRequest = nil;
+            [self.attachmentsScrollView reloadData];
+        }];
+        [uploadRequest start];
+        attach.uploadingRequest = uploadRequest;
     }
+    
+    NSMutableDictionary *attachById = [NSMutableDictionary new];
+    for (NSString *photo in _parent.vkImages) {
+        NSAssert([photo isKindOfClass:[NSString class]], @"vkImages must contains only string photo ids");
+        if (attachById[photo]) continue;
+        VKUploadingAttachment * attach = [VKUploadingAttachment new];
+        attach.attachSize       = CGSizeMake(kAttachmentsViewSize, kAttachmentsViewSize);
+        attach.attachmentString = [@"photo" stringByAppendingString:photo];
+        attach.isDownloading    = YES;
+        [self.attachmentsArray addObject:attach];
+        attachById[photo] = attach;
+    }
+    VKRequest *req = [VKRequest requestWithMethod:@"photos.getById" andParameters:@{@"photos" : [_parent.vkImages componentsJoinedByString:@","], @"photo_sizes" : @1} andHttpMethod:@"GET" classOfModel:[VKPhotoArray class]];
+    [req setCompleteBlock:^(VKResponse *res) {
+        VKPhotoArray *photos = res.parsedModel;
+        NSArray * requiredSizes = @[@"p", @"q", @"m"];
+        for (VKPhoto *photo in photos) {
+            NSString *photoSrc = nil;
+            for (NSString *type in requiredSizes) {
+                photoSrc = [photo.sizes photoSizeWithType:type].src;
+                if (photoSrc) break;
+            }
+            if (!photoSrc) {
+                continue;
+            }
+            
+            NSString *photoId = [NSString stringWithFormat:@"%@_%@", photo.owner_id, photo.id];
+            VKUploadingAttachment *attach = attachById[photoId];
+            
+            [attachById removeObjectForKey:photoId];
+            
+            VKHTTPOperation *imageLoad = [[VKHTTPOperation alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:photoSrc] ] ];
+            [imageLoad setCompletionBlockWithSuccess:^(VKHTTPOperation *operation, id responseObject) {
+                UIImage * result = [UIImage imageWithData:operation.responseData];
+                result = [result vkRoundCornersImage:0 resultSize:CGSizeMake(kAttachmentsViewSize, kAttachmentsViewSize)];
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    attach.preview = result;
+                    attach.isDownloading = NO;
+                    NSInteger index = [self.attachmentsArray indexOfObject:attach];
+                    [self.attachmentsScrollView performBatchUpdates:^{
+                        [self.attachmentsScrollView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
+                    } completion:nil];
+                    
+                });
+                
+            } failure:^(VKHTTPOperation *operation, NSError *error) {
+                [self removeAttachIfExists:attach];
+                [self.attachmentsScrollView reloadData];
+            }];
+            imageLoad.successCallbackQueue = imageProcessingQueue;
+            [[VKHTTPClient getClient] enqueueOperation:imageLoad];
+        }
+        [self.attachmentsScrollView performBatchUpdates:^{
+            for (VKUploadingAttachment *attach in attachById.allValues) {
+                NSInteger index = [self.attachmentsArray indexOfObject:attach];
+                if (index != NSNotFound) {
+                    [self.attachmentsArray removeObjectAtIndex:index];
+                    [self.attachmentsScrollView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
+                }
+            }
+        } completion:nil];
+        [self.attachmentsScrollView reloadData];
+    }];
+    [req start];
+    [self.attachmentsScrollView reloadData];
+    
+    if (_parent.shareLink) {
+        VKShareDialogView *view = (VKShareDialogView*)self.view;
+        [view setShareLink:_parent.shareLink];
+        [view layoutIfNeeded];
+    }
+    //Attach other attachments
+//    for (NSString *attachStr in _parent.otherAttachmentsStrings) {
+//        if (![attachStr hasPrefix:@"http"]) {
+//            NSLog(@"Non-links attachments are not supported yet");
+//            return;
+//        }
+//        VKUploadingAttachment * attach = [VKUploadingAttachment new];
+//        attach.isUploaded = YES;
+//        attach.attachSize = CGSizeMake(120, 90);
+//        attach.attachmentString = attachStr;
+//        [self.attachmentsArray addObject:attach];
+//    }
+    
+//
+//    [self.attachmentsScrollView registerClass:[VKOtherAttachCell class]     forCellWithReuseIdentifier:@"VKOtherAttachCell"];
+//    self.attachmentsScrollView.delegate   = self;
+//    self.attachmentsScrollView.dataSource = self;
 }
 
 #pragma mark - UICollectionView work
@@ -697,78 +1182,40 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     VKUploadingAttachment * attach = self.attachmentsArray[indexPath.item];
-    if (attach.targetUpload) {
-        VKPhotoAttachmentCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"VKPhotoAttachmentCell" forIndexPath:indexPath];
-        
-        VKUploadImage * img = attach.targetUpload;
-        cell.attachImageView.image = attach.preview;
-        VKRequest * request = nil;
-        if (!attach.isUploaded && !attach.uploadingRequest)
-        {
-            if (_ownerId.integerValue > 0) {
-                request = [VKApi uploadWallPhotoRequest:img.sourceImage parameters:img.parameters userId:_ownerId.integerValue groupId:0];
-            } else {
-                request = [VKApi uploadWallPhotoRequest:img.sourceImage parameters:img.parameters userId:0 groupId:-(_ownerId.integerValue)];
-            }
-        } else {
-            request = attach.uploadingRequest;
+    VKPhotoAttachmentCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"VKPhotoAttachmentCell" forIndexPath:indexPath];
+    
+    cell.attachImageView.image = attach.preview;
+    VKRequest * request = attach.uploadingRequest;
+    
+    __weak VKPhotoAttachmentCell * weakCell = cell;
+    [request setProgressBlock:^(VKProgressType progressType, long long bytesLoaded, long long bytesTotal) {
+        if (bytesTotal < 0) {
+            return;
         }
-        __weak VKPhotoAttachmentCell * weakCell = cell;
-        [request setProgressBlock:^(VKProgressType progressType, long long bytesLoaded, long long bytesTotal) {
-            if (bytesTotal < 0) {
-                return;
-            }
-            weakCell.progress = bytesLoaded * 1.0f / bytesTotal;
-        }];
-        [request setCompleteBlock:^(VKResponse *res) {
-            [weakCell hideProgress];
-            VKPhoto * photo = [res.parsedModel firstObject];
-            attach.isUploaded = YES;
-            attach.attachmentString = photo.attachmentString;
-            attach.uploadingRequest = nil;
-        }];
-        [request setErrorBlock:^(NSError *error) {
-            NSLog(@"Error: %@", error.vkError);
-            [self removeAttachIfExists:attach];
-            attach.uploadingRequest = nil;
-        }];
-        if (!request.isExecuting) {
-            [request start];
-        }
-        [cell setOnDeleteBlock:^{
-            [self removeAttachIfExists:attach];
-            if (attach.uploadingRequest) {
-                [attach.uploadingRequest cancel];
-            }
-        }];
-        attach.uploadingRequest = request;
-        return cell;
-    } else {
-        VKOtherAttachCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"VKOtherAttachCell" forIndexPath:indexPath];
-        cell.attachImageView.image = VKImageNamed(@"img_newpostattachlink");
-        cell.attachLabel.text = [NSString stringWithFormat:VKLocalizedString(@"Link%@"), attach.attachmentString];
-        [cell setOnDeleteBlock:^{
-            [self removeAttachIfExists:attach];
-        }];
-        return cell;
+        weakCell.progress = bytesLoaded * 1.0f / bytesTotal;
+    }];
+    if (attach.isDownloading) {
+        cell.progress = -1;
+    }
+    if (!attach.isDownloading && !request) {
+        [cell hideProgress];
     }
     
-    return nil;
+//    [cell setOnDeleteBlock:^{
+//        [self removeAttachIfExists:attach];
+//        if (attach.uploadingRequest) {
+//            [attach.uploadingRequest cancel];
+//        }
+//    }];
+    return cell;
 }
 -(void) removeAttachIfExists:(VKUploadingAttachment*) attach {
     NSInteger index = [self.attachmentsArray indexOfObject:attach];
     if (index != NSNotFound) {
-        [self.attachmentsArray removeObject:attach];
+        [self.attachmentsArray removeObjectAtIndex:index];
         [self.attachmentsScrollView performBatchUpdates:^{
             [self.attachmentsScrollView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
-        } completion:^(BOOL finished) {
-            if (!self.attachmentsArray.count) {
-                [UIView animateWithDuration:0.25 animations:^{
-                    [self resizeToInterfaceOrientation:self.interfaceOrientation];
-                }];
-            }
-            [self textViewDidChange:self.textView];
-        }];
+        } completion:nil];
     }
 }
 -(void)textViewDidChange:(UITextView *)textView {
@@ -782,7 +1229,6 @@ static NSInteger kAttachmentsViewHeight = 90.0f;
 static NSString * const SETTINGS_FRIENDS_ONLY   = @"FriendsOnly";
 static NSString * const SETTINGS_TWITTER        = @"ExportTwitter";
 static NSString * const SETTINGS_FACEBOOK       = @"ExportFacebook";
-static NSString * const SETTINGS_INSTAGRAM      = @"ExportInstagram";
 static NSString * const SETTINGS_LIVEJOURNAL    = @"ExportLivejournal";
 
 @interface VKShareSettingsController ()
@@ -800,8 +1246,6 @@ static NSString * const SETTINGS_LIVEJOURNAL    = @"ExportLivejournal";
         [newRows addObject:SETTINGS_TWITTER];
     if (_currentSettings.exportFacebook)
         [newRows addObject:SETTINGS_FACEBOOK];
-    if (_currentSettings.exportInstagram)
-        [newRows addObject:SETTINGS_INSTAGRAM];
     if (_currentSettings.exportLivejournal)
         [newRows addObject:SETTINGS_LIVEJOURNAL];
     self.rows = newRows;
@@ -834,8 +1278,6 @@ static NSString * const SETTINGS_LIVEJOURNAL    = @"ExportLivejournal";
             switchView.on =  self.currentSettings.exportTwitter.boolValue;
         } else if ([currentRow isEqual:SETTINGS_FACEBOOK]) {
             switchView.on =  self.currentSettings.exportFacebook.boolValue;
-        } else if ([currentRow isEqual:SETTINGS_INSTAGRAM]) {
-            switchView.on =  self.currentSettings.exportInstagram.boolValue;
         } else if ([currentRow isEqual:SETTINGS_LIVEJOURNAL]) {
             switchView.on =  self.currentSettings.exportLivejournal.boolValue;
         }
@@ -860,8 +1302,6 @@ static NSString * const SETTINGS_LIVEJOURNAL    = @"ExportLivejournal";
         self.currentSettings.exportTwitter  = @(sender.on);
     } else if ([currentRow isEqual:SETTINGS_FACEBOOK]) {
         self.currentSettings.exportFacebook = @(sender.on);
-    } else if ([currentRow isEqual:SETTINGS_INSTAGRAM]) {
-        self.currentSettings.exportInstagram = @(sender.on);
     } else if ([currentRow isEqual:SETTINGS_LIVEJOURNAL]) {
         self.currentSettings.exportLivejournal = @(sender.on);
     }
@@ -871,4 +1311,63 @@ static NSString * const SETTINGS_LIVEJOURNAL    = @"ExportLivejournal";
 }
 @end
 
+@implementation AnimatedTransitioning
+
+//===================================================================
+// - UIViewControllerAnimatedTransitioning
+//===================================================================
+
+- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
+    return 0.25f;
+}
+
+- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
+    
+    UIView *inView = [transitionContext containerView];
+    UIViewController *toVC   = (UIViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController *fromVC = (UIViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    
+    [inView addSubview:toVC.view];
+    if (!self.isPresenting) {
+        [inView addSubview:fromVC.view];
+    }
+    
+    CGRect finalFrame = [transitionContext finalFrameForViewController:toVC];
+    if (!finalFrame.size.width || !finalFrame.size.height) {
+        finalFrame = fromVC.view.frame;
+    }
+    [toVC.view setFrame:finalFrame];
+    if (self.isPresenting) {
+        toVC.view.alpha = 0;
+    }
+    
+    [UIView animateWithDuration:[self transitionDuration:transitionContext]
+                     animations:^{
+                         [toVC.view setFrame:CGRectMake(0, 0, fromVC.view.frame.size.width, fromVC.view.frame.size.height)];
+                         if (self.isPresenting) {
+                             toVC.view.alpha   = 1;
+                         } else {
+                             fromVC.view.alpha = 0;
+                         }
+                     }
+                     completion:^(BOOL finished) {
+                         [transitionContext completeTransition:YES];
+                         if (!self.isPresenting) {
+                             [fromVC.view removeFromSuperview];
+                         }
+                     }];
+}
+
+@end
+
+@implementation VKShareLink
+
+-(instancetype)initWithTitle:(NSString *)title link:(NSURL *)link {
+    self = [super init];
+    self.title = title;
+    self.link  = link;
+    return self;
+}
+
+@end
 

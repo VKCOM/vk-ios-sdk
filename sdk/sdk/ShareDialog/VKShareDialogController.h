@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VKObject.h"
+
 
 typedef NS_ENUM(NSInteger, VKShareDialogControllerResult){
     VKShareDialogControllerResultCancelled,
@@ -15,30 +17,44 @@ typedef NS_ENUM(NSInteger, VKShareDialogControllerResult){
 
 typedef void (^VKShareDialogControllerCompletionHandler) (VKShareDialogControllerResult result);
 
+/*
+ * Link representation for share dialog
+ */
+@interface VKShareLink : VKObject
+/// Use that field for present link description in share dialog interface
+@property (nonatomic, copy) NSString *title;
+/// Use that field for pass real link to VK. Host of the link will be displayed in share dialog
+@property (nonatomic, copy) NSURL *link;
+
+-(instancetype) initWithTitle:(NSString*) title link:(NSURL*) link;
+@end
+
 
 /**
  * Creates dialog for sharing some information from your app to user wall in VK
  */
 @interface VKShareDialogController : UIViewController
 /// Array of prepared VKUploadImage objects for upload and share. User can remove any attachment
-@property (nonatomic, strong) NSArray  *uploadImages;
+@property (nonatomic, strong) NSArray     *uploadImages;
 
-/// Other attachments, defined as array strings. Now supported only links
-@property (nonatomic, strong) NSArray  *otherAttachmentsStrings;
+/// Photos already uploaded to VK. That is array of photos ids: @[ownerid_photoid, ...];
+@property (nonatomic, strong) NSArray     *vkImages;
+
+/// Links attachment for new post
+@property (nonatomic, strong) VKShareLink *shareLink;
 
 /// Text to share. User can change it
-@property (nonatomic, strong) NSString *text;
+@property (nonatomic, copy)   NSString    *text;
 
-/// You can post not only on user wall, but also his friends walls and groups walls
-@property (nonatomic, strong) NSNumber *ownerId;
+/// Put only needed scopes into that array. By default equals @[VK_PER_WALL,VK_PER_PHOTOS]
+@property (nonatomic, strong) NSArray     *requestedScope;
 
 /// You can receive information about sharing state
-@property (nonatomic, strong) VKShareDialogControllerCompletionHandler completionHandler;
-
+@property (nonatomic, copy)   VKShareDialogControllerCompletionHandler completionHandler;
 
 /**
  Correctly presents current view controller in another
  @param viewController Parent view controller
  */
-- (void)presentIn:(UIViewController *)viewController;
+- (void)presentIn:(UIViewController *)viewController __deprecated;
 @end

@@ -36,13 +36,15 @@
 }
 
 + (UIImage *)vkLibraryImageNamed:(NSString *)name {
-	UIImage *imageFromMainBundle = [UIImage imageNamed:name];
-	if (imageFromMainBundle) {
-		return imageFromMainBundle;
-	}
-    
-	UIImage *imageFromMyLibraryBundle = [UIImage imageWithContentsOfFile:[[self vkLibraryResourcesBundle] pathForResource:name ofType:@"png"]];
-	return imageFromMyLibraryBundle;
+    @autoreleasepool {
+        UIImage *imageFromMainBundle = [UIImage imageNamed:name];
+        if (imageFromMainBundle) {
+            return imageFromMainBundle;
+        }
+        
+        UIImage *imageFromMyLibraryBundle = [UIImage imageWithContentsOfFile:[[self vkLibraryResourcesBundle] pathForResource:name ofType:@"png"]];
+        return imageFromMyLibraryBundle;
+    }
 }
 
 + (NSString*)localizedString:(NSString*)string {

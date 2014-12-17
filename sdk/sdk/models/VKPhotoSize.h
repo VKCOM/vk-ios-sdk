@@ -16,5 +16,5 @@
 @end
 
 @interface VKPhotoSizes : VKApiObjectArray
-
+- (VKPhotoSize*) photoSizeWithType:(NSString*) type;
 @end

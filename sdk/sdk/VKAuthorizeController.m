@@ -57,7 +57,7 @@
 @property (nonatomic, strong) UILabel         *statusBar;
 @property (nonatomic, strong) VKError         *validationError;
 @property (nonatomic, strong) NSURLRequest    *lastRequest;
-@property (nonatomic, weak)   UINavigationController *navigationController;
+@property (nonatomic, weak)   UINavigationController *internalNavigationController;
 @property (nonatomic, assign) BOOL             finished;
 
 @end
@@ -93,7 +93,7 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 	controller.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
 	[VKSdk.instance.delegate vkSdkShouldPresentViewController:navigation];
     
-	controller.navigationController = navigation;
+	controller.internalNavigationController = navigation;
 }
 
 + (NSString *)buildAuthorizationUrl:(NSString *)redirectUri
@@ -137,12 +137,19 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
     
 	_webView = [[UIWebView alloc] initWithFrame:view.bounds];
 	_webView.delegate = self;
-	_webView.hidden = YES;
+	_webView.hidden   = YES;
 	_webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-	_webView.scrollView.bounces = NO;
+    _webView.scalesPageToFit  = YES;
+	_webView.scrollView.bounces       = NO;
 	_webView.scrollView.clipsToBounds = NO;
 	[view addSubview:_webView];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[VKBundle localizedString:@"Cancel"] style:UIBarButtonItemStyleBordered target:self action:@selector(cancelAuthorization:)];
+    if (self.internalNavigationController) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[VKBundle localizedString:@"Cancel"] style:UIBarButtonItemStyleBordered target:self action:@selector(cancelAuthorization:)];
+    }
+}
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self makeViewport];
 }
 
 - (instancetype)initWith:(NSString *)appId andPermissions:(NSArray *)permissions revokeAccess:(BOOL)revoke displayType:(VKDisplayType) display {
@@ -207,11 +214,17 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [self makeViewport];
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^(void) {
 	    _warningLabel.hidden = YES;
 	    webView.hidden = NO;
 	    self.navigationItem.rightBarButtonItem = nil;
 	});
+}
+
+- (void)makeViewport {
+    NSString *javaScript = [NSString stringWithFormat:@"viewport = document.querySelector('meta[name=viewport]'); viewport.setAttribute('content', 'width = %d, height = %d, initial-scale = 1.0, maximum-scale = 1.0, minimum-scale = 1.0, user-scalable=yes');", (int)self.webView.frame.size.width, (int)self.webView.frame.size.height ];
+    [_webView stringByEvaluatingJavaScriptFromString:javaScript];
 }
 
 #pragma mark Cancelation and dismiss
@@ -226,10 +239,16 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 
 - (void)dismiss {
 	_finished = YES;
-	if (_navigationController.isBeingDismissed)
+	if (_internalNavigationController.isBeingDismissed)
 		return;
-	if (!_navigationController.isBeingPresented) {
-		[_navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    if (!_internalNavigationController) {
+        if (self.navigationController) {
+            [self.navigationController popViewControllerAnimated:YES];
+        } else if (self.presentingViewController) {
+            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        }
+    } else if (!_internalNavigationController.isBeingPresented) {
+		[_internalNavigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 	}
 	else {
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^(void) {

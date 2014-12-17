@@ -99,7 +99,6 @@
 		F33F0E9518D840DD00DD8B80 /* VKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = F33F0E5E18D83B5900DD8B80 /* VKUser.m */; };
 		F355BB26199140FC0036AB89 /* VKUploadMessagesPhotoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F355BB24199140FC0036AB89 /* VKUploadMessagesPhotoRequest.m */; };
 		F361149A197674450085898F /* VKShareDialogController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3611497197674450085898F /* VKShareDialogController.m */; };
-		F361149B197676870085898F /* VKShareDialogController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3611498197674450085898F /* VKShareDialogController.xib */; };
 		F36114A9197685810085898F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F36114A4197684870085898F /* Localizable.strings */; };
 		F36114AE19768F260085898F /* VKUploadImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F36114AC19768F260085898F /* VKUploadImage.m */; };
 		F36114B319768FDD0085898F /* vk_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114AF19768FD70085898F /* vk_settings.png */; };
@@ -114,6 +113,16 @@
 		F36114CA1977DC2D0085898F /* ic_deletephoto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114C61977DC2D0085898F /* ic_deletephoto@2x.png */; };
 		F36114D11978060F0085898F /* img_newpostattachlink.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114CF1978060F0085898F /* img_newpostattachlink.png */; };
 		F36114D21978060F0085898F /* img_newpostattachlink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114D01978060F0085898F /* img_newpostattachlink@2x.png */; };
+		F39A00B61A3A019A00167AEB /* BlueBtn_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = F39A00AF1A3A019A00167AEB /* BlueBtn_pressed.png */; };
+		F39A00B71A3A019A00167AEB /* BlueBtn_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F39A00B01A3A019A00167AEB /* BlueBtn_pressed@2x.png */; };
+		F39A00B81A3A019A00167AEB /* BlueBtn_pressed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F39A00B11A3A019A00167AEB /* BlueBtn_pressed@3x.png */; };
+		F39A00B91A3A019A00167AEB /* BlueBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = F39A00B21A3A019A00167AEB /* BlueBtn.png */; };
+		F39A00BA1A3A019A00167AEB /* BlueBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F39A00B31A3A019A00167AEB /* BlueBtn@2x.png */; };
+		F39A00BB1A3A019A00167AEB /* BlueBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F39A00B41A3A019A00167AEB /* BlueBtn@3x.png */; };
+		F39A00BC1A3A019A00167AEB /* ic_vk_logo_nb@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F39A00B51A3A019A00167AEB /* ic_vk_logo_nb@3x.png */; };
+		F3A1D1F31A40436A00EFEC74 /* Disclosure.png in Resources */ = {isa = PBXBuildFile; fileRef = F3A1D1F01A40436A00EFEC74 /* Disclosure.png */; };
+		F3A1D1F41A40436A00EFEC74 /* Disclosure@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3A1D1F11A40436A00EFEC74 /* Disclosure@2x.png */; };
+		F3A1D1F51A40436A00EFEC74 /* Disclosure@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3A1D1F21A40436A00EFEC74 /* Disclosure@3x.png */; };
 		F3BACC481865905B003158DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3BACC461865905B003158DA /* InfoPlist.strings */; };
 		F3BACC61186883E8003158DA /* ic_vk_logo_nb.png in Resources */ = {isa = PBXBuildFile; fileRef = F3BACC5F186883E8003158DA /* ic_vk_logo_nb.png */; };
 		F3BACC62186883E8003158DA /* ic_vk_logo_nb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3BACC60186883E8003158DA /* ic_vk_logo_nb@2x.png */; };
@@ -228,7 +237,6 @@
 		F355BB24199140FC0036AB89 /* VKUploadMessagesPhotoRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUploadMessagesPhotoRequest.m; sourceTree = "<group>"; };
 		F3611496197674450085898F /* VKShareDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKShareDialogController.h; path = ShareDialog/VKShareDialogController.h; sourceTree = "<group>"; };
 		F3611497197674450085898F /* VKShareDialogController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKShareDialogController.m; path = ShareDialog/VKShareDialogController.m; sourceTree = "<group>"; };
-		F3611498197674450085898F /* VKShareDialogController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VKShareDialogController.xib; path = ShareDialog/VKShareDialogController.xib; sourceTree = "<group>"; };
 		F36114A5197684870085898F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F36114A8197684A00085898F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F36114AB19768F260085898F /* VKUploadImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKUploadImage.h; sourceTree = "<group>"; };
@@ -250,7 +258,17 @@
 		F36114D01978060F0085898F /* img_newpostattachlink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_newpostattachlink@2x.png"; sourceTree = "<group>"; };
 		F37846991897AA9300DF860E /* NSError+VKError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+VKError.h"; sourceTree = "<group>"; };
 		F378469A1897AA9300DF860E /* NSError+VKError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+VKError.m"; sourceTree = "<group>"; };
+		F39A00AF1A3A019A00167AEB /* BlueBtn_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueBtn_pressed.png; sourceTree = "<group>"; };
+		F39A00B01A3A019A00167AEB /* BlueBtn_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BlueBtn_pressed@2x.png"; sourceTree = "<group>"; };
+		F39A00B11A3A019A00167AEB /* BlueBtn_pressed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BlueBtn_pressed@3x.png"; sourceTree = "<group>"; };
+		F39A00B21A3A019A00167AEB /* BlueBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueBtn.png; sourceTree = "<group>"; };
+		F39A00B31A3A019A00167AEB /* BlueBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BlueBtn@2x.png"; sourceTree = "<group>"; };
+		F39A00B41A3A019A00167AEB /* BlueBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BlueBtn@3x.png"; sourceTree = "<group>"; };
+		F39A00B51A3A019A00167AEB /* ic_vk_logo_nb@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_vk_logo_nb@3x.png"; sourceTree = "<group>"; };
 		F39DB95018868C06009609FB /* VKApiModels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKApiModels.h; sourceTree = "<group>"; };
+		F3A1D1F01A40436A00EFEC74 /* Disclosure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Disclosure.png; sourceTree = "<group>"; };
+		F3A1D1F11A40436A00EFEC74 /* Disclosure@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Disclosure@2x.png"; sourceTree = "<group>"; };
+		F3A1D1F21A40436A00EFEC74 /* Disclosure@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Disclosure@3x.png"; sourceTree = "<group>"; };
 		F3A77AD7182A9392006DDF96 /* VKApiCaptcha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKApiCaptcha.h; sourceTree = "<group>"; };
 		F3A77AD8182A9392006DDF96 /* VKApiCaptcha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKApiCaptcha.m; sourceTree = "<group>"; };
 		F3AD12951836719B00B837C0 /* VKImageParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKImageParameters.h; sourceTree = "<group>"; };
@@ -381,7 +399,6 @@
 				F3D38E6A183CC7C400D05079 /* VKCaptchaViewController.m */,
 				F3611496197674450085898F /* VKShareDialogController.h */,
 				F3611497197674450085898F /* VKShareDialogController.m */,
-				F3611498197674450085898F /* VKShareDialogController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -410,20 +427,30 @@
 		F3BACC431865905B003158DA /* SDK resources */ = {
 			isa = PBXGroup;
 			children = (
-				F36114CF1978060F0085898F /* img_newpostattachlink.png */,
-				F36114D01978060F0085898F /* img_newpostattachlink@2x.png */,
+				F3A1D1F01A40436A00EFEC74 /* Disclosure.png */,
+				F3A1D1F11A40436A00EFEC74 /* Disclosure@2x.png */,
+				F3A1D1F21A40436A00EFEC74 /* Disclosure@3x.png */,
+				F39A00AF1A3A019A00167AEB /* BlueBtn_pressed.png */,
+				F39A00B01A3A019A00167AEB /* BlueBtn_pressed@2x.png */,
+				F39A00B11A3A019A00167AEB /* BlueBtn_pressed@3x.png */,
+				F39A00B21A3A019A00167AEB /* BlueBtn.png */,
+				F39A00B31A3A019A00167AEB /* BlueBtn@2x.png */,
+				F39A00B41A3A019A00167AEB /* BlueBtn@3x.png */,
 				F36114C31977DC2D0085898F /* ic_deleteattach.png */,
 				F36114C41977DC2D0085898F /* ic_deleteattach@2x.png */,
 				F36114C51977DC2D0085898F /* ic_deletephoto.png */,
 				F36114C61977DC2D0085898F /* ic_deletephoto@2x.png */,
-				F36114AF19768FD70085898F /* vk_settings.png */,
-				F36114B019768FD70085898F /* vk_settings@2x.png */,
-				F36114B119768FD70085898F /* vk_activity.png */,
-				F36114B219768FD70085898F /* vk_activity@2x.png */,
 				F3BACC5F186883E8003158DA /* ic_vk_logo_nb.png */,
 				F3BACC60186883E8003158DA /* ic_vk_logo_nb@2x.png */,
-				F3BACC441865905B003158DA /* Supporting Files */,
+				F39A00B51A3A019A00167AEB /* ic_vk_logo_nb@3x.png */,
+				F36114CF1978060F0085898F /* img_newpostattachlink.png */,
+				F36114D01978060F0085898F /* img_newpostattachlink@2x.png */,
 				F36114A4197684870085898F /* Localizable.strings */,
+				F3BACC441865905B003158DA /* Supporting Files */,
+				F36114B119768FD70085898F /* vk_activity.png */,
+				F36114B219768FD70085898F /* vk_activity@2x.png */,
+				F36114AF19768FD70085898F /* vk_settings.png */,
+				F36114B019768FD70085898F /* vk_settings@2x.png */,
 			);
 			path = "SDK resources";
 			sourceTree = "<group>";
@@ -634,20 +661,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				F36114D21978060F0085898F /* img_newpostattachlink@2x.png in Resources */,
+				F39A00BB1A3A019A00167AEB /* BlueBtn@3x.png in Resources */,
 				F36114B319768FDD0085898F /* vk_settings.png in Resources */,
 				F36114CA1977DC2D0085898F /* ic_deletephoto@2x.png in Resources */,
+				F3A1D1F51A40436A00EFEC74 /* Disclosure@3x.png in Resources */,
+				F3A1D1F41A40436A00EFEC74 /* Disclosure@2x.png in Resources */,
+				F39A00BA1A3A019A00167AEB /* BlueBtn@2x.png in Resources */,
+				F39A00BC1A3A019A00167AEB /* ic_vk_logo_nb@3x.png in Resources */,
 				F36114B419768FDD0085898F /* vk_settings@2x.png in Resources */,
 				F36114B519768FDD0085898F /* vk_activity.png in Resources */,
+				F3A1D1F31A40436A00EFEC74 /* Disclosure.png in Resources */,
 				F36114B619768FDD0085898F /* vk_activity@2x.png in Resources */,
 				F36114A9197685810085898F /* Localizable.strings in Resources */,
+				F39A00B61A3A019A00167AEB /* BlueBtn_pressed.png in Resources */,
 				F3BACC62186883E8003158DA /* ic_vk_logo_nb@2x.png in Resources */,
 				F3BACC481865905B003158DA /* InfoPlist.strings in Resources */,
 				F36114C71977DC2D0085898F /* ic_deleteattach.png in Resources */,
 				F36114D11978060F0085898F /* img_newpostattachlink.png in Resources */,
+				F39A00B91A3A019A00167AEB /* BlueBtn.png in Resources */,
 				F3BACC61186883E8003158DA /* ic_vk_logo_nb.png in Resources */,
+				F39A00B71A3A019A00167AEB /* BlueBtn_pressed@2x.png in Resources */,
 				F36114C91977DC2D0085898F /* ic_deletephoto.png in Resources */,
+				F39A00B81A3A019A00167AEB /* BlueBtn_pressed@3x.png in Resources */,
 				F36114C81977DC2D0085898F /* ic_deleteattach@2x.png in Resources */,
-				F361149B197676870085898F /* VKShareDialogController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

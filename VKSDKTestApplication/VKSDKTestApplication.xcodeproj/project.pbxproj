@@ -197,6 +197,11 @@
 				CLASSPREFIX = VK;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = VK;
+				TargetAttributes = {
+					F3EEFF651827B1DD000BB525 = {
+						DevelopmentTeam = R26JY69RPL;
+					};
+				};
 			};
 			buildConfigurationList = F3EEFF611827B1DD000BB525 /* Build configuration list for PBXProject "VKSDKTestApplication" */;
 			compatibilityVersion = "Xcode 3.2";
