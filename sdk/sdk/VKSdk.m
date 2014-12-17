@@ -279,8 +279,13 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
          ([sourceApplication isEqualToString:@"com.apple.mobilesafari"] || !sourceApplication) &&
          [passedUrl.scheme isEqualToString:[NSString stringWithFormat:@"vk%@", vkSdkInstance.currentAppId]]
          )
-	    )
-		return [self processOpenURL:passedUrl];
+        ) {
+        BOOL result = [self processOpenURL:passedUrl];
+        if (result) {
+            [vkSdkInstance trackVisitor];
+        }
+		return result;
+    }
 	return NO;
 }
 
@@ -311,6 +316,7 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
 	if (!token || token.isExpired)
 		return NO;
 	vkSdkInstance.accessToken = token;
+    [vkSdkInstance trackVisitor];
 	return YES;
 }
 + (BOOL)wakeUpSession:(NSArray*) permissions {
@@ -321,10 +327,6 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
 		return NO;
 	}
 	return YES;
-}
-
-- (NSString *)currentAppId {
-	return _currentAppId;
 }
 
 + (BOOL)hasPermissions:(NSArray *)permissions {
@@ -339,6 +341,13 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
         if (!exists) return NO;
     }
     return YES;
+}
+
+- (NSString *)currentAppId {
+	return _currentAppId;
+}
+- (void) trackVisitor {
+    [[VKRequest requestWithMethod:@"stats.trackVisitor" andParameters:nil andHttpMethod:@"GET"] start];
 }
 
 @end

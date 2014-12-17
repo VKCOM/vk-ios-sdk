@@ -31,20 +31,6 @@
         return [[self.viewControllers lastObject] preferredStatusBarStyle];
     return UIStatusBarStyleDefault;
 }
--(NSUInteger)supportedInterfaceOrientations
-{
-    if (self.viewControllers.count)
-        return [[self.viewControllers lastObject] supportedInterfaceOrientations];
-    return UIInterfaceOrientationMaskAll;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    if (self.viewControllers.count)
-        return [[self.viewControllers lastObject] preferredInterfaceOrientationForPresentation];
-    return UIInterfaceOrientationPortrait;
-}
-
 @end
 
 @interface VKAuthorizeController ()
@@ -255,13 +241,6 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 		    [self dismiss];
 		});
 	}
-}
-
-#pragma mark Death
-- (void)dealloc {
-#ifdef DEBUG
-	NSLog(@"DEALLOC: %@", self);
-#endif
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

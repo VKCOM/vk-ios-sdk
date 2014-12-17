@@ -23,10 +23,5 @@
 #import "VKObject.h"
 
 @implementation VKObject
-- (void)dealloc {
-#ifdef VKDEBUG
-	NSLog(@"DEALLOC: %@", self);
-#endif
-}
 
 @end
