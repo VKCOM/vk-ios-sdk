@@ -186,17 +186,56 @@ Working with Share dialog
 Share dialog allows you to create a user friendly dialog for sharing text and photos from your application directly to VK. See the Share dialog usage example:
 ```
 VKShareDialogController * shareDialog = [VKShareDialogController new]; //1
-shareDialog.text = @"Your share text here"; //2
-shareDialog.uploadImages = @[[VKUploadImage uploadImageWithImage:[UIImage imageNamed:@"apple"] andParams:[VKImageParameters jpegImageWithQuality:0.9]]]; //3
-shareDialog.otherAttachmentsStrings = @[@"https://vk.com/dev/ios_sdk"]; //4
-[shareDialog presentIn:self]; //5
+shareDialog.text         = @"This post created using #vksdk #ios"; //2
+shareDialog.vkImages     = @[@"-10889156_348122347",@"7840938_319411365",@"-60479154_333497085"]; //3
+shareDialog.shareLink    = [[VKShareLink alloc] initWithTitle:@"Super puper link, but nobody knows" link:[NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]]; //4
+[shareDialog setCompletionHandler:^(VKShareDialogControllerResult result) {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}]; //5
+[self presentViewController:shareDialog animated:YES completion:nil]; //6
 ```
-1 - create an instance of a dialog controller as usual.
+1) create an instance of the dialog controller as usual.
 
-2 - attach some text information to a dialog. Notice that users can change this information.
+2) attach some text information to a dialog. Notice that users can change this information.
 
-3 - attach an images array to a dialog using the special helper class. Notice that if you upload a PNG image it should have no alpha channel (will be replaced with black color).
+3) attach images uploaded to VK earlier. If you want user to upload a new image, use the `uploadImages` property.
 
-4 - attach links to your pages (supports only links attachment for now)
+4) attach link at your pages (supports only links attachment for now)
 
-5 - call the special method for correctly displaying a dialog in your view controllers.
+5) set the dialog completion handler
+
+6) present the dialog viewcontroller in your view controller
+
+Working with share activity
+==========
+
+VK SDK provides a special class for working with `UIActivityViewController` - `VKActivity`. See example below for understand how it works:
+
+```
+NSArray *items = @[[UIImage imageNamed:@"apple"], @"Check out information about VK SDK" , [NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]]; //1
+UIActivityViewController *activityViewController = [[UIActivityViewController alloc]
+                                                    initWithActivityItems:items
+                                                    applicationActivities:@[[VKActivity new]]]; //2
+[activityViewController setValue:@"VK SDK" forKey:@"subject"]; //3
+[activityViewController setCompletionHandler:nil]; //4
+if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+    UIPopoverPresentationController *popover = activityViewController.popoverPresentationController;
+    popover.sourceView = self.view;
+    popover.sourceRect = [tableView rectForRowAtIndexPath:indexPath];
+} //5
+[self presentViewController:activityViewController animated:YES completion:nil]; //6
+```
+
+Lets see steps of the example:
+
+1) Prepare your share information - `UIImage`, `NSString` and `NSURL`. That kind of information may be shared throught VK.
+
+2) Prepare `UIActivityViewController` with new application `VKActivity`.
+
+3) Set additional properties for `activityViewController`.
+
+4) Set completion handler for `activityViewController`
+
+5) Check if you're running above iOS 8. If user working with iPad, you must present the activity controller in popover, otherwise you'll get system error.
+
+6) Present the activity controller as usual.
