@@ -543,11 +543,14 @@ typedef enum CornerFlag {
     }
     else
     {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
         if (self.text.length && textView.contentSize.height > 0) {
             return MAX(textView.contentSize.height + self.contentInset.top + self.contentInset.bottom, 36.0f);
         }
         return [self.placeholder sizeWithFont:self.font constrainedToSize:CGSizeMake(self.frame.size.width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping].height + self.contentInset.top + self.contentInset.bottom;
+#endif
     }
+    return 0;
 }
 - (void)layoutSubviews
 {
@@ -773,9 +776,11 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
                                                                        attributes:attributes
                                                                           context:nil].size;
         } else {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
             notAuthorizedTextSize = [_notAuthorizedLabel.text sizeWithFont:_notAuthorizedLabel.font
                                                         constrainedToSize:notAuthorizedTextBoundingSize
                                                             lineBreakMode:NSLineBreakByWordWrapping];
+#endif
         }
         
         [_notAuthorizedButton sizeToFit];
