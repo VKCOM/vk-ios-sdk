@@ -1,5 +1,5 @@
 //
-//  VKURLConnectionOperation.h
+//  VKHTTPOperation.h
 //
 //  Based on AFNetworking library.
 //  https://github.com/AFNetworking/AFNetworking

@@ -1,5 +1,5 @@
 //
-//  VKUtil.c
+//  VKUtil.m
 //
 //  Copyright (c) 2014 VK.com
 //

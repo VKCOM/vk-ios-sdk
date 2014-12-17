@@ -1,5 +1,5 @@
 //
-//  sdk.m
+//  VKSdk.m
 //
 //  Copyright (c) 2014 VK.com
 //

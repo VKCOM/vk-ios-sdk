@@ -1,5 +1,5 @@
 //
-//  VKAccessToken.h
+//  NSError+VKError.h
 //
 //  Copyright (c) 2014 VK.com
 //

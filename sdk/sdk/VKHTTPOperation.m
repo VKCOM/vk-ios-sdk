@@ -1,5 +1,5 @@
 //
-//  VKURLConnectionOperation.m
+//  VKHTTPOperation.m
 //
 //  Based on AFNetworking library.
 //  https://github.com/AFNetworking/AFNetworking
