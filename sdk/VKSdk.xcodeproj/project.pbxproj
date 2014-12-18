@@ -301,9 +301,8 @@
 		F3B7EEDF1845F3D500104B90 /* VKUploadPhotoBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKUploadPhotoBase.h; sourceTree = "<group>"; };
 		F3B7EEE01845F3D500104B90 /* VKUploadPhotoBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUploadPhotoBase.m; sourceTree = "<group>"; };
 		F3BACC401865905B003158DA /* VKSdkResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VKSdkResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		F3BACC451865905B003158DA /* SDK resources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SDK resources-Info.plist"; sourceTree = "<group>"; };
+		F3BACC451865905B003158DA /* Resources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Resources-Info.plist"; sourceTree = "<group>"; };
 		F3BACC471865905B003158DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		F3BACC491865905B003158DA /* SDK resources-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SDK resources-Prefix.pch"; sourceTree = "<group>"; };
 		F3BACC5618659493003158DA /* VKBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKBundle.h; sourceTree = "<group>"; };
 		F3BACC5718659493003158DA /* VKBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKBundle.m; sourceTree = "<group>"; };
 		F3BACC5F186883E8003158DA /* ic_vk_logo_nb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_vk_logo_nb.png; sourceTree = "<group>"; };
@@ -483,15 +482,15 @@
 				F36114AF19768FD70085898F /* vk_settings.png */,
 				F36114B019768FD70085898F /* vk_settings@2x.png */,
 			);
-			path = "SDK resources";
+			name = "SDK resources";
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		F3BACC441865905B003158DA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F3BACC451865905B003158DA /* SDK resources-Info.plist */,
+				F3BACC451865905B003158DA /* Resources-Info.plist */,
 				F3BACC461865905B003158DA /* InfoPlist.strings */,
-				F3BACC491865905B003158DA /* SDK resources-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -499,7 +498,7 @@
 		F3C75424182133CB00964716 = {
 			isa = PBXGroup;
 			children = (
-				F3C75432182133CC00964716 /* sdk */,
+				F3C75432182133CC00964716 /* VKSdk */,
 				F3BACC431865905B003158DA /* SDK resources */,
 				F3C7542F182133CC00964716 /* Frameworks */,
 				F3C7542E182133CC00964716 /* Products */,
@@ -525,7 +524,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F3C75432182133CC00964716 /* sdk */ = {
+		F3C75432182133CC00964716 /* VKSdk */ = {
 			isa = PBXGroup;
 			children = (
 				F3EEFF4218241A29000BB525 /* API */,
@@ -536,7 +535,8 @@
 				F3C75435182133CC00964716 /* VKSdk.h */,
 				F3C75437182133CC00964716 /* VKSdk.m */,
 			);
-			path = sdk;
+			name = VKSdk;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		F3C75433182133CC00964716 /* Supporting Files */ = {
@@ -666,7 +666,7 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = VK;
 			};
-			buildConfigurationList = F3C75428182133CB00964716 /* Build configuration list for PBXProject "sdk" */;
+			buildConfigurationList = F3C75428182133CB00964716 /* Build configuration list for PBXProject "VKSdk" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -833,7 +833,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "SDK resources/SDK resources-Info.plist";
+				INFOPLIST_FILE = "Resources/Resources-Info.plist";
 				INSTALL_PATH = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
@@ -853,7 +853,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SDK resources/SDK resources-Prefix.pch";
-				INFOPLIST_FILE = "SDK resources/SDK resources-Info.plist";
+				INFOPLIST_FILE = "Resources/Resources-Info.plist";
 				INSTALL_PATH = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
@@ -945,6 +945,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PROJECT_NAME)";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
@@ -962,6 +963,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PROJECT_NAME)";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
@@ -980,7 +982,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F3C75428182133CB00964716 /* Build configuration list for PBXProject "sdk" */ = {
+		F3C75428182133CB00964716 /* Build configuration list for PBXProject "VKSdk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F3C7544E182133CC00964716 /* Debug */,
