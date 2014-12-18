@@ -6,6 +6,22 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		F37145F61A42EB2900EEBD6D /* Framework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F37145F71A42EB2900EEBD6D /* Build configuration list for PBXAggregateTarget "Framework" */;
+			buildPhases = (
+				F37145FC1A42EB4700EEBD6D /* MultiPlatform Build */,
+			);
+			dependencies = (
+				F37146011A42F06E00EEBD6D /* PBXTargetDependency */,
+				F37145FB1A42EB4000EEBD6D /* PBXTargetDependency */,
+			);
+			name = Framework;
+			productName = Framework;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		132CF7E319D2B3360084884D /* VKApi.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3EEFF3D18241781000BB525 /* VKApi.h */; };
 		132CF7E419D2B3360084884D /* VKRelative.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F33F0E7D18D83E0A00DD8B80 /* VKRelative.h */; };
@@ -144,6 +160,20 @@
 
 /* Begin PBXContainerItemProxy section */
 		F361149E197676EB0085898F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3C75425182133CB00964716 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F3BACC3F1865905B003158DA;
+			remoteInfo = VKSdkResources;
+		};
+		F37145FA1A42EB4000EEBD6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3C75425182133CB00964716 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F3C7542C182133CC00964716;
+			remoteInfo = VKSdk;
+		};
+		F37146001A42F06E00EEBD6D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F3C75425182133CB00964716 /* Project object */;
 			proxyType = 1;
@@ -380,30 +410,30 @@
 		F33F0E5018D83B5900DD8B80 /* models */ = {
 			isa = PBXGroup;
 			children = (
-				F33F0E7D18D83E0A00DD8B80 /* VKRelative.h */,
-				F33F0E7E18D83E0A00DD8B80 /* VKRelative.m */,
 				F33F0E5118D83B5900DD8B80 /* VKApiObject.h */,
-				F33F0E5218D83B5900DD8B80 /* VKApiObject.m */,
 				F33F0E5318D83B5900DD8B80 /* VKApiObjectArray.h */,
-				F33F0E5418D83B5900DD8B80 /* VKApiObjectArray.m */,
 				F33F0E5518D83B5900DD8B80 /* VKAudio.h */,
-				F33F0E5618D83B5900DD8B80 /* VKAudio.m */,
 				F33F0E7118D83C9E00DD8B80 /* VKCounters.h */,
-				F33F0E7218D83C9E00DD8B80 /* VKCounters.m */,
-				F33F0E5718D83B5900DD8B80 /* VKLikes.h */,
-				F33F0E5818D83B5900DD8B80 /* VKLikes.m */,
-				F33F0E5918D83B5900DD8B80 /* VKPhoto.h */,
-				F33F0E5A18D83B5900DD8B80 /* VKPhoto.m */,
-				F33F0E7518D83CE200DD8B80 /* VKSchool.h */,
-				F33F0E7618D83CE200DD8B80 /* VKSchool.m */,
-				F33F0E7718D83CE200DD8B80 /* VKUniversity.h */,
-				F33F0E7818D83CE200DD8B80 /* VKUniversity.m */,
-				F33F0E5D18D83B5900DD8B80 /* VKUser.h */,
-				F33F0E5E18D83B5900DD8B80 /* VKUser.m */,
 				F36114B71976C3830085898F /* VKGroup.h */,
-				F36114B81976C3830085898F /* VKGroup.m */,
+				F33F0E5718D83B5900DD8B80 /* VKLikes.h */,
+				F33F0E5918D83B5900DD8B80 /* VKPhoto.h */,
 				F3D751301998AF4100B06DBA /* VKPhotoSize.h */,
+				F33F0E7D18D83E0A00DD8B80 /* VKRelative.h */,
+				F33F0E7518D83CE200DD8B80 /* VKSchool.h */,
+				F33F0E7718D83CE200DD8B80 /* VKUniversity.h */,
+				F33F0E5D18D83B5900DD8B80 /* VKUser.h */,
+				F33F0E5218D83B5900DD8B80 /* VKApiObject.m */,
+				F33F0E5418D83B5900DD8B80 /* VKApiObjectArray.m */,
+				F33F0E5618D83B5900DD8B80 /* VKAudio.m */,
+				F33F0E7218D83C9E00DD8B80 /* VKCounters.m */,
+				F36114B81976C3830085898F /* VKGroup.m */,
+				F33F0E5818D83B5900DD8B80 /* VKLikes.m */,
+				F33F0E5A18D83B5900DD8B80 /* VKPhoto.m */,
 				F3D751311998AF4100B06DBA /* VKPhotoSize.m */,
+				F33F0E7E18D83E0A00DD8B80 /* VKRelative.m */,
+				F33F0E7618D83CE200DD8B80 /* VKSchool.m */,
+				F33F0E7818D83CE200DD8B80 /* VKUniversity.m */,
+				F33F0E5E18D83B5900DD8B80 /* VKUser.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -411,16 +441,16 @@
 		F349DC5B1832722000D0DCB3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F3EEFFB61827C0FF000BB525 /* VKAuthorizeController.h */,
-				F3EEFFB71827C0FF000BB525 /* VKAuthorizeController.m */,
-				18680EA81834F23500E532C8 /* VKCaptchaView.h */,
-				18680EA91834F23500E532C8 /* VKCaptchaView.m */,
-				F3D38E69183CC7C400D05079 /* VKCaptchaViewController.h */,
-				F3D38E6A183CC7C400D05079 /* VKCaptchaViewController.m */,
-				F3611496197674450085898F /* VKShareDialogController.h */,
-				F3611497197674450085898F /* VKShareDialogController.m */,
 				F32ADDC41A4170C9009A9FD6 /* VKActivity.h */,
+				F3EEFFB61827C0FF000BB525 /* VKAuthorizeController.h */,
+				18680EA81834F23500E532C8 /* VKCaptchaView.h */,
+				F3D38E69183CC7C400D05079 /* VKCaptchaViewController.h */,
+				F3611496197674450085898F /* VKShareDialogController.h */,
 				F32ADDC51A4170C9009A9FD6 /* VKActivity.m */,
+				F3EEFFB71827C0FF000BB525 /* VKAuthorizeController.m */,
+				18680EA91834F23500E532C8 /* VKCaptchaView.m */,
+				F3D38E6A183CC7C400D05079 /* VKCaptchaViewController.m */,
+				F3611497197674450085898F /* VKShareDialogController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -429,24 +459,24 @@
 			isa = PBXGroup;
 			children = (
 				F3EEFF53182514A9000BB525 /* VKApiBase.h */,
-				F3EEFF54182514A9000BB525 /* VKApiBase.m */,
-				F3D38E75183D068400D05079 /* VKApiPhotos.h */,
-				F3D38E76183D068400D05079 /* VKApiPhotos.m */,
-				F3D38E79183F72F100D05079 /* VKApiWall.h */,
-				F3D38E7A183F72F100D05079 /* VKApiWall.m */,
-				F3EEFF4E182513AA000BB525 /* VKApiUsers.h */,
-				F3EEFF4F182513AA000BB525 /* VKApiUsers.m */,
 				F3A77AD7182A9392006DDF96 /* VKApiCaptcha.h */,
-				F3A77AD8182A9392006DDF96 /* VKApiCaptcha.m */,
 				F3B7EEDA1845E80100104B90 /* VKApiFriends.h */,
-				F3B7EEDB1845E80100104B90 /* VKApiFriends.m */,
 				F36114BB1976C4C00085898F /* VKApiGroups.h */,
+				F3D38E75183D068400D05079 /* VKApiPhotos.h */,
+				F3EEFF4E182513AA000BB525 /* VKApiUsers.h */,
+				F3D38E79183F72F100D05079 /* VKApiWall.h */,
+				F3EEFF54182514A9000BB525 /* VKApiBase.m */,
+				F3A77AD8182A9392006DDF96 /* VKApiCaptcha.m */,
+				F3B7EEDB1845E80100104B90 /* VKApiFriends.m */,
 				F36114BC1976C4C00085898F /* VKApiGroups.m */,
+				F3D38E76183D068400D05079 /* VKApiPhotos.m */,
+				F3EEFF4F182513AA000BB525 /* VKApiUsers.m */,
+				F3D38E7A183F72F100D05079 /* VKApiWall.m */,
 			);
 			name = methods;
 			sourceTree = "<group>";
 		};
-		F3BACC431865905B003158DA /* SDK resources */ = {
+		F3BACC431865905B003158DA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				F3062B811A418A0E006B57F9 /* ic_vk_ios7_activity_logo.png */,
@@ -482,7 +512,6 @@
 				F36114AF19768FD70085898F /* vk_settings.png */,
 				F36114B019768FD70085898F /* vk_settings@2x.png */,
 			);
-			name = "SDK resources";
 			path = Resources;
 			sourceTree = "<group>";
 		};
@@ -499,7 +528,7 @@
 			isa = PBXGroup;
 			children = (
 				F3C75432182133CC00964716 /* VKSdk */,
-				F3BACC431865905B003158DA /* SDK resources */,
+				F3BACC431865905B003158DA /* Resources */,
 				F3C7542F182133CC00964716 /* Frameworks */,
 				F3C7542E182133CC00964716 /* Products */,
 			);
@@ -527,23 +556,15 @@
 		F3C75432182133CC00964716 /* VKSdk */ = {
 			isa = PBXGroup;
 			children = (
+				F3C75435182133CC00964716 /* VKSdk.h */,
+				F3C75437182133CC00964716 /* VKSdk.m */,
 				F3EEFF4218241A29000BB525 /* API */,
 				F349DC5B1832722000D0DCB3 /* Controllers */,
 				F3EEFF4318241A37000BB525 /* SDK */,
-				F3C75433182133CC00964716 /* Supporting Files */,
 				F3EEFFC41827EFFB000BB525 /* Utils */,
-				F3C75435182133CC00964716 /* VKSdk.h */,
-				F3C75437182133CC00964716 /* VKSdk.m */,
 			);
 			name = VKSdk;
 			path = Source;
-			sourceTree = "<group>";
-		};
-		F3C75433182133CC00964716 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		F3EEFF4218241A29000BB525 /* API */ = {
@@ -563,42 +584,42 @@
 			isa = PBXGroup;
 			children = (
 				F37846991897AA9300DF860E /* NSError+VKError.h */,
-				F378469A1897AA9300DF860E /* NSError+VKError.m */,
 				F3C7549918226ABB00964716 /* VKAccessToken.h */,
-				F3C7549A18226ABB00964716 /* VKAccessToken.m */,
 				F3D38E7D183F7B4800D05079 /* VKBatchRequest.h */,
-				F3D38E7E183F7B4800D05079 /* VKBatchRequest.m */,
 				F3BACC5618659493003158DA /* VKBundle.h */,
-				F3BACC5718659493003158DA /* VKBundle.m */,
 				F3EEFF3818241779000BB525 /* VKError.h */,
-				F3EEFF3918241779000BB525 /* VKError.m */,
 				F311207818588D67004A9A40 /* VKHTTPClient.h */,
-				F311207918588D67004A9A40 /* VKHTTPClient.m */,
 				F311207418588D4E004A9A40 /* VKHTTPOperation.h */,
-				F311207518588D4E004A9A40 /* VKHTTPOperation.m */,
 				F3AD12951836719B00B837C0 /* VKImageParameters.h */,
-				F3AD12961836719B00B837C0 /* VKImageParameters.m */,
 				F3EEFFE218294B0A000BB525 /* VKObject.h */,
-				F3EEFFE318294B0A000BB525 /* VKObject.m */,
 				F3DED12E186C10F500FDF083 /* VKOperation.h */,
-				F3DED12F186C10F500FDF083 /* VKOperation.m */,
 				F3EEFFA41827B726000BB525 /* VKPermissions.h */,
-				F3EEFFA61827B7F1000BB525 /* VKPermissions.m */,
 				F3C754901822680D00964716 /* VKRequest.h */,
-				F3C754911822680D00964716 /* VKRequest.m */,
 				F3C754931822684500964716 /* VKResponse.h */,
-				F3C754941822684500964716 /* VKResponse.m */,
 				F3EEFFBC1827C582000BB525 /* VKSdkVersion.h */,
+				F36114AB19768F260085898F /* VKUploadImage.h */,
+				F355BB23199140FC0036AB89 /* VKUploadMessagesPhotoRequest.h */,
+				F3B7EEDF1845F3D500104B90 /* VKUploadPhotoBase.h */,
 				F3B7EEAC1843721600104B90 /* VKUploadPhotoRequest.h */,
 				F3D38E81183FA49000D05079 /* VKUploadWallPhotoRequest.h */,
-				F36114AB19768F260085898F /* VKUploadImage.h */,
+				F378469A1897AA9300DF860E /* NSError+VKError.m */,
+				F3C7549A18226ABB00964716 /* VKAccessToken.m */,
+				F3D38E7E183F7B4800D05079 /* VKBatchRequest.m */,
+				F3BACC5718659493003158DA /* VKBundle.m */,
+				F3EEFF3918241779000BB525 /* VKError.m */,
+				F311207918588D67004A9A40 /* VKHTTPClient.m */,
+				F311207518588D4E004A9A40 /* VKHTTPOperation.m */,
+				F3AD12961836719B00B837C0 /* VKImageParameters.m */,
+				F3EEFFE318294B0A000BB525 /* VKObject.m */,
+				F3DED12F186C10F500FDF083 /* VKOperation.m */,
+				F3EEFFA61827B7F1000BB525 /* VKPermissions.m */,
+				F3C754911822680D00964716 /* VKRequest.m */,
+				F3C754941822684500964716 /* VKResponse.m */,
 				F36114AC19768F260085898F /* VKUploadImage.m */,
-				F3B7EEDF1845F3D500104B90 /* VKUploadPhotoBase.h */,
+				F355BB24199140FC0036AB89 /* VKUploadMessagesPhotoRequest.m */,
 				F3B7EEE01845F3D500104B90 /* VKUploadPhotoBase.m */,
 				F3B7EEAD1843721600104B90 /* VKUploadPhotoRequest.m */,
 				F3D38E82183FA49000D05079 /* VKUploadWallPhotoRequest.m */,
-				F355BB23199140FC0036AB89 /* VKUploadMessagesPhotoRequest.h */,
-				F355BB24199140FC0036AB89 /* VKUploadMessagesPhotoRequest.m */,
 			);
 			name = SDK;
 			sourceTree = "<group>";
@@ -645,6 +666,7 @@
 				F3C75429182133CC00964716 /* Sources */,
 				F3C7542A182133CC00964716 /* Frameworks */,
 				F3C7542B182133CC00964716 /* Copy Files */,
+				F37145F51A42EAAE00EEBD6D /* Build framework */,
 			);
 			buildRules = (
 			);
@@ -665,6 +687,11 @@
 				CLASSPREFIX = VK;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = VK;
+				TargetAttributes = {
+					F37145F61A42EB2900EEBD6D = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
 			};
 			buildConfigurationList = F3C75428182133CB00964716 /* Build configuration list for PBXProject "VKSdk" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -682,6 +709,7 @@
 			targets = (
 				F3C7542C182133CC00964716 /* VKSdk */,
 				F3BACC3F1865905B003158DA /* VKSdkResources */,
+				F37145F61A42EB2900EEBD6D /* Framework */,
 			);
 		};
 /* End PBXProject section */
@@ -727,6 +755,37 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F37145F51A42EAAE00EEBD6D /* Build framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build framework";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nexport FRAMEWORK_LOCN=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework\"\n\n# Create the path to the real Headers die\nmkdir -p \"${FRAMEWORK_LOCN}/Versions/A/Headers\"\n\n# Create the required symlinks\n/bin/ln -sfh A \"${FRAMEWORK_LOCN}/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${FRAMEWORK_LOCN}/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \\\n\"${FRAMEWORK_LOCN}/${PRODUCT_NAME}\"\n\n# Copy the public headers into the framework\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \\\n\"${FRAMEWORK_LOCN}/Versions/A/Headers\"";
+		};
+		F37145FC1A42EB4700EEBD6D /* MultiPlatform Build */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "MultiPlatform Build";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\n# If we're already inside this script then die\nif [ -n \"$RW_MULTIPLATFORM_BUILD_IN_PROGRESS\" ]; then\nexit 0\nfi\nexport RW_MULTIPLATFORM_BUILD_IN_PROGRESS=1\n\nRW_FRAMEWORK_NAME=${PROJECT_NAME}\nRW_INPUT_STATIC_LIB=\"lib${PROJECT_NAME}.a\"\nRW_FRAMEWORK_LOCATION=\"${BUILT_PRODUCTS_DIR}/${RW_FRAMEWORK_NAME}.framework\"\nRW_BUNDLE_NAME=\"VKSdkResources\"\n\nfunction build_static_library {\n    # Will rebuild the static library as specified\n    #     build_static_library sdk\n    xcrun xcodebuild -project \"${PROJECT_FILE_PATH}\" \\\n    -target \"${TARGET_NAME}\" \\\n    -configuration \"${CONFIGURATION}\" \\\n    -sdk \"${1}\" \\\n    ONLY_ACTIVE_ARCH=NO \\\n    BUILD_DIR=\"${BUILD_DIR}\" \\\n    OBJROOT=\"${OBJROOT}\" \\\n    BUILD_ROOT=\"${BUILD_ROOT}\" \\\n    SYMROOT=\"${SYMROOT}\" $ACTION\n}\n\nfunction make_fat_library {\n    # Will smash 2 static libs together\n    #     make_fat_library in1 in2 out\n    xcrun lipo -create \"${1}\" \"${2}\" -output \"${3}\"\n}\n\n# 1 - Extract the platform (iphoneos/iphonesimulator) from the SDK name\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]; then\nRW_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\n# 2 - Extract the version from the SDK\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]; then\nRW_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\n# 3 - Determine the other platform\nif [ \"$RW_SDK_PLATFORM\" == \"iphoneos\" ]; then\nRW_OTHER_PLATFORM=iphonesimulator\nelse\nRW_OTHER_PLATFORM=iphoneos\nfi\n\n# 4 - Find the build directory\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$RW_SDK_PLATFORM$ ]]; then\nRW_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${RW_OTHER_PLATFORM}\"\nelse\necho \"Could not find other platform build directory.\"\nexit 1\nfi\n\n# Build the other platform.\nbuild_static_library \"${RW_OTHER_PLATFORM}${RW_SDK_VERSION}\"\n\n# If we're currently building for iphonesimulator, then need to rebuild\n#   to ensure that we get both i386 and x86_64\nif [ \"$RW_SDK_PLATFORM\" == \"iphonesimulator\" ]; then\nbuild_static_library \"${SDK_NAME}\"\nfi\n\n# Join the 2 static libs into 1 and push into the .framework\nmake_fat_library \"${BUILT_PRODUCTS_DIR}/${RW_INPUT_STATIC_LIB}\" \\\n\"${RW_OTHER_BUILT_PRODUCTS_DIR}/${RW_INPUT_STATIC_LIB}\" \\\n\"${RW_FRAMEWORK_LOCATION}/Versions/A/${RW_FRAMEWORK_NAME}\"\n\ncp -a \"${RW_FRAMEWORK_LOCATION}/Versions/A/${RW_FRAMEWORK_NAME}\" \\\n\"${RW_OTHER_BUILT_PRODUCTS_DIR}/${RW_FRAMEWORK_NAME}.framework/Versions/A/${RW_FRAMEWORK_NAME}\"\n\n# Copy the framework to the user's desktop\nditto \"${RW_FRAMEWORK_LOCATION}\" \"${SRCROOT}/../${RW_FRAMEWORK_NAME}.framework\"\n\nditto \"${BUILT_PRODUCTS_DIR}/${RW_BUNDLE_NAME}.bundle\" \\\n\"${SRCROOT}/../${RW_BUNDLE_NAME}.bundle\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F3BACC3C1865905B003158DA /* Sources */ = {
@@ -799,6 +858,16 @@
 			target = F3BACC3F1865905B003158DA /* VKSdkResources */;
 			targetProxy = F361149E197676EB0085898F /* PBXContainerItemProxy */;
 		};
+		F37145FB1A42EB4000EEBD6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F3C7542C182133CC00964716 /* VKSdk */;
+			targetProxy = F37145FA1A42EB4000EEBD6D /* PBXContainerItemProxy */;
+		};
+		F37146011A42F06E00EEBD6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F3BACC3F1865905B003158DA /* VKSdkResources */;
+			targetProxy = F37146001A42F06E00EEBD6D /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -822,6 +891,28 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		F37145F81A42EB2900EEBD6D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F37145F91A42EB2900EEBD6D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		F3BACC4B1865905B003158DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -973,6 +1064,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F37145F71A42EB2900EEBD6D /* Build configuration list for PBXAggregateTarget "Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F37145F81A42EB2900EEBD6D /* Debug */,
+				F37145F91A42EB2900EEBD6D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		F3BACC4A1865905B003158DA /* Build configuration list for PBXNativeTarget "VKSdkResources" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

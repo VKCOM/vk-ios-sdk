@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>Framework.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>VKSdk.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -17,6 +22,21 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>F330B4141A42E6B600A50EC5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F330B41E1A42E6B600A50EC5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F37145F61A42EB2900EEBD6D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>F3BACC3F1865905B003158DA</key>
 		<dict>
 			<key>primary</key>
