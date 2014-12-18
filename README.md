@@ -200,7 +200,7 @@ shareDialog.shareLink    = [[VKShareLink alloc] initWithTitle:@"Super puper link
 
 3) attach images uploaded to VK earlier. If you want user to upload a new image, use the `uploadImages` property.
 
-4) attach link at your pages (supports only links attachment for now)
+4) attach link at your pages
 
 5) set the dialog completion handler
 
