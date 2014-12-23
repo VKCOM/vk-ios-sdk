@@ -39,9 +39,9 @@ Then import the main header.
 Installation with source code
 ----------
 
-Add the sdk/sdk.xcodeproj file to your project. In the Application settings open Build phases, then the Link Binary with Libraries section. Add libVKSdk.a there, then import the main header.
+Add `VKSdk.framework` and `VKSdkResources.bundle` files into your project. In the Application settings open **Build phases**, then the **Link Binary with Libraries** section, add `VKSdk.framework` there. Add `VKSdkResources.bundle` into **Copy bundle resources** section. Import the main header:
 
-    #import "VKSdk.h"
+    #import <VKSdk.h>
 
 Using SDK
 ==========
