@@ -14,7 +14,7 @@ Setup URL-schema of Your Application
 To use authorization via VK App you need to setup a url-schema of your application. 
 
 <b>Xcode 5:</b>
-Open your application settings then select the Info tab. In the URL Types section click the plus sign. Enter vk+APP_ID (e.g. vk1234567) to the Identifier and URL Schemes fields.
+Open your application settings then select the Info tab. In the URL Types section click the plus sign. Enter vk+APP_ID (e.g. **vk1234567**) to the Identifier and URL Schemes fields.
 
 <b>Xcode 4:</b>
 Open your Info.plist then add a new row URL Types. Set the URL identifier to vk+APP_ID
@@ -39,20 +39,22 @@ Then import the main header.
 Installation with source code
 ----------
 
-Add the sdk/sdk.xcodeproj file to your project. In the Application settings open Build phases, then the Link Binary with Libraries section. Add libVKSdk.a there, then import the main header.
+Add `VKSdk.framework` and `VKSdkResources.bundle` files into your project. In the Application settings open **Build phases**, then the **Link Binary with Libraries** section, add `VKSdk.framework` there. Add `VKSdkResources.bundle` into **Copy bundle resources** section. Import the main header:
 
-    #import "VKSdk.h"
+    #import <VKSdk.h>
 
 Using SDK
 ==========
 Pre-requirements
 ----------
-If your application is using VK SDK to provide basic application functions, your app may be rejected by default (reason 10.6, see this issue #64), because SDK trying authorize user in Safari.
-If you making such application, implement `-(BOOL)vkSdkIsBasicAuthorization;` delegate method for tell SDK authorize with UIWebView first.
+**Please read this section carefully if you don't want your app to be rejected!**
+
+If your application is using VK SDK to provide the basic application functions, your app may be rejected by default (reason 10.6, see this issue #64), because the SDK is trying to authorize user through the Mobile Safari.
+If you making such application, implement `-(BOOL)vkSdkIsBasicAuthorization {return YES;}` delegate method for tell SDK authorize with UIWebView first.
 
 SDK Initialization
 ----------
-1) Put this code to the application delegate method  application:openURL:sourceApplication:annotation:
+1) Put this code to the application delegate method `application:openURL:sourceApplication:annotation:`
 ```
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
@@ -68,7 +70,7 @@ SDK Initialization
         //Start working
     }
 ``` 
-See full description of VKSdkDelegate protocol here: http://vkcom.github.io/vk-ios-sdk/Protocols/VKSdkDelegate.html
+See full description of `VKSdkDelegate` protocol here: http://vkcom.github.io/vk-ios-sdk/Protocols/VKSdkDelegate.html
 
 User Authorization
 ----------
@@ -79,7 +81,7 @@ There are several methods for authorization:
     [VKSdk authorize:scope revokeAccess:YES];
     [VKSdk authorize:scope revokeAccess:YES forceOAuth:YES];
 
-Generally, [VKSdk authorize:scope]; is enough for your needs. 
+Generally, `[VKSdk authorize:scope revokeAccess:YES]` is enough for your needs. 
 
 When succeeded, the following method of delegate will be called:
 
@@ -89,7 +91,7 @@ In case of error (e.g., user canceled authorization):
 
     -(void) vkSdkUserDeniedAccess:(VKError*) authorizationError;
 
-To get the User ID after authorization use method of VKAccessToken class
+To get the User ID after authorization use method of `VKAccessToken` class
 
     [[VKSdk getAccessToken] userId] //Return NSString - authorized user id
 
@@ -107,7 +109,7 @@ Below we have listed the examples for several request types.
 
     VKRequest * audioReq = [[VKApi audio] get:@{VK_API_OWNER_ID : @"896232"}];
 
-3) Http (not https) request (only if scope VK_PER_NOHTTPS has been passed)
+3) Http (not https) request (only if scope `VK_PER_NOHTTPS` has been passed)
 
     VKRequest * audioReq = [[VKApi audio] get:@{VK_API_OWNER_ID : @"896232"}]; 
     audioReq.secure = NO;
@@ -144,7 +146,7 @@ Requests Sending
 
 Error Handling
 ----------
-Every request can return NSError with domain equal to VKSdkErrorDomain. SDK can return networking error or internal SDK error (e.g. request was canceled). Category NSError+VKError provides vkError property that describes error event. Compare error code with the global constant VK_API_ERROR. If they equal that means you process vkError property as API error. Otherwise you should handle an http error. 
+Every request can return `NSError` with domain equal to `VKSdkErrorDomain`. SDK can return networking error or internal SDK error (e.g. request was canceled). Category `NSError+VKError` provides vkError property that describes error event. Compare error code with the global constant `VK_API_ERROR`. If they equal that means you process vkError property as API error. Otherwise you should handle an http error. 
 
 Some errors (e.g., captcha error, validation error) can be proccessed by the SDK. Appropriate delegate methods will be called for this purpose. 
 Below is an example of captcha error processing:
