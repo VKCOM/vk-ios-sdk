@@ -35,5 +35,7 @@
 @property (nonatomic, strong) id json;
 /// Model parsed from response
 @property (nonatomic, strong) id parsedModel;
+/// Original response string from server
+@property (nonatomic, copy)   NSString *responseString;
 
 @end

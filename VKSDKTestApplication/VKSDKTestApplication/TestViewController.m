@@ -124,7 +124,7 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
     }
     else if ([label isEqualToString:SHARE_DIALOG]) {
         VKShareDialogController * shareDialog = [VKShareDialogController new];
-        shareDialog.text         = @"This post created using #vksdk #ios";
+        shareDialog.text         = @"This post made with #vksdk #ios";
         shareDialog.vkImages     = @[@"-10889156_348122347",@"7840938_319411365",@"-60479154_333497085"];
         shareDialog.shareLink    = [[VKShareLink alloc] initWithTitle:@"Super puper link, but nobody knows" link:[NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]];
         [shareDialog setCompletionHandler:^(VKShareDialogControllerResult result) {
@@ -133,7 +133,7 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
         [self presentViewController:shareDialog animated:YES completion:nil];
     }
     else if ([label isEqualToString:TEST_ACTIVITY]) {
-        NSArray *items = @[[UIImage imageNamed:@"apple"], @"Check out information about VK SDK" , [NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]];
+        NSArray *items = @[[UIImage imageNamed:@"apple"], @"This post made with #vksdk activity #ios" , [NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]];
         UIActivityViewController *activityViewController = [[UIActivityViewController alloc]
                                                             initWithActivityItems:items
                                                             applicationActivities:@[[VKActivity new]]];
