@@ -33,6 +33,8 @@
 @property (nonatomic, weak) VKRequest *request;
 /// Json content of response. Can be array or object.
 @property (nonatomic, strong) id json;
+/// Original response string from server
+@property (nonatomic, strong) id responseString;
 /// Model parsed from response
 @property (nonatomic, strong) id parsedModel;
 

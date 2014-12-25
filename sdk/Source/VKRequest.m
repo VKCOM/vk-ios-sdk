@@ -87,13 +87,8 @@ static NSOperationQueue * requestsProcessingQueue;
 @implementation VKRequest
 @synthesize preferredLang = _preferredLang;
 
-+ (NSOperationQueue*) processingQueue {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        requestsProcessingQueue = [NSOperationQueue new];
-        requestsProcessingQueue.maxConcurrentOperationCount = 3;
-    });
-    return requestsProcessingQueue;
++ (dispatch_queue_t) processingQueue {
+    return dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 }
 
 #pragma mark Init
@@ -221,44 +216,36 @@ static NSOperationQueue * requestsProcessingQueue;
     }
     
 	[operation setCompletionBlockWithSuccess: ^(VKHTTPOperation *operation, id JSON) {
-        [[VKRequest processingQueue] addOperation:[NSBlockOperation blockOperationWithBlock:^{
-            [_requestTiming loaded];
-            if ([JSON objectForKey:@"error"]) {
-                VKError *error = [VKError errorWithJson:[JSON objectForKey:@"error"]];
-                if ([self processCommonError:error]) return;
-                [self provideError:[NSError errorWithVkError:error]];
-                return;
-            }
-            [self provideResponse:JSON];
-        }]];
+        [_requestTiming loaded];
+        if ([JSON objectForKey:@"error"]) {
+            VKError *error = [VKError errorWithJson:[JSON objectForKey:@"error"]];
+            if ([self processCommonError:error]) return;
+            [self provideError:[NSError errorWithVkError:error]];
+            return;
+        }
+        [self provideResponse:JSON responseString:operation.responseString];
 	} failure: ^(VKHTTPOperation *operation, NSError *error) {
-        [[VKRequest processingQueue] addOperation:[NSBlockOperation blockOperationWithBlock:^{
-            [_requestTiming loaded];
-            if (operation.response.statusCode == 200) {
-                [self provideResponse:operation.responseJson];
-                return;
-            }
-            if (self.attempts == 0 || ++self.attemptsUsed < self.attempts) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), self.responseQueue,
-                               ^(void) {
-                                   [self start];
-                               });
-                return;
-            }
-            
-            VKError *vkErr = [VKError errorWithCode:operation.response.statusCode];
-            [self provideError:[error copyWithVkError:vkErr]];
-            [_requestTiming finished];
-        }]];
+        [_requestTiming loaded];
+        if (operation.response.statusCode == 200) {
+            [self provideResponse:operation.responseJson responseString:operation.responseString];
+            return;
+        }
+        if (self.attempts == 0 || ++self.attemptsUsed < self.attempts) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), self.responseQueue,
+                           ^(void) {
+                               [self start];
+                           });
+            return;
+        }
+        
+        VKError *vkErr = [VKError errorWithCode:operation.response.statusCode];
+        [self provideError:[error copyWithVkError:vkErr]];
+        [_requestTiming finished];
         
 	}];
-    [self setOperation:operation responseQueue:self.responseQueue];
+    operation.successCallbackQueue = operation.failureCallbackQueue = [VKRequest processingQueue];
 	[self setupProgress:operation];
     return operation;
-}
-- (void)setOperation:(VKHTTPOperation*) operation responseQueue:(dispatch_queue_t)responseQueue {
-    [operation setSuccessCallbackQueue:responseQueue];
-    [operation setFailureCallbackQueue:responseQueue];
 }
 - (void)start {
 	_executionOperation = self.executionOperation;
@@ -271,7 +258,8 @@ static NSOperationQueue * requestsProcessingQueue;
     if (!self.waitUntilDone) {
         [[VKHTTPClient getClient] enqueueOperation:_executionOperation];
     } else {
-        [self setOperation:(VKHTTPOperation*)_executionOperation responseQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)];
+        VKHTTPOperation *op = (VKHTTPOperation*)_executionOperation;
+        op.successCallbackQueue = op.failureCallbackQueue = [VKRequest processingQueue];
         _waitUntilDoneSemaphore = dispatch_semaphore_create(0);
         [[VKHTTPClient getClient] enqueueOperation:_executionOperation];
         dispatch_semaphore_wait(_waitUntilDoneSemaphore, DISPATCH_TIME_FOREVER);
@@ -282,9 +270,10 @@ static NSOperationQueue * requestsProcessingQueue;
     if (notification.object == _executionOperation)
         [self.requestTiming started];
 }
-- (void)provideResponse:(id)JSON {
+- (void)provideResponse:(id)JSON responseString:(NSString*)response {
     VKResponse *vkResp = [VKResponse new];
-    vkResp.request      = self;
+    vkResp.responseString = response;
+    vkResp.request        = self;
     if (JSON[@"response"]) {
         vkResp.json = JSON[@"response"];
         
