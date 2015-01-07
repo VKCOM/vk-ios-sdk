@@ -358,6 +358,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/../sdk/**",
+					"$(PROJECT_DIR)/VKSDKTestApplication",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VKSDKTestApplication/VKSDKTestApplication-Prefix.pch";
@@ -388,6 +389,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/../sdk/**",
+					"$(PROJECT_DIR)/VKSDKTestApplication",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VKSDKTestApplication/VKSDKTestApplication-Prefix.pch";

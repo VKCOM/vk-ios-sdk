@@ -66,9 +66,11 @@
         }
     }
     shareDialog.uploadImages = uploadImages;
-    __weak VKActivity *wself = self;
-    [shareDialog setCompletionHandler:^(VKShareDialogControllerResult result){
-        [wself activityDidFinish:result == VKShareDialogControllerResultDone];
+    __weak __typeof(self) wself = self;
+    [shareDialog setCompletionHandler:^(VKShareDialogControllerResult result) {
+        __strong __typeof(wself) sself = wself;
+        [sself activityDidFinish:result == VKShareDialogControllerResultDone];
+        sself->shareDialog = nil;
     }];
 }
 -(UIViewController *)activityViewController {
