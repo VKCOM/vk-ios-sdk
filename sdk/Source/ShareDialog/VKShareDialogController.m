@@ -340,6 +340,10 @@ static const CGFloat ipadHeight          = 500.f;
 - (void)rotateToInterfaceOrientation:(UIInterfaceOrientation) orientation appear:(BOOL) onAppear {
     if (UIUserInterfaceIdiomPad == [[UIDevice currentDevice] userInterfaceIdiom]) {
         CGSize viewSize = self.view.frame.size;
+        if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+            viewSize.width  = ipadWidth;
+            viewSize.height = ipadHeight;
+        }
         internalNavigation.view.frame = CGRectMake( 0, 0, viewSize.width, viewSize.height );
         return;
     }
