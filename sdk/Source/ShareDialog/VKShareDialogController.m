@@ -28,6 +28,7 @@
 #import "VKSdk.h"
 #import "VKHTTPClient.h"
 
+#define VK_IS_DEVICE_IPAD (UIUserInterfaceIdiomPad == [[UIDevice currentDevice] userInterfaceIdiom])
 ///----------------------------
 /// @name Processing preview images
 ///----------------------------
@@ -161,7 +162,7 @@ typedef enum CornerFlag {
     self.deleteButton.exclusiveTouch            = YES;
     [self.deleteButton setBackgroundImage:VKImageNamed(@"ic_deletephoto") forState:UIControlStateNormal];
     [self.deleteButton addTarget:self action:@selector(cancelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.contentView addSubview:self.deleteButton];
+    //    [self.contentView addSubview:self.deleteButton];
     
     return self;
 }
@@ -246,6 +247,9 @@ typedef enum CornerFlag {
 /// @name Presentation view controller for dialog
 ///-------------------------------
 
+static const CGFloat ipadWidth           = 500.f;
+static const CGFloat ipadHeight          = 500.f;
+
 @interface VKShareDialogController () <UIViewControllerTransitioningDelegate>
 @end
 @implementation VKShareDialogController {
@@ -253,15 +257,16 @@ typedef enum CornerFlag {
     VKShareDialogControllerInternal *targetShareDialog;
     UIBarStyle defaultBarStyle;
 }
+
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) return nil;
-    AnimatedTransitioning *controller = [[AnimatedTransitioning alloc]init];
+    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") || VK_IS_DEVICE_IPAD) return nil;
+    AnimatedTransitioning *controller = [[AnimatedTransitioning alloc] init];
     controller.isPresenting = YES;
     return controller;
 }
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) return nil;
+    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") || VK_IS_DEVICE_IPAD) return nil;
     AnimatedTransitioning *controller = [[AnimatedTransitioning alloc]init];
     return controller;
 }
@@ -289,7 +294,11 @@ typedef enum CornerFlag {
         self.modalPresentationStyle = UIModalPresentationCustom;
         self.transitioningDelegate  = self;
         self.modalTransitionStyle   = UIModalTransitionStyleCrossDissolve;
-    } 
+        
+    }
+    if (VK_IS_DEVICE_IPAD) {
+        self.modalPresentationStyle = UIModalPresentationFormSheet;
+    }
     return self;
 }
 -(void)loadView {
@@ -298,9 +307,31 @@ typedef enum CornerFlag {
     self.view.autoresizingMask    = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.view.autoresizesSubviews = NO;
     
-    internalNavigation.view.layer.cornerRadius = 10;
-    internalNavigation.view.clipsToBounds = YES;
+    if (VK_IS_DEVICE_IPAD) {
+        self.view.backgroundColor = [UIColor clearColor];
+    } else {
+        internalNavigation.view.layer.cornerRadius  = 10;
+        internalNavigation.view.layer.masksToBounds = YES;
+    }
+    [internalNavigation beginAppearanceTransition:YES animated:NO];
     [self.view addSubview:internalNavigation.view];
+    [internalNavigation endAppearanceTransition];
+}
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    if (VK_IS_DEVICE_IPAD) {
+        self.view.superview.layer.cornerRadius  = 10.0;
+        self.view.superview.layer.masksToBounds = YES;
+    }
+}
+
+
+-(CGSize)preferredContentSize {
+    if (UIUserInterfaceIdiomPad == [[UIDevice currentDevice] userInterfaceIdiom]) {
+        return CGSizeMake(ipadWidth, ipadHeight);
+    }
+    return [super preferredContentSize];
 }
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -312,12 +343,21 @@ typedef enum CornerFlag {
 }
 
 - (void)rotateToInterfaceOrientation:(UIInterfaceOrientation) orientation appear:(BOOL) onAppear {
+    if (UIUserInterfaceIdiomPad == [[UIDevice currentDevice] userInterfaceIdiom]) {
+        CGSize viewSize = self.view.frame.size;
+        if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+            viewSize.width  = ipadWidth;
+            viewSize.height = ipadHeight;
+        }
+        internalNavigation.view.frame = CGRectMake( 0, 0, viewSize.width, viewSize.height );
+        return;
+    }
+    
     static const CGFloat landscapeWidthCoef  = 0.8f;
     static const CGFloat landscapeHeightCoef = 0.8f;
     static const CGFloat portraitWidthCoef   = 0.9f;
     static const CGFloat portraitHeightCoef  = 0.7f;
-    static const CGFloat ipadWidth           = 500.f;
-    static const CGFloat ipadHeight          = 500.f;
+    
     
     CGSize selfSize = self.view.frame.size;
     CGSize viewSize;
@@ -346,12 +386,12 @@ typedef enum CornerFlag {
     }
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") || onAppear || UIInterfaceOrientationIsPortrait(orientation)) {
         internalNavigation.view.frame = CGRectMake( roundf((CGRectGetWidth (self.view.frame) - viewSize.width)  / 2),
-                                                    roundf((CGRectGetHeight(self.view.frame) - viewSize.height) / 2),
-                                                    viewSize.width, viewSize.height );
+                                                   roundf((CGRectGetHeight(self.view.frame) - viewSize.height) / 2),
+                                                   viewSize.width, viewSize.height );
     } else if (UIInterfaceOrientationIsLandscape(orientation)) {
         internalNavigation.view.frame = CGRectMake( roundf((CGRectGetHeight(self.view.frame) - viewSize.width)  / 2),
-                                                    roundf((CGRectGetWidth (self.view.frame) - viewSize.height) / 2),
-                                                    viewSize.width, viewSize.height );
+                                                   roundf((CGRectGetWidth (self.view.frame) - viewSize.height) / 2),
+                                                   viewSize.width, viewSize.height );
     }
     if (VK_SYSTEM_VERSION_LESS_THAN(@"7.0")) {
         if (self.presentingViewController.modalPresentationStyle != UIModalPresentationCurrentContext) {
@@ -741,7 +781,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         _textView.textContainerInset          = UIEdgeInsetsMake(12, 10, 12, 10);
         _textView.textContainer.lineBreakMode = NSLineBreakByWordWrapping;
-
+        
     } else {
         _textView.frame = CGRectMake(0, 0, frame.size.width - 20, 36);
         _textView.contentInset = UIEdgeInsetsMake(12, 10, 12, 0);
@@ -781,14 +821,14 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
                                              NSParagraphStyleAttributeName : paragraphStyle};
             
             notAuthorizedTextSize = [_notAuthorizedLabel.text boundingRectWithSize:notAuthorizedTextBoundingSize
-                                                                          options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
-                                                                       attributes:attributes
-                                                                          context:nil].size;
+                                                                           options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+                                                                        attributes:attributes
+                                                                           context:nil].size;
         } else {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
             notAuthorizedTextSize = [_notAuthorizedLabel.text sizeWithFont:_notAuthorizedLabel.font
-                                                        constrainedToSize:notAuthorizedTextBoundingSize
-                                                            lineBreakMode:NSLineBreakByWordWrapping];
+                                                         constrainedToSize:notAuthorizedTextBoundingSize
+                                                             lineBreakMode:NSLineBreakByWordWrapping];
 #endif
         }
         
@@ -866,7 +906,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     return self;
 }
 - (void)loadView {
-    VKShareDialogView *view = [[VKShareDialogView alloc] initWithFrame:CGRectMake(0, 0, 600, 600)];
+    VKShareDialogView *view = [[VKShareDialogView alloc] initWithFrame:CGRectMake(0, 0, ipadWidth, ipadHeight)];
     view.attachmentsCollection.delegate   = self;
     view.attachmentsCollection.dataSource = self;
     [view.notAuthorizedButton addTarget:self action:@selector(authorize:) forControlEvents:UIControlEventTouchUpInside];
@@ -921,7 +961,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 -(void)prepare {
-
+    
     _postSettings = [VKPostSettings new];
     [self createAttachments];
     [[[VKApi users] get:@{VK_API_FIELDS : @"first_name_acc,can_post,sex,exports"}] executeWithResultBlock:^(VKResponse *response) {
@@ -939,7 +979,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         }
     } errorBlock:nil];
     self.prepared = YES;
-
+    
 }
 -(NSArray*) rightBarButtonItems {
     if (!_sendButton) {
@@ -1033,7 +1073,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 }
 
 - (void)vkSdkReceivedNewToken:(VKAccessToken *)newToken {
-
+    
 }
 
 #pragma mark -Attachments
@@ -1177,12 +1217,12 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         [cell hideProgress];
     }
     
-//    [cell setOnDeleteBlock:^{
-//        [self removeAttachIfExists:attach];
-//        if (attach.uploadingRequest) {
-//            [attach.uploadingRequest cancel];
-//        }
-//    }];
+    //    [cell setOnDeleteBlock:^{
+    //        [self removeAttachIfExists:attach];
+    //        if (attach.uploadingRequest) {
+    //            [attach.uploadingRequest cancel];
+    //        }
+    //    }];
     return cell;
 }
 -(void) removeAttachIfExists:(VKUploadingAttachment*) attach {
@@ -1239,7 +1279,7 @@ static NSString * const SETTINGS_LIVEJOURNAL    = @"ExportLivejournal";
         switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
         switchView.tintColor   = VK_COLOR;
         switchView.onTintColor = VK_COLOR;
-
+        
         cell.accessoryView = switchView;
         
         [switchView addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
