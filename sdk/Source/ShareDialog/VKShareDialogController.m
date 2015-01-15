@@ -339,11 +339,12 @@ static const CGFloat ipadHeight          = 500.f;
 }
 -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
     [self rotateToInterfaceOrientation:toInterfaceOrientation appear:NO];
 }
 
 - (void)rotateToInterfaceOrientation:(UIInterfaceOrientation) orientation appear:(BOOL) onAppear {
-    if (UIUserInterfaceIdiomPad == [[UIDevice currentDevice] userInterfaceIdiom]) {
+    if (VK_IS_DEVICE_IPAD) {
         CGSize viewSize = self.view.frame.size;
         if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
             viewSize.width  = ipadWidth;
@@ -352,6 +353,7 @@ static const CGFloat ipadHeight          = 500.f;
         internalNavigation.view.frame = CGRectMake( 0, 0, viewSize.width, viewSize.height );
         return;
     }
+    
     
     static const CGFloat landscapeWidthCoef  = 0.8f;
     static const CGFloat landscapeHeightCoef = 0.8f;
@@ -370,11 +372,14 @@ static const CGFloat ipadHeight          = 500.f;
                 selfSize.width  = selfSize.height;
                 selfSize.height = w;
             }
-            
-            if (UIInterfaceOrientationIsLandscape(orientation)) {
-                viewSize = CGSizeMake(roundf(selfSize.width * landscapeWidthCoef), roundf(selfSize.height * landscapeHeightCoef));
+            if (VK_SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+                viewSize = selfSize;
             } else {
-                viewSize = CGSizeMake(roundf(selfSize.width * portraitWidthCoef),  roundf(selfSize.height * portraitHeightCoef));
+                if (UIInterfaceOrientationIsLandscape(orientation)) {
+                    viewSize = CGSizeMake(roundf(selfSize.width * landscapeWidthCoef), roundf(selfSize.height * landscapeHeightCoef));
+                } else {
+                    viewSize = CGSizeMake(roundf(selfSize.width * portraitWidthCoef),  roundf(selfSize.height * portraitHeightCoef));
+                }
             }
         } else {
             if (UIInterfaceOrientationIsLandscape(orientation)) {
@@ -395,8 +400,9 @@ static const CGFloat ipadHeight          = 500.f;
     }
     if (VK_SYSTEM_VERSION_LESS_THAN(@"7.0")) {
         if (self.presentingViewController.modalPresentationStyle != UIModalPresentationCurrentContext) {
-            CGRect frame = self.view.frame;
+            CGRect frame;
             frame.origin = CGPointZero;
+            frame.size   = selfSize;
             internalNavigation.view.frame = frame;
             internalNavigation.view.layer.cornerRadius = 3;
         }
