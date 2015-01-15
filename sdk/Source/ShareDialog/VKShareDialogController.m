@@ -251,6 +251,7 @@ typedef enum CornerFlag {
 @implementation VKShareDialogController {
     UINavigationController          *internalNavigation;
     VKShareDialogControllerInternal *targetShareDialog;
+    UIBarStyle defaultBarStyle;
 }
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) return nil;
@@ -274,7 +275,11 @@ typedef enum CornerFlag {
 }
 -(instancetype)init {
     self = [super init];
+    defaultBarStyle = [UINavigationBar appearance].barStyle;
+    [UINavigationBar appearance].barStyle = UIBarStyleDefault;
     internalNavigation = [[UINavigationController alloc] initWithRootViewController:targetShareDialog = [VKShareDialogControllerInternal new]];
+    
+    
     targetShareDialog.parent = self;
     
     [self addChildViewController:internalNavigation];
@@ -392,6 +397,10 @@ typedef enum CornerFlag {
         }
         return result;
     } ] ];
+}
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [UINavigationBar appearance].barStyle = defaultBarStyle;
 }
 @end
 
