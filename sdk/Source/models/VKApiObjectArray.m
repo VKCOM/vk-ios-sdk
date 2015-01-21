@@ -22,6 +22,10 @@
 
 #import "VKApiObjectArray.h"
 
+#ifndef __IPHONE_7_0
+#import "NSArray+FirstObject.h"
+#endif
+
 
 @interface VKApiObjectArray ()
 @property (nonatomic, readwrite) NSUInteger count;
