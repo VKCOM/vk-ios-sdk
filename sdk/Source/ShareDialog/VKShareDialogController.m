@@ -749,7 +749,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         _notAuthorizedLabel.backgroundColor = [UIColor clearColor];
         [_notAuthorizedView addSubview:_notAuthorizedLabel];
         
-        _notAuthorizedButton  = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 33)];
+        _notAuthorizedButton  = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 34)];
         [_notAuthorizedButton setTitle:VKLocalizedString(@"Enter") forState:UIControlStateNormal];
         [_notAuthorizedButton setContentEdgeInsets:UIEdgeInsetsMake(4, 15, 4, 15)];
         _notAuthorizedButton.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -840,9 +840,11 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         
         [_notAuthorizedButton sizeToFit];
         
-        _notAuthorizedLabel.frame   = CGRectMake(10, (CGRectGetHeight(_notAuthorizedView.frame) - notAuthorizedTextSize.height - CGRectGetHeight(_notAuthorizedButton.frame)) / 2, notAuthorizedTextBoundingSize.width, notAuthorizedTextSize.height);
+        _notAuthorizedLabel.frame  = CGRectMake(10, roundf((CGRectGetHeight(_notAuthorizedView.frame) - notAuthorizedTextSize.height - CGRectGetHeight(_notAuthorizedButton.frame)) / 2), notAuthorizedTextBoundingSize.width, roundf(notAuthorizedTextSize.height));
         
-        _notAuthorizedButton.center = CGPointMake(_notAuthorizedLabel.center.x, CGRectGetMaxY(_notAuthorizedLabel.frame) + CGRectGetHeight(_notAuthorizedButton.frame));
+        _notAuthorizedButton.frame = CGRectMake(roundf(_notAuthorizedLabel.center.x)     - roundf(CGRectGetWidth(_notAuthorizedButton.frame)  / 2),
+                                                CGRectGetMaxY(_notAuthorizedLabel.frame) + roundf(CGRectGetHeight(_notAuthorizedButton.frame) / 2),
+                                                CGRectGetWidth(_notAuthorizedButton.frame), CGRectGetHeight(_notAuthorizedButton.frame));
     }
     //Workaround for iOS 6 - ignoring contentInset.right
     _textView.frame = CGRectMake(0, 0, self.frame.size.width - (VK_SYSTEM_VERSION_LESS_THAN(@"7.0") ? 20 : 0), [_textView measureHeightOfUITextView]);
