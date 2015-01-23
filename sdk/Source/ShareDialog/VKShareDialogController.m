@@ -27,6 +27,7 @@
 #import "VKApi.h"
 #import "VKSdk.h"
 #import "VKHTTPClient.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define VK_IS_DEVICE_IPAD (UIUserInterfaceIdiomPad == [[UIDevice currentDevice] userInterfaceIdiom])
 ///----------------------------
@@ -239,9 +240,11 @@ typedef enum CornerFlag {
 /// @name Animated transition for iOS 7 semi-transparent view
 ///-------------------------------
 
+#ifdef __IPHONE_7_0
 @interface AnimatedTransitioning : NSObject <UIViewControllerAnimatedTransitioning>
 @property (nonatomic, assign) BOOL isPresenting;
 @end
+#endif
 
 ///-------------------------------
 /// @name Presentation view controller for dialog
@@ -250,7 +253,10 @@ typedef enum CornerFlag {
 static const CGFloat ipadWidth           = 500.f;
 static const CGFloat ipadHeight          = 500.f;
 
-@interface VKShareDialogController () <UIViewControllerTransitioningDelegate>
+@interface VKShareDialogController ()
+#ifdef __IPHONE_7_0
+<UIViewControllerTransitioningDelegate>
+#endif
 @end
 @implementation VKShareDialogController {
     UINavigationController          *internalNavigation;
@@ -258,6 +264,7 @@ static const CGFloat ipadHeight          = 500.f;
     UIBarStyle defaultBarStyle;
 }
 
+#ifdef __IPHONE_7_0
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") || VK_IS_DEVICE_IPAD) return nil;
     AnimatedTransitioning *controller = [[AnimatedTransitioning alloc] init];
@@ -278,10 +285,12 @@ static const CGFloat ipadHeight          = 500.f;
 - (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator {
     return nil;
 }
+#endif
+
 -(instancetype)init {
     self = [super init];
-    defaultBarStyle = [UINavigationBar appearance].barStyle;
-    [UINavigationBar appearance].barStyle = UIBarStyleDefault;
+    defaultBarStyle = [[UINavigationBar appearance] barStyle];
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
     internalNavigation = [[UINavigationController alloc] initWithRootViewController:targetShareDialog = [VKShareDialogControllerInternal new]];
     
     
@@ -290,12 +299,13 @@ static const CGFloat ipadHeight          = 500.f;
     [self addChildViewController:internalNavigation];
     
     self.requestedScope = @[VK_PER_WALL,VK_PER_PHOTOS];
+#ifdef __IPHONE_7_0
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         self.modalPresentationStyle = UIModalPresentationCustom;
         self.transitioningDelegate  = self;
         self.modalTransitionStyle   = UIModalTransitionStyleCrossDissolve;
-        
     }
+#endif
     if (VK_IS_DEVICE_IPAD) {
         self.modalPresentationStyle = UIModalPresentationFormSheet;
     }
@@ -326,13 +336,15 @@ static const CGFloat ipadHeight          = 500.f;
     }
 }
 
-
+#ifdef __IPHONE_7_0
 -(CGSize)preferredContentSize {
     if (UIUserInterfaceIdiomPad == [[UIDevice currentDevice] userInterfaceIdiom]) {
         return CGSizeMake(ipadWidth, ipadHeight);
     }
     return [super preferredContentSize];
 }
+#endif
+
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self rotateToInterfaceOrientation:self.interfaceOrientation appear:YES];
@@ -428,12 +440,13 @@ static const CGFloat ipadHeight          = 500.f;
 }
 -(void)viewDidLoad {
     [super viewDidLoad];
+#ifdef __IPHONE_7_0
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         internalNavigation.navigationBar.barTintColor           = VK_COLOR;
         internalNavigation.navigationBar.tintColor              = [UIColor whiteColor];
         internalNavigation.automaticallyAdjustsScrollViewInsets = NO;
     }
-    
+#endif
 }
 -(void) setUploadImages:(NSArray *)uploadImages {
     _uploadImages = [uploadImages filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
@@ -446,7 +459,7 @@ static const CGFloat ipadHeight          = 500.f;
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [UINavigationBar appearance].barStyle = defaultBarStyle;
+    [[UINavigationBar appearance] setBarStyle:defaultBarStyle];
 }
 @end
 
@@ -528,9 +541,11 @@ static const CGFloat ipadHeight          = 500.f;
         if (_placeholderLabel == nil )
         {
             UIEdgeInsets inset = self.contentInset;
+#ifdef __IPHONE_7_0
             if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
                 inset = self.textContainerInset;
             }
+#endif
             _placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(inset.left + 4, inset.top, self.bounds.size.width - inset.left - inset.right,0)];
             _placeholderLabel.font          = self.font;
             _placeholderLabel.hidden        = YES;
@@ -559,6 +574,7 @@ static const CGFloat ipadHeight          = 500.f;
 - (CGFloat)measureHeightOfUITextView
 {
     UITextView *textView = self;
+#ifdef __IPHONE_7_0
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
         CGRect frame = textView.bounds;
@@ -597,8 +613,9 @@ static const CGFloat ipadHeight          = 500.f;
         return measuredHeight;
     }
     else
+#endif
     {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
+#if !defined(__IPHONE_7_0) || __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
         if (self.text.length && textView.contentSize.height > 0) {
             return MAX(textView.contentSize.height + self.contentInset.top + self.contentInset.bottom, 36.0f);
         }
@@ -784,11 +801,13 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     
     _textView.backgroundColor  = [UIColor clearColor];
     _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+#ifdef __IPHONE_7_0
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         _textView.textContainerInset          = UIEdgeInsetsMake(12, 10, 12, 10);
         _textView.textContainer.lineBreakMode = NSLineBreakByWordWrapping;
-        
-    } else {
+    } else
+#endif
+    {
         _textView.frame = CGRectMake(0, 0, frame.size.width - 20, 36);
         _textView.contentInset = UIEdgeInsetsMake(12, 10, 12, 0);
     }
@@ -818,6 +837,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         _notAuthorizedView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
         CGSize notAuthorizedTextBoundingSize = CGSizeMake(CGRectGetWidth(_notAuthorizedView.frame) - 20, CGFLOAT_MAX);
         CGSize notAuthorizedTextSize;
+#ifdef __IPHONE_7_0
         if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
             NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
@@ -830,14 +850,16 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
                                                                            options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
                                                                         attributes:attributes
                                                                            context:nil].size;
-        } else {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
+        } else
+#endif
+        {
+#if !defined(__IPHONE_7_0) || __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
             notAuthorizedTextSize = [_notAuthorizedLabel.text sizeWithFont:_notAuthorizedLabel.font
                                                          constrainedToSize:notAuthorizedTextBoundingSize
                                                              lineBreakMode:NSLineBreakByWordWrapping];
 #endif
         }
-        
+
         [_notAuthorizedButton sizeToFit];
         
         _notAuthorizedLabel.frame  = CGRectMake(10, roundf((CGRectGetHeight(_notAuthorizedView.frame) - notAuthorizedTextSize.height - CGRectGetHeight(_notAuthorizedButton.frame)) / 2), notAuthorizedTextBoundingSize.width, roundf(notAuthorizedTextSize.height));
@@ -907,9 +929,11 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 }
 - (instancetype)init {
     self = [super init];
+#ifdef __IPHONE_7_0
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+#endif
     imageProcessingQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     return self;
 }
@@ -1333,6 +1357,7 @@ static NSString * const SETTINGS_LIVEJOURNAL    = @"ExportLivejournal";
 
 @end
 
+#ifdef __IPHONE_7_0
 @implementation AnimatedTransitioning
 
 //===================================================================
@@ -1382,6 +1407,7 @@ static NSString * const SETTINGS_LIVEJOURNAL    = @"ExportLivejournal";
 }
 
 @end
+#endif
 
 @implementation VKShareLink
 

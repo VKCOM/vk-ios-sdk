@@ -69,11 +69,13 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 + (void)presentThisController:(VKAuthorizeController *)controller {
 	UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:controller];
 
+#ifdef __IPHONE_7_0
 	if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
 		navigation.navigationBar.barTintColor = VK_COLOR;
 		navigation.navigationBar.tintColor = [UIColor whiteColor];
         navigation.navigationBar.translucent = YES;
 	}
+#endif
     
 	UIImage *image = [VKBundle vkLibraryImageNamed:@"ic_vk_logo_nb"];
 	controller.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
@@ -94,9 +96,11 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 
 - (void)loadView {
 	[super loadView];
+#ifdef __IPHONE_7_0
 	if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
 		self.edgesForExtendedLayout = UIRectEdgeNone;
 	}
+#endif
 	UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
 	view.backgroundColor = [UIColor colorWithRed:240.0f / 255 green:242.0f / 255 blue:245.0f / 255 alpha:1.0f];
 	self.view = view;
@@ -243,8 +247,10 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 	}
 }
 
+#ifdef __IPHONE_7_0
 - (UIStatusBarStyle)preferredStatusBarStyle {
 	return UIStatusBarStyleLightContent;
 }
+#endif
 
 @end

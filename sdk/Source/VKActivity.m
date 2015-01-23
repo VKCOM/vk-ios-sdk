@@ -28,9 +28,11 @@
 @implementation VKActivity {
     VKShareDialogController *shareDialog;
 }
+#ifdef __IPHONE_7_0
 +(UIActivityCategory)activityCategory {
     return UIActivityCategoryShare;
 }
+#endif
 -(NSString *)activityType {
     return VKActivityTypePost;
 }

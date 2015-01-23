@@ -51,8 +51,6 @@
 -(NSTimeInterval)totalTime { return [_finishTime timeIntervalSinceDate:_startTime]; }
 @end
 
-static NSOperationQueue * requestsProcessingQueue;
-
 @interface VKRequest ()
 {
     /// Semaphore for blocking current thread

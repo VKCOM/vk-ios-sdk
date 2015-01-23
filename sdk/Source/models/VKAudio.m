@@ -23,6 +23,10 @@
 #import "VKAudio.h"
 #import "VKUser.h"
 
+#ifndef __IPHONE_7_0
+#import "NSArray+FirstObject.h"
+#endif
+
 @implementation VKAudio
 @end
 

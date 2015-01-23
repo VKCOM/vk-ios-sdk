@@ -54,9 +54,11 @@
 	[controller presentViewController:self animated:YES completion:nil];
 }
 
+#ifdef __IPHONE_7_0
 -(UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
+#endif
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

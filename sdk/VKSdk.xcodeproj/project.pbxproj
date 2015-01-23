@@ -249,6 +249,7 @@
 /* Begin PBXFileReference section */
 		18680EA81834F23500E532C8 /* VKCaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKCaptchaView.h; sourceTree = "<group>"; };
 		18680EA91834F23500E532C8 /* VKCaptchaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKCaptchaView.m; sourceTree = "<group>"; };
+		ACF37B441A7010E900D3AD59 /* NSArray+FirstObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+FirstObject.h"; sourceTree = "<group>"; };
 		F3062B7F1A4185FD006B57F9 /* ic_vk_ios7_activity_logo~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_vk_ios7_activity_logo~ipad.png"; sourceTree = "<group>"; };
 		F3062B811A418A0E006B57F9 /* ic_vk_ios7_activity_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_vk_ios7_activity_logo.png; sourceTree = "<group>"; };
 		F3062B821A418A0E006B57F9 /* ic_vk_ios7_activity_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_vk_ios7_activity_logo@2x.png"; sourceTree = "<group>"; };
@@ -635,6 +636,7 @@
 				F3EEFFD6182909F3000BB525 /* NSString+MD5.m */,
 				F3EEFFDD1829100C000BB525 /* OrderedDictionary.h */,
 				F3EEFFDE1829100C000BB525 /* OrderedDictionary.m */,
+				ACF37B441A7010E900D3AD59 /* NSArray+FirstObject.h */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1084,6 +1086,7 @@
 				F37145F91A42EB2900EEBD6D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F3BACC4A1865905B003158DA /* Build configuration list for PBXNativeTarget "VKSdkResources" */ = {
 			isa = XCConfigurationList;

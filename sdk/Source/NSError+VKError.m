@@ -22,6 +22,9 @@
 
 #import "NSError+VKError.h"
 
+NSString *const VKSdkErrorDomain = @"VKSdkErrorDomain";
+NSString *const VkErrorDescriptionKey  = @"VkErrorDescriptionKey";
+
 @implementation NSError (VKError)
 
 +(NSError*) errorWithVkError:(VKError*) vkError {
