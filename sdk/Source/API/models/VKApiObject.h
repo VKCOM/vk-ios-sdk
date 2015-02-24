@@ -36,10 +36,15 @@
 -(instancetype) initWith:(objc_property_t) prop;
 @end
 
+@protocol VKApiObject <NSObject>
++ (instancetype) createWithDictionary:(NSDictionary *)dict;
++ (instancetype) createWithArray:(NSArray*) array;
+@end
+
 /**
  Basic class for API objects
  */
-@interface VKApiObject : VKObject
+@interface VKApiObject : VKObject <VKApiObject>
 /// If it possible, contains object fields from JSON as it is
 @property (nonatomic, strong) NSDictionary * fields;
 

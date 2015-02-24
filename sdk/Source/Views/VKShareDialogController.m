@@ -23,10 +23,10 @@
 #import "VKShareDialogController.h"
 #import "VKBundle.h"
 #import "VKUtil.h"
-#import "VKUploadImage.h"
 #import "VKApi.h"
 #import "VKSdk.h"
 #import "VKHTTPClient.h"
+#import "VKHTTPOperation.h"
 
 #define VK_IS_DEVICE_IPAD (UIUserInterfaceIdiomPad == [[UIDevice currentDevice] userInterfaceIdiom])
 ///----------------------------

@@ -24,7 +24,6 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKHTTPClient.h"
-#import "VKHTTPOperation.h"
 #import "VKSdkVersion.h"
 #import "VKImageParameters.h"
 #import "VKUploadImage.h"

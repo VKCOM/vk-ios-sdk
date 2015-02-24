@@ -40,7 +40,7 @@ static NSString *getPropertyType(objc_property_t property) {
 	const char *type = property_getAttributes(property);
 	NSString *typeString = [NSString stringWithUTF8String:type];
 	NSArray *attributes = [typeString componentsSeparatedByString:@","];
-	NSString *typeAttribute = [attributes objectAtIndex:0];
+	NSString *typeAttribute = attributes[0];
 	NSString *propertyType = [typeAttribute substringFromIndex:1];
 	const char *rawPropertyType = [propertyType UTF8String];
     
@@ -89,17 +89,17 @@ static NSString *getPropertyName(objc_property_t prop) {
 @implementation VKPropertyHelper
 
 -(instancetype)initWith:(objc_property_t)prop {
-    self = [super init];
-    self.property = prop;
-    self.propertyName = getPropertyName(prop);
-    _propertyClassName = getPropertyType(self.property);
-    _isPrimitive = [@[DOUBLE_NAME, INT_NAME, ID_NAME] containsObject:_propertyClassName];
-    if (!_isPrimitive) {
-        _propertyClass = NSClassFromString(_propertyClassName);
-        if(!(_isModelsArray = [_propertyClass isSubclassOfClass:[VKApiObjectArray class]])) {
-            _isModel = [_propertyClass isSubclassOfClass:[VKApiObject class]];
+    if (self = [super init]) {
+        self.property = prop;
+        self.propertyName = getPropertyName(prop);
+        _propertyClassName = getPropertyType(self.property);
+        _isPrimitive = [@[DOUBLE_NAME, INT_NAME, ID_NAME] containsObject:_propertyClassName];
+        if (!_isPrimitive) {
+            _propertyClass = NSClassFromString(_propertyClassName);
+            if (!(_isModelsArray = [_propertyClass isSubclassOfClass:[VKApiObjectArray class]])) {
+                _isModel = [_propertyClass isSubclassOfClass:[VKApiObject class]];
+            }
         }
-        
     }
     return self;
 }
@@ -138,22 +138,22 @@ static NSString *getPropertyName(objc_property_t prop) {
     NSMutableArray * warnings = PRINT_PARSE_DEBUG_INFO ? [NSMutableArray new] : nil;
     for (NSString * key in dict)
     {
-        VKPropertyHelper * propHelper = [propDict objectForKey:key];
+        VKPropertyHelper * propHelper = propDict[key];
         if (!propHelper) continue;
 	    id resultObject = nil;
-	    id parseObject = [dict objectForKey:key];
+	    id parseObject = dict[key];
         NSString * propertyName = propHelper.propertyName;
-        Class propertyClass = propHelper.propertyClass;
         if (propHelper.isPrimitive) {
             [self setValue:parseObject forKey:propertyName];
             continue;
         }
+        Class<VKApiObject> propertyClass = propHelper.propertyClass;
 	    if (propHelper.isModelsArray) {
 	        if ([parseObject isKindOfClass:[NSDictionary class]]) {
-	            resultObject = [[propertyClass alloc] initWithDictionary:parseObject];
+	            resultObject = [propertyClass createWithDictionary:parseObject];
 			}
 	        else if ([parseObject isKindOfClass:[NSArray class]]) {
-	            resultObject = [[propertyClass alloc] initWithArray:parseObject];
+	            resultObject = [propertyClass createWithArray:parseObject];
 			}
 	        else {
                 if (PRINT_PARSE_DEBUG_INFO)
@@ -162,7 +162,7 @@ static NSString *getPropertyName(objc_property_t prop) {
 		}
 	    else if (propHelper.isModel) {
 	        if ([parseObject isKindOfClass:[NSDictionary class]]) {
-	            resultObject = [[propertyClass alloc] initWithDictionary:parseObject];
+	            resultObject = [propertyClass createWithDictionary:parseObject];
 			}
 	        else {
                 if (PRINT_PARSE_DEBUG_INFO)
@@ -219,12 +219,21 @@ static NSString *getPropertyName(objc_property_t prop) {
 	        [[self valueForKey:helper.propertyName] serializeTo:result withName:helper.propertyName];
 		}
 	    else if ([propertyClass isSubclassOfClass:[VKApiObject class]]) {
-	        [result setObject:[[self valueForKey:helper.propertyName] serialize] forKey:helper.propertyName];
+	        result[helper.propertyName] = [[self valueForKey:helper.propertyName] serialize];
 		}
 	    else {
-	        [result setObject:[self valueForKey:helper.propertyName] forKey:helper.propertyName];
+	        result[helper.propertyName] = [self valueForKey:helper.propertyName];
 		}
 	}];
 	return result;
 }
+
++ (instancetype)createWithDictionary:(NSDictionary *)dict {
+    return [[self alloc] initWithDictionary:dict];
+}
+
++ (instancetype)createWithArray:(NSArray *)array {
+    return nil;
+}
+
 @end

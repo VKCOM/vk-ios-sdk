@@ -22,9 +22,8 @@
 
 #import "VKCaptchaView.h"
 #import "VKUtil.h"
-#import "VKApiConst.h"
 #import "VKHTTPClient.h"
-#import "VKRequest.h"
+#import "VKHTTPOperation.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 @interface VKCaptchaView () <UITextFieldDelegate> {

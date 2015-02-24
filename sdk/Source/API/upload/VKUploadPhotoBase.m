@@ -21,7 +21,6 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKUploadPhotoBase.h"
-#import "VKImageParameters.h"
 #import "VKUploadImage.h"
 
 extern inline NSString *VKKeyPathFromOperationState(VKOperationState state);

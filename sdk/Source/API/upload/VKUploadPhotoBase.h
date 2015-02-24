@@ -1,5 +1,5 @@
 //
-//  NSError+VKError.h
+//  VKPhotoUploadBase.h
 //
 //  Copyright (c) 2014 VK.com
 //
@@ -20,31 +20,31 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "VKError.h"
+#import "VKRequest.h"
+#import "VKImageParameters.h"
+#import "VKOperation.h"
+/**
+ Provides common part of photo upload process
+ */
+@interface VKUploadPhotoBase : VKRequest
+/// ID of album to upload
+@property (nonatomic, assign) NSInteger albumId;
+/// ID of group to upload
+@property (nonatomic, assign) NSInteger groupId;
+/// ID of user wall to upload
+@property (nonatomic, assign) NSInteger userId;
 
-static NSString *const VKSdkErrorDomain = @"VKSdkErrorDomain";
-static NSString *VkErrorDescriptionKey  = @"VkErrorDescriptionKey";
+/// Passed image parameters
+@property (nonatomic, strong) VKImageParameters *imageParameters;
+/// Image to upload
+@property (nonatomic, strong) UIImage * image;
+- (instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters;
+@end
 
 /**
- * Category with implementation of VK error
+ Special operation for execute upload
  */
-@interface NSError (VKError)
+@interface VKUploadImageOperation : VKOperation
 
-/// Returns vk error associated with that NSError
-@property (nonatomic, readonly)  VKError * vkError;
-
-/**
- Create new NSError with VKError
- @param vkError Source error
- @return New error with VKSdkErrorDomain domain
- */
-+(NSError*) errorWithVkError:(VKError*) vkError;
-/**
- Copies user info from this NSError into new error, with adding VKError
- @param vkError Source error
- @return New error with this error domain, code and user info
- */
--(NSError*) copyWithVkError:(VKError*) vkError;
-
++(instancetype) operationWithUploadRequest:(VKUploadPhotoBase*) request;
 @end

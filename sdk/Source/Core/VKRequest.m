@@ -21,13 +21,11 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKSdk.h"
-#import "VKRequest.h"
 #import "NSString+MD5.h"
 #import "OrderedDictionary.h"
 #import "VKAuthorizeController.h"
 #import "VKHTTPClient.h"
-#import "VKError.h"
-#import "NSError+VKError.h"
+#import "VKHTTPOperation.h"
 
 #define SUPPORTED_LANGS_ARRAY @[@"ru", @"en", @"ua", @"es", @"fi", @"de", @"it"]
 
@@ -50,8 +48,6 @@
 -(void) finished { _finishTime = [NSDate new]; }
 -(NSTimeInterval)totalTime { return [_finishTime timeIntervalSinceDate:_startTime]; }
 @end
-
-static NSOperationQueue * requestsProcessingQueue;
 
 @interface VKRequest ()
 {
@@ -165,7 +161,11 @@ static NSOperationQueue * requestsProcessingQueue;
 	if (!_preparedParameters && !_uploadUrl) {
 		_preparedParameters = [[OrderedDictionary alloc] initWithCapacity:self.methodParameters.count * 2];
 		for (NSString *key in self.methodParameters) {
-			[_preparedParameters setObject:self.methodParameters[key] forKey:key];
+            id value = self.methodParameters[key];
+            if ([value isKindOfClass:NSArray.class]) {
+                value = [value componentsJoinedByString:@","];
+            }
+			[_preparedParameters setObject:value forKey:key];
 		}
 		VKAccessToken *token = [VKSdk getAccessToken];
 		if (token != nil) {
@@ -217,6 +217,9 @@ static NSOperationQueue * requestsProcessingQueue;
     
 	[operation setCompletionBlockWithSuccess: ^(VKHTTPOperation *operation, id JSON) {
         [_requestTiming loaded];
+        if (_executionOperation.isCancelled) {
+            return;
+        }
         if ([JSON objectForKey:@"error"]) {
             VKError *error = [VKError errorWithJson:[JSON objectForKey:@"error"]];
             if ([self processCommonError:error]) return;
@@ -226,6 +229,9 @@ static NSOperationQueue * requestsProcessingQueue;
         [self provideResponse:JSON responseString:operation.responseString];
 	} failure: ^(VKHTTPOperation *operation, NSError *error) {
         [_requestTiming loaded];
+        if (_executionOperation.isCancelled) {
+            return;
+        }
         if (operation.response.statusCode == 200) {
             [self provideResponse:operation.responseJson responseString:operation.responseString];
             return;

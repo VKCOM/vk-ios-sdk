@@ -60,7 +60,7 @@
         if ([userDictionary isKindOfClass:objectClass])
             [listOfParsedObjects addObject:userDictionary];
         else if ([userDictionary isKindOfClass:[NSDictionary class]])
-            [listOfParsedObjects addObject:[[objectClass alloc] initWithDictionary:userDictionary]];
+            [listOfParsedObjects addObject:[(VKApiObject *)[objectClass alloc] initWithDictionary:userDictionary]];
         else
             [listOfParsedObjects addObject:userDictionary];
     }
@@ -72,10 +72,10 @@
     return [self.items countByEnumeratingWithState:state objects:buffer count:len];
 }
 -(id)objectAtIndex:(NSInteger)idx {
-    return [self.items objectAtIndex:idx];
+    return self.items[idx];
 }
 -(id)objectAtIndexedSubscript:(NSUInteger)idx {
-    return [self.items objectAtIndexedSubscript:idx];
+    return self.items[idx];
 }
 - (NSEnumerator *)objectEnumerator {
     return self.items.objectEnumerator;
@@ -112,7 +112,14 @@
         else
             [result addObject:object];
     }
-    [dict setObject:result forKey:name];
+    dict[name] = result;
 }
 -(Class)objectClass { return [VKApiObject class]; }
++ (instancetype)createWithDictionary:(NSDictionary *)dict {
+    return [[self alloc] initWithDictionary:dict];
+}
+
++ (instancetype)createWithArray:(NSArray *)array {
+    return [[self alloc] initWithArray:array];
+}
 @end

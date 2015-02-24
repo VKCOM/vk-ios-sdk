@@ -21,7 +21,6 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKCaptchaViewController.h"
-#import "VKApiConst.h"
 #import "VKCaptchaView.h"
 @implementation VKCaptchaViewController
 + (instancetype)captchaControllerWithError:(VKError *)error {

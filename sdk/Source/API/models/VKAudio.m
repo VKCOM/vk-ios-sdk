@@ -39,7 +39,7 @@
             if ([toParse firstObject] == objectDict && objectDict[@"name"]) {
                 self.user = [[VKUser alloc] initWithDictionary:objectDict];
             } else {
-                [listOfParsedObjects addObject:[[objectClass alloc] initWithDictionary:objectDict]];
+                [listOfParsedObjects addObject:[(VKApiObject *)[objectClass alloc] initWithDictionary:objectDict]];
             }
         }
         else

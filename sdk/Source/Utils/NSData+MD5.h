@@ -1,7 +1,7 @@
 //
-//  VKPhotoUploadBase.h
+//  NSData+MD5.h
 //
-//  Copyright (c) 2014 VK.com
+//  Copyright (c) 2014
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -20,30 +20,9 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "VKRequest.h"
-#import "VKImageParameters.h"
-/**
- Provides common part of photo upload process
- */
-@interface VKUploadPhotoBase : VKRequest
-/// ID of album to upload
-@property (nonatomic, assign) NSInteger albumId;
-/// ID of group to upload
-@property (nonatomic, assign) NSInteger groupId;
-/// ID of user wall to upload
-@property (nonatomic, assign) NSInteger userId;
+#import "NSData+MD5.h"
+@interface NSData (MD5)
 
-/// Passed image parameters
-@property (nonatomic, strong) VKImageParameters *imageParameters;
-/// Image to upload
-@property (nonatomic, strong) UIImage * image;
-- (instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters;
-@end
+- (NSString *)MD5;
 
-/**
- Special operation for execute upload
- */
-@interface VKUploadImageOperation : VKOperation
-
-+(instancetype) operationWithUploadRequest:(VKUploadPhotoBase*) request;
 @end

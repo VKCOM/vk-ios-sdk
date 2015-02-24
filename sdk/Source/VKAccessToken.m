@@ -169,11 +169,13 @@ static NSString *const PERMISSIONS    = @"permissions";
                                     PERMISSIONS : self.permissions ? : @""
                                     } mutableCopy];
 
-	if (self.secret)
-		[dict setObject:self.secret forKey:SECRET];
+	if (self.secret) {
+        dict[SECRET] = self.secret;
+    }
 
-	if (self.httpsRequired)
-        [dict setObject:@(1) forKey:HTTPS_REQUIRED];
+	if (self.httpsRequired) {
+        dict[HTTPS_REQUIRED] = @(1);
+    }
 
     NSMutableArray * result = [NSMutableArray new];
 

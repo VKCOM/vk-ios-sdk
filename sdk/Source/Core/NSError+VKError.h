@@ -1,7 +1,7 @@
 //
-//  NSData+MD5.h
+//  NSError+VKError.h
 //
-//  Copyright (c) 2014
+//  Copyright (c) 2014 VK.com
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -20,11 +20,31 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "NSData+MD5.h"
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-@interface NSData (MD5)
+#import <Foundation/Foundation.h>
+#import "VKError.h"
 
-- (NSString *)MD5;
+extern NSString *const VKSdkErrorDomain;
+extern NSString *const VkErrorDescriptionKey;
+
+/**
+ * Category with implementation of VK error
+ */
+@interface NSError (VKError)
+
+/// Returns vk error associated with that NSError
+@property (nonatomic, readonly)  VKError * vkError;
+
+/**
+ Create new NSError with VKError
+ @param vkError Source error
+ @return New error with VKSdkErrorDomain domain
+ */
++(NSError*) errorWithVkError:(VKError*) vkError;
+/**
+ Copies user info from this NSError into new error, with adding VKError
+ @param vkError Source error
+ @return New error with this error domain, code and user info
+ */
+-(NSError*) copyWithVkError:(VKError*) vkError;
 
 @end
-#endif

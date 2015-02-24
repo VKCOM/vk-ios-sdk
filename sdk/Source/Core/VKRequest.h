@@ -24,8 +24,7 @@
 #import "VKResponse.h"
 #import "VKApiConst.h"
 #import "VKObject.h"
-#import "OrderedDictionary.h"
-#import "VKHTTPOperation.h"
+
 
 /**
  Creates and debug timings for VKRequest
