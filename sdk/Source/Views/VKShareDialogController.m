@@ -1275,6 +1275,9 @@ static NSString * const SETTINGS_LIVEJOURNAL    = @"ExportLivejournal";
     self.rows = newRows;
     return self;
 }
+- (void)viewDidLoad {
+    self.tableView.tableFooterView = [UIView new];
+}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.rows.count;
 }
