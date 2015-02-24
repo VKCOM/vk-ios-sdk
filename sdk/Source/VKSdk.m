@@ -208,6 +208,10 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
 + (void)setAccessToken:(VKAccessToken *)token {
 	[token saveTokenToDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
 	id oldToken = vkSdkInstance.accessToken;
+    if (!token && oldToken) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:VK_ACCESS_TOKEN_DEFAULTS_KEY];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 	vkSdkInstance.accessToken = token;
 	BOOL respondsToRenew = [vkSdkInstance.delegate respondsToSelector:@selector(vkSdkRenewedToken:)],
     respondsToReceive = [vkSdkInstance.delegate respondsToSelector:@selector(vkSdkReceivedNewToken:)];
@@ -347,7 +351,13 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
 	return _currentAppId;
 }
 - (void) trackVisitor {
-    [[VKRequest requestWithMethod:@"stats.trackVisitor" andParameters:nil andHttpMethod:@"GET"] start];
+    [[VKRequest requestWithMethod:@"stats.trackVisitor" andParameters:nil andHttpMethod:@"GET"] executeWithResultBlock:nil errorBlock:^(NSError *error) {
+        VKError *vkError = error.vkError;
+        if (vkError.errorCode == 5) {
+            [self setAccessToken:nil];
+            [[self class] setAccessTokenError:vkError];
+        }
+    }];
 }
 
 @end
