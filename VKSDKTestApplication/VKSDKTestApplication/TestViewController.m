@@ -28,6 +28,7 @@
 	[super viewDidLoad];
     self.navigationController.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleDone target:self action:@selector(logout:)];
+    self.tableView.tableFooterView = [UIView new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,7 +89,8 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSString *label = labels[indexPath.row];
 	if ([label isEqualToString:USERS_GET]) {
-		[self callMethod:[[VKApi users] get:@{ VK_API_FIELDS : ALL_USER_FIELDS }]];
+//		[self callMethod:[[VKApi users] get:@{ VK_API_FIELDS : ALL_USER_FIELDS }]];
+        [self callMethod:[[VKApi users] get:@{VK_API_FIELDS:@"first_name, last_name, uid, photo_100", VK_API_USER_IDS:@[@(1),@(2),@(3)]}]];
 	}
 	else if ([label isEqualToString:USERS_SUBSCRIPTIONS]) {
         [self callMethod:[VKRequest requestWithMethod:@"users.getFollowers" andParameters:@{VK_API_USER_ID : @"1", VK_API_COUNT : @(1000), VK_API_FIELDS : ALL_USER_FIELDS} andHttpMethod:@"GET" classOfModel:[VKUsersArray class]]];
@@ -185,22 +187,22 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
 }
 
 - (void)uploadPhoto {
-	VKRequest *request = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"apple"] parameters:[VKImageParameters pngImage] userId:0 groupId:60479154];
-	[request executeWithResultBlock: ^(VKResponse *response) {
-	    NSLog(@"Photo: %@", response.json);
-        VKPhoto *photoInfo = [(VKPhotoArray*)response.parsedModel objectAtIndex:0];
-	    NSString *photoAttachment = [NSString stringWithFormat:@"photo%@_%@", photoInfo.owner_id, photoInfo.id];
-	    VKRequest *post = [[VKApi wall] post:@{ VK_API_ATTACHMENTS : photoAttachment, VK_API_FRIENDS_ONLY : @(1), VK_API_OWNER_ID : @"-60479154" }];
-	    [post executeWithResultBlock: ^(VKResponse *response) {
-	        NSLog(@"Result: %@", response);
-            NSNumber * postId = response.json[@"post_id"];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/wall-60479154_%@", postId]]];
-		} errorBlock: ^(NSError *error) {
-	        NSLog(@"Error: %@", error);
-		}];
-	} errorBlock: ^(NSError *error) {
-	    NSLog(@"Error: %@", error);
-	}];
+VKRequest *request = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"apple"] parameters:[VKImageParameters pngImage] userId:0 groupId:60479154];
+[request executeWithResultBlock: ^(VKResponse *response) {
+    NSLog(@"Photo: %@", response.json);
+    VKPhoto *photoInfo = [(VKPhotoArray*)response.parsedModel objectAtIndex:0];
+    NSString *photoAttachment = [NSString stringWithFormat:@"photo%@_%@", photoInfo.owner_id, photoInfo.id];
+    VKRequest *post = [[VKApi wall] post:@{ VK_API_ATTACHMENTS : photoAttachment, VK_API_OWNER_ID : @"-60479154" }];
+    [post executeWithResultBlock: ^(VKResponse *response) {
+        NSLog(@"Result: %@", response);
+        NSNumber * postId = response.json[@"post_id"];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/wall-60479154_%@", postId]]];
+    } errorBlock: ^(NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+} errorBlock: ^(NSError *error) {
+    NSLog(@"Error: %@", error);
+}];
 }
 
 - (void)uploadPhotos {
@@ -216,7 +218,7 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
 	        VKPhoto *photoInfo = [(VKPhotoArray*)resp.parsedModel objectAtIndex:0];
 	        [photosAttachments addObject:[NSString stringWithFormat:@"photo%@_%@", photoInfo.owner_id, photoInfo.id]];
 		}
-	    VKRequest *post = [[VKApi wall] post:@{ VK_API_ATTACHMENTS : [photosAttachments componentsJoinedByString:@","], VK_API_FRIENDS_ONLY : @(1), VK_API_OWNER_ID : @"-60479154" }];
+	    VKRequest *post = [[VKApi wall] post:@{ VK_API_ATTACHMENTS : [photosAttachments componentsJoinedByString:@","], VK_API_OWNER_ID : @"-60479154" }];
 	    [post executeWithResultBlock: ^(VKResponse *response) {
 	        NSLog(@"Result: %@", response);
             NSNumber * postId = response.json[@"post_id"];

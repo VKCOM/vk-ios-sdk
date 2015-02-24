@@ -42,7 +42,9 @@
 	    self.callingRequest = nil;
 	}];
 }
-
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.callingRequest cancel];
+}
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
 	// Dispose of any resources that can be recreated.

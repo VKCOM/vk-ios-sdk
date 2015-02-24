@@ -25,6 +25,9 @@
 static NSString *const TOKEN_KEY = @"my_application_access_token";
 static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
 static NSArray  * SCOPE = nil;
+@interface VKStartScreen () <UIAlertViewDelegate>
+
+@end
 @implementation VKStartScreen
 
 - (void)viewDidLoad {
@@ -82,14 +85,17 @@ static NSArray  * SCOPE = nil;
 }
 
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller {
-	[self presentViewController:controller animated:YES completion:nil];
+	[self.navigationController.topViewController presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)vkSdkAcceptedUserToken:(VKAccessToken *)token {
     [self startWorking];
 }
 - (void)vkSdkUserDeniedAccess:(VKError *)authorizationError {
-	[[[UIAlertView alloc] initWithTitle:nil message:@"Access denied" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+	[[[UIAlertView alloc] initWithTitle:nil message:@"Access denied" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+}
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 
