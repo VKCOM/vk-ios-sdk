@@ -22,7 +22,13 @@
 
 #import "VKCaptchaViewController.h"
 #import "VKCaptchaView.h"
-@implementation VKCaptchaViewController
+#import "VKUtil.h"
+#import "VKSharedTransitioningObject.h"
+
+@implementation VKCaptchaViewController {
+    VKSharedTransitioningObject *_transitionDelegate;
+    VKCaptchaView *_captchaView;
+}
 + (instancetype)captchaControllerWithError:(VKError *)error {
 	VKCaptchaViewController *controller = [VKCaptchaViewController new];
 	controller->_captchaError = error;
@@ -31,7 +37,18 @@
 }
 
 - (void)loadView {
-	self.view = [[VKCaptchaView alloc] initWithFrame:[[UIScreen mainScreen] bounds] andError:_captchaError];
+
+    CGRect captchaFrame = CGRectMake(0, 0, kCaptchaImageWidth + 10, kCaptchaViewHeight + 10 );
+    if (VK_IS_DEVICE_IPAD) {
+        self.view = [[UIView alloc] initWithFrame:captchaFrame];
+    } else {
+        self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        captchaFrame.origin = CGPointMake(roundf((self.view.frame.size.width - captchaFrame.size.width) / 2.f), roundf((self.view.frame.size.height - captchaFrame.size.height) / 2.f) - kCaptchaViewHeight);
+    }
+    self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:.3f];
+    _captchaView = [[VKCaptchaView alloc] initWithFrame:captchaFrame andError:_captchaError];
+    _captchaView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+    [self.view addSubview:_captchaView];
 }
 
 - (void)captchaDidAnswered {
@@ -46,15 +63,34 @@
 		});
 		return;
 	}
+    UIModalPresentationStyle oldStyle = controller.navigationController ? controller.navigationController.modalPresentationStyle : controller.modalPresentationStyle;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         self.modalPresentationStyle = UIModalPresentationFormSheet;
-        self.modalTransitionStyle   = UIModalTransitionStyleCrossDissolve;
+    } else if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        _transitionDelegate = [VKSharedTransitioningObject new];
+        self.transitioningDelegate  = _transitionDelegate;
+        self.modalPresentationStyle = UIModalPresentationCustom;
+    } else {
+        if (controller.navigationController) {
+            controller.navigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
+        } else {
+            controller.modalPresentationStyle = UIModalPresentationCurrentContext;
+        }
     }
+    self.modalTransitionStyle   = UIModalTransitionStyleCrossDissolve;
 	[controller presentViewController:self animated:YES completion:nil];
+    if (controller.navigationController) {
+        controller.navigationController.modalPresentationStyle = oldStyle;
+    } else {
+        controller.modalPresentationStyle = oldStyle;
+    }
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+- (CGSize)preferredContentSize {
+    return CGSizeMake(kCaptchaImageWidth + 10, kCaptchaViewHeight + 10);
 }
 
 - (void)dealloc {

@@ -26,6 +26,7 @@
 #define VK_SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define VK_SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 #define VK_COLOR                                       [UIColor colorWithRed:85.0f / 255 green:133.0f / 255 blue:188.0f / 255 alpha:1.0f]
+#define VK_IS_DEVICE_IPAD                               (UIUserInterfaceIdiomPad == [[UIDevice currentDevice] userInterfaceIdiom])
 #import <UIKit/UIKit.h>
 /**
  Various functions

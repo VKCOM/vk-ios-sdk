@@ -23,6 +23,9 @@
 #import <UIKit/UIKit.h>
 #import "VKError.h"
 
+extern CGFloat kCaptchaImageWidth;
+extern CGFloat kCaptchaImageHeight;
+extern CGFloat kCaptchaViewHeight;
 /**
  View for displaying captcha. Don't use it dirrectly. Use VKCaptchaViewController
  */

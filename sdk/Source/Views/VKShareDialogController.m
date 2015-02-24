@@ -27,8 +27,9 @@
 #import "VKSdk.h"
 #import "VKHTTPClient.h"
 #import "VKHTTPOperation.h"
+#import "VKSharedTransitioningObject.h"
 
-#define VK_IS_DEVICE_IPAD (UIUserInterfaceIdiomPad == [[UIDevice currentDevice] userInterfaceIdiom])
+
 ///----------------------------
 /// @name Processing preview images
 ///----------------------------
@@ -229,18 +230,8 @@ typedef enum CornerFlag {
 -(instancetype) initWithPostSettings:(VKPostSettings*) settings;
 @end
 
-
-
 @interface VKShareDialogControllerInternal : UIViewController <UITextViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, VKSdkDelegate>
 @property (nonatomic, weak)   VKShareDialogController *parent;
-@end
-
-///-------------------------------
-/// @name Animated transition for iOS 7 semi-transparent view
-///-------------------------------
-
-@interface AnimatedTransitioning : NSObject <UIViewControllerAnimatedTransitioning>
-@property (nonatomic, assign) BOOL isPresenting;
 @end
 
 ///-------------------------------
@@ -250,51 +241,32 @@ typedef enum CornerFlag {
 static const CGFloat ipadWidth           = 500.f;
 static const CGFloat ipadHeight          = 500.f;
 
-@interface VKShareDialogController () <UIViewControllerTransitioningDelegate>
+@interface VKShareDialogController ()
 @end
 @implementation VKShareDialogController {
-    UINavigationController          *internalNavigation;
-    VKShareDialogControllerInternal *targetShareDialog;
+    UINavigationController *_internalNavigation;
+    VKSharedTransitioningObject *_transitionDelegate;
+    VKShareDialogControllerInternal *_targetShareDialog;
     UIBarStyle defaultBarStyle;
 }
 
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") || VK_IS_DEVICE_IPAD) return nil;
-    AnimatedTransitioning *controller = [[AnimatedTransitioning alloc] init];
-    controller.isPresenting = YES;
-    return controller;
-}
 
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") || VK_IS_DEVICE_IPAD) return nil;
-    AnimatedTransitioning *controller = [[AnimatedTransitioning alloc]init];
-    return controller;
-}
-
-- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
-    return nil;
-}
-
-- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator {
-    return nil;
-}
 -(instancetype)init {
     self = [super init];
     defaultBarStyle = [UINavigationBar appearance].barStyle;
     [UINavigationBar appearance].barStyle = UIBarStyleDefault;
-    internalNavigation = [[UINavigationController alloc] initWithRootViewController:targetShareDialog = [VKShareDialogControllerInternal new]];
-    
-    
-    targetShareDialog.parent = self;
-    
-    [self addChildViewController:internalNavigation];
+    _internalNavigation = [[UINavigationController alloc] initWithRootViewController:_targetShareDialog = [VKShareDialogControllerInternal new]];
+
+    _targetShareDialog.parent = self;
+
+    [self addChildViewController:_internalNavigation];
     
     self.requestedScope = @[VK_PER_WALL,VK_PER_PHOTOS];
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        _transitionDelegate = [VKSharedTransitioningObject new];
         self.modalPresentationStyle = UIModalPresentationCustom;
-        self.transitioningDelegate  = self;
+        self.transitioningDelegate  = _transitionDelegate;
         self.modalTransitionStyle   = UIModalTransitionStyleCrossDissolve;
-        
     }
     if (VK_IS_DEVICE_IPAD) {
         self.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -310,12 +282,12 @@ static const CGFloat ipadHeight          = 500.f;
     if (VK_IS_DEVICE_IPAD) {
         self.view.backgroundColor = [UIColor clearColor];
     } else {
-        internalNavigation.view.layer.cornerRadius  = 10;
-        internalNavigation.view.layer.masksToBounds = YES;
+        _internalNavigation.view.layer.cornerRadius  = 10;
+        _internalNavigation.view.layer.masksToBounds = YES;
     }
-    [internalNavigation beginAppearanceTransition:YES animated:NO];
-    [self.view addSubview:internalNavigation.view];
-    [internalNavigation endAppearanceTransition];
+    [_internalNavigation beginAppearanceTransition:YES animated:NO];
+    [self.view addSubview:_internalNavigation.view];
+    [_internalNavigation endAppearanceTransition];
 }
 - (void)viewWillLayoutSubviews
 {
@@ -350,7 +322,7 @@ static const CGFloat ipadHeight          = 500.f;
             viewSize.width  = ipadWidth;
             viewSize.height = ipadHeight;
         }
-        internalNavigation.view.frame = CGRectMake( 0, 0, viewSize.width, viewSize.height );
+        _internalNavigation.view.frame = CGRectMake( 0, 0, viewSize.width, viewSize.height );
         return;
     }
     
@@ -390,11 +362,11 @@ static const CGFloat ipadHeight          = 500.f;
         }
     }
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") || onAppear || UIInterfaceOrientationIsPortrait(orientation)) {
-        internalNavigation.view.frame = CGRectMake( roundf((CGRectGetWidth (self.view.frame) - viewSize.width)  / 2),
+        _internalNavigation.view.frame = CGRectMake( roundf((CGRectGetWidth (self.view.frame) - viewSize.width)  / 2),
                                                    roundf((CGRectGetHeight(self.view.frame) - viewSize.height) / 2),
                                                    viewSize.width, viewSize.height );
     } else if (UIInterfaceOrientationIsLandscape(orientation)) {
-        internalNavigation.view.frame = CGRectMake( roundf((CGRectGetHeight(self.view.frame) - viewSize.width)  / 2),
+        _internalNavigation.view.frame = CGRectMake( roundf((CGRectGetHeight(self.view.frame) - viewSize.width)  / 2),
                                                    roundf((CGRectGetWidth (self.view.frame) - viewSize.height) / 2),
                                                    viewSize.width, viewSize.height );
     }
@@ -403,8 +375,8 @@ static const CGFloat ipadHeight          = 500.f;
             CGRect frame;
             frame.origin = CGPointZero;
             frame.size   = selfSize;
-            internalNavigation.view.frame = frame;
-            internalNavigation.view.layer.cornerRadius = 3;
+            _internalNavigation.view.frame = frame;
+            _internalNavigation.view.layer.cornerRadius = 3;
         }
     }
 }
@@ -429,9 +401,9 @@ static const CGFloat ipadHeight          = 500.f;
 -(void)viewDidLoad {
     [super viewDidLoad];
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        internalNavigation.navigationBar.barTintColor           = VK_COLOR;
-        internalNavigation.navigationBar.tintColor              = [UIColor whiteColor];
-        internalNavigation.automaticallyAdjustsScrollViewInsets = NO;
+        _internalNavigation.navigationBar.barTintColor           = VK_COLOR;
+        _internalNavigation.navigationBar.tintColor              = [UIColor whiteColor];
+        _internalNavigation.automaticallyAdjustsScrollViewInsets = NO;
     }
     
 }
@@ -1336,55 +1308,7 @@ static NSString * const SETTINGS_LIVEJOURNAL    = @"ExportLivejournal";
 
 @end
 
-@implementation AnimatedTransitioning
 
-//===================================================================
-// - UIViewControllerAnimatedTransitioning
-//===================================================================
-
-- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
-    return 0.25f;
-}
-
-- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
-    
-    UIView *inView = [transitionContext containerView];
-    UIViewController *toVC   = (UIViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIViewController *fromVC = (UIViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    
-    [inView addSubview:toVC.view];
-    if (!self.isPresenting) {
-        [inView addSubview:fromVC.view];
-    }
-    
-    CGRect finalFrame = [transitionContext finalFrameForViewController:toVC];
-    if (!finalFrame.size.width || !finalFrame.size.height) {
-        finalFrame = fromVC.view.frame;
-        finalFrame.origin = CGPointMake(0, 0);
-    }
-    [toVC.view setFrame:finalFrame];
-    if (self.isPresenting) {
-        toVC.view.alpha = 0;
-    }
-    
-    [UIView animateWithDuration:[self transitionDuration:transitionContext]
-                     animations:^{
-                         [toVC.view setFrame:CGRectMake(0, 0, fromVC.view.frame.size.width, fromVC.view.frame.size.height)];
-                         if (self.isPresenting) {
-                             toVC.view.alpha   = 1;
-                         } else {
-                             fromVC.view.alpha = 0;
-                         }
-                     }
-                     completion:^(BOOL finished) {
-                         [transitionContext completeTransition:YES];
-                         if (!self.isPresenting) {
-                             [fromVC.view removeFromSuperview];
-                         }
-                     }];
-}
-
-@end
 
 @implementation VKShareLink
 

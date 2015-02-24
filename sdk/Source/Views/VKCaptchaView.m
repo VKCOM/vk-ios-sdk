@@ -25,7 +25,6 @@
 #import "VKHTTPClient.h"
 #import "VKHTTPOperation.h"
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
 @interface VKCaptchaView () <UITextFieldDelegate> {
 	VKError *_error;
 	UIImageView *_captchaImage;
@@ -35,10 +34,14 @@
 	UIActivityIndicatorView *_imageLoadingActivity;
 }
 @end
-#endif
-static CGFloat kCaptchaImageWidth  = 240;
-static CGFloat kCaptchaImageHeight = 79;
+
+CGFloat kCaptchaImageWidth  = 240;
+CGFloat kCaptchaImageHeight = 96;
+CGFloat kCaptchaViewHeight  = 138;
 @implementation VKCaptchaView
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 - (id)initWithFrame:(CGRect)frame andError:(VKError *)captchaError {
 	if ((self = [super initWithFrame:frame])) {
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -59,10 +62,11 @@ static CGFloat kCaptchaImageHeight = 79;
 		[self addSubview:_captchaImage];
         
 		_captchaTextField = [[UITextField alloc] init];
-		_captchaTextField.borderStyle = UITextBorderStyleRoundedRect;
-		_captchaTextField.textAlignment = NSTextAlignmentCenter;
 		_captchaTextField.delegate = self;
+		_captchaTextField.borderStyle = UITextBorderStyleNone;
+		_captchaTextField.textAlignment = NSTextAlignmentCenter;
 		_captchaTextField.returnKeyType = UIReturnKeyDone;
+        _captchaTextField.backgroundColor = [UIColor whiteColor];
 		_captchaTextField.autocorrectionType = UITextAutocorrectionTypeNo;
 		_captchaTextField.placeholder = NSLocalizedString(@"Enter captcha text", @"");
         _captchaTextField.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
@@ -73,7 +77,6 @@ static CGFloat kCaptchaImageHeight = 79;
 		} failure: ^(VKHTTPOperation *operation, NSError *error) {
 		}];
 		[[VKHTTPClient getClient] enqueueOperation:operation];
-		//        [_captchaImage setImageWithURL:[NSURL URLWithString:_error.captchaImg]];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceDidRotate:) name:UIDeviceOrientationDidChangeNotification object:nil];
 		[self deviceDidRotate:nil];
 	}
@@ -82,8 +85,8 @@ static CGFloat kCaptchaImageHeight = 79;
 
 - (void)deviceDidRotate:(NSNotification *)notification {
 	[UIView animateWithDuration:notification ? 0.3:0 animations: ^{
-	    _captchaImage.frame = CGRectMake((self.bounds.size.width - kCaptchaImageWidth) / 2, 20, kCaptchaImageWidth, kCaptchaImageHeight);
-	    _captchaTextField.frame = CGRectMake(_captchaImage.frame.origin.x, _captchaImage.frame.origin.y + kCaptchaImageHeight + 10, kCaptchaImageWidth, 31);
+	    _captchaImage.frame = CGRectMake((self.bounds.size.width - kCaptchaImageWidth) / 2, 5, kCaptchaImageWidth, kCaptchaImageHeight);
+	    _captchaTextField.frame = CGRectMake(_captchaImage.frame.origin.x, _captchaImage.frame.origin.y + kCaptchaImageHeight + 10, kCaptchaImageWidth, kCaptchaViewHeight - kCaptchaImageHeight - 10);
 	}];
 }
 
