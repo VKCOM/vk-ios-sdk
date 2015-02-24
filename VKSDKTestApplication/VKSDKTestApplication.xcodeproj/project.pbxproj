@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F36114C21976DC770085898F /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114C11976DC770085898F /* apple.png */; };
+		F390A0171A9C9C00006540A6 /* VKSdkResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F330B4041A42DF5500A50EC5 /* VKSdkResources.bundle */; };
 		F3B7EEAB184353CF00104B90 /* ApiCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B7EEAA184353CF00104B90 /* ApiCallViewController.m */; };
 		F3BACC4F18659103003158DA /* libVKSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFFCA1827F6B7000BB525 /* libVKSdk.a */; };
 		F3D38E6F183CD29700D05079 /* VKStartScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D38E6E183CD29700D05079 /* VKStartScreen.m */; };
@@ -38,6 +39,27 @@
 			proxyType = 2;
 			remoteGlobalIDString = F3BACC401865905B003158DA;
 			remoteInfo = VKSdkResources;
+		};
+		F390A00D1A9C9BF1006540A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F33F0DDB18D0759A00DD8B80 /* VKSdk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F3C7542C182133CC00964716;
+			remoteInfo = VKSdk;
+		};
+		F390A00F1A9C9BF1006540A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F33F0DDB18D0759A00DD8B80 /* VKSdk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F3BACC3F1865905B003158DA;
+			remoteInfo = VKSdkResources;
+		};
+		F390A0151A9C9BF2006540A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F33F0DDB18D0759A00DD8B80 /* VKSdk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F39EF12A1A84FD3C001F4C11;
+			remoteInfo = VKSdk_framework;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -92,6 +114,7 @@
 			children = (
 				F330B4021A42DF5500A50EC5 /* libVKSdk.a */,
 				F330B4041A42DF5500A50EC5 /* VKSdkResources.bundle */,
+				F390A0161A9C9BF2006540A6 /* libVKSdk copy.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,6 +196,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				F390A00E1A9C9BF1006540A6 /* PBXTargetDependency */,
+				F390A0101A9C9BF1006540A6 /* PBXTargetDependency */,
 			);
 			name = VKSDKTestApplication;
 			productName = VKSDKTestApplication;
@@ -233,6 +258,13 @@
 			remoteRef = F330B4031A42DF5500A50EC5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		F390A0161A9C9BF2006540A6 /* libVKSdk copy.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libVKSdk copy.a";
+			remoteRef = F390A0151A9C9BF2006540A6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -244,6 +276,7 @@
 				F3EEFF741827B1DD000BB525 /* InfoPlist.strings in Resources */,
 				F3EEFF7C1827B1DD000BB525 /* Images.xcassets in Resources */,
 				F36114C21976DC770085898F /* apple.png in Resources */,
+				F390A0171A9C9C00006540A6 /* VKSdkResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +296,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F390A00E1A9C9BF1006540A6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = VKSdk;
+			targetProxy = F390A00D1A9C9BF1006540A6 /* PBXContainerItemProxy */;
+		};
+		F390A0101A9C9BF1006540A6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = VKSdkResources;
+			targetProxy = F390A00F1A9C9BF1006540A6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F3EEFF721827B1DD000BB525 /* InfoPlist.strings */ = {
