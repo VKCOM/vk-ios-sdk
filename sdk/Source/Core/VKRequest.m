@@ -74,14 +74,19 @@
 /// How much times request was loaded
 @property (readwrite, assign) int attemptsUsed;
 /// This request response
-@property (nonatomic, strong)   VKResponse *response;
+@property (nonatomic, strong) VKResponse *response;
 /// This request error
-@property (nonatomic, strong)   NSError    *error;
-
+@property (nonatomic, strong) NSError    *error;
+/// Returns http operation that can be enqueued
+@property (nonatomic, readwrite, strong) NSOperation *executionOperation;
 @end
 
 @implementation VKRequest
 @synthesize preferredLang = _preferredLang;
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.responseQueue = nil;
+}
 
 + (dispatch_queue_t) processingQueue {
     return dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
@@ -203,7 +208,7 @@
 		request = [[VKHTTPClient getClient] multipartFormRequestWithMethod:@"POST" path:_uploadUrl images:_photoObjects];
 	}
     [request setTimeoutInterval:self.requestTimeout];
-	[request setValue:nil forHTTPHeaderField:@"Accept-Language"];
+	[request setValue:_preparedParameters[VK_API_LANG] forHTTPHeaderField:@"Accept-Language"];
 	return request;
 }
 - (NSOperation*) executionOperation
@@ -214,10 +219,11 @@
     if (_debugTiming) {
         _requestTiming = [VKRequestTiming new];
     }
-    
-	[operation setCompletionBlockWithSuccess: ^(VKHTTPOperation *operation, id JSON) {
+
+	[operation setCompletionBlockWithSuccess: ^(VKHTTPOperation *completedOperation, id JSON) {
         [_requestTiming loaded];
         if (_executionOperation.isCancelled) {
+            [self cleanUp];
             return;
         }
         if ([JSON objectForKey:@"error"]) {
@@ -226,14 +232,15 @@
             [self provideError:[NSError errorWithVkError:error]];
             return;
         }
-        [self provideResponse:JSON responseString:operation.responseString];
-	} failure: ^(VKHTTPOperation *operation, NSError *error) {
+        [self provideResponse:JSON responseString:completedOperation.responseString];
+	} failure: ^(VKHTTPOperation *completedOperation, NSError *error) {
         [_requestTiming loaded];
         if (_executionOperation.isCancelled) {
+            [self cleanUp];
             return;
         }
-        if (operation.response.statusCode == 200) {
-            [self provideResponse:operation.responseJson responseString:operation.responseString];
+        if (completedOperation.response.statusCode == 200) {
+            [self provideResponse:completedOperation.responseJson responseString:completedOperation.responseString];
             return;
         }
         if (self.attempts == 0 || ++self.attemptsUsed < self.attempts) {
@@ -243,11 +250,11 @@
                            });
             return;
         }
-        
-        VKError *vkErr = [VKError errorWithCode:operation.response.statusCode];
+
+        VKError *vkErr = [VKError errorWithCode:completedOperation.response ? completedOperation.response.statusCode : error.code];
         [self provideError:[error copyWithVkError:vkErr]];
         [_requestTiming finished];
-        
+
 	}];
     operation.successCallbackQueue = operation.failureCallbackQueue = [VKRequest processingQueue];
 	[self setupProgress:operation];
@@ -273,8 +280,9 @@
     }
 }
 - (void)operationDidStart:(NSNotification*) notification {
-    if (notification.object == _executionOperation)
+    if (notification.object == _executionOperation) {
         [self.requestTiming started];
+    }
 }
 - (void)provideResponse:(id)JSON responseString:(NSString*)response {
     VKResponse *vkResp = [VKResponse new];
@@ -292,13 +300,18 @@
             [_requestTiming parseFinished];
         }
     }
-    else
+    else {
         vkResp.json = JSON;
+    }
     
     for (VKRequest *postRequest in _postRequestsQueue)
         [postRequest start];
     [_requestTiming finished];
     self.response = vkResp;
+    if (_executionOperation.isCancelled) {
+        [self cleanUp];
+        return;
+    }
     if (self.waitUntilDone) {
         dispatch_semaphore_signal(_waitUntilDoneSemaphore);
     } else {
@@ -331,8 +344,12 @@
         if (self.completeBlock)
             self.completeBlock(self.response);
     }
+    [self cleanUp];
+}
+- (void)cleanUp {
     self.response = nil;
     self.error    = nil;
+    self.executionOperation = nil;
 }
 
 - (void)repeat {
@@ -343,7 +360,7 @@
 
 - (void)cancel {
 	[_executionOperation cancel];
-	[self provideError:[NSError errorWithVkError:[VKError errorWithCode:VK_API_CANCELED]]];
+//	[self provideError:[NSError errorWithVkError:[VKError errorWithCode:VK_API_CANCELED]]];
 }
 
 - (void)setupProgress:(VKHTTPOperation *)operation {
@@ -447,9 +464,6 @@
     return _executionOperation.isExecuting;
 }
 
--(void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.responseQueue = nil;
-}
+
 
 @end

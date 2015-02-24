@@ -30,8 +30,12 @@ NSString *const VkErrorDescriptionKey  = @"VkErrorDescriptionKey";
 +(NSError*) errorWithVkError:(VKError*) vkError {
     NSMutableDictionary *userInfo = [NSMutableDictionary new];
     NSInteger originalCode = vkError.errorCode;
-    if (vkError.apiError)
+    if (vkError.apiError) {
         vkError = vkError.apiError;
+    }
+    if (originalCode == VK_API_CANCELED) {
+        originalCode = NSURLErrorCancelled;
+    }
     userInfo[NSLocalizedDescriptionKey] = vkError.errorMessage ? vkError.errorMessage : NSLocalizedStringFromTable(@"Something went wrong", nil, @"");
     userInfo[VkErrorDescriptionKey] = vkError;
     
