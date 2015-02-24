@@ -229,12 +229,30 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
 		return;
     if (!_internalNavigationController) {
         if (self.navigationController) {
+            if ([VKSdk.instance.delegate respondsToSelector:@selector(vkSdkWillDismissViewController:)]) {
+                [VKSdk.instance.delegate vkSdkWillDismissViewController:self];
+            }
             [self.navigationController popViewControllerAnimated:YES];
+
         } else if (self.presentingViewController) {
-            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+            if ([VKSdk.instance.delegate respondsToSelector:@selector(vkSdkWillDismissViewController:)]) {
+                [VKSdk.instance.delegate vkSdkWillDismissViewController:self];
+            }
+            [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+                if ([VKSdk.instance.delegate respondsToSelector:@selector(vkSdkDidDismissViewController:)]) {
+                    [VKSdk.instance.delegate vkSdkDidDismissViewController:self];
+                }
+            }];
         }
     } else if (!_internalNavigationController.isBeingPresented) {
-		[_internalNavigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        if ([VKSdk.instance.delegate respondsToSelector:@selector(vkSdkWillDismissViewController:)]) {
+            [VKSdk.instance.delegate vkSdkWillDismissViewController:self];
+        }
+		[_internalNavigationController.presentingViewController dismissViewControllerAnimated:YES completion:^{
+            if ([VKSdk.instance.delegate respondsToSelector:@selector(vkSdkDidDismissViewController:)]) {
+                [VKSdk.instance.delegate vkSdkDidDismissViewController:self];
+            }
+        }];
 	}
 	else {
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^(void) {

@@ -98,6 +98,15 @@
  By default returns YES.
  */
 - (BOOL)vkSdkIsBasicAuthorization;
+
+/**
+* Called when a controller presented by SDK will be dismissed
+*/
+- (void)vkSdkWillDismissViewController:(UIViewController *)controller;
+/**
+* Called when a controller presented by SDK did dismiss
+*/
+- (void)vkSdkDidDismissViewController:(UIViewController *)controller;
 @end
 
 /**
