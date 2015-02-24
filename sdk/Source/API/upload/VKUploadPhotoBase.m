@@ -26,9 +26,12 @@
 extern inline NSString *VKKeyPathFromOperationState(VKOperationState state);
 extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperationState toState, BOOL isCancelled);
 
-
+@interface VKUploadPhotoBase ()
+@property (nonatomic, readwrite, strong) NSOperation *executionOperation;
+@end
 
 @implementation VKUploadPhotoBase
+@dynamic executionOperation;
 -(instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters {
     self = [super init];
     self.image = image;
@@ -36,9 +39,10 @@ extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperat
     return self;
 }
 - (NSOperation *)executionOperation {
-	_executionOperation = [VKUploadImageOperation operationWithUploadRequest:self];
-    [(VKOperation*)_executionOperation setResponseQueue:self.responseQueue];
-    return _executionOperation;
+    VKOperation *op = [VKUploadImageOperation operationWithUploadRequest:self];
+    [op setResponseQueue:self.responseQueue];
+    self.executionOperation = op;
+    return op;
 }
 
 - (VKRequest *)getServerRequest {
