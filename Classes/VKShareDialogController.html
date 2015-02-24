@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>VKBatchRequest Class Reference</title>
+		<title>VKShareDialogController Class Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
@@ -16,7 +16,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">VKBatchRequest Class Reference</h1>
+				<h1 class="hideInXcode">VKShareDialogController Class Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -39,9 +39,19 @@
 	
 	<option value="properties">Properties</option>
 	
-	<option value="//api/name/completeBlock">&nbsp;&nbsp;&nbsp;&nbsp;completeBlock</option>
+	<option value="//api/name/completionHandler">&nbsp;&nbsp;&nbsp;&nbsp;completionHandler</option>
 	
-	<option value="//api/name/errorBlock">&nbsp;&nbsp;&nbsp;&nbsp;errorBlock</option>
+	<option value="//api/name/dismissAutomatically">&nbsp;&nbsp;&nbsp;&nbsp;dismissAutomatically</option>
+	
+	<option value="//api/name/requestedScope">&nbsp;&nbsp;&nbsp;&nbsp;requestedScope</option>
+	
+	<option value="//api/name/shareLink">&nbsp;&nbsp;&nbsp;&nbsp;shareLink</option>
+	
+	<option value="//api/name/text">&nbsp;&nbsp;&nbsp;&nbsp;text</option>
+	
+	<option value="//api/name/uploadImages">&nbsp;&nbsp;&nbsp;&nbsp;uploadImages</option>
+	
+	<option value="//api/name/vkImages">&nbsp;&nbsp;&nbsp;&nbsp;vkImages</option>
 	
 	
 	
@@ -50,13 +60,7 @@
 	
 	<option value="instance_methods">Instance Methods</option>
 	
-	<option value="//api/name/cancel">&nbsp;&nbsp;&nbsp;&nbsp;- cancel</option>
-	
-	<option value="//api/name/executeWithResultBlock:errorBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- executeWithResultBlock:errorBlock:</option>
-	
-	<option value="//api/name/initWithRequests:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithRequests:</option>
-	
-	<option value="//api/name/initWithRequestsArray:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithRequestsArray:</option>
+	<option value="//api/name/presentIn:">&nbsp;&nbsp;&nbsp;&nbsp;- presentIn:</option>
 	
 	
 	
@@ -82,9 +86,19 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/completeBlock">completeBlock</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/completionHandler">completionHandler</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/errorBlock">errorBlock</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/dismissAutomatically">dismissAutomatically</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/requestedScope">requestedScope</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/shareLink">shareLink</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/text">text</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/uploadImages">uploadImages</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/vkImages">vkImages</a></span></li>
 	
 </ul></li>
 
@@ -94,13 +108,7 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/cancel">cancel</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/executeWithResultBlock:errorBlock:">executeWithResultBlock:errorBlock:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithRequests:">initWithRequests:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithRequestsArray:">initWithRequestsArray:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/presentIn:">presentIn:</a></span></li>
 	
 </ul></li>
 
@@ -109,7 +117,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="VKBatchRequest Class Reference" name="top"></a>
+				<a title="VKShareDialogController Class Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -118,7 +126,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">VKBatchRequest Class Reference</h1>
+						<h1 class="title title-header">VKShareDialogController Class Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -126,10 +134,10 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Inherits from</td>
-	<td class="specification-value">VKObject : NSObject</td>
+	<td class="specification-value">UIViewController</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">VKBatchRequest.h<br />VKBatchRequest.m</td>
+	<td class="specification-value">VKShareDialogController.h<br />VKShareDialogController.m</td>
 </tr>
 						</tbody></table></div>
 					
@@ -139,7 +147,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Used for execution bunch of methods at time, and receive results of that methods in array</p>
+						<p>Creates dialog for sharing some information from your app to user wall in VK</p>
 					</div>
 					
 					
@@ -157,37 +165,49 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/completeBlock">&nbsp;&nbsp;completeBlock</a></code>
+		<code><a href="#//api/name/uploadImages">&nbsp;&nbsp;uploadImages</a></code>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/errorBlock">&nbsp;&nbsp;errorBlock</a></code>
+		<code><a href="#//api/name/vkImages">&nbsp;&nbsp;vkImages</a></code>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/initWithRequests:">&ndash;&nbsp;initWithRequests:</a></code>
+		<code><a href="#//api/name/shareLink">&nbsp;&nbsp;shareLink</a></code>
 	</span>
-	
+	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/initWithRequestsArray:">&ndash;&nbsp;initWithRequestsArray:</a></code>
+		<code><a href="#//api/name/text">&nbsp;&nbsp;text</a></code>
 	</span>
-	
+	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/executeWithResultBlock:errorBlock:">&ndash;&nbsp;executeWithResultBlock:errorBlock:</a></code>
+		<code><a href="#//api/name/requestedScope">&nbsp;&nbsp;requestedScope</a></code>
 	</span>
-	
+	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/cancel">&ndash;&nbsp;cancel</a></code>
+		<code><a href="#//api/name/completionHandler">&nbsp;&nbsp;completionHandler</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/dismissAutomatically">&nbsp;&nbsp;dismissAutomatically</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/presentIn:">&ndash;&nbsp;presentIn:</a></code>
 	</span>
 	
 	
@@ -205,18 +225,18 @@
 						<h2 class="subtitle subtitle-methods">Properties</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/completeBlock" title="completeBlock"></a>
-	<h3 class="subsubtitle method-title">completeBlock</h3>
+	<a name="//api/name/completionHandler" title="completionHandler"></a>
+	<h3 class="subsubtitle method-title">completionHandler</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Specify completion block for request</p>
+		<p>You can receive information about sharing state</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( NSArray *responses ) completeBlock</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( VKShareDialogControllerResult result ) completionHandler</code></div>
 
     
 	
@@ -234,25 +254,25 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKBatchRequest.h</code><br />
+		<code class="declared-in-ref">VKShareDialogController.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/errorBlock" title="errorBlock"></a>
-	<h3 class="subsubtitle method-title">errorBlock</h3>
+	<a name="//api/name/dismissAutomatically" title="dismissAutomatically"></a>
+	<h3 class="subsubtitle method-title">dismissAutomatically</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Specity error (HTTP or API) block for request.</p>
+		<p>Flag meaning the share viewcontroller manage it&rsquo;s presentation state by itself</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( NSError *error ) errorBlock</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL dismissAutomatically</code></div>
 
     
 	
@@ -270,7 +290,187 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKBatchRequest.h</code><br />
+		<code class="declared-in-ref">VKShareDialogController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/requestedScope" title="requestedScope"></a>
+	<h3 class="subsubtitle method-title">requestedScope</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Put only needed scopes into that array. By default equals @[VK_PER_WALL,VK_PER_PHOTOS]</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSArray *requestedScope</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKShareDialogController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/shareLink" title="shareLink"></a>
+	<h3 class="subsubtitle method-title">shareLink</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Links attachment for new post</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) VKShareLink *shareLink</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKShareDialogController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/text" title="text"></a>
+	<h3 class="subsubtitle method-title">text</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Text to share. User can change it</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSString *text</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKShareDialogController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/uploadImages" title="uploadImages"></a>
+	<h3 class="subsubtitle method-title">uploadImages</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Array of prepared <a href="../Classes/VKUploadImage.html">VKUploadImage</a> objects for upload and share. User can remove any attachment</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSArray *uploadImages</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKShareDialogController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/vkImages" title="vkImages"></a>
+	<h3 class="subsubtitle method-title">vkImages</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Photos already uploaded to VK. That is array of photos ids: @[ownerid_photoid, &hellip;];</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSArray *vkImages</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKShareDialogController.h</code><br />
 	</div>				
 	
 	
@@ -287,54 +487,18 @@
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/cancel" title="cancel"></a>
-	<h3 class="subsubtitle method-title">cancel</h3>
+	<a name="//api/name/presentIn:" title="presentIn:"></a>
+	<h3 class="subsubtitle method-title">presentIn:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Cancel current batch operation</p>
+		<p>Correctly presents current view controller in another</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)cancel</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKBatchRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/executeWithResultBlock:errorBlock:" title="executeWithResultBlock:errorBlock:"></a>
-	<h3 class="subsubtitle method-title">executeWithResultBlock:errorBlock:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Executes batch request</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)executeWithResultBlock:(void ( ^ ) ( NSArray *responses ))<em>completeBlock</em> errorBlock:(void ( ^ ) ( NSError *))<em>errorBlock</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)presentIn:(UIViewController *)<em>viewController</em></code></div>
 
     
 	
@@ -342,13 +506,8 @@
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>completeBlock</em></dt>
-			<dd><p>will receive result of passed requests</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>errorBlock</em></dt>
-			<dd><p>called if any request did fail</p></dd>
+			<dt><em>viewController</em></dt>
+			<dd><p>Parent view controller</p></dd>
 		</dl>
 		
 	</div>
@@ -367,109 +526,7 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKBatchRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/initWithRequests:" title="initWithRequests:"></a>
-	<h3 class="subsubtitle method-title">initWithRequests:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Initializes batch processing with requests</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (instancetype)initWithRequests:(VKRequest *)<em>firstRequest</em>, <em>...</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>firstRequest</em></dt>
-			<dd><p>,&hellip; A comma-separated list of requests should be loaded, ending with nil.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Prepared request</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKBatchRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/initWithRequestsArray:" title="initWithRequestsArray:"></a>
-	<h3 class="subsubtitle method-title">initWithRequestsArray:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Initializes batch processing with requests array</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (instancetype)initWithRequestsArray:(NSArray *)<em>requests</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>requests</em></dt>
-			<dd><p>Array of requests should be loaded.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Prepared request</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKBatchRequest.h</code><br />
+		<code class="declared-in-ref">VKShareDialogController.h</code><br />
 	</div>				
 	
 	

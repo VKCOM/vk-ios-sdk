@@ -43,11 +43,15 @@
 	
 	<option value="//api/name/friends">&nbsp;&nbsp;&nbsp;&nbsp;+ friends</option>
 	
+	<option value="//api/name/groups">&nbsp;&nbsp;&nbsp;&nbsp;+ groups</option>
+	
 	<option value="//api/name/photos">&nbsp;&nbsp;&nbsp;&nbsp;+ photos</option>
 	
 	<option value="//api/name/requestWithMethod:andParameters:andHttpMethod:">&nbsp;&nbsp;&nbsp;&nbsp;+ requestWithMethod:andParameters:andHttpMethod:</option>
 	
 	<option value="//api/name/uploadAlbumPhotoRequest:parameters:albumId:groupId:">&nbsp;&nbsp;&nbsp;&nbsp;+ uploadAlbumPhotoRequest:parameters:albumId:groupId:</option>
+	
+	<option value="//api/name/uploadMessagePhotoRequest:parameters:">&nbsp;&nbsp;&nbsp;&nbsp;+ uploadMessagePhotoRequest:parameters:</option>
 	
 	<option value="//api/name/uploadWallPhotoRequest:parameters:userId:groupId:">&nbsp;&nbsp;&nbsp;&nbsp;+ uploadWallPhotoRequest:parameters:userId:groupId:</option>
 	
@@ -85,11 +89,15 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/friends">friends</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/groups">groups</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/photos">photos</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/requestWithMethod:andParameters:andHttpMethod:">requestWithMethod:andParameters:andHttpMethod:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/uploadAlbumPhotoRequest:parameters:albumId:groupId:">uploadAlbumPhotoRequest:parameters:albumId:groupId:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/uploadMessagePhotoRequest:parameters:">uploadMessagePhotoRequest:parameters:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/uploadWallPhotoRequest:parameters:userId:groupId:">uploadWallPhotoRequest:parameters:userId:groupId:</a></span></li>
 	
@@ -178,6 +186,12 @@
 	
 </li><li>
 	<span class="tooltip">
+		<code><a href="#//api/name/groups">+&nbsp;groups</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
 		<code><a href="#//api/name/requestWithMethod:andParameters:andHttpMethod:">+&nbsp;requestWithMethod:andParameters:andHttpMethod:</a></code>
 	</span>
 	
@@ -191,6 +205,12 @@
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/uploadAlbumPhotoRequest:parameters:albumId:groupId:">+&nbsp;uploadAlbumPhotoRequest:parameters:albumId:groupId:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/uploadMessagePhotoRequest:parameters:">+&nbsp;uploadMessagePhotoRequest:parameters:</a></code>
 	</span>
 	
 	
@@ -223,6 +243,43 @@ Returns object for preparing requests to friends part of API</p>
     
 
 	<div class="method-subsection method-declaration"><code>+ (VKApiFriends *)friends</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKApi.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/groups" title="groups"></a>
+	<h3 class="subsubtitle method-title">groups</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p><a href="https://vk.com/dev/friends">https://vk.com/dev/friends</a>
+Returns object for preparing requests to groups part of API</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (VKApiGroups *)groups</code></div>
 
     
 	
@@ -356,7 +413,7 @@ Returns object for preparing requests to photos part of API</p>
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (VKRequest *)uploadAlbumPhotoRequest:(UIImage *)<em>image</em> parameters:(VKImageParameters *)<em>parameters</em> albumId:(int)<em>albumId</em> groupId:(int)<em>groupId</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (VKRequest *)uploadAlbumPhotoRequest:(UIImage *)<em>image</em> parameters:(VKImageParameters *)<em>parameters</em> albumId:(NSInteger)<em>albumId</em> groupId:(NSInteger)<em>groupId</em></code></div>
 
     
 	
@@ -406,6 +463,67 @@ Returns object for preparing requests to photos part of API</p>
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/uploadMessagePhotoRequest:parameters:" title="uploadMessagePhotoRequest:parameters:"></a>
+	<h3 class="subsubtitle method-title">uploadMessagePhotoRequest:parameters:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Uploads photo for messaging</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (VKRequest *)uploadMessagePhotoRequest:(UIImage *)<em>image</em> parameters:(VKImageParameters *)<em>parameters</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>image</em></dt>
+			<dd><p>image used for saving to post</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>parameters</em></dt>
+			<dd><p>parameters for image to be uploaded</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>groupId</em></dt>
+			<dd><p>target group ID (positive). May be nil</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>albumId</em></dt>
+			<dd><p>target album ID. Required</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKApi.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/uploadWallPhotoRequest:parameters:userId:groupId:" title="uploadWallPhotoRequest:parameters:userId:groupId:"></a>
 	<h3 class="subsubtitle method-title">uploadWallPhotoRequest:parameters:userId:groupId:</h3>
 	
@@ -417,7 +535,7 @@ Returns object for preparing requests to photos part of API</p>
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (VKRequest *)uploadWallPhotoRequest:(UIImage *)<em>image</em> parameters:(VKImageParameters *)<em>parameters</em> userId:(long long)<em>userId</em> groupId:(int)<em>groupId</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (VKRequest *)uploadWallPhotoRequest:(UIImage *)<em>image</em> parameters:(VKImageParameters *)<em>parameters</em> userId:(NSInteger)<em>userId</em> groupId:(NSInteger)<em>groupId</em></code></div>
 
     
 	
@@ -557,7 +675,7 @@ Returns object for preparing requests to wall part of API</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 VK. All rights reserved. (Last updated: 2014-07-11)</span><br />
+						<p><span class="copyright">&copy; 2015 VK. All rights reserved. (Last updated: 2015-02-24)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						

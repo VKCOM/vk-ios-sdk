@@ -60,6 +60,8 @@
 	
 	<option value="//api/name/getAccessToken">&nbsp;&nbsp;&nbsp;&nbsp;+ getAccessToken</option>
 	
+	<option value="//api/name/hasPermissions:">&nbsp;&nbsp;&nbsp;&nbsp;+ hasPermissions:</option>
+	
 	<option value="//api/name/initializeWithDelegate:andAppId:">&nbsp;&nbsp;&nbsp;&nbsp;+ initializeWithDelegate:andAppId:</option>
 	
 	<option value="//api/name/initializeWithDelegate:andAppId:andCustomToken:">&nbsp;&nbsp;&nbsp;&nbsp;+ initializeWithDelegate:andAppId:andCustomToken:</option>
@@ -135,6 +137,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/forceLogout">forceLogout</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getAccessToken">getAccessToken</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/hasPermissions:">hasPermissions:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initializeWithDelegate:andAppId:">initializeWithDelegate:andAppId:</a></span></li>
 	
@@ -343,6 +347,12 @@
 	</span>
 	
 	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/hasPermissions:">+&nbsp;hasPermissions:</a></code>
+	</span>
+	
+	
 </li>
 						</ul>
 						
@@ -422,7 +432,7 @@ Otherwise Mobile Safari will be opened for access request.</p>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>permissions</em></dt>
-			<dd><p>array of permissions for your applications. All permissions you can</p></dd>
+			<dd><p>array of <a href="#//api/name/permissions">permissions</a> for your applications. All <a href="#//api/name/permissions">permissions</a> you can</p></dd>
 		</dl>
 		
 	</div>
@@ -469,7 +479,7 @@ Otherwise Mobile Safari will be opened for access request.</p>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>permissions</em></dt>
-			<dd><p>Array of permissions for your applications. All permissions you can</p></dd>
+			<dd><p>Array of <a href="#//api/name/permissions">permissions</a> for your applications. All <a href="#//api/name/permissions">permissions</a> you can</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -520,7 +530,7 @@ Otherwise Mobile Safari will be opened for access request.</p>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>permissions</em></dt>
-			<dd><p>Array of permissions for your applications. All permissions you can</p></dd>
+			<dd><p>Array of <a href="#//api/name/permissions">permissions</a> for your applications. All <a href="#//api/name/permissions">permissions</a> you can</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -576,7 +586,7 @@ Otherwise Mobile Safari will be opened for access request.</p>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>permissions</em></dt>
-			<dd><p>Array of permissions for your applications. All permissions you can</p></dd>
+			<dd><p>Array of <a href="#//api/name/permissions">permissions</a> for your applications. All <a href="#//api/name/permissions">permissions</a> you can</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -637,7 +647,7 @@ Otherwise Mobile Safari will be opened for access request.</p>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>permissions</em></dt>
-			<dd><p>Array of permissions for your applications. All permissions you can</p></dd>
+			<dd><p>Array of <a href="#//api/name/permissions">permissions</a> for your applications. All <a href="#//api/name/permissions">permissions</a> you can</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -741,6 +751,52 @@ Has no effect for logout in VK app</p>
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
 		<p>Received access token or nil, if user not yet authorized</p>
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKSdk.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/hasPermissions:" title="hasPermissions:"></a>
+	<h3 class="subsubtitle method-title">hasPermissions:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Check existing <a href="#//api/name/permissions">permissions</a></p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (BOOL)hasPermissions:(NSArray *)<em>permissions</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>permissions</em></dt>
+			<dd><p>array of <a href="#//api/name/permissions">permissions</a> you want to check</p></dd>
+		</dl>
+		
+	</div>
+	
+	
 	
 	
 	
@@ -1177,7 +1233,7 @@ Has no effect for logout in VK app</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 VK. All rights reserved. (Last updated: 2014-07-11)</span><br />
+						<p><span class="copyright">&copy; 2015 VK. All rights reserved. (Last updated: 2015-02-24)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						

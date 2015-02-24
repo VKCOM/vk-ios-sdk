@@ -41,6 +41,8 @@
 	
 	<option value="//api/name/albumId">&nbsp;&nbsp;&nbsp;&nbsp;albumId</option>
 	
+	<option value="//api/name/executionOperation">&nbsp;&nbsp;&nbsp;&nbsp;executionOperation</option>
+	
 	<option value="//api/name/groupId">&nbsp;&nbsp;&nbsp;&nbsp;groupId</option>
 	
 	<option value="//api/name/image">&nbsp;&nbsp;&nbsp;&nbsp;image</option>
@@ -58,6 +60,8 @@
 	
 	<option value="//api/name/executionOperation">&nbsp;&nbsp;&nbsp;&nbsp;- executionOperation</option>
 	
+	<option value="//api/name/methodName">&nbsp;&nbsp;&nbsp;&nbsp;- methodName</option>
+	
 	
 	
 </select>
@@ -74,6 +78,8 @@
 
 <li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Extension Methods">Extension Methods</a></span></li>
+	
 </ul></li>
 
 
@@ -83,6 +89,8 @@
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/albumId">albumId</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/executionOperation">executionOperation</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/groupId">groupId</a></span></li>
 	
@@ -101,6 +109,8 @@
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/executionOperation">executionOperation</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/methodName">methodName</a></span></li>
 	
 </ul></li>
 
@@ -199,6 +209,26 @@
 	</span>
 	
 	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/methodName">&ndash;&nbsp;methodName</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Extension Methods" name="task_Extension Methods"></a>
+						<h3 class="subsubtitle task-title">Extension Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/executionOperation">&nbsp;&nbsp;executionOperation</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
 </li>
 						</ul>
 						
@@ -224,7 +254,7 @@
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) int albumId</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSInteger albumId</code></div>
 
     
 	
@@ -249,6 +279,42 @@
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/executionOperation" title="executionOperation"></a>
+	<h3 class="subsubtitle method-title">executionOperation</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns http operation that can be enqueued</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readwrite, strong) NSOperation *executionOperation</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKRequest.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/groupId" title="groupId"></a>
 	<h3 class="subsubtitle method-title">groupId</h3>
 	
@@ -260,7 +326,7 @@
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) int groupId</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSInteger groupId</code></div>
 
     
 	
@@ -368,7 +434,7 @@
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) long long userId</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSInteger userId</code></div>
 
     
 	
@@ -438,6 +504,42 @@
 	
 </div>
 						
+						<div class="section-method">
+	<a name="//api/name/methodName" title="methodName"></a>
+	<h3 class="subsubtitle method-title">methodName</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns method for current request, e.g. users.get</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)methodName</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">VKRequest.h</code><br />
+	</div>				
+	
+	
+</div>
+						
 					</div>
 					
 					
@@ -453,7 +555,7 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 VK. All rights reserved. (Last updated: 2014-07-11)</span><br />
+						<p><span class="copyright">&copy; 2015 VK. All rights reserved. (Last updated: 2015-02-24)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
