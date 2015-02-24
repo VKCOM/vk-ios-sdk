@@ -14,6 +14,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>VKSdk copy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>VKSdk.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -38,6 +43,11 @@
 			<true/>
 		</dict>
 		<key>F37145F61A42EB2900EEBD6D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F390A0181A9CADEF006540A6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

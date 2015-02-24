@@ -22,6 +22,7 @@
 
 #import "VKRequest.h"
 #import "VKImageParameters.h"
+#import "VKOperation.h"
 /**
  Provides common part of photo upload process
  */

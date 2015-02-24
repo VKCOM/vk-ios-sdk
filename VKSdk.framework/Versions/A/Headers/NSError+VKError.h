@@ -23,8 +23,8 @@
 #import <Foundation/Foundation.h>
 #import "VKError.h"
 
-static NSString *const VKSdkErrorDomain = @"VKSdkErrorDomain";
-static NSString *VkErrorDescriptionKey  = @"VkErrorDescriptionKey";
+extern NSString *const VKSdkErrorDomain;
+extern NSString *const VkErrorDescriptionKey;
 
 /**
  * Category with implementation of VK error

@@ -24,8 +24,7 @@
 #import "VKResponse.h"
 #import "VKApiConst.h"
 #import "VKObject.h"
-#import "OrderedDictionary.h"
-#import "VKHTTPOperation.h"
+
 
 /**
  Creates and debug timings for VKRequest
@@ -47,11 +46,6 @@
  Class for execution API-requests
  */
 @interface VKRequest : VKObject
-{
-@protected
-    /// Working operation for this request
-	NSOperation *_executionOperation;
-}
 /// Specify language for API request
 @property (nonatomic, strong) NSString *preferredLang;
 /// Specify progress for uploading or downloading. Useless for text requests (because gzip encoding bytesTotal will always return -1)
