@@ -67,6 +67,9 @@ typedef NS_ENUM(NSInteger, VKShareDialogControllerResult){
 
 /// Flag meaning the share viewcontroller manage it's presentation state by itself
 @property (nonatomic, assign) BOOL dismissAutomatically;
+
+/// Force share dialog to use in-app webview authorization
+@property (nonatomic, assign) BOOL authorizeInApp;
 /**
  Correctly presents current view controller in another
  @param viewController Parent view controller

@@ -121,6 +121,8 @@
 /// Responder for global SDK events
 @property (nonatomic, weak) id <VKSdkDelegate> delegate;
 
+/// Returns a last app_id used for initializing the SDK
+@property (nonatomic, readonly) NSString *currentAppId;
 ///-------------------------------
 /// @name Initialization
 ///-------------------------------
@@ -252,13 +254,17 @@
  */
 + (BOOL)hasPermissions:(NSArray *)permissions;
 
+/**
+ Enables or disables scheduling for requests
+ */
++ (void)setSchedulerEnabled:(BOOL) enabled;
+
 // Deny allocating more SDK
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
 + (instancetype)alloc __attribute__((unavailable("alloc not available, call initialize: or instance instead")));
 
 - (instancetype)init __attribute__((unavailable("init not available, call initialize: or instance instead")));
 
 + (instancetype)new __attribute__((unavailable("new not available, call initialize: or instance instead")));
 
-#endif /* DOXYGEN_SHOULD_SKIP_THIS */
+
 @end
