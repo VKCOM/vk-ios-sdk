@@ -80,7 +80,6 @@
         NSInteger countForSecond = [_scheduleDict[@(thisSecond)] integerValue];
         if (countForSecond < _currentLimitPerSecond) {
             _scheduleDict[@(thisSecond)] = @(++countForSecond);
-            NSLog(@"Req start immediately");
             [req start];
         } else {
             CGFloat delay = [self currentAvailableInterval], step = delay;
@@ -91,8 +90,6 @@
             NSInteger nextSecCount = [_scheduleDict[@(thisSecond)] integerValue];
             delay += step * nextSecCount;
             _scheduleDict[@(thisSecond)] = @(++nextSecCount);
-            NSLog(@"Req scheduled after %f", delay);
-            //            NSLog(@"Dict: %@", _scheduleDict);
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [req performSelector:@selector(start) withObject:nil afterDelay:delay inModes:@[NSRunLoopCommonModes]];
             });
