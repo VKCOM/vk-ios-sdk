@@ -9,12 +9,12 @@
 #import "VKApiObjectArray.h"
 
 @interface VKPhotoSize : VKApiObject
-@property (nonatomic, readwrite, copy) NSString *src;
-@property (nonatomic, readwrite, copy) NSNumber *width;
-@property (nonatomic, readwrite, copy) NSNumber *height;
-@property (nonatomic, readwrite, copy) NSString *type;
+@property(nonatomic, readwrite, copy) NSString *src;
+@property(nonatomic, readwrite, copy) NSNumber *width;
+@property(nonatomic, readwrite, copy) NSNumber *height;
+@property(nonatomic, readwrite, copy) NSString *type;
 @end
 
 @interface VKPhotoSizes : VKApiObjectArray
-- (VKPhotoSize*) photoSizeWithType:(NSString*) type;
+- (VKPhotoSize *)photoSizeWithType:(NSString *)type;
 @end

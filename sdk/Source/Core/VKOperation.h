@@ -21,20 +21,22 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+
 typedef enum {
-	VKOperationPausedState      = -1,
-	VKOperationReadyState       = 1,
-	VKOperationExecutingState   = 2,
-	VKOperationFinishedState    = 3,
+    VKOperationPausedState = -1,
+    VKOperationReadyState = 1,
+    VKOperationExecutingState = 2,
+    VKOperationFinishedState = 3,
 } VKOperationState;
+
 /**
- Basic class for operations
- */
+Basic class for operations
+*/
 @interface VKOperation : NSOperation
 /// This operation state. Value from VKOperationState enum
-@property (readwrite, nonatomic, assign) VKOperationState state;
+@property(readwrite, nonatomic, assign) VKOperationState state;
 /// Operation working lock
-@property (readwrite, nonatomic, strong) NSRecursiveLock *lock;
+@property(readwrite, nonatomic, strong) NSRecursiveLock *lock;
 /// Sets dispatch queue for returning result
-@property (nonatomic, assign) dispatch_queue_t responseQueue;
+@property(nonatomic, assign) dispatch_queue_t responseQueue;
 @end

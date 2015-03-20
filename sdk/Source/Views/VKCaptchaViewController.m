@@ -30,15 +30,15 @@
     VKCaptchaView *_captchaView;
 }
 + (instancetype)captchaControllerWithError:(VKError *)error {
-	VKCaptchaViewController *controller = [VKCaptchaViewController new];
-	controller->_captchaError = error;
-	[[NSNotificationCenter defaultCenter] addObserver:controller selector:@selector(captchaDidAnswered) name:VKCaptchaAnsweredEvent object:nil];
-	return controller;
+    VKCaptchaViewController *controller = [VKCaptchaViewController new];
+    controller->_captchaError = error;
+    [[NSNotificationCenter defaultCenter] addObserver:controller selector:@selector(captchaDidAnswered) name:VKCaptchaAnsweredEvent object:nil];
+    return controller;
 }
 
 - (void)loadView {
 
-    CGRect captchaFrame = CGRectMake(0, 0, kCaptchaImageWidth + 10, kCaptchaViewHeight + 10 );
+    CGRect captchaFrame = CGRectMake(0, 0, kCaptchaImageWidth + 10, kCaptchaViewHeight + 10);
     if (VK_IS_DEVICE_IPAD) {
         self.view = [[UIView alloc] initWithFrame:captchaFrame];
     } else {
@@ -52,23 +52,23 @@
 }
 
 - (void)captchaDidAnswered {
-	[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)presentIn:(UIViewController *)controller {
-	UIViewController *presenting = controller.presentedViewController;
-	if (presenting && (presenting.isBeingDismissed || presenting.isBeingPresented)) {
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^(void) {
-		    [self presentIn:controller];
-		});
-		return;
-	}
+    UIViewController *presenting = controller.presentedViewController;
+    if (presenting && (presenting.isBeingDismissed || presenting.isBeingPresented)) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (300 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^(void) {
+            [self presentIn:controller];
+        });
+        return;
+    }
     UIModalPresentationStyle oldStyle = controller.navigationController ? controller.navigationController.modalPresentationStyle : controller.modalPresentationStyle;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         self.modalPresentationStyle = UIModalPresentationFormSheet;
     } else if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         _transitionDelegate = [VKSharedTransitioningObject new];
-        self.transitioningDelegate  = _transitionDelegate;
+        self.transitioningDelegate = _transitionDelegate;
         self.modalPresentationStyle = UIModalPresentationCustom;
     } else {
         if (controller.navigationController) {
@@ -77,8 +77,8 @@
             controller.modalPresentationStyle = UIModalPresentationCurrentContext;
         }
     }
-    self.modalTransitionStyle   = UIModalTransitionStyleCrossDissolve;
-	[controller presentViewController:self animated:YES completion:nil];
+    self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [controller presentViewController:self animated:YES completion:nil];
     if (controller.navigationController) {
         controller.navigationController.modalPresentationStyle = oldStyle;
     } else {
@@ -86,9 +86,10 @@
     }
 }
 
--(UIStatusBarStyle)preferredStatusBarStyle {
+- (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
+
 - (CGSize)preferredContentSize {
     return CGSizeMake(kCaptchaImageWidth + 10, kCaptchaViewHeight + 10);
 }

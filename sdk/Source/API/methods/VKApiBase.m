@@ -21,39 +21,40 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKApiBase.h"
+
 @implementation VKApiBase
 - (id)init {
-	self = [super init];
-	if (self) {
-		NSString *methodsGroup = [[NSStringFromClass(self.class) substringFromIndex:@"VKApi".length] lowercaseString];
-		[self setMethodGroup:methodsGroup];
-	}
-	return self;
+    self = [super init];
+    if (self) {
+        NSString *methodsGroup = [[NSStringFromClass(self.class) substringFromIndex:@"VKApi".length] lowercaseString];
+        [self setMethodGroup:methodsGroup];
+    }
+    return self;
 }
 
 - (NSString *)getMethodGroup {
-	return _methodGroup;
+    return _methodGroup;
 }
 
 - (void)setMethodGroup:(NSString *)methodGroup {
-	_methodGroup = methodGroup;
+    _methodGroup = methodGroup;
 }
 
 - (VKRequest *)prepareRequestWithMethodName:(NSString *)methodName andParameters:(NSDictionary *)methodParameters {
-	return [self prepareRequestWithMethodName:methodName andParameters:methodParameters andHttpMethod:@"POST"];
+    return [self prepareRequestWithMethodName:methodName andParameters:methodParameters andHttpMethod:@"POST"];
 }
 
 - (VKRequest *)prepareRequestWithMethodName:(NSString *)methodName andParameters:(NSDictionary *)methodParameters andHttpMethod:(NSString *)httpMethod {
-	return [VKRequest requestWithMethod:[NSString stringWithFormat:@"%@.%@", _methodGroup, methodName]
-	                      andParameters:methodParameters
-	                      andHttpMethod:httpMethod];
+    return [VKRequest requestWithMethod:[NSString stringWithFormat:@"%@.%@", _methodGroup, methodName]
+                          andParameters:methodParameters
+                          andHttpMethod:httpMethod];
 }
 
 - (VKRequest *)prepareRequestWithMethodName:(NSString *)methodName andParameters:(NSDictionary *)methodParameters andHttpMethod:(NSString *)httpMethod andClassOfModel:(Class)modelClass {
-	return [VKRequest requestWithMethod:[NSString stringWithFormat:@"%@.%@", _methodGroup, methodName]
-	                      andParameters:methodParameters
-	                      andHttpMethod:httpMethod
-	                       classOfModel:modelClass];
+    return [VKRequest requestWithMethod:[NSString stringWithFormat:@"%@.%@", _methodGroup, methodName]
+                          andParameters:methodParameters
+                          andHttpMethod:httpMethod
+                           classOfModel:modelClass];
 }
 
 @end

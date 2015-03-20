@@ -22,46 +22,52 @@
 
 #import "VKApiUsers.h"
 #import "VKUser.h"
+
 @implementation VKApiUsers
 #pragma mark get
+
 - (VKRequest *)get {
-	return [self get:nil];
+    return [self get:nil];
 }
 
 - (VKRequest *)get:(NSDictionary *)params {
-	return [self prepareRequestWithMethodName:@"get" andParameters:params andHttpMethod:@"POST" andClassOfModel:[VKUsersArray class]];
+    return [self prepareRequestWithMethodName:@"get" andParameters:params andHttpMethod:@"POST" andClassOfModel:[VKUsersArray class]];
 }
 
 #pragma mark search
+
 - (VKRequest *)search:(NSDictionary *)params {
-	return [self prepareRequestWithMethodName:@"search" andParameters:params andHttpMethod:@"POST" andClassOfModel:[VKUsersArray class]];
+    return [self prepareRequestWithMethodName:@"search" andParameters:params andHttpMethod:@"POST" andClassOfModel:[VKUsersArray class]];
 }
 
 #pragma mark isAppUser
+
 - (VKRequest *)isAppUser {
-	return [self prepareRequestWithMethodName:@"isAppUser" andParameters:nil];
+    return [self prepareRequestWithMethodName:@"isAppUser" andParameters:nil];
 }
 
 - (VKRequest *)isAppUser:(NSInteger)userID {
-	return [self prepareRequestWithMethodName:@"isAppUser" andParameters:@{ VK_API_USER_ID : @(userID) }];
+    return [self prepareRequestWithMethodName:@"isAppUser" andParameters:@{VK_API_USER_ID : @(userID)}];
 }
 
 #pragma mark subscriptions
+
 - (VKRequest *)getSubscriptions {
-	return [self getSubscriptions:nil];
+    return [self getSubscriptions:nil];
 }
 
 - (VKRequest *)getSubscriptions:(NSDictionary *)params {
-	return [self prepareRequestWithMethodName:@"getSubscriptions" andParameters:params];
+    return [self prepareRequestWithMethodName:@"getSubscriptions" andParameters:params];
 }
 
 #pragma mark followers
+
 - (VKRequest *)getFollowers {
-	return [self getFollowers:nil];
+    return [self getFollowers:nil];
 }
 
 - (VKRequest *)getFollowers:(NSDictionary *)params {
-	return [self prepareRequestWithMethodName:@"getFollowers" andParameters:params andHttpMethod:@"GET" andClassOfModel:[VKUsersArray class]];
+    return [self prepareRequestWithMethodName:@"getFollowers" andParameters:params andHttpMethod:@"GET" andClassOfModel:[VKUsersArray class]];
 }
 
 @end

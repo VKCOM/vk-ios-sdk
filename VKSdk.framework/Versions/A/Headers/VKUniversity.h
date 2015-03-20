@@ -24,17 +24,17 @@
 
 @interface VKUniversity : VKApiObject
 
-@property (nonatomic, strong) NSNumber *id;
-@property (nonatomic, strong) NSNumber *country;
-@property (nonatomic, strong) NSNumber *city;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSNumber *faculty;
-@property (nonatomic, strong) NSString *faculty_name;
-@property (nonatomic, strong) NSNumber *chair;
-@property (nonatomic, strong) NSString *chair_name;
-@property (nonatomic, strong) NSNumber *graduation;
-@property (nonatomic, strong) NSString *education_form;
-@property (nonatomic, strong) NSString *education_status;
+@property(nonatomic, strong) NSNumber *id;
+@property(nonatomic, strong) NSNumber *country;
+@property(nonatomic, strong) NSNumber *city;
+@property(nonatomic, strong) NSString *name;
+@property(nonatomic, strong) NSNumber *faculty;
+@property(nonatomic, strong) NSString *faculty_name;
+@property(nonatomic, strong) NSNumber *chair;
+@property(nonatomic, strong) NSString *chair_name;
+@property(nonatomic, strong) NSNumber *graduation;
+@property(nonatomic, strong) NSString *education_form;
+@property(nonatomic, strong) NSString *education_status;
 
 @end
 

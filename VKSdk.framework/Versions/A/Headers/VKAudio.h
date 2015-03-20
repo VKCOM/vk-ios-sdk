@@ -21,24 +21,26 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKApiObjectArray.h"
+
 @class VKUser;
+
 @interface VKAudio : VKApiObject
 
-@property (nonatomic, strong) NSNumber *id;
-@property (nonatomic, strong) NSNumber *owner_id;
-@property (nonatomic, strong) NSString *artist;
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSNumber *duration;
-@property (nonatomic, strong) NSString *url;
-@property (nonatomic, strong) NSNumber *lyrics_id;
-@property (nonatomic, strong) NSNumber *album_id;
-@property (nonatomic, strong) NSNumber *genre_id;
+@property(nonatomic, strong) NSNumber *id;
+@property(nonatomic, strong) NSNumber *owner_id;
+@property(nonatomic, strong) NSString *artist;
+@property(nonatomic, strong) NSString *title;
+@property(nonatomic, strong) NSNumber *duration;
+@property(nonatomic, strong) NSString *url;
+@property(nonatomic, strong) NSNumber *lyrics_id;
+@property(nonatomic, strong) NSNumber *album_id;
+@property(nonatomic, strong) NSNumber *genre_id;
 
-@property (nonatomic, assign) BOOL fromCache;
-@property (nonatomic, assign) BOOL ignoreCache;
+@property(nonatomic, assign) BOOL fromCache;
+@property(nonatomic, assign) BOOL ignoreCache;
 
 @end
 
 @interface VKAudios : VKApiObjectArray
-@property (nonatomic, strong) VKUser * user;
+@property(nonatomic, strong) VKUser *user;
 @end

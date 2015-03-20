@@ -22,36 +22,39 @@
 
 #import <UIKit/UIKit.h>
 #import "VKSdk.h"
+
 /**
- Controller for authorization through webview (if VK app not available)
- */
+Controller for authorization through webview (if VK app not available)
+*/
 @interface VKAuthorizeController : UIViewController <UIWebViewDelegate>
 
 /**
- Causes UIWebView in standard UINavigationController be presented in SDK delegate
- @param appId Identifier of VK application
- @param permissions Permissions that user specified for application
- @param revoke If YES, user will see permissions list and allow to logout (if logged in already)
- @param displayType Defines view of authorization screen
- */
+Causes UIWebView in standard UINavigationController be presented in SDK delegate
+@param appId Identifier of VK application
+@param permissions Permissions that user specified for application
+@param revoke If YES, user will see permissions list and allow to logout (if logged in already)
+@param displayType Defines view of authorization screen
+*/
 + (void)presentForAuthorizeWithAppId:(NSString *)appId
                       andPermissions:(NSArray *)permissions
                         revokeAccess:(BOOL)revoke
-                         displayType:(VKDisplayType) displayType;
+                         displayType:(VKDisplayType)displayType;
+
 /**
- Causes UIWebView in standard UINavigationController be presented for user validation
- @param validationError validation error returned by API
- */
+Causes UIWebView in standard UINavigationController be presented for user validation
+@param validationError validation error returned by API
+*/
 + (void)presentForValidation:(VKError *)validationError;
+
 /**
- Builds url for oauth authorization
- @param redirectUri uri for redirect
- @param clientId id of your application
- @param scope requested scope for application
- @param revoke If YES, user will see permissions list and allow to logout (if logged in already)
- @param display select display type
- @return Complete url-string for grant authorization
- */
+Builds url for oauth authorization
+@param redirectUri uri for redirect
+@param clientId id of your application
+@param scope requested scope for application
+@param revoke If YES, user will see permissions list and allow to logout (if logged in already)
+@param display select display type
+@return Complete url-string for grant authorization
+*/
 + (NSString *)buildAuthorizationUrl:(NSString *)redirectUri
                            clientId:(NSString *)clientId
                               scope:(NSString *)scope

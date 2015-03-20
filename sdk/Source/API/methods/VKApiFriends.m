@@ -22,13 +22,14 @@
 
 #import "VKApiFriends.h"
 #import "VKUser.h"
+
 @implementation VKApiFriends
 - (VKRequest *)get {
-	return [self prepareRequestWithMethodName:@"get" andParameters:nil andHttpMethod:@"GET" andClassOfModel:[VKUsersArray class]];
+    return [self prepareRequestWithMethodName:@"get" andParameters:nil andHttpMethod:@"GET" andClassOfModel:[VKUsersArray class]];
 }
 
 - (VKRequest *)get:(NSDictionary *)params {
-	return [self prepareRequestWithMethodName:@"get" andParameters:params andHttpMethod:@"GET" andClassOfModel:[VKUsersArray class]];
+    return [self prepareRequestWithMethodName:@"get" andParameters:params andHttpMethod:@"GET" andClassOfModel:[VKUsersArray class]];
 }
 
 @end

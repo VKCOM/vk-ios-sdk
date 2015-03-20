@@ -23,28 +23,30 @@
 #import "VKRequest.h"
 #import "VKImageParameters.h"
 #import "VKOperation.h"
+
 /**
- Provides common part of photo upload process
- */
+Provides common part of photo upload process
+*/
 @interface VKUploadPhotoBase : VKRequest
 /// ID of album to upload
-@property (nonatomic, assign) NSInteger albumId;
+@property(nonatomic, assign) NSInteger albumId;
 /// ID of group to upload
-@property (nonatomic, assign) NSInteger groupId;
+@property(nonatomic, assign) NSInteger groupId;
 /// ID of user wall to upload
-@property (nonatomic, assign) NSInteger userId;
+@property(nonatomic, assign) NSInteger userId;
 
 /// Passed image parameters
-@property (nonatomic, strong) VKImageParameters *imageParameters;
+@property(nonatomic, strong) VKImageParameters *imageParameters;
 /// Image to upload
-@property (nonatomic, strong) UIImage * image;
+@property(nonatomic, strong) UIImage *image;
+
 - (instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters;
 @end
 
 /**
- Special operation for execute upload
- */
+Special operation for execute upload
+*/
 @interface VKUploadImageOperation : VKOperation
 
-+(instancetype) operationWithUploadRequest:(VKUploadPhotoBase*) request;
++ (instancetype)operationWithUploadRequest:(VKUploadPhotoBase *)request;
 @end

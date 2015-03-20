@@ -21,26 +21,29 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKObject.h"
+
 #define VKLocalizedString(s) [VKBundle localizedString:s]
 #define VKImageNamed(s)      [VKBundle vkLibraryImageNamed:s]
+
 /**
- Class for providing resources from VK SDK Bundle
- */
+Class for providing resources from VK SDK Bundle
+*/
 @interface VKBundle : VKObject
 /**
- Returns bundle for VK SDK (by default VKSdkResources)
- @return Bundle object or nil
- */
+Returns bundle for VK SDK (by default VKSdkResources)
+@return Bundle object or nil
+*/
 + (NSBundle *)vkLibraryResourcesBundle;
+
 /**
- Searches for image in main application bundle, then VK SDK bundle
- @param name Name for image to find
- @return Founded image object or nil, if file not found
- */
+Searches for image in main application bundle, then VK SDK bundle
+@param name Name for image to find
+@return Founded image object or nil, if file not found
+*/
 + (UIImage *)vkLibraryImageNamed:(NSString *)name;
 
 /**
- * Returns localized string from VK bundle
- */
-+ (NSString*)localizedString:(NSString*)string;
+* Returns localized string from VK bundle
+*/
++ (NSString *)localizedString:(NSString *)string;
 @end

@@ -25,7 +25,7 @@
 @implementation VKResponse
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"<VKResponse: %p; API response: %@>", self, self.json];
+    return [NSString stringWithFormat:@"<VKResponse: %p; API response: %@>", self, self.json];
 }
 
 @end

@@ -23,13 +23,13 @@
 #import "VKApiBase.h"
 
 /**
- Builds requests for API.wall part
- */
+Builds requests for API.wall part
+*/
 @interface VKApiWall : VKApiBase
 /**
- https://vk.com/dev/wall.post
- @param params Use parameters from description with VK_API prefix
- @return Request for execution
- */
+https://vk.com/dev/wall.post
+@param params Use parameters from description with VK_API prefix
+@return Request for execution
+*/
 - (VKRequest *)post:(NSDictionary *)params;
 @end

@@ -7,7 +7,7 @@
 #import "VKUtil.h"
 
 @interface AnimatedTransitioning : NSObject <UIViewControllerAnimatedTransitioning>
-@property (nonatomic, assign) BOOL isPresenting;
+@property(nonatomic, assign) BOOL isPresenting;
 @end
 
 
@@ -21,7 +21,7 @@
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") || VK_IS_DEVICE_IPAD) return nil;
-    AnimatedTransitioning *controller = [[AnimatedTransitioning alloc]init];
+    AnimatedTransitioning *controller = [[AnimatedTransitioning alloc] init];
     return controller;
 }
 
@@ -46,8 +46,8 @@
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
 
     UIView *inView = [transitionContext containerView];
-    UIViewController *toVC   = (UIViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIViewController *fromVC = (UIViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
 
     [inView addSubview:toVC.view];
     if (!self.isPresenting) {
@@ -68,7 +68,7 @@
                      animations:^{
                          [toVC.view setFrame:CGRectMake(0, 0, fromVC.view.frame.size.width, fromVC.view.frame.size.height)];
                          if (self.isPresenting) {
-                             toVC.view.alpha   = 1;
+                             toVC.view.alpha = 1;
                          } else {
                              fromVC.view.alpha = 0;
                          }

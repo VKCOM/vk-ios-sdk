@@ -8,8 +8,9 @@
 
 #import "VKApiGroups.h"
 #import "VKGroup.h"
+
 @implementation VKApiGroups
--(VKRequest *)getById:(NSDictionary *)params {
+- (VKRequest *)getById:(NSDictionary *)params {
     return [self prepareRequestWithMethodName:@"getById" andParameters:params andHttpMethod:@"GET" andClassOfModel:[VKGroups class]];
 }
 @end

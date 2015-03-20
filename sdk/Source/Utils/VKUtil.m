@@ -25,34 +25,36 @@
 @implementation VKUtil
 
 + (NSDictionary *)explodeQueryString:(NSString *)queryString {
-	NSArray *keyValuePairs = [queryString componentsSeparatedByString:@"&"];
-	NSMutableDictionary *parameters    = [NSMutableDictionary new];
-	for (NSString *keyValueString in keyValuePairs) {
-		NSArray *keyValueArray = [keyValueString componentsSeparatedByString:@"="];
-		parameters[keyValueArray[0]] = keyValueArray[1];
-	}
-	return parameters;
+    NSArray *keyValuePairs = [queryString componentsSeparatedByString:@"&"];
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    for (NSString *keyValueString in keyValuePairs) {
+        NSArray *keyValueArray = [keyValueString componentsSeparatedByString:@"="];
+        parameters[keyValueArray[0]] = keyValueArray[1];
+    }
+    return parameters;
 }
 
 + (NSString *)generateGUID {
-	CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
-	CFStringRef str = CFUUIDCreateString(kCFAllocatorDefault, uuid);
-	NSString *uuidString = [NSString stringWithFormat:@"%@", (__bridge NSString *)str];
-	CFRelease(uuid);
-	CFRelease(str);
-	return uuidString;
+    CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
+    CFStringRef str = CFUUIDCreateString(kCFAllocatorDefault, uuid);
+    NSString *uuidString = [NSString stringWithFormat:@"%@", (__bridge NSString *) str];
+    CFRelease(uuid);
+    CFRelease(str);
+    return uuidString;
 }
-+ (NSNumber *)parseNumberString:(NSString*)number {
+
++ (NSNumber *)parseNumberString:(id)number {
     if ([number isKindOfClass:[NSNumber class]])
-        return (NSNumber*)number;
+        return (NSNumber *) number;
     static dispatch_once_t onceToken;
-    static NSNumberFormatter * formatter;
+    static NSNumberFormatter *formatter;
     dispatch_once(&onceToken, ^{
         formatter = [[NSNumberFormatter alloc] init];
     });
     return [formatter numberFromString:number];
 }
-+(UIColor*)colorWithRGB:(NSInteger)rgb {
-    return [UIColor colorWithRed:((CGFloat)((rgb & 0xFF0000) >> 16))/255.0 green:((CGFloat)((rgb & 0xFF00) >> 8))/255.0 blue:((CGFloat)(rgb & 0xFF))/255.0 alpha:1.0f];
+
++ (UIColor *)colorWithRGB:(NSInteger)rgb {
+    return [UIColor colorWithRed:((CGFloat) ((rgb & 0xFF0000) >> 16)) / 255.f green:((CGFloat) ((rgb & 0xFF00) >> 8)) / 255.f blue:((CGFloat) (rgb & 0xFF)) / 255.f alpha:1.0f];
 }
 @end

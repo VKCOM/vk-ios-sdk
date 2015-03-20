@@ -33,14 +33,14 @@
     NSString *_accessToken;
 }
 
-static NSString *const ACCESS_TOKEN   = @"access_token";
-static NSString *const EXPIRES_IN     = @"expires_in";
-static NSString *const USER_ID        = @"user_id";
-static NSString *const SECRET         = @"secret";
-static NSString *const EMAIL          = @"email";
+static NSString *const ACCESS_TOKEN = @"access_token";
+static NSString *const EXPIRES_IN = @"expires_in";
+static NSString *const USER_ID = @"user_id";
+static NSString *const SECRET = @"secret";
+static NSString *const EMAIL = @"email";
 static NSString *const HTTPS_REQUIRED = @"https_required";
-static NSString *const CREATED        = @"created";
-static NSString *const PERMISSIONS    = @"permissions";
+static NSString *const CREATED = @"created";
+static NSString *const PERMISSIONS = @"permissions";
 
 #pragma mark - Creating
 
@@ -73,13 +73,13 @@ static NSString *const PERMISSIONS    = @"permissions";
     self = [super init];
     if (self) {
 
-        NSDictionary *parameters   = [VKUtil explodeQueryString:urlString];
-        _accessToken           = parameters[ACCESS_TOKEN];
-        _expiresIn             = parameters[EXPIRES_IN];
-        _userId                = parameters[USER_ID];
-        _secret                = parameters[SECRET];
-        _email                 = parameters[EMAIL];
-        _httpsRequired         = NO;
+        NSDictionary *parameters = [VKUtil explodeQueryString:urlString];
+        _accessToken = parameters[ACCESS_TOKEN];
+        _expiresIn = parameters[EXPIRES_IN];
+        _userId = parameters[USER_ID];
+        _secret = parameters[SECRET];
+        _email = parameters[EMAIL];
+        _httpsRequired = NO;
 
         NSString *permissionsString = parameters[PERMISSIONS];
         permissionsString = [permissionsString stringByReplacingOccurrencesOfString:@"(" withString:@""];
@@ -102,21 +102,21 @@ static NSString *const PERMISSIONS    = @"permissions";
         [self checkIfExpired];
     }
 
-	return self;
+    return self;
 }
 
 + (instancetype)tokenFromFile:(NSString *)filePath {
-	NSData *data = [NSData dataWithContentsOfFile:filePath];
-	if (!data)
-		return nil;
-	return [self tokenFromUrlString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    if (!data)
+        return nil;
+    return [self tokenFromUrlString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
 }
 
 + (instancetype)tokenFromDefaults:(NSString *)defaultsKey {
-	NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:defaultsKey];
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:defaultsKey];
 
-	if (!data) {
-		return nil;
+    if (!data) {
+        return nil;
     } else {
         return [self tokenFromUrlString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
     }
@@ -128,7 +128,7 @@ static NSString *const PERMISSIONS    = @"permissions";
     if (_accessToken == nil)
         return YES;
     int expiresIn = [self.expiresIn intValue];
-    return  expiresIn > 0 && expiresIn + self.created < [[NSDate new] timeIntervalSince1970];
+    return expiresIn > 0 && expiresIn + self.created < [[NSDate new] timeIntervalSince1970];
 }
 
 - (void)checkIfExpired {
@@ -146,43 +146,43 @@ static NSString *const PERMISSIONS    = @"permissions";
 #pragma mark - Save / Load
 
 - (void)saveTokenToFile:(NSString *)filePath {
-	NSError *error = nil;
-	NSFileManager *manager = [NSFileManager defaultManager];
-	if ([manager fileExistsAtPath:filePath])
-		[manager removeItemAtPath:filePath error:&error];
+    NSError *error = nil;
+    NSFileManager *manager = [NSFileManager defaultManager];
+    if ([manager fileExistsAtPath:filePath])
+        [manager removeItemAtPath:filePath error:&error];
 
-	[[self serialize] writeToFile:filePath atomically:YES];
+    [[self serialize] writeToFile:filePath atomically:YES];
 }
 
 - (void)saveTokenToDefaults:(NSString *)defaultsKey {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:[self serialize] forKey:defaultsKey];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[self serialize] forKey:defaultsKey];
     [defaults synchronize];
 }
 
 - (NSData *)serialize {
-    NSMutableDictionary * dict = [@{
-                                    ACCESS_TOKEN : self.accessToken ? : @"",
-                                    EXPIRES_IN : self.expiresIn  ? : @"0",
-                                    USER_ID : self.userId  ? : @"0",
-                                    CREATED : @(self.created),
-                                    PERMISSIONS : self.permissions ? : @""
-                                    } mutableCopy];
+    NSMutableDictionary *dict = [@{
+            ACCESS_TOKEN : self.accessToken ?: @"",
+            EXPIRES_IN : self.expiresIn ?: @"0",
+            USER_ID : self.userId ?: @"0",
+            CREATED : @(self.created),
+            PERMISSIONS : self.permissions ?: @""
+    } mutableCopy];
 
-	if (self.secret) {
+    if (self.secret) {
         dict[SECRET] = self.secret;
     }
 
-	if (self.httpsRequired) {
+    if (self.httpsRequired) {
         dict[HTTPS_REQUIRED] = @(1);
     }
 
-    NSMutableArray * result = [NSMutableArray new];
+    NSMutableArray *result = [NSMutableArray new];
 
-    for (NSString * key in dict)
+    for (NSString *key in dict)
         [result addObject:[NSString stringWithFormat:@"%@=%@", key, dict[key]]];
 
-	return [[result componentsJoinedByString:@"&"] dataUsingEncoding:NSUTF8StringEncoding];
+    return [[result componentsJoinedByString:@"&"] dataUsingEncoding:NSUTF8StringEncoding];
 }
 
 @end

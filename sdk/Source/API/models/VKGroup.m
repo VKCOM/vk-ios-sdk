@@ -7,21 +7,24 @@
 //
 
 #import "VKGroup.h"
+
 @implementation VKGeoPlace
 @end
+
 @implementation VKGroupContact
 @end
+
 @implementation VKGroupContacts
--(instancetype)initWithDictionary:(NSDictionary *)dict
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
     return [super initWithDictionary:dict objectClass:[VKGroupContact class]];
 }
 @end
+
 @implementation VKGroupLink
 @end
+
 @implementation VKGroupLinks
--(instancetype)initWithDictionary:(NSDictionary *)dict
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
     return [super initWithDictionary:dict objectClass:[VKGroupLink class]];
 }
 @end
@@ -33,8 +36,7 @@
 @end
 
 @implementation VKGroups
--(instancetype)initWithDictionary:(NSDictionary *)dict
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
     return [super initWithDictionary:dict objectClass:[VKGroup class]];
 }
 @end

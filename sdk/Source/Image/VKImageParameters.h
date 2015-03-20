@@ -23,46 +23,48 @@
 #import "VKObject.h"
 
 /**
- Describes image representation type
- */
+Describes image representation type
+*/
 typedef enum VKImageType {
-	/// Sets jpeg representation of image
-	VKImageTypeJpg,
-	/// Sets png representation of image
-	VKImageTypePng
+    /// Sets jpeg representation of image
+            VKImageTypeJpg,
+    /// Sets png representation of image
+            VKImageTypePng
 } VKImageType;
 
 /**
- Parameters used for uploading image into VK servers
- */
+Parameters used for uploading image into VK servers
+*/
 @interface VKImageParameters : VKObject
 
 /// Type of image compression. Can be <b>VKImageTypeJpg</b> or <b>VKImageTypePng</b>.
-@property (nonatomic, assign) VKImageType imageType;
+@property(nonatomic, assign) VKImageType imageType;
 /// Quality used for jpg compression. From 0.0 to 1.0
-@property (nonatomic, assign) CGFloat jpegQuality;
+@property(nonatomic, assign) CGFloat jpegQuality;
 
 /**
- Creates new parameters instance for png image.
- @return New instance of parameters
- */
+Creates new parameters instance for png image.
+@return New instance of parameters
+*/
 + (instancetype)pngImage;
+
 /**
- Creates new parameters instance for jpeg image.
- @param quality Used only for <b>VKImageTypeJpg</b> representation. From 0.0 to 1.0
- @return New instance with passed parameters
- */
+Creates new parameters instance for jpeg image.
+@param quality Used only for <b>VKImageTypeJpg</b> representation. From 0.0 to 1.0
+@return New instance with passed parameters
+*/
 + (instancetype)jpegImageWithQuality:(float)quality;
 
 /**
- Return file extension for selected type
- @return png for VKImageTypePng image type, jpg for VKImageTypeJpg image type
- */
+Return file extension for selected type
+@return png for VKImageTypePng image type, jpg for VKImageTypeJpg image type
+*/
 - (NSString *)fileExtension;
+
 /**
- Return mime type
- @return parameters mime type
- */
+Return mime type
+@return parameters mime type
+*/
 - (NSString *)mimeType;
 @end
 

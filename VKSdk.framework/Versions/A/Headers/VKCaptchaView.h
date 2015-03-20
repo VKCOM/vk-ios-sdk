@@ -26,15 +26,16 @@
 extern CGFloat kCaptchaImageWidth;
 extern CGFloat kCaptchaImageHeight;
 extern CGFloat kCaptchaViewHeight;
+
 /**
- View for displaying captcha. Don't use it dirrectly. Use VKCaptchaViewController
- */
+View for displaying captcha. Don't use it dirrectly. Use VKCaptchaViewController
+*/
 @interface VKCaptchaView : UIView
 /**
- Initializes view with captcha error
- @param frame bounds of window where view will be displayed
- @param captchaError error for request that causes captcha-check
- */
+Initializes view with captcha error
+@param frame bounds of window where view will be displayed
+@param captchaError error for request that causes captcha-check
+*/
 - (id)initWithFrame:(CGRect)frame andError:(VKError *)captchaError;
 
 @end

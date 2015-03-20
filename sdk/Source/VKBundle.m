@@ -24,15 +24,15 @@
 
 @implementation VKBundle
 + (NSBundle *)vkLibraryResourcesBundle {
-	static dispatch_once_t onceToken;
-	static NSBundle *myLibraryResourcesBundle = nil;
-	dispatch_once(&onceToken, ^{
-        NSURL * url = [[NSBundle mainBundle] URLForResource:@"VKSdkResources" withExtension:@"bundle"];
+    static dispatch_once_t onceToken;
+    static NSBundle *myLibraryResourcesBundle = nil;
+    dispatch_once(&onceToken, ^{
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"VKSdkResources" withExtension:@"bundle"];
         if (url) {
             myLibraryResourcesBundle = [NSBundle bundleWithURL:url];
         }
-	});
-	return myLibraryResourcesBundle;
+    });
+    return myLibraryResourcesBundle;
 }
 
 + (UIImage *)vkLibraryImageNamed:(NSString *)name {
@@ -41,13 +41,13 @@
         if (imageFromMainBundle) {
             return imageFromMainBundle;
         }
-        
+
         UIImage *imageFromMyLibraryBundle = [UIImage imageWithContentsOfFile:[[self vkLibraryResourcesBundle] pathForResource:name ofType:@"png"]];
         return imageFromMyLibraryBundle;
     }
 }
 
-+ (NSString*)localizedString:(NSString*)string {
++ (NSString *)localizedString:(NSString *)string {
     return [[self vkLibraryResourcesBundle] localizedStringForKey:string value:string table:nil];
 }
 @end

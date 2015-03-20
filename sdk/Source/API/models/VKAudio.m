@@ -27,11 +27,13 @@
 @end
 
 @implementation VKAudios
--(Class)objectClass { return [VKAudio class]; }
+- (Class)objectClass {
+    return [VKAudio class];
+}
 
 //Parse first user in array (in some cases)
--(NSMutableArray*) parseItems:(NSArray*) toParse asClass:(Class) objectClass {
-    NSMutableArray * listOfParsedObjects = [NSMutableArray new];
+- (NSMutableArray *)parseItems:(NSArray *)toParse asClass:(Class)objectClass {
+    NSMutableArray *listOfParsedObjects = [NSMutableArray new];
     for (id objectDict in toParse) {
         if ([objectDict isKindOfClass:objectClass])
             [listOfParsedObjects addObject:objectDict];
@@ -39,7 +41,7 @@
             if ([toParse firstObject] == objectDict && objectDict[@"name"]) {
                 self.user = [[VKUser alloc] initWithDictionary:objectDict];
             } else {
-                [listOfParsedObjects addObject:[(VKApiObject *)[objectClass alloc] initWithDictionary:objectDict]];
+                [listOfParsedObjects addObject:[(VKApiObject *) [objectClass alloc] initWithDictionary:objectDict]];
             }
         }
         else

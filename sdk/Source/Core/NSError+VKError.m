@@ -23,11 +23,11 @@
 #import "NSError+VKError.h"
 
 NSString *const VKSdkErrorDomain = @"VKSdkErrorDomain";
-NSString *const VkErrorDescriptionKey  = @"VkErrorDescriptionKey";
+NSString *const VkErrorDescriptionKey = @"VkErrorDescriptionKey";
 
 @implementation NSError (VKError)
 
-+(NSError*) errorWithVkError:(VKError*) vkError {
++ (NSError *)errorWithVkError:(VKError *)vkError {
     NSMutableDictionary *userInfo = [NSMutableDictionary new];
     NSInteger originalCode = vkError.errorCode;
     if (vkError.apiError) {
@@ -38,17 +38,19 @@ NSString *const VkErrorDescriptionKey  = @"VkErrorDescriptionKey";
     }
     userInfo[NSLocalizedDescriptionKey] = vkError.errorMessage ? vkError.errorMessage : NSLocalizedStringFromTable(@"Something went wrong", nil, @"");
     userInfo[VkErrorDescriptionKey] = vkError;
-    
+
     return [[NSError alloc] initWithDomain:VKSdkErrorDomain code:originalCode userInfo:userInfo];
 }
--(NSError*) copyWithVkError:(VKError*) vkError {
+
+- (NSError *)copyWithVkError:(VKError *)vkError {
     NSMutableDictionary *userInfo = [self.userInfo mutableCopy];
     userInfo[VkErrorDescriptionKey] = vkError;
-    
+
     return [[NSError alloc] initWithDomain:self.domain code:self.code userInfo:userInfo];
 }
--(VKError *)vkError {
-    return (VKError*)self.userInfo[VkErrorDescriptionKey];
+
+- (VKError *)vkError {
+    return (VKError *) self.userInfo[VkErrorDescriptionKey];
 }
 
 @end

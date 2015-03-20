@@ -23,48 +23,58 @@
 #import "VKApiObject.h"
 
 /**
- Base class for VK API arrays
- */
+Base class for VK API arrays
+*/
 @interface VKApiObjectArray : VKApiObject <NSFastEnumeration>
 /// Count of items in array
-@property (nonatomic, readonly) NSUInteger count;
+@property(nonatomic, readonly) NSUInteger count;
 /// Parsed array items
-@property (nonatomic, strong) NSMutableArray * items;
+@property(nonatomic, strong) NSMutableArray *items;
 
 /**
- Initialize object with API json dictionary. This method tries to set all known properties of current class from dictionary
- @param dict API json dictionary
- @param objectClass class of items inside of array
- @return Initialized object
- */
-- (instancetype) initWithDictionary:(NSDictionary *)dict objectClass:(Class) objectClass;
+Initialize object with API json dictionary. This method tries to set all known properties of current class from dictionary
+@param dict API json dictionary
+@param objectClass class of items inside of array
+@return Initialized object
+*/
+- (instancetype)initWithDictionary:(NSDictionary *)dict objectClass:(Class)objectClass;
+
 /**
- Initialize object with API json array. This method tries to set all known properties of current class from array
- @param array API json array
- @param objectClass class of items inside of array
- @return Initialized object
- */
-- (instancetype) initWithArray:(NSArray*) array objectClass:(Class)objectClass;
+Initialize object with API json array. This method tries to set all known properties of current class from array
+@param array API json array
+@param objectClass class of items inside of array
+@return Initialized object
+*/
+- (instancetype)initWithArray:(NSArray *)array objectClass:(Class)objectClass;
+
 /**
- Initialize object with any array. items property is sets as passed array, count is a count of items in passed array
- @param array API json array
- @return Initialized object
- */
-- (instancetype) initWithArray:(NSArray*) array;
+Initialize object with any array. items property is sets as passed array, count is a count of items in passed array
+@param array API json array
+@return Initialized object
+*/
+- (instancetype)initWithArray:(NSArray *)array;
 
 /// Array funtions
 
-- (id) objectAtIndex:(NSInteger) idx;
-- (id) objectAtIndexedSubscript:(NSUInteger)idx NS_AVAILABLE(10_8, 6_0);
+- (id)objectAtIndex:(NSInteger)idx;
+
+- (id)objectAtIndexedSubscript:(NSUInteger)idx NS_AVAILABLE(10_8, 6_0);
+
 - (NSEnumerator *)objectEnumerator;
+
 - (NSEnumerator *)reverseObjectEnumerator;
 
-- (void) addObject:(id) object;
-- (void) removeObject:(id) object;
-- (void) insertObject:(id) object atIndex:(NSUInteger) index;
-- (id) firstObject;
-- (id) lastObject;
+- (void)addObject:(id)object;
 
--(void)serializeTo:(NSMutableDictionary*) dict withName:(NSString*) name;
--(Class)objectClass;
+- (void)removeObject:(id)object;
+
+- (void)insertObject:(id)object atIndex:(NSUInteger)index;
+
+- (id)firstObject;
+
+- (id)lastObject;
+
+- (void)serializeTo:(NSMutableDictionary *)dict withName:(NSString *)name;
+
+- (Class)objectClass;
 @end

@@ -25,17 +25,17 @@
 @class VKRequest;
 
 /**
- Class presenting answer from API
- */
+Class presenting answer from API
+*/
 @interface VKResponse : VKObject
 
 /// Request which caused response
-@property (nonatomic, weak) VKRequest *request;
+@property(nonatomic, weak) VKRequest *request;
 /// Json content of response. Can be array or object.
-@property (nonatomic, strong) id json;
+@property(nonatomic, strong) id json;
 /// Model parsed from response
-@property (nonatomic, strong) id parsedModel;
+@property(nonatomic, strong) id parsedModel;
 /// Original response string from server
-@property (nonatomic, copy)   NSString *responseString;
+@property(nonatomic, copy) NSString *responseString;
 
 @end

@@ -24,20 +24,23 @@
 #import "VKUploadImage.h"
 
 extern inline NSString *VKKeyPathFromOperationState(VKOperationState state);
+
 extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperationState toState, BOOL isCancelled);
 
 @interface VKUploadPhotoBase ()
-@property (nonatomic, readwrite, strong) NSOperation *executionOperation;
+@property(nonatomic, readwrite, strong) NSOperation *executionOperation;
 @end
 
 @implementation VKUploadPhotoBase
 @dynamic executionOperation;
--(instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters {
+
+- (instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters {
     self = [super init];
     self.image = image;
     self.imageParameters = parameters;
     return self;
 }
+
 - (NSOperation *)executionOperation {
     VKOperation *op = [VKUploadImageOperation operationWithUploadRequest:self];
     [op setResponseQueue:self.responseQueue];
@@ -46,92 +49,92 @@ extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperat
 }
 
 - (VKRequest *)getServerRequest {
-	@throw [NSException exceptionWithName:@"Abstract function" reason:@"getServerRequest should be overriden" userInfo:nil];
+    @throw [NSException exceptionWithName:@"Abstract function" reason:@"getServerRequest should be overriden" userInfo:nil];
 }
 
 - (VKRequest *)getSaveRequest:(VKResponse *)response {
-	@throw [NSException exceptionWithName:@"Abstract function" reason:@"getSaveRequest should be overriden" userInfo:nil];
+    @throw [NSException exceptionWithName:@"Abstract function" reason:@"getSaveRequest should be overriden" userInfo:nil];
 }
 
--(NSString *)methodName {
+- (NSString *)methodName {
     return NSStringFromClass([self class]);
 }
 
 @end
 
 @interface VKUploadImageOperation ()
-@property (nonatomic, strong) VKUploadPhotoBase *uploadRequest;
-@property (readwrite, nonatomic, assign) VKOperationState state;
-@property (nonatomic, strong) VKRequest *lastLoadingRequest;
+@property(nonatomic, strong) VKUploadPhotoBase *uploadRequest;
+@property(readwrite, nonatomic, assign) VKOperationState state;
+@property(nonatomic, strong) VKRequest *lastLoadingRequest;
 @end
+
 @implementation VKUploadImageOperation
 
 + (instancetype)operationWithUploadRequest:(VKUploadPhotoBase *)uploadRequest {
-	VKUploadImageOperation *operation = [VKUploadImageOperation new];
-	operation.uploadRequest = uploadRequest;
-	return operation;
+    VKUploadImageOperation *operation = [VKUploadImageOperation new];
+    operation.uploadRequest = uploadRequest;
+    return operation;
 }
-
 
 
 - (void)start {
-	void (^originalErrorBlock)(NSError *) = [_uploadRequest.errorBlock copy];
-	__weak VKUploadImageOperation *weakSelf = self;
-	_uploadRequest.errorBlock = ^(NSError *error) {
-		[weakSelf finish];
-		if (originalErrorBlock)
-			originalErrorBlock(error);
-	};
-	self.state = VKOperationExecutingState;
-    
-	VKRequest *serverRequest = [_uploadRequest getServerRequest];
+    void (^originalErrorBlock)(NSError *) = [_uploadRequest.errorBlock copy];
+    __weak VKUploadImageOperation *weakSelf = self;
+    _uploadRequest.errorBlock = ^(NSError *error) {
+        [weakSelf finish];
+        if (originalErrorBlock)
+            originalErrorBlock(error);
+    };
+    self.state = VKOperationExecutingState;
+
+    VKRequest *serverRequest = [_uploadRequest getServerRequest];
     serverRequest.responseQueue = self.responseQueue;
-	serverRequest.completeBlock = ^(VKResponse *response) {
-		NSData *imageData = nil;
-		switch (_uploadRequest.imageParameters.imageType) {
-			case VKImageTypeJpg:
-				imageData = UIImageJPEGRepresentation(_uploadRequest.image, _uploadRequest.imageParameters.jpegQuality);
-				break;
-                
-			case VKImageTypePng:
-				imageData = UIImagePNGRepresentation(_uploadRequest.image);
-				break;
-                
-			default:
-				break;
-		}
-		_uploadRequest.image = nil;
-		VKRequest *postFileRequest = [VKRequest photoRequestWithPostUrl:response.json[@"upload_url"]
+    serverRequest.completeBlock = ^(VKResponse *response) {
+        NSData *imageData = nil;
+        switch (_uploadRequest.imageParameters.imageType) {
+            case VKImageTypeJpg:
+                imageData = UIImageJPEGRepresentation(_uploadRequest.image, _uploadRequest.imageParameters.jpegQuality);
+                break;
+
+            case VKImageTypePng:
+                imageData = UIImagePNGRepresentation(_uploadRequest.image);
+                break;
+
+            default:
+                break;
+        }
+        _uploadRequest.image = nil;
+        VKRequest *postFileRequest = [VKRequest photoRequestWithPostUrl:response.json[@"upload_url"]
                                                              withPhotos:@[[VKUploadImage uploadImageWithData:imageData andParams:_uploadRequest.imageParameters]]];
-		postFileRequest.progressBlock = _uploadRequest.progressBlock;
+        postFileRequest.progressBlock = _uploadRequest.progressBlock;
         postFileRequest.responseQueue = self.responseQueue;
-		self.lastLoadingRequest = postFileRequest;
-		[postFileRequest executeWithResultBlock: ^(VKResponse *response) {
-		    VKRequest *saveRequest = [_uploadRequest getSaveRequest:response];
+        self.lastLoadingRequest = postFileRequest;
+        [postFileRequest executeWithResultBlock:^(VKResponse *response) {
+            VKRequest *saveRequest = [_uploadRequest getSaveRequest:response];
             saveRequest.responseQueue = self.responseQueue;
-		    self.lastLoadingRequest = saveRequest;
-		    [saveRequest executeWithResultBlock: ^(VKResponse *response) {
-		        response.request = _uploadRequest;
-                
-		        if (_uploadRequest.completeBlock) _uploadRequest.completeBlock(response);
-		        [weakSelf finish];
-			} errorBlock:_uploadRequest.errorBlock];
-		} errorBlock:_uploadRequest.errorBlock];
-	};
-	serverRequest.errorBlock = _uploadRequest.errorBlock;
-	self.lastLoadingRequest = serverRequest;
-	[serverRequest start];
+            self.lastLoadingRequest = saveRequest;
+            [saveRequest executeWithResultBlock:^(VKResponse *response) {
+                response.request = _uploadRequest;
+
+                if (_uploadRequest.completeBlock) _uploadRequest.completeBlock(response);
+                [weakSelf finish];
+            }                        errorBlock:_uploadRequest.errorBlock];
+        }                            errorBlock:_uploadRequest.errorBlock];
+    };
+    serverRequest.errorBlock = _uploadRequest.errorBlock;
+    self.lastLoadingRequest = serverRequest;
+    [serverRequest start];
 }
 
 - (void)finish {
-	self.state = VKOperationFinishedState;
+    self.state = VKOperationFinishedState;
     self.uploadRequest = nil;
     self.lastLoadingRequest = nil;
 }
 
 - (void)cancel {
-	[super cancel];
-	[self.lastLoadingRequest cancel];
+    [super cancel];
+    [self.lastLoadingRequest cancel];
 }
 
 @end

@@ -22,58 +22,59 @@
 
 #import "VKError.h"
 #import "VKRequest.h"
+
 @implementation VKError
 + (instancetype)errorWithCode:(NSInteger)errorCode {
-	VKError *error = [VKError new];
-	error.errorCode = errorCode;
-	return error;
+    VKError *error = [VKError new];
+    error.errorCode = errorCode;
+    return error;
 }
 
 + (instancetype)errorWithJson:(id)JSON {
-	VKError *internalError     = [VKError new];
-	internalError.errorCode     = [JSON[VK_API_ERROR_CODE] intValue];
-	internalError.errorMessage  = JSON[VK_API_ERROR_MSG];
-	internalError.requestParams = JSON[VK_API_REQUEST_PARAMS];
-	if (internalError.errorCode == 14) {
-		internalError.captchaImg = JSON[VK_API_CAPTCHA_IMG];
-		internalError.captchaSid = JSON[VK_API_CAPTCHA_SID];
-	}
+    VKError *internalError = [VKError new];
+    internalError.errorCode = [JSON[VK_API_ERROR_CODE] intValue];
+    internalError.errorMessage = JSON[VK_API_ERROR_MSG];
+    internalError.requestParams = JSON[VK_API_REQUEST_PARAMS];
+    if (internalError.errorCode == 14) {
+        internalError.captchaImg = JSON[VK_API_CAPTCHA_IMG];
+        internalError.captchaSid = JSON[VK_API_CAPTCHA_SID];
+    }
     if (internalError.errorCode == 17) {
         internalError.redirectUri = JSON[VK_API_REDIRECT_URI];
     }
-    
-	VKError *mainError = [VKError errorWithCode:VK_API_ERROR];
-	mainError.apiError = internalError;
-	return mainError;
+
+    VKError *mainError = [VKError errorWithCode:VK_API_ERROR];
+    mainError.apiError = internalError;
+    return mainError;
 }
 
 + (instancetype)errorWithQuery:(NSDictionary *)queryParams {
-	VKError *error     = [VKError new];
-	error.errorCode     = VK_API_ERROR;
-	error.errorReason   = queryParams[@"error_reason"];
-	error.errorMessage  = [queryParams[@"error_description"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	return error;
+    VKError *error = [VKError new];
+    error.errorCode = VK_API_ERROR;
+    error.errorReason = queryParams[@"error_reason"];
+    error.errorMessage = [queryParams[@"error_description"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return error;
 }
 
 - (void)answerCaptcha:(NSString *)userEnteredCode {
-	[self.request addExtraParameters:@{ VK_API_CAPTCHA_SID : self.captchaSid, VK_API_CAPTCHA_KEY : userEnteredCode }];
-	[self.request repeat];
+    [self.request addExtraParameters:@{VK_API_CAPTCHA_SID : self.captchaSid, VK_API_CAPTCHA_KEY : userEnteredCode}];
+    [self.request repeat];
 }
 
 - (NSString *)description {
-	if (self.httpError) {
-		return [NSString stringWithFormat:@"<VKError: %p; HTTP error {%@}>", self, self.httpError];
-	}
-	else {
-		if (self.errorCode == VK_API_ERROR)
-			return [NSString stringWithFormat:@"<VKError: %p; Internal API error {%@}>",
-			        self, self.apiError];
-		else if (self.errorCode == VK_API_CANCELED)
-			return [NSString stringWithFormat:@"<VKError: %p; SDK error (request canceled)>", self];
-		else if (self.errorCode == VK_API_REQUEST_NOT_PREPARED)
-			return [NSString stringWithFormat:@"<VKError: %p; SDK error (request not prepared)>", self];
-		return [NSString stringWithFormat:@"<VKError: %p; API error {code: %ld; message: %@;}>", self, (long)self.errorCode, self.errorMessage];
-	}
+    if (self.httpError) {
+        return [NSString stringWithFormat:@"<VKError: %p; HTTP error {%@}>", self, self.httpError];
+    }
+    else {
+        if (self.errorCode == VK_API_ERROR)
+            return [NSString stringWithFormat:@"<VKError: %p; Internal API error {%@}>",
+                                              self, self.apiError];
+        else if (self.errorCode == VK_API_CANCELED)
+            return [NSString stringWithFormat:@"<VKError: %p; SDK error (request canceled)>", self];
+        else if (self.errorCode == VK_API_REQUEST_NOT_PREPARED)
+            return [NSString stringWithFormat:@"<VKError: %p; SDK error (request not prepared)>", self];
+        return [NSString stringWithFormat:@"<VKError: %p; API error {code: %ld; message: %@;}>", self, (long) self.errorCode, self.errorMessage];
+    }
 //    return [NSString stringWithFormat:@"<VKError: %p;>", self];
 }
 

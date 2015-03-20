@@ -22,28 +22,29 @@
 
 #import "VKUploadWallPhotoRequest.h"
 #import "VKApi.h"
+
 @implementation VKUploadWallPhotoRequest
 - (instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters userId:(NSInteger)userId groupId:(NSInteger)groupId {
-	self = [super initWithImage:image parameters:parameters];
-	self.userId           = userId;
-	self.groupId          = groupId;
-	return self;
+    self = [super initWithImage:image parameters:parameters];
+    self.userId = userId;
+    self.groupId = groupId;
+    return self;
 }
 
 - (VKRequest *)getServerRequest {
-	if (self.groupId != 0)
-		return [[VKApi photos] getWallUploadServer:self.groupId];
-	else
-		return [[VKApi photos] getWallUploadServer];
+    if (self.groupId != 0)
+        return [[VKApi photos] getWallUploadServer:self.groupId];
+    else
+        return [[VKApi photos] getWallUploadServer];
 }
 
 - (VKRequest *)getSaveRequest:(VKResponse *)response {
-	VKRequest *saveRequest = [[VKApi photos] saveWallPhoto:response.json];
-	if (self.userId)
-		[saveRequest addExtraParameters:@{ VK_API_USER_ID : @(self.userId) }];
-	if (self.groupId)
-		[saveRequest addExtraParameters:@{ VK_API_GROUP_ID : @(self.groupId) }];
-	return saveRequest;
+    VKRequest *saveRequest = [[VKApi photos] saveWallPhoto:response.json];
+    if (self.userId)
+        [saveRequest addExtraParameters:@{VK_API_USER_ID : @(self.userId)}];
+    if (self.groupId)
+        [saveRequest addExtraParameters:@{VK_API_GROUP_ID : @(self.groupId)}];
+    return saveRequest;
 }
 
 @end

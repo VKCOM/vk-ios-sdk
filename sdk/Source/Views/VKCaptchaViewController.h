@@ -22,23 +22,24 @@
 
 #import <UIKit/UIKit.h>
 #import "VKError.h"
+
 /**
- Controller fo displaying captcha.
- */
-@interface VKCaptchaViewController : UIViewController
-{
+Controller fo displaying captcha.
+*/
+@interface VKCaptchaViewController : UIViewController {
 @private
-	VKError *_captchaError;
+    VKError *_captchaError;
 }
 /**
- Initializes controller with captcha url
- @param error error for request that causes captcha-check
- @returns Prepared controller. Best way to use it - use presentIn: method
- */
+Initializes controller with captcha url
+@param error error for request that causes captcha-check
+@returns Prepared controller. Best way to use it - use presentIn: method
+*/
 + (instancetype)captchaControllerWithError:(VKError *)error;
+
 /**
- Presents current view controller in another. Automatically hides when captcha was answered properly
- @param viewController Parent view controller
- */
+Presents current view controller in another. Automatically hides when captcha was answered properly
+@param viewController Parent view controller
+*/
 - (void)presentIn:(UIViewController *)viewController;
 @end

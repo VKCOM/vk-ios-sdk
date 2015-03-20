@@ -22,11 +22,11 @@
 
 #import <UIKit/UIKit.h>
 
-static NSString * const VKActivityTypePost = @"VKActivityTypePost";
+static NSString *const VKActivityTypePost = @"VKActivityTypePost";
 
 /**
- * Class for sharing in VK throught UIActivityController
- */
+* Class for sharing in VK throught UIActivityController
+*/
 @interface VKActivity : UIActivity
 
 @end

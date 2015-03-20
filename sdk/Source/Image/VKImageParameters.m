@@ -24,42 +24,42 @@
 
 @implementation VKImageParameters
 + (instancetype)pngImage {
-	VKImageParameters *params = [VKImageParameters new];
-	params.imageType = VKImageTypePng;
-	return params;
+    VKImageParameters *params = [VKImageParameters new];
+    params.imageType = VKImageTypePng;
+    return params;
 }
 
 + (instancetype)jpegImageWithQuality:(float)quality {
-	VKImageParameters *params = [VKImageParameters new];
-	params.imageType = VKImageTypeJpg;
-	params.jpegQuality = quality;
-	return params;
+    VKImageParameters *params = [VKImageParameters new];
+    params.imageType = VKImageTypeJpg;
+    params.jpegQuality = quality;
+    return params;
 }
 
 - (NSString *)fileExtension {
-	switch (self.imageType) {
-		case VKImageTypeJpg:
-			return @"jpg";
-            
-		case VKImageTypePng:
-			return @"png";
-            
-		default:
-			return nil;
-	}
+    switch (self.imageType) {
+        case VKImageTypeJpg:
+            return @"jpg";
+
+        case VKImageTypePng:
+            return @"png";
+
+        default:
+            return nil;
+    }
 }
 
 - (NSString *)mimeType {
-	switch (self.imageType) {
-		case VKImageTypeJpg:
-			return @"image/jpeg";
-            
-		case VKImageTypePng:
-			return @"image/png";
-            
-		default:
-			return nil;
-	}
+    switch (self.imageType) {
+        case VKImageTypeJpg:
+            return @"image/jpeg";
+
+        case VKImageTypePng:
+            return @"image/png";
+
+        default:
+            return nil;
+    }
 }
 
 @end

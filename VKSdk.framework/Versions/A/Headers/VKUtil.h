@@ -27,18 +27,23 @@
 #define VK_SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 #define VK_COLOR                                       [UIColor colorWithRed:85.0f / 255 green:133.0f / 255 blue:188.0f / 255 alpha:1.0f]
 #define VK_IS_DEVICE_IPAD                               (UIUserInterfaceIdiomPad == [[UIDevice currentDevice] userInterfaceIdiom])
+
 #import <UIKit/UIKit.h>
+
 /**
- Various functions
- */
+Various functions
+*/
 @interface VKUtil : NSObject
 /**
- Breaks key=value string to dictionary
- @param queryString string with key=value pairs joined by & symbol
- @return Dictionary of parameters
- */
+Breaks key=value string to dictionary
+@param queryString string with key=value pairs joined by & symbol
+@return Dictionary of parameters
+*/
 + (NSDictionary *)explodeQueryString:(NSString *)queryString;
+
 + (NSString *)generateGUID;
-+ (NSNumber *)parseNumberString:(NSString*)number;
-+ (UIColor *)colorWithRGB:(NSInteger) rgb;
+
++ (NSNumber *)parseNumberString:(id)number;
+
++ (UIColor *)colorWithRGB:(NSInteger)rgb;
 @end

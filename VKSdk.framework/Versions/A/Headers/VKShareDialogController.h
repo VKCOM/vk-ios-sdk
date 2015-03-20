@@ -25,7 +25,7 @@
 #import "VKUploadImage.h"
 
 
-typedef NS_ENUM(NSInteger, VKShareDialogControllerResult){
+typedef NS_ENUM(NSInteger, VKShareDialogControllerResult) {
     VKShareDialogControllerResultCancelled,
     VKShareDialogControllerResultDone
 };
@@ -35,44 +35,45 @@ typedef NS_ENUM(NSInteger, VKShareDialogControllerResult){
  */
 @interface VKShareLink : VKObject
 /// Use that field for present link description in share dialog interface
-@property (nonatomic, copy) NSString *title;
+@property(nonatomic, copy) NSString *title;
 /// Use that field for pass real link to VK. Host of the link will be displayed in share dialog
-@property (nonatomic, copy) NSURL *link;
+@property(nonatomic, copy) NSURL *link;
 
--(instancetype) initWithTitle:(NSString*) title link:(NSURL*) link;
+- (instancetype)initWithTitle:(NSString *)title link:(NSURL *)link;
 @end
 
 
 /**
- * Creates dialog for sharing some information from your app to user wall in VK
- */
+* Creates dialog for sharing some information from your app to user wall in VK
+*/
 @interface VKShareDialogController : UIViewController
 /// Array of prepared VKUploadImage objects for upload and share. User can remove any attachment
-@property (nonatomic, strong) NSArray     *uploadImages;
+@property(nonatomic, strong) NSArray *uploadImages;
 
 /// Photos already uploaded to VK. That is array of photos ids: @[ownerid_photoid, ...];
-@property (nonatomic, strong) NSArray     *vkImages;
+@property(nonatomic, strong) NSArray *vkImages;
 
 /// Links attachment for new post
-@property (nonatomic, strong) VKShareLink *shareLink;
+@property(nonatomic, strong) VKShareLink *shareLink;
 
 /// Text to share. User can change it
-@property (nonatomic, copy)   NSString    *text;
+@property(nonatomic, copy) NSString *text;
 
 /// Put only needed scopes into that array. By default equals @[VK_PER_WALL,VK_PER_PHOTOS]
-@property (nonatomic, strong) NSArray     *requestedScope;
+@property(nonatomic, strong) NSArray *requestedScope;
 
 /// You can receive information about sharing state
-@property (nonatomic, copy)   void (^completionHandler)(VKShareDialogControllerResult result);
+@property(nonatomic, copy) void (^completionHandler)(VKShareDialogControllerResult result);
 
 /// Flag meaning the share viewcontroller manage it's presentation state by itself
-@property (nonatomic, assign) BOOL dismissAutomatically;
+@property(nonatomic, assign) BOOL dismissAutomatically;
 
 /// Force share dialog to use in-app webview authorization
-@property (nonatomic, assign) BOOL authorizeInApp;
+@property(nonatomic, assign) BOOL authorizeInApp;
+
 /**
- Correctly presents current view controller in another
- @param viewController Parent view controller
- */
+Correctly presents current view controller in another
+@param viewController Parent view controller
+*/
 - (void)presentIn:(UIViewController *)viewController __deprecated;
 @end

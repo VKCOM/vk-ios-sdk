@@ -31,77 +31,83 @@
 #import "VKApiGroups.h"
 #import "VKImageParameters.h"
 #import "VKApiModels.h"
+
 /**
- Provides access for API parts.
- */
+Provides access for API parts.
+*/
 @interface VKApi : NSObject
 /**
- https://vk.com/dev/users
- Returns object for preparing requests to users part of API
- */
+https://vk.com/dev/users
+Returns object for preparing requests to users part of API
+*/
 + (VKApiUsers *)users;
+
 /**
- https://vk.com/dev/wall
- Returns object for preparing requests to wall part of API
- */
+https://vk.com/dev/wall
+Returns object for preparing requests to wall part of API
+*/
 + (VKApiWall *)wall;
+
 /**
- https://vk.com/dev/photos
- Returns object for preparing requests to photos part of API
- */
+https://vk.com/dev/photos
+Returns object for preparing requests to photos part of API
+*/
 + (VKApiPhotos *)photos;
+
 /**
- https://vk.com/dev/friends
- Returns object for preparing requests to friends part of API
- */
+https://vk.com/dev/friends
+Returns object for preparing requests to friends part of API
+*/
 + (VKApiFriends *)friends;
+
 /**
- https://vk.com/dev/friends
- Returns object for preparing requests to groups part of API
- */
+https://vk.com/dev/friends
+Returns object for preparing requests to groups part of API
+*/
 + (VKApiGroups *)groups;
+
 /**
- Create new request with parameters. See documentation for methods here https://vk.com/dev/methods
- @param method API-method name, e.g. audio.get
- @param parameters method parameters
- @param httpMethod HTTP method for execution, e.g. GET, POST
- @return Complete request class for execute or configure method
- */
+Create new request with parameters. See documentation for methods here https://vk.com/dev/methods
+@param method API-method name, e.g. audio.get
+@param parameters method parameters
+@param httpMethod HTTP method for execution, e.g. GET, POST
+@return Complete request class for execute or configure method
+*/
 + (VKRequest *)requestWithMethod:(NSString *)method
                    andParameters:(NSDictionary *)parameters
                    andHttpMethod:(NSString *)httpMethod;
 
 /**
- Uploads photo for wall post
- @param image image used for saving to post
- @param parameters parameters for image to be uploaded
- @param userId ID of user on which wall image should be posted (or nil)
- @param groupId ID of group (without minus sign) on which wall image should be posted (or nil)
- */
+Uploads photo for wall post
+@param image image used for saving to post
+@param parameters parameters for image to be uploaded
+@param userId ID of user on which wall image should be posted (or nil)
+@param groupId ID of group (without minus sign) on which wall image should be posted (or nil)
+*/
 + (VKRequest *)uploadWallPhotoRequest:(UIImage *)image
                            parameters:(VKImageParameters *)parameters
                                userId:(NSInteger)userId
                               groupId:(NSInteger)groupId;
 
 /**
- Uploads photo in user or group album
- @param image image used for saving to post
- @param parameters parameters for image to be uploaded
- @param albumId target album ID. Required
- @param groupId target group ID (positive). May be nil
- */
+Uploads photo in user or group album
+@param image image used for saving to post
+@param parameters parameters for image to be uploaded
+@param albumId target album ID. Required
+@param groupId target group ID (positive). May be nil
+*/
 + (VKRequest *)uploadAlbumPhotoRequest:(UIImage *)image
                             parameters:(VKImageParameters *)parameters
                                albumId:(NSInteger)albumId
                                groupId:(NSInteger)groupId;
 
 /**
- Uploads photo for messaging
- @param image image used for saving to post
- @param parameters parameters for image to be uploaded
- @param albumId target album ID. Required
- @param groupId target group ID (positive). May be nil
- */
+Uploads photo for messaging
+@param image image used for saving to post
+@param parameters parameters for image to be uploaded
+@param albumId target album ID. Required
+@param groupId target group ID (positive). May be nil
+*/
 + (VKRequest *)uploadMessagePhotoRequest:(UIImage *)image
                               parameters:(VKImageParameters *)parameters;
 

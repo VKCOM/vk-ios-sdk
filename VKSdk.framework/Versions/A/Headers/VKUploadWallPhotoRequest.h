@@ -23,16 +23,16 @@
 #import "VKUploadPhotoBase.h"
 
 /**
- Special request for upload single photo to user wall
- */
+Special request for upload single photo to user wall
+*/
 @interface VKUploadWallPhotoRequest : VKUploadPhotoBase
 /**
- Initializes photo upload request with parameters
- @param image Image to upload
- @param parameters image parameters for upload
- @param userId ID of user on which wall image should be posted (or nil)
- @param groupId ID of group (without minus sign) on which wall image should be posted (or nil)
- @return Completed request for executing
- */
+Initializes photo upload request with parameters
+@param image Image to upload
+@param parameters image parameters for upload
+@param userId ID of user on which wall image should be posted (or nil)
+@param groupId ID of group (without minus sign) on which wall image should be posted (or nil)
+@return Completed request for executing
+*/
 - (instancetype)initWithImage:(UIImage *)image parameters:(VKImageParameters *)parameters userId:(NSInteger)userId groupId:(NSInteger)groupId;
 @end

@@ -23,48 +23,50 @@
 #import "VKApiBase.h"
 
 /**
- Builds requests for API.photos part
- */
+Builds requests for API.photos part
+*/
 @interface VKApiPhotos : VKApiBase
 /**
- https://vk.com/dev/photos.getUploadServer
- @param albumId album identifier (positive integer)
- @return Request for load
- */
+https://vk.com/dev/photos.getUploadServer
+@param albumId album identifier (positive integer)
+@return Request for load
+*/
 - (VKRequest *)getUploadServer:(NSInteger)albumId;
+
 /**
- https://vk.com/dev/photos.getUploadServer
- @param albumId album identifier (positive integer)
- @param groupId group identifier (positive integer)
- @return Request for load
- */
+https://vk.com/dev/photos.getUploadServer
+@param albumId album identifier (positive integer)
+@param groupId group identifier (positive integer)
+@return Request for load
+*/
 - (VKRequest *)getUploadServer:(NSInteger)albumId andGroupId:(NSInteger)groupId;
+
 /**
- https://vk.com/dev/photos.getWallUploadServer
- @return Request for load
- */
+https://vk.com/dev/photos.getWallUploadServer
+@return Request for load
+*/
 - (VKRequest *)getWallUploadServer;
 
 /**
- https://vk.com/dev/photos.getWallUploadServer
- @param groupId group identifier (positive integer)
- @return Request for load
- */
+https://vk.com/dev/photos.getWallUploadServer
+@param groupId group identifier (positive integer)
+@return Request for load
+*/
 - (VKRequest *)getWallUploadServer:(NSInteger)groupId;
 
 
 /**
- https://vk.com/dev/photos.save
- @param params params received after photo upload, with user id or group id
- @return Request for load
- */
+https://vk.com/dev/photos.save
+@param params params received after photo upload, with user id or group id
+@return Request for load
+*/
 - (VKRequest *)save:(NSDictionary *)params;
 
 /**
- https://vk.com/dev/photos.saveWallPhoto
- @param params params received after photo upload, with user id or group id
- @return Request for load
- */
+https://vk.com/dev/photos.saveWallPhoto
+@param params params received after photo upload, with user id or group id
+@return Request for load
+*/
 - (VKRequest *)saveWallPhoto:(NSDictionary *)params;
 
 @end

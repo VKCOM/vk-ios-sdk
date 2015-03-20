@@ -22,41 +22,45 @@
 
 #import "VKObject.h"
 #import "VKRequest.h"
+
 /**
- Used for execution bunch of methods at time, and receive results of that methods in array
- */
-@interface VKBatchRequest : VKObject
-{
+Used for execution bunch of methods at time, and receive results of that methods in array
+*/
+@interface VKBatchRequest : VKObject {
 @private
-    
-	NSMutableArray *_requests;
-	NSMutableArray *_responses;
-    BOOL            _canceled;
+
+    NSMutableArray *_requests;
+    NSMutableArray *_responses;
+    BOOL _canceled;
 }
 /// Specify completion block for request
-@property (nonatomic, copy)   void (^completeBlock)(NSArray *responses);
+@property(nonatomic, copy) void (^completeBlock)(NSArray *responses);
 /// Specity error (HTTP or API) block for request.
-@property (nonatomic, copy)   void (^errorBlock)(NSError *error);
+@property(nonatomic, copy) void (^errorBlock)(NSError *error);
+
 /**
- Initializes batch processing with requests
- @param firstRequest ,... A comma-separated list of requests should be loaded, ending with nil.
- @return Prepared request
- */
+Initializes batch processing with requests
+@param firstRequest ,... A comma-separated list of requests should be loaded, ending with nil.
+@return Prepared request
+*/
 - (instancetype)initWithRequests:(VKRequest *)firstRequest, ...NS_REQUIRES_NIL_TERMINATION;
+
 /**
- Initializes batch processing with requests array
- @param requests Array of requests should be loaded.
- @return Prepared request
- */
+Initializes batch processing with requests array
+@param requests Array of requests should be loaded.
+@return Prepared request
+*/
 - (instancetype)initWithRequestsArray:(NSArray *)requests;
+
 /**
- Executes batch request
- @param completeBlock will receive result of passed requests
- @param errorBlock called if any request did fail
- */
+Executes batch request
+@param completeBlock will receive result of passed requests
+@param errorBlock called if any request did fail
+*/
 - (void)executeWithResultBlock:(void (^)(NSArray *responses))completeBlock errorBlock:(void (^)(NSError *))errorBlock;
+
 /**
- Cancel current batch operation
- */
+Cancel current batch operation
+*/
 - (void)cancel;
 @end

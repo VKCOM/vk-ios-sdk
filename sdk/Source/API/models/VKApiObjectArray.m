@@ -24,15 +24,15 @@
 
 
 @interface VKApiObjectArray ()
-@property (nonatomic, readwrite) NSUInteger count;
+@property(nonatomic, readwrite) NSUInteger count;
 @end
 
 @implementation VKApiObjectArray
--(instancetype)initWithDictionary:(NSDictionary *)dict {
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
     return [self initWithDictionary:dict objectClass:self.objectClass];
 }
--(instancetype)initWithDictionary:(NSDictionary *)dict objectClass:(Class)objectClass
-{
+
+- (instancetype)initWithDictionary:(NSDictionary *)dict objectClass:(Class)objectClass {
     id response = dict[@"response"];
     if (response && [response isKindOfClass:[NSArray class]]) {
         self = [self initWithArray:response objectClass:objectClass];
@@ -41,71 +41,85 @@
         self = [super initWithDictionary:response ? response : dict];
         self.items = [self parseItems:self.items asClass:objectClass];
     }
-    
+
     return self;
 }
--(instancetype)initWithArray:(NSArray*) array objectClass:(Class) objectClass {
-    
+
+- (instancetype)initWithArray:(NSArray *)array objectClass:(Class)objectClass {
+
     self = [super init];
     self.items = [self parseItems:array asClass:objectClass];
     self.count = self.items.count;
     return self;
 }
--(instancetype)initWithArray:(NSArray*) array {
+
+- (instancetype)initWithArray:(NSArray *)array {
     return [self initWithArray:array objectClass:self.objectClass];
 }
-- (NSMutableArray*) parseItems:(NSArray*) toParse asClass:(Class) objectClass {
-    NSMutableArray * listOfParsedObjects = [NSMutableArray new];
+
+- (NSMutableArray *)parseItems:(NSArray *)toParse asClass:(Class)objectClass {
+    NSMutableArray *listOfParsedObjects = [NSMutableArray new];
     for (id userDictionary in toParse) {
         if ([userDictionary isKindOfClass:objectClass])
             [listOfParsedObjects addObject:userDictionary];
         else if ([userDictionary isKindOfClass:[NSDictionary class]])
-            [listOfParsedObjects addObject:[(VKApiObject *)[objectClass alloc] initWithDictionary:userDictionary]];
+            [listOfParsedObjects addObject:[(VKApiObject *) [objectClass alloc] initWithDictionary:userDictionary]];
         else
             [listOfParsedObjects addObject:userDictionary];
     }
     return listOfParsedObjects;
-    
+
 }
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len
-{
+
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained[])buffer count:(NSUInteger)len {
     return [self.items countByEnumeratingWithState:state objects:buffer count:len];
 }
--(id)objectAtIndex:(NSInteger)idx {
+
+- (id)objectAtIndex:(NSInteger)idx {
     return self.items[idx];
 }
--(id)objectAtIndexedSubscript:(NSUInteger)idx {
+
+- (id)objectAtIndexedSubscript:(NSUInteger)idx {
     return self.items[idx];
 }
+
 - (NSEnumerator *)objectEnumerator {
     return self.items.objectEnumerator;
 }
+
 - (NSEnumerator *)reverseObjectEnumerator {
     return self.items.reverseObjectEnumerator;
 }
--(void)addObject:(id)object {
+
+- (void)addObject:(id)object {
     [self.items addObject:object];
     self.count = self.items.count;
 }
--(void)removeObject:(id)object {
+
+- (void)removeObject:(id)object {
     [self.items removeObject:object];
     self.count = self.items.count;
 }
--(void)insertObject:(id) object atIndex:(NSUInteger) index {
+
+- (void)insertObject:(id)object atIndex:(NSUInteger)index {
     [self.items insertObject:object atIndex:index];
     self.count = self.items.count;
 }
--(id) firstObject {
+
+- (id)firstObject {
     return [self.items firstObject];
 }
--(id) lastObject {
+
+- (id)lastObject {
     return [self.items lastObject];
 }
--(NSDictionary *)serialize {
+
+- (NSDictionary *)serialize {
     return nil;
 }
--(void)serializeTo:(NSMutableDictionary*) dict withName:(NSString*) name {
-    NSMutableArray * result = [NSMutableArray arrayWithCapacity:self.items.count];
+
+- (void)serializeTo:(NSMutableDictionary *)dict withName:(NSString *)name {
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.items.count];
     for (id object in self.items) {
         if ([object respondsToSelector:@selector(serialize)])
             [result addObject:[object serialize]];
@@ -114,7 +128,11 @@
     }
     dict[name] = result;
 }
--(Class)objectClass { return [VKApiObject class]; }
+
+- (Class)objectClass {
+    return [VKApiObject class];
+}
+
 + (instancetype)createWithDictionary:(NSDictionary *)dict {
     return [[self alloc] initWithDictionary:dict];
 }

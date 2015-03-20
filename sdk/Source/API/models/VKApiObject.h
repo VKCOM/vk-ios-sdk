@@ -22,42 +22,44 @@
 
 #import <objc/runtime.h>
 #import "VKObject.h"
-/**
- Helps in objects parsing
- */
-@interface VKPropertyHelper : VKObject
-@property (nonatomic, readonly) NSString *propertyName;
-@property (nonatomic, readonly) NSString *propertyClassName;
-@property (nonatomic, readonly) Class propertyClass;
-@property (nonatomic, readonly) BOOL isPrimitive;
-@property (nonatomic, readonly) BOOL isModelsArray;
-@property (nonatomic, readonly) BOOL isModel;
 
--(instancetype) initWith:(objc_property_t) prop;
+/**
+Helps in objects parsing
+*/
+@interface VKPropertyHelper : VKObject
+@property(nonatomic, readonly) NSString *propertyName;
+@property(nonatomic, readonly) NSString *propertyClassName;
+@property(nonatomic, readonly) Class propertyClass;
+@property(nonatomic, readonly) BOOL isPrimitive;
+@property(nonatomic, readonly) BOOL isModelsArray;
+@property(nonatomic, readonly) BOOL isModel;
+
+- (instancetype)initWith:(objc_property_t)prop;
 @end
 
 @protocol VKApiObject <NSObject>
-+ (instancetype) createWithDictionary:(NSDictionary *)dict;
-+ (instancetype) createWithArray:(NSArray*) array;
++ (instancetype)createWithDictionary:(NSDictionary *)dict;
+
++ (instancetype)createWithArray:(NSArray *)array;
 @end
 
 /**
- Basic class for API objects
- */
+Basic class for API objects
+*/
 @interface VKApiObject : VKObject <VKApiObject>
 /// If it possible, contains object fields from JSON as it is
-@property (nonatomic, strong) NSDictionary * fields;
+@property(nonatomic, strong) NSDictionary *fields;
 
 /**
- Initialize object with API json dictionary. This method tries to set all known properties of current class from dictionare
- @param dict API json dictionary
- @return Initialized object
- */
-- (instancetype) initWithDictionary:(NSDictionary *)dict;
+Initialize object with API json dictionary. This method tries to set all known properties of current class from dictionare
+@param dict API json dictionary
+@return Initialized object
+*/
+- (instancetype)initWithDictionary:(NSDictionary *)dict;
 
 /**
- Serialize current object into dictionary
- @return Key-value dictionary, contains current object
- */
+Serialize current object into dictionary
+@return Key-value dictionary, contains current object
+*/
 - (NSDictionary *)serialize;
 @end

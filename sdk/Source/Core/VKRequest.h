@@ -27,147 +27,150 @@
 
 
 /**
- Creates and debug timings for VKRequest
- */
+Creates and debug timings for VKRequest
+*/
 @interface VKRequestTiming : VKObject
 /// Date of request start
-@property (nonatomic, strong) NSDate * startTime;
+@property(nonatomic, strong) NSDate *startTime;
 /// Date of request finished (after all operations)
-@property (nonatomic, strong) NSDate * finishTime;
+@property(nonatomic, strong) NSDate *finishTime;
 /// Interval of networking load time
-@property (nonatomic, assign) NSTimeInterval loadTime;
+@property(nonatomic, assign) NSTimeInterval loadTime;
 /// Interval of model parsing time
-@property (nonatomic, assign) NSTimeInterval parseTime;
+@property(nonatomic, assign) NSTimeInterval parseTime;
 /// Total time, as difference (finishTime - startTime)
-@property (nonatomic, readonly) NSTimeInterval totalTime;
+@property(nonatomic, readonly) NSTimeInterval totalTime;
 @end
 
 /**
- Class for execution API-requests
- */
+Class for execution API-requests
+*/
 @interface VKRequest : VKObject
 /// Specify language for API request
-@property (nonatomic, strong) NSString *preferredLang;
+@property(nonatomic, copy) NSString *preferredLang;
 /// Specify progress for uploading or downloading. Useless for text requests (because gzip encoding bytesTotal will always return -1)
 
-@property (nonatomic, copy)   void (^progressBlock)(VKProgressType progressType, long long bytesLoaded, long long bytesTotal);
+@property(nonatomic, copy) void (^progressBlock)(VKProgressType progressType, long long bytesLoaded, long long bytesTotal);
 /// Specify completion block for request
-@property (nonatomic, copy)   void (^completeBlock)(VKResponse *response);
+@property(nonatomic, copy) void (^completeBlock)(VKResponse *response);
 /// Specity error (HTTP or API) block for request.
-@property (nonatomic, copy)   void (^errorBlock)(NSError *error);
+@property(nonatomic, copy) void (^errorBlock)(NSError *error);
 /// Specify attempts for request loading if caused HTTP-error. 0 for infinite
-@property (nonatomic, assign) int attempts;
+@property(nonatomic, assign) int attempts;
 /// Use HTTPS requests (by default is YES). If http-request is impossible (user denied no https access), SDK will load https version
-@property (nonatomic, assign) BOOL secure;
+@property(nonatomic, assign) BOOL secure;
 /// Sets current system language as default for API data
-@property (nonatomic, assign) BOOL useSystemLanguage;
+@property(nonatomic, assign) BOOL useSystemLanguage;
 /// Set to NO if you don't need automatic model parsing
-@property (nonatomic, assign) BOOL parseModel;
+@property(nonatomic, assign) BOOL parseModel;
 /// Set to YES if you need info about request timing
-@property (nonatomic, assign) BOOL debugTiming;
+@property(nonatomic, assign) BOOL debugTiming;
 /// Timeout for this request
-@property (nonatomic, assign) NSInteger requestTimeout;
+@property(nonatomic, assign) NSInteger requestTimeout;
 /// Sets dispatch queue for returning result
-@property (nonatomic, assign) dispatch_queue_t responseQueue;
+@property(nonatomic, assign) dispatch_queue_t responseQueue;
 /// Set to YES if you need to freeze current thread for response
-@property (nonatomic, assign) BOOL waitUntilDone;
+@property(nonatomic, assign) BOOL waitUntilDone;
 /// Returns method for current request, e.g. users.get
-@property (nonatomic, readonly) NSString *methodName;
+@property(nonatomic, readonly) NSString *methodName;
 /// Returns HTTP-method for current request
-@property (nonatomic, readonly) NSString *httpMethod;
+@property(nonatomic, readonly) NSString *httpMethod;
 /// Returns list of method parameters (without common parameters)
-@property (nonatomic, readonly) NSDictionary *methodParameters;
+@property(nonatomic, readonly) NSDictionary *methodParameters;
 /// Returns http operation that can be enqueued
-@property (nonatomic, readonly) NSOperation *executionOperation;
+@property(nonatomic, readonly) NSOperation *executionOperation;
 /// Returns info about request timings
-@property (nonatomic, readonly) VKRequestTiming *requestTiming;
+@property(nonatomic, readonly) VKRequestTiming *requestTiming;
 /// Return YES if current request was started
-@property (nonatomic, readonly) BOOL isExecuting;
+@property(nonatomic, readonly) BOOL isExecuting;
 
 
 ///-------------------------------
 /// @name Preparing requests
 ///-------------------------------
 /**
- Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
- @param method API-method name, e.g. audio.get
- @param parameters method parameters
- @param httpMethod HTTP method for execution, e.g. GET, POST
- @return Complete request object for execute or configure method
- */
+Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
+@param method API-method name, e.g. audio.get
+@param parameters method parameters
+@param httpMethod HTTP method for execution, e.g. GET, POST
+@return Complete request object for execute or configure method
+*/
 + (instancetype)requestWithMethod:(NSString *)method
                     andParameters:(NSDictionary *)parameters
                     andHttpMethod:(NSString *)httpMethod;
 
 /**
- Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
- @param method API-method name, e.g. audio.get
- @param parameters method parameters
- @param httpMethod HTTP method for execution, e.g. GET, POST
- @param modelClass class for automatic parse
- @return Complete request object for execute or configure method
- */
+Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
+@param method API-method name, e.g. audio.get
+@param parameters method parameters
+@param httpMethod HTTP method for execution, e.g. GET, POST
+@param modelClass class for automatic parse
+@return Complete request object for execute or configure method
+*/
 + (instancetype)requestWithMethod:(NSString *)method
                     andParameters:(NSDictionary *)parameters
                     andHttpMethod:(NSString *)httpMethod
                      classOfModel:(Class)modelClass;
 
 /**
- Creates new request for upload image to url
- @param url url for upload, which was received from special methods
- @param photoObjects VKPhoto object describes photos
- @return Complete request object for execute
- */
+Creates new request for upload image to url
+@param url url for upload, which was received from special methods
+@param photoObjects VKPhoto object describes photos
+@return Complete request object for execute
+*/
 + (instancetype)photoRequestWithPostUrl:(NSString *)url
                              withPhotos:(NSArray *)photoObjects;
 
 /**
- Prepares NSURLRequest and returns prepared url request for current vkrequest
- @return Prepared request used for loading
- */
+Prepares NSURLRequest and returns prepared url request for current vkrequest
+@return Prepared request used for loading
+*/
 - (NSURLRequest *)getPreparedRequest;
 
 ///-------------------------------
 /// @name Execution
 ///-------------------------------
 /**
- Executes that request, and returns result to blocks
- @param completeBlock called if there were no HTTP or API errors, returns execution result.
- @param errorBlock called immediately if there was API error, or after <b>attempts</b> tries if there was an HTTP error
- */
+Executes that request, and returns result to blocks
+@param completeBlock called if there were no HTTP or API errors, returns execution result.
+@param errorBlock called immediately if there was API error, or after <b>attempts</b> tries if there was an HTTP error
+*/
 - (void)executeWithResultBlock:(void (^)(VKResponse *response))completeBlock
                     errorBlock:(void (^)(NSError *error))errorBlock;
+
 /**
- Register current request for execute after passed request, if passed request is successful. If it's not, errorBlock will be called.
- @param request after which request must be called that request
- @param completeBlock called if there were no HTTP or API errors, returns execution result.
- @param errorBlock called immediately if there was API error, or after <b>attempts</b> tries if there was an HTTP error
- */
+Register current request for execute after passed request, if passed request is successful. If it's not, errorBlock will be called.
+@param request after which request must be called that request
+@param completeBlock called if there were no HTTP or API errors, returns execution result.
+@param errorBlock called immediately if there was API error, or after <b>attempts</b> tries if there was an HTTP error
+*/
 - (void)executeAfter:(VKRequest *)request
      withResultBlock:(void (^)(VKResponse *response))completeBlock
           errorBlock:(void (^)(NSError *error))errorBlock;
 
 /**
- Starts loading of prepared request. You can use it instead of executeWithResultBlock
- */
+Starts loading of prepared request. You can use it instead of executeWithResultBlock
+*/
 - (void)start;
+
 /**
- Repeats this request with initial parameters and blocks.
- Used attempts will be set to 0.
- */
+Repeats this request with initial parameters and blocks.
+Used attempts will be set to 0.
+*/
 - (void)repeat;
+
 /**
- Cancel current request. Result will be not passed. errorBlock will be called with error code
- */
+Cancel current request. Result will be not passed. errorBlock will be called with error code
+*/
 - (void)cancel;
 
 ///-------------------------------
 /// @name Operating with parameters
 ///-------------------------------
 /**
- Adds additional parameters to that request
- @param extraParameters parameters supposed to be added
- */
+Adds additional parameters to that request
+@param extraParameters parameters supposed to be added
+*/
 - (void)addExtraParameters:(NSDictionary *)extraParameters;
 
 @end

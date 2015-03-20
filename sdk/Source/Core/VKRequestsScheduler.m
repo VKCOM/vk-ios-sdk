@@ -9,13 +9,14 @@
 #import "VKRequestsScheduler.h"
 #import "VKRequest.h"
 #import "VKSdk.h"
+
 @implementation VKRequestsScheduler {
     dispatch_queue_t _schedulerQueue;
     NSInteger _currentLimitPerSecond;
     NSMutableDictionary *_scheduleDict;
     BOOL _enabled;
 }
-+ (NSDictionary *) limits {
++ (NSDictionary *)limits {
     static NSDictionary *limitsDictionary;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -24,13 +25,13 @@
     return limitsDictionary;
 }
 
-+ (instancetype) instance {
++ (instancetype)instance {
     static id sInstance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sInstance = [[self alloc] init];
     });
-    
+
     return sInstance;
 }
 
@@ -41,7 +42,8 @@
     }
     return self;
 }
-- (void) setEnabled:(BOOL) enabled {
+
+- (void)setEnabled:(BOOL)enabled {
     _enabled = enabled;
     if ([VKSdk instance].currentAppId) {
         [[VKRequest requestWithMethod:@"apps.get" andParameters:@{@"app_id" : [VKSdk instance].currentAppId} andHttpMethod:@"GET"] executeWithResultBlock:^(VKResponse *response) {
@@ -50,32 +52,34 @@
             NSArray *limits = [[limitsDict allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
                 return [obj1 compare:obj2];
             }];
-            
+
             for (NSNumber *curLimit in limits) {
                 if (members < curLimit.integerValue) {
                     _currentLimitPerSecond = [limitsDict[curLimit] integerValue];
                     break;
                 }
             }
-            
+
         } errorBlock:nil];
     }
 }
+
 - (NSTimeInterval)currentAvailableInterval {
     return 1.f / _currentLimitPerSecond;
 }
-- (void) scheduleRequest:(VKRequest*) req {
+
+- (void)scheduleRequest:(VKRequest *)req {
     if (!_enabled) {
         [req start];
         return;
     }
     dispatch_async(_schedulerQueue, ^{
         NSTimeInterval now = [[NSDate new] timeIntervalSince1970];
-        NSInteger thisSecond = (NSInteger)now;
+        NSInteger thisSecond = (NSInteger) now;
         if (!_scheduleDict) {
             _scheduleDict = [NSMutableDictionary new];
         }
-        NSArray *keysToRemove = [[_scheduleDict allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF < %d", thisSecond ] ];
+        NSArray *keysToRemove = [[_scheduleDict allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF < %d", thisSecond]];
         [_scheduleDict removeObjectsForKeys:keysToRemove];
         NSInteger countForSecond = [_scheduleDict[@(thisSecond)] integerValue];
         if (countForSecond < _currentLimitPerSecond) {
@@ -85,7 +89,7 @@
             CGFloat delay = [self currentAvailableInterval], step = delay;
             while ([_scheduleDict[@(thisSecond)] integerValue] >= _currentLimitPerSecond) {
                 delay += step;
-                thisSecond = (NSInteger)(now + delay);
+                thisSecond = (NSInteger) (now + delay);
             }
             NSInteger nextSecCount = [_scheduleDict[@(thisSecond)] integerValue];
             delay += step * nextSecCount;

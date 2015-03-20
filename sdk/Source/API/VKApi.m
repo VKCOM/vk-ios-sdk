@@ -24,22 +24,24 @@
 #import "VKUploadWallPhotoRequest.h"
 #import "VKUploadPhotoRequest.h"
 #import "VKUploadMessagesPhotoRequest.h"
+
 @implementation VKApi
 + (VKApiUsers *)users {
-	return [VKApiUsers new];
+    return [VKApiUsers new];
 }
 
 + (VKApiWall *)wall {
-	return [VKApiWall new];
+    return [VKApiWall new];
 }
 
 + (VKApiPhotos *)photos {
-	return [VKApiPhotos new];
+    return [VKApiPhotos new];
 }
 
 + (VKApiFriends *)friends {
-	return [VKApiFriends new];
+    return [VKApiFriends new];
 }
+
 + (VKApiGroups *)groups {
     return [VKApiGroups new];
 }
@@ -47,23 +49,24 @@
 + (VKRequest *)requestWithMethod:(NSString *)method
                    andParameters:(NSDictionary *)parameters
                    andHttpMethod:(NSString *)httpMethod {
-	return [VKRequest requestWithMethod:method andParameters:parameters andHttpMethod:httpMethod];
+    return [VKRequest requestWithMethod:method andParameters:parameters andHttpMethod:httpMethod];
 }
 
 + (VKRequest *)uploadWallPhotoRequest:(UIImage *)image
                            parameters:(VKImageParameters *)parameters
                                userId:(NSInteger)userId
                               groupId:(NSInteger)groupId {
-	return [[VKUploadWallPhotoRequest alloc] initWithImage:image parameters:parameters userId:userId groupId:groupId];
+    return [[VKUploadWallPhotoRequest alloc] initWithImage:image parameters:parameters userId:userId groupId:groupId];
 }
 
 + (VKRequest *)uploadAlbumPhotoRequest:(UIImage *)image
                             parameters:(VKImageParameters *)parameters
                                albumId:(NSInteger)albumId
                                groupId:(NSInteger)groupId {
-	return [[VKUploadPhotoRequest alloc] initWithImage:image parameters:parameters albumId:albumId groupId:groupId];
+    return [[VKUploadPhotoRequest alloc] initWithImage:image parameters:parameters albumId:albumId groupId:groupId];
 }
-+(VKRequest *)uploadMessagePhotoRequest:(UIImage *)image parameters:(VKImageParameters *)parameters {
+
++ (VKRequest *)uploadMessagePhotoRequest:(UIImage *)image parameters:(VKImageParameters *)parameters {
     return [[VKUploadMessagesPhotoRequest alloc] initWithImage:image parameters:parameters];
 }
 

@@ -23,58 +23,61 @@
 #import <Foundation/Foundation.h>
 #import "VKObject.h"
 #import "VKApiConst.h"
+
 static int const VK_API_ERROR = -101;
 static int const VK_API_CANCELED = -102;
 static int const VK_API_REQUEST_NOT_PREPARED = -103;
 
 @class VKRequest;
+
 /**
- Class for presenting VK SDK and VK API errors
- */
+Class for presenting VK SDK and VK API errors
+*/
 @interface VKError : VKObject
 /// Contains system HTTP error
-@property (nonatomic, strong) NSError *httpError;
+@property(nonatomic, strong) NSError *httpError;
 /// Describes API error
-@property (nonatomic, strong) VKError *apiError;
+@property(nonatomic, strong) VKError *apiError;
 /// Request which caused error
-@property (nonatomic, strong) VKRequest *request;
+@property(nonatomic, strong) VKRequest *request;
 
 /// May contains such errors:\n <b>HTTP status code</b> if HTTP error occured;\n <b>VK_API_ERROR</b> if API error occured;\n <b>VK_API_CANCELED</b> if request was canceled;\n <b>VK_API_REQUEST_NOT_PREPARED</b> if error occured while preparing request;
-@property (nonatomic, assign) NSInteger errorCode;
+@property(nonatomic, assign) NSInteger errorCode;
 /// API error message
-@property (nonatomic, strong) NSString *errorMessage;
+@property(nonatomic, strong) NSString *errorMessage;
 /// Reason for authorization fail
-@property (nonatomic, strong) NSString *errorReason;
+@property(nonatomic, strong) NSString *errorReason;
 /// API parameters passed to request
-@property (nonatomic, strong) NSDictionary *requestParams;
+@property(nonatomic, strong) NSDictionary *requestParams;
 /// Captcha identifier for captcha-check
-@property (nonatomic, strong) NSString *captchaSid;
+@property(nonatomic, strong) NSString *captchaSid;
 /// Image for captcha-check
-@property (nonatomic, strong) NSString *captchaImg;
+@property(nonatomic, strong) NSString *captchaImg;
 /// Redirection address if validation check required
-@property (nonatomic, strong) NSString *redirectUri;
-
+@property(nonatomic, strong) NSString *redirectUri;
 
 
 /**
- Generate new error with code
- @param errorCode positive if it's an HTTP error. Negative if it's API or SDK error
- */
+Generate new error with code
+@param errorCode positive if it's an HTTP error. Negative if it's API or SDK error
+*/
 + (instancetype)errorWithCode:(NSInteger)errorCode;
+
 /**
- Generate API error from JSON
- @param JSON Json description of VK API error
- */
+Generate API error from JSON
+@param JSON Json description of VK API error
+*/
 + (instancetype)errorWithJson:(id)JSON;
+
 /**
- Generate API error from HTTP-query
- @param queryParams key-value parameters
- */
+Generate API error from HTTP-query
+@param queryParams key-value parameters
+*/
 + (instancetype)errorWithQuery:(NSDictionary *)queryParams;
 
 /**
- Repeats failed captcha request with user entered answer to captcha
- @param userEnteredCode answer for captcha
- */
+Repeats failed captcha request with user entered answer to captcha
+@param userEnteredCode answer for captcha
+*/
 - (void)answerCaptcha:(NSString *)userEnteredCode;
 @end

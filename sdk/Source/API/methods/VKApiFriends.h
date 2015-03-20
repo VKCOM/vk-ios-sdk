@@ -21,10 +21,12 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKApiBase.h"
+
 /**
- Builds requests for API.users part
- */
+Builds requests for API.users part
+*/
 @interface VKApiFriends : VKApiBase
 - (VKRequest *)get;
+
 - (VKRequest *)get:(NSDictionary *)params;
 @end

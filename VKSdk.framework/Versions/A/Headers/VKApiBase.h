@@ -24,45 +24,48 @@
 #import "VKRequest.h"
 #import "VKApiConst.h"
 #import "VKObject.h"
+
 /**
- * Basic class for all API-requests builders (parts)
- */
-@interface VKApiBase : VKObject
-{
+* Basic class for all API-requests builders (parts)
+*/
+@interface VKApiBase : VKObject {
 @private
-	NSString *_methodGroup;  ///< Selected methods group
+    NSString *_methodGroup;  ///< Selected methods group
 }
 /**
- Return group name for current methods builder
- @return name of methods group, e.g. users, wall, etc.
- */
+Return group name for current methods builder
+@return name of methods group, e.g. users, wall, etc.
+*/
 - (NSString *)getMethodGroup;
+
 /**
- Builds request and return it for configure and loading
- @param methodName Selected method name
- @param methodParameters Selected method parameters
- @return request to configure and load
- */
+Builds request and return it for configure and loading
+@param methodName Selected method name
+@param methodParameters Selected method parameters
+@return request to configure and load
+*/
 - (VKRequest *)prepareRequestWithMethodName:(NSString *)methodName
                               andParameters:(NSDictionary *)methodParameters;
+
 /**
- Builds request and return it for configure and loading
- @param methodName Selected method name
- @param methodParameters Selected method parameters
- @param httpMethod HTTP method for loading request. E.g. GET or POST
- @return request to configure and load
- */
+Builds request and return it for configure and loading
+@param methodName Selected method name
+@param methodParameters Selected method parameters
+@param httpMethod HTTP method for loading request. E.g. GET or POST
+@return request to configure and load
+*/
 - (VKRequest *)prepareRequestWithMethodName:(NSString *)methodName
                               andParameters:(NSDictionary *)methodParameters
                               andHttpMethod:(NSString *)httpMethod;
+
 /**
- Builds request and return it for configure and loading
- @param methodName Selected method name
- @param methodParameters Selected method parameters
- @param httpMethod HTTP method for loading request. E.g. GET or POST
- @param modelClass Class of model, based on VKApiObject, for model parsing
- @return request to configure and load
- */
+Builds request and return it for configure and loading
+@param methodName Selected method name
+@param methodParameters Selected method parameters
+@param httpMethod HTTP method for loading request. E.g. GET or POST
+@param modelClass Class of model, based on VKApiObject, for model parsing
+@return request to configure and load
+*/
 - (VKRequest *)prepareRequestWithMethodName:(NSString *)methodName
                               andParameters:(NSDictionary *)methodParameters
                               andHttpMethod:(NSString *)httpMethod

@@ -25,8 +25,8 @@
 
 @implementation VKSchool
 
--(instancetype)initWithDictionary:(NSDictionary *)dict {
-    NSMutableDictionary * newDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
+    NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:dict];
     id schoolId = newDict[@"id"];
     if ([schoolId isKindOfClass:[NSString class]]) {
         schoolId = [VKUtil parseNumberString:schoolId];
@@ -36,9 +36,9 @@
 }
 
 @end
+
 @implementation VKSchools
--(instancetype)initWithDictionary:(NSDictionary *)dict
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
     return [super initWithDictionary:dict objectClass:[VKSchool class]];
 }
 @end

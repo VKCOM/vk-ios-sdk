@@ -22,22 +22,29 @@
 
 #import "VKUser.h"
 
+@implementation VKBanInfo
+@end
+
 @implementation VKLastSeen
 @end
+
 @implementation VKUser
 @end
+
 @implementation VKGeoObject
 @end
+
 @implementation VKCity
 @end
+
 @implementation VKCountry
 @end
+
 @implementation VKExports
 @end
 
 @implementation VKUsersArray
--(instancetype)initWithDictionary:(NSDictionary *)dict
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
     return [super initWithDictionary:dict objectClass:[VKUser class]];
 }
 @end

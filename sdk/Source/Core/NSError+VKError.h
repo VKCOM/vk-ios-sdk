@@ -27,24 +27,25 @@ extern NSString *const VKSdkErrorDomain;
 extern NSString *const VkErrorDescriptionKey;
 
 /**
- * Category with implementation of VK error
- */
+* Category with implementation of VK error
+*/
 @interface NSError (VKError)
 
 /// Returns vk error associated with that NSError
-@property (nonatomic, readonly)  VKError * vkError;
+@property(nonatomic, readonly) VKError *vkError;
 
 /**
- Create new NSError with VKError
- @param vkError Source error
- @return New error with VKSdkErrorDomain domain
- */
-+(NSError*) errorWithVkError:(VKError*) vkError;
+Create new NSError with VKError
+@param vkError Source error
+@return New error with VKSdkErrorDomain domain
+*/
++ (NSError *)errorWithVkError:(VKError *)vkError;
+
 /**
- Copies user info from this NSError into new error, with adding VKError
- @param vkError Source error
- @return New error with this error domain, code and user info
- */
--(NSError*) copyWithVkError:(VKError*) vkError;
+Copies user info from this NSError into new error, with adding VKError
+@param vkError Source error
+@return New error with this error domain, code and user info
+*/
+- (NSError *)copyWithVkError:(VKError *)vkError;
 
 @end

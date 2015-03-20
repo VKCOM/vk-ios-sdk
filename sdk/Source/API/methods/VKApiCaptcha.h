@@ -23,12 +23,12 @@
 #import "VKApiBase.h"
 
 /**
- Methods for captcha work. Currently, it is 1 method for forcing captcha response
- */
+Methods for captcha work. Currently, it is 1 method for forcing captcha response
+*/
 @interface VKApiCaptcha : VKApiBase
 /**
- Returns error for captcha debugging
- @return Request to load
- */
+Returns error for captcha debugging
+@return Request to load
+*/
 - (VKRequest *)force;
 @end

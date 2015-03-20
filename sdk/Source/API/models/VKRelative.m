@@ -27,8 +27,7 @@
 @end
 
 @implementation VKRelativities
--(instancetype)initWithDictionary:(NSDictionary *)dict
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
     return [super initWithDictionary:dict objectClass:[VKRelative class]];
 }
 @end
