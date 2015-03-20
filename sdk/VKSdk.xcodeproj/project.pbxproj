@@ -576,18 +576,18 @@
 		1ACA600B9EDB0409CE33A22A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1ACA60549B5805BC010388F6 /* VKCaptchaViewController.h */,
 				1ACA665B2848931D6DD879CA /* VKActivity.h */,
-				1ACA6536B0B95A5ADF4F4D7A /* VKShareDialogController.m */,
-				1ACA61750D18E769710C23D2 /* VKCaptchaView.h */,
-				1ACA636E76F65CA58F05D4C9 /* VKShareDialogController.h */,
+				1ACA6F9E65F7742733AB46DF /* VKActivity.m */,
 				1ACA67F7D247AC33989F7034 /* VKAuthorizeController.h */,
 				1ACA602BF516D3FC45609A2B /* VKAuthorizeController.m */,
-				1ACA608862B093D6D0F46BC4 /* VKCaptchaViewController.m */,
+				1ACA61750D18E769710C23D2 /* VKCaptchaView.h */,
 				1ACA6CCDF9F3B105745FAB9A /* VKCaptchaView.m */,
-				1ACA6F9E65F7742733AB46DF /* VKActivity.m */,
-				1ACA65DA3FA10F23ABA592AA /* VKSharedTransitioningObject.m */,
+				1ACA60549B5805BC010388F6 /* VKCaptchaViewController.h */,
+				1ACA608862B093D6D0F46BC4 /* VKCaptchaViewController.m */,
+				1ACA636E76F65CA58F05D4C9 /* VKShareDialogController.h */,
+				1ACA6536B0B95A5ADF4F4D7A /* VKShareDialogController.m */,
 				1ACA6A7961FA6DBB3C1530F9 /* VKSharedTransitioningObject.h */,
+				1ACA65DA3FA10F23ABA592AA /* VKSharedTransitioningObject.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";

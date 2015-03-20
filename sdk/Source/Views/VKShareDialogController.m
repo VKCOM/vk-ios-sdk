@@ -1028,7 +1028,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 }
 -(void) authorize:(id) sender {
     [VKSdk instance].delegate = self;
-    [VKSdk authorize:_parent.requestedScope revokeAccess:YES];
+    [VKSdk authorize:_parent.requestedScope revokeAccess:YES forceOAuth:NO inApp:_parent.authorizeInApp];
 }
 - (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {
     VKCaptchaViewController * captcha = [VKCaptchaViewController captchaControllerWithError:captchaError];
