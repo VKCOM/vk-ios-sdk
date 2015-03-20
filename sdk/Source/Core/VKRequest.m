@@ -26,6 +26,7 @@
 #import "VKAuthorizeController.h"
 #import "VKHTTPClient.h"
 #import "VKHTTPOperation.h"
+#import "VKRequestsScheduler.h"
 
 #define SUPPORTED_LANGS_ARRAY @[@"ru", @"en", @"ua", @"es", @"fi", @"de", @"it"]
 
@@ -53,6 +54,7 @@
 {
     /// Semaphore for blocking current thread
     dispatch_semaphore_t _waitUntilDoneSemaphore;
+    CGFloat _waitMultiplier;
 }
 @property (nonatomic, readwrite, strong) VKRequestTiming *requestTiming;
 /// Selected method name
@@ -121,15 +123,18 @@
 	return newRequest;
 }
 - (id)init {
-	self = [super init];
-	self.attemptsUsed       = 0;
-	//If system language is not supported, we use english
-	self.preferredLang      = @"en";
-    //By default there is 1 attempt for loading.
-	self.attempts           = 1;
-    //By default we use system language.
-    self.useSystemLanguage  = YES;
-    self.secure             = YES;
+    if (self = [super init]) {
+        self.attemptsUsed       = 0;
+        //If system language is not supported, we use english
+        self.preferredLang      = @"en";
+        //By default there is 1 attempt for loading.
+        self.attempts           = 1;
+        //By default we use system language.
+        self.useSystemLanguage  = YES;
+        self.secure             = YES;
+        
+        _waitMultiplier = 1.f;
+    }
 	return self;
 }
 
@@ -144,7 +149,11 @@
 	self.completeBlock = completeBlock;
 	self.errorBlock    = errorBlock;
     
-	[self start];
+    if (!_waitUntilDone) {
+        [[VKRequestsScheduler instance] scheduleRequest:self];
+    } else {
+        [self start];
+    }
 }
 
 - (void)executeAfter:(VKRequest *)request
@@ -228,7 +237,9 @@
         }
         if ([JSON objectForKey:@"error"]) {
             VKError *error = [VKError errorWithJson:[JSON objectForKey:@"error"]];
-            if ([self processCommonError:error]) return;
+            if ([self processCommonError:error]) {
+                return;
+            }
             [self provideError:[NSError errorWithVkError:error]];
             return;
         }
@@ -246,7 +257,7 @@
         if (self.attempts == 0 || ++self.attemptsUsed < self.attempts) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), self.responseQueue,
                            ^(void) {
-                               [self start];
+                               [self executeWithResultBlock:_completeBlock errorBlock:_errorBlock];
                            });
             return;
         }
@@ -273,10 +284,14 @@
     } else {
         VKHTTPOperation *op = (VKHTTPOperation*)_executionOperation;
         op.successCallbackQueue = op.failureCallbackQueue = [VKRequest processingQueue];
-        _waitUntilDoneSemaphore = dispatch_semaphore_create(0);
         [[VKHTTPClient getClient] enqueueOperation:_executionOperation];
-        dispatch_semaphore_wait(_waitUntilDoneSemaphore, DISPATCH_TIME_FOREVER);
-        [self finishRequest];
+        if (!_waitUntilDoneSemaphore) {
+            _waitUntilDoneSemaphore = dispatch_semaphore_create(0);
+            dispatch_semaphore_wait(_waitUntilDoneSemaphore, DISPATCH_TIME_FOREVER);
+            if (self.error || self.response) {
+                [self finishRequest];
+            }
+        }
     }
 }
 - (void)operationDidStart:(NSNotification*) notification {
@@ -304,8 +319,9 @@
         vkResp.json = JSON;
     }
     
-    for (VKRequest *postRequest in _postRequestsQueue)
-        [postRequest start];
+    for (VKRequest *postRequest in _postRequestsQueue) {
+        [[VKRequestsScheduler instance] scheduleRequest:postRequest];
+    }
     [_requestTiming finished];
     self.response = vkResp;
     if (_executionOperation.isCancelled) {
@@ -355,11 +371,12 @@
 - (void)repeat {
 	_attemptsUsed = 0;
 	_preparedParameters = nil;
-	[self start];
+    [self executeWithResultBlock:_completeBlock errorBlock:_errorBlock];
 }
 
 - (void)cancel {
 	[_executionOperation cancel];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 //	[self provideError:[NSError errorWithVkError:[VKError errorWithCode:VK_API_CANCELED]]];
 }
 
@@ -405,7 +422,8 @@
         error.apiError.request = self;
         if (error.apiError.errorCode == 6) {
             //Too many requests per second
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), self.responseQueue, ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_waitMultiplier * NSEC_PER_SEC)), [[self class] processingQueue], ^{
+                _waitMultiplier *= ((arc4random() % 10) + 10) / 10.f;
                 [self repeat];
             });
             return YES;

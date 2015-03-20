@@ -87,6 +87,7 @@
 		F32ADDCF1A417CE9009A9FD6 /* ic_vk_activity_logo@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F32ADDCA1A417C4C009A9FD6 /* ic_vk_activity_logo@2x~ipad.png */; };
 		F32ADDD01A417CE9009A9FD6 /* ic_vk_activity_logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F32ADDCB1A417C4C009A9FD6 /* ic_vk_activity_logo@3x.png */; };
 		F32ADDD11A417CE9009A9FD6 /* ic_vk_activity_logo~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F32ADDCC1A417C4C009A9FD6 /* ic_vk_activity_logo~ipad.png */; };
+		F3454FD01ABB1D1A00B15E85 /* VKRequestsScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = F3454FCF1ABB1D1A00B15E85 /* VKRequestsScheduler.m */; };
 		F36114A9197685810085898F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F36114A4197684870085898F /* Localizable.strings */; };
 		F36114B319768FDD0085898F /* vk_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114AF19768FD70085898F /* vk_settings.png */; };
 		F36114B419768FDD0085898F /* vk_settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114B019768FD70085898F /* vk_settings@2x.png */; };
@@ -498,6 +499,8 @@
 		F32ADDCA1A417C4C009A9FD6 /* ic_vk_activity_logo@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_vk_activity_logo@2x~ipad.png"; sourceTree = "<group>"; };
 		F32ADDCB1A417C4C009A9FD6 /* ic_vk_activity_logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_vk_activity_logo@3x.png"; sourceTree = "<group>"; };
 		F32ADDCC1A417C4C009A9FD6 /* ic_vk_activity_logo~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_vk_activity_logo~ipad.png"; sourceTree = "<group>"; };
+		F3454FCE1ABB1D1A00B15E85 /* VKRequestsScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKRequestsScheduler.h; sourceTree = "<group>"; };
+		F3454FCF1ABB1D1A00B15E85 /* VKRequestsScheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKRequestsScheduler.m; sourceTree = "<group>"; };
 		F36114A5197684870085898F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F36114A8197684A00085898F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F36114AF19768FD70085898F /* vk_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_settings.png; sourceTree = "<group>"; };
@@ -677,6 +680,8 @@
 				1ACA61B2E964393FB2431C30 /* VKOperation.h */,
 				1ACA6062CBB5C51999B6F516 /* VKObject.m */,
 				1ACA6B275906BC58E311AF45 /* VKObject.h */,
+				F3454FCE1ABB1D1A00B15E85 /* VKRequestsScheduler.h */,
+				F3454FCF1ABB1D1A00B15E85 /* VKRequestsScheduler.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -1095,6 +1100,7 @@
 				1ACA69422EFB6D515C356141 /* VKApiPhotos.m in Sources */,
 				1ACA6A173F4BAA7E9AB43206 /* VKApiCaptcha.m in Sources */,
 				1ACA6A08792E4AD2B10F1624 /* VKApiFriends.m in Sources */,
+				F3454FD01ABB1D1A00B15E85 /* VKRequestsScheduler.m in Sources */,
 				1ACA61EE5B7171D4F5726D08 /* VKUser.m in Sources */,
 				1ACA6AC9C143AC442155AD90 /* VKAudio.m in Sources */,
 				1ACA6F1A8CF8466F058EE7BC /* VKGroup.m in Sources */,

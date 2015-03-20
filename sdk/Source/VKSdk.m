@@ -38,6 +38,7 @@
 
 #import "VKSdk.h"
 #import "VKAuthorizeController.h"
+#import "VKRequestsScheduler.h"
 
 typedef enum : NSUInteger {
 	VKAuthorizationNone        = 0,
@@ -93,6 +94,7 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
 			[delegate vkSdkAcceptedUserToken:token];
 		}
 	}
+    [[VKRequestsScheduler instance] setEnabled:YES];
 }
 
 - (instancetype)initUniqueInstance {
@@ -345,6 +347,9 @@ static NSString *VK_AUTHORIZE_URL_STRING            = @"vkauthorize://authorize"
         if (!exists) return NO;
     }
     return YES;
+}
++ (void)setSchedulerEnabled:(BOOL) enabled {
+    [[VKRequestsScheduler instance] setEnabled:YES];
 }
 
 - (NSString *)currentAppId {
