@@ -824,7 +824,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 }
 -(void)positionSubviews {
     lastTextViewHeight = _textView.frame.size.height;
-    _attachmentsCollection.frame = CGRectMake(0, lastTextViewHeight, self.frame.size.width, kAttachmentsViewSize);
+    _attachmentsCollection.frame = CGRectMake(0, lastTextViewHeight, self.frame.size.width, [_attachmentsCollection numberOfItemsInSection:0] ? kAttachmentsViewSize : 0);
     if (_linkAttachView) {
         _linkAttachView.frame = CGRectMake(14, CGRectGetMaxY(_attachmentsCollection.frame) + 5, self.frame.size.width - 20, 0);
         [_linkAttachView sizeToFit];

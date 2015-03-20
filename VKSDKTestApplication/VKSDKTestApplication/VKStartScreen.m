@@ -62,7 +62,7 @@ static NSArray  * SCOPE = nil;
 - (IBAction)openShareDialog:(id)sender {
     VKShareDialogController * shareDialog = [VKShareDialogController new];
     shareDialog.text         = @"This post created using #vksdk #ios";
-    shareDialog.vkImages     = @[@"-10889156_348122347",@"7840938_319411365",@"-60479154_333497085"];
+//    shareDialog.vkImages     = @[@"-10889156_348122347",@"7840938_319411365",@"-60479154_333497085"];
     shareDialog.shareLink    = [[VKShareLink alloc] initWithTitle:@"Super puper link, but nobody knows" link:[NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]];
     [shareDialog setCompletionHandler:^(VKShareDialogControllerResult result) {
         [self dismissViewControllerAnimated:YES completion:nil];
