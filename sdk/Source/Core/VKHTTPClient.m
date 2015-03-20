@@ -152,7 +152,7 @@ static NSString *const kCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()',*"
     NSMutableData *postbody = [NSMutableData data];
     for (NSUInteger i = 0; i < images.count; i++) {
         VKUploadImage *uploadImageObject = images[i];
-        NSString *fileName = [NSString stringWithFormat:@"file%d", (i + 1)];
+        NSString *fileName = [NSString stringWithFormat:@"file%d", (int)(i + 1)];
         [postbody appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", kVKMultipartFormBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
         [postbody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@.%@\"\r\n", fileName, fileName, [uploadImageObject.parameters fileExtension]] dataUsingEncoding:NSUTF8StringEncoding]];
         [postbody appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", [uploadImageObject.parameters mimeType]] dataUsingEncoding:NSUTF8StringEncoding]];
