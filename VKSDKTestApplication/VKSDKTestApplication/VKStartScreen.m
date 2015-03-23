@@ -73,7 +73,7 @@ static NSArray  * SCOPE = nil;
 
 - (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {
 	VKCaptchaViewController *vc = [VKCaptchaViewController captchaControllerWithError:captchaError];
-	[vc presentIn:self];
+	[vc presentIn:self.navigationController.topViewController];
 }
 
 - (void)vkSdkTokenHasExpired:(VKAccessToken *)expiredToken {
