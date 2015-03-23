@@ -401,9 +401,11 @@
 }
 
 - (void)cancel {
+    _executionOperation.completionBlock = nil;
     [_executionOperation cancel];
+    _executionOperation = nil;
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-//	[self provideError:[NSError errorWithVkError:[VKError errorWithCode:VK_API_CANCELED]]];
+	[self provideError:[NSError errorWithVkError:[VKError errorWithCode:VK_API_CANCELED]]];
 }
 
 - (void)setupProgress:(VKHTTPOperation *)operation {
