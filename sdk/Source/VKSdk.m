@@ -214,7 +214,6 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 }
 
 + (void)setAccessTokenError:(VKError *)error {
-    [VKSdk instance].authState = VKAuthorizationInitialized;
     vkSdkInstance.permissions = nil;
     [vkSdkInstance.delegate vkSdkUserDeniedAccess:error];
 }
@@ -352,6 +351,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
         VKError *vkError = error.vkError;
         if (vkError.errorCode == 5) {
             [self setAccessToken:nil];
+            self.authState = VKAuthorizationInitialized;
             [[self class] setAccessTokenError:vkError];
         }
     }];
