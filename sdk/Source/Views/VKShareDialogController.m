@@ -1277,6 +1277,7 @@ static NSString *const SETTINGS_LIVEJOURNAL = @"ExportLivejournal";
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     self.tableView.tableFooterView = [UIView new];
 }
 
