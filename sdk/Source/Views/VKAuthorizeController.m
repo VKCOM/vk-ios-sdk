@@ -73,6 +73,10 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
         navigation.navigationBar.tintColor = [UIColor whiteColor];
         navigation.navigationBar.translucent = YES;
     }
+    if (VK_IS_DEVICE_IPAD) {
+        navigation.modalPresentationStyle = UIModalPresentationFormSheet;
+        navigation.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    }
 
     UIImage *image = [VKBundle vkLibraryImageNamed:@"ic_vk_logo_nb"];
     controller.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
@@ -86,7 +90,17 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
                               scope:(NSString *)scope
                              revoke:(BOOL)revoke
                             display:(NSString *)display {
-    return [NSString stringWithFormat:@"https://oauth.vk.com/authorize?client_id=%@&scope=%@&redirect_uri=%@&display=%@&v=%@&response_type=token&revoke=%d&sdk_version=%@", clientId, scope, redirectUri, display, VK_SDK_API_VERSION, revoke ? 1 : 0, VK_SDK_VERSION];
+    NSDictionary *params = @{
+            @"v" : [[VKSdk instance] apiVersion],
+            @"scope" : scope ?: @"",
+            @"revoke" : @(revoke),
+            @"display" : display ?: VK_DISPLAY_MOBILE,
+            @"client_id" : clientId ?: @"",
+            @"sdk_version" : VK_SDK_VERSION,
+            @"redirect_uri" : redirectUri ?: REDIRECT_URL,
+            @"response_type" : @"token"
+    };
+    return [NSString stringWithFormat:@"http://oauth.vk.com/authorize?%@", [VKUtil queryStringFromParams:params]];
 }
 
 #pragma mark View prepare
