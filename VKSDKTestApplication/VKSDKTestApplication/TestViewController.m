@@ -187,22 +187,22 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
 }
 
 - (void)uploadPhoto {
-VKRequest *request = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"apple"] parameters:[VKImageParameters pngImage] userId:0 groupId:60479154];
-[request executeWithResultBlock: ^(VKResponse *response) {
-    NSLog(@"Photo: %@", response.json);
-    VKPhoto *photoInfo = [(VKPhotoArray*)response.parsedModel objectAtIndex:0];
-    NSString *photoAttachment = [NSString stringWithFormat:@"photo%@_%@", photoInfo.owner_id, photoInfo.id];
-    VKRequest *post = [[VKApi wall] post:@{ VK_API_ATTACHMENTS : photoAttachment, VK_API_OWNER_ID : @"-60479154" }];
-    [post executeWithResultBlock: ^(VKResponse *response) {
-        NSLog(@"Result: %@", response);
-        NSNumber * postId = response.json[@"post_id"];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/wall-60479154_%@", postId]]];
+    VKRequest *request = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"apple"] parameters:[VKImageParameters pngImage] userId:0 groupId:60479154];
+    [request executeWithResultBlock: ^(VKResponse *response) {
+        NSLog(@"Photo: %@", response.json);
+        VKPhoto *photoInfo = [(VKPhotoArray*)response.parsedModel objectAtIndex:0];
+        NSString *photoAttachment = [NSString stringWithFormat:@"photo%@_%@", photoInfo.owner_id, photoInfo.id];
+        VKRequest *post = [[VKApi wall] post:@{ VK_API_ATTACHMENTS : photoAttachment, VK_API_OWNER_ID : @"-60479154" }];
+        [post executeWithResultBlock: ^(VKResponse *response) {
+            NSLog(@"Result: %@", response);
+            NSNumber * postId = response.json[@"post_id"];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/wall-60479154_%@", postId]]];
+        } errorBlock: ^(NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
     } errorBlock: ^(NSError *error) {
         NSLog(@"Error: %@", error);
     }];
-} errorBlock: ^(NSError *error) {
-    NSLog(@"Error: %@", error);
-}];
 }
 
 - (void)uploadPhotos {

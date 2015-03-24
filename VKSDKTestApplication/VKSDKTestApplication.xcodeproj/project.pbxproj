@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F340187F1AC1D69D006CCEE0 /* libVKSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F330B4021A42DF5500A50EC5 /* libVKSdk.a */; };
 		F36114C21976DC770085898F /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114C11976DC770085898F /* apple.png */; };
 		F390A0171A9C9C00006540A6 /* VKSdkResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F330B4041A42DF5500A50EC5 /* VKSdkResources.bundle */; };
 		F3B7EEAB184353CF00104B90 /* ApiCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B7EEAA184353CF00104B90 /* ApiCallViewController.m */; };
-		F3BACC4F18659103003158DA /* libVKSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFFCA1827F6B7000BB525 /* libVKSdk.a */; };
 		F3D38E6F183CD29700D05079 /* VKStartScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D38E6E183CD29700D05079 /* VKStartScreen.m */; };
 		F3DC2446183B811E00E3A93D /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3DC2445183B811E00E3A93D /* Storyboard.storyboard */; };
 		F3EEFF6A1827B1DD000BB525 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFF691827B1DD000BB525 /* Foundation.framework */; };
@@ -54,13 +54,6 @@
 			remoteGlobalIDString = F3BACC3F1865905B003158DA;
 			remoteInfo = VKSdkResources;
 		};
-		F390A0151A9C9BF2006540A6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F33F0DDB18D0759A00DD8B80 /* VKSdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F39EF12A1A84FD3C001F4C11;
-			remoteInfo = VKSdk_framework;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -97,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3BACC4F18659103003158DA /* libVKSdk.a in Frameworks */,
+				F340187F1AC1D69D006CCEE0 /* libVKSdk.a in Frameworks */,
 				F3EEFFD01827F9B5000BB525 /* SystemConfiguration.framework in Frameworks */,
 				F3EEFFCE1827F9AF000BB525 /* MobileCoreServices.framework in Frameworks */,
 				F3EEFF6C1827B1DD000BB525 /* CoreGraphics.framework in Frameworks */,
@@ -114,7 +107,6 @@
 			children = (
 				F330B4021A42DF5500A50EC5 /* libVKSdk.a */,
 				F330B4041A42DF5500A50EC5 /* VKSdkResources.bundle */,
-				F390A0161A9C9BF2006540A6 /* libVKSdk copy.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -256,13 +248,6 @@
 			fileType = wrapper.cfbundle;
 			path = VKSdkResources.bundle;
 			remoteRef = F330B4031A42DF5500A50EC5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F390A0161A9C9BF2006540A6 /* libVKSdk copy.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libVKSdk copy.a";
-			remoteRef = F390A0151A9C9BF2006540A6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

@@ -57,7 +57,7 @@ static NSArray  * SCOPE = nil;
 }
 
 - (IBAction)authorizeForceOAuthInApp:(id)sender {
-	[VKSdk authorize:SCOPE revokeAccess:YES forceOAuth:YES inApp:YES display:VK_DISPLAY_IOS];
+	[VKSdk authorize:SCOPE revokeAccess:YES forceOAuth:YES inApp:YES display:VK_DISPLAY_MOBILE];
 }
 - (IBAction)openShareDialog:(id)sender {
     VKShareDialogController * shareDialog = [VKShareDialogController new];
