@@ -27,6 +27,7 @@
 #import "VKSdkVersion.h"
 #import "VKImageParameters.h"
 #import "VKUploadImage.h"
+#import "VKUtil.h"
 
 static VKHTTPClient *__clientInstance = nil;
 static NSString const *VK_API_URI = @"api.vk.com/method/";
@@ -109,34 +110,17 @@ static NSString *const kVKMultipartFormBoundary = @"Boundary(======VK_SDK======)
 
     if (parameters) {
         if ([method isEqualToString:@"GET"] || [method isEqualToString:@"HEAD"] || [method isEqualToString:@"DELETE"]) {
-            url = [NSURL URLWithString:[[url absoluteString] stringByAppendingFormat:[path rangeOfString:@"?"].location == NSNotFound ? @"?%@" : @"&%@", [self queryStringFromParams:parameters]]];
+            url = [NSURL URLWithString:[[url absoluteString] stringByAppendingFormat:[path rangeOfString:@"?"].location == NSNotFound ? @"?%@" : @"&%@", [VKUtil queryStringFromParams:parameters]]];
             [request setURL:url];
         }
         else {
             NSString *charset = (__bridge NSString *) CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
             [request setValue:[NSString stringWithFormat:@"application/x-www-form-urlencoded; charset=%@", charset] forHTTPHeaderField:@"Content-Type"];
-            [request setHTTPBody:[[self queryStringFromParams:parameters] dataUsingEncoding:NSUTF8StringEncoding]];
+            [request setHTTPBody:[[VKUtil queryStringFromParams:parameters] dataUsingEncoding:NSUTF8StringEncoding]];
         }
     }
 
     return request;
-}
-
-static NSString *const kCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()',*";
-
-- (NSString *)escapeString:(NSString *)value {
-    return (__bridge_transfer NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef) value, NULL, (__bridge CFStringRef) kCharactersToBeEscapedInQueryString, CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
-}
-
-- (NSString *)queryStringFromParams:(NSDictionary *)params {
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:params.count];
-    for (NSString *key in params) {
-        if ([params[key] isKindOfClass:[NSString class]])
-            [array addObject:[NSString stringWithFormat:@"%@=%@", key, [self escapeString:params[key]]]];
-        else
-            [array addObject:[NSString stringWithFormat:@"%@=%@", key, params[key]]];
-    }
-    return [array componentsJoinedByString:@"&"];
 }
 
 - (NSMutableURLRequest *)multipartFormRequestWithMethod:(NSString *)method
@@ -152,7 +136,7 @@ static NSString *const kCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()',*"
     NSMutableData *postbody = [NSMutableData data];
     for (NSUInteger i = 0; i < images.count; i++) {
         VKUploadImage *uploadImageObject = images[i];
-        NSString *fileName = [NSString stringWithFormat:@"file%d", (int)(i + 1)];
+        NSString *fileName = [NSString stringWithFormat:@"file%d", (int) (i + 1)];
         [postbody appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", kVKMultipartFormBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
         [postbody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@.%@\"\r\n", fileName, fileName, [uploadImageObject.parameters fileExtension]] dataUsingEncoding:NSUTF8StringEncoding]];
         [postbody appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", [uploadImageObject.parameters mimeType]] dataUsingEncoding:NSUTF8StringEncoding]];

@@ -57,4 +57,21 @@
 + (UIColor *)colorWithRGB:(NSInteger)rgb {
     return [UIColor colorWithRed:((CGFloat) ((rgb & 0xFF0000) >> 16)) / 255.f green:((CGFloat) ((rgb & 0xFF00) >> 8)) / 255.f blue:((CGFloat) (rgb & 0xFF)) / 255.f alpha:1.0f];
 }
+
+static NSString *const kCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()',*";
+
++ (NSString *)escapeString:(NSString *)value {
+    return (__bridge_transfer NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef) value, NULL, (__bridge CFStringRef) kCharactersToBeEscapedInQueryString, CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+}
+
++ (NSString *)queryStringFromParams:(NSDictionary *)params {
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:params.count];
+    for (NSString *key in params) {
+        if ([params[key] isKindOfClass:[NSString class]])
+            [array addObject:[NSString stringWithFormat:@"%@=%@", key, [self escapeString:params[key]]]];
+        else
+            [array addObject:[NSString stringWithFormat:@"%@=%@", key, params[key]]];
+    }
+    return [array componentsJoinedByString:@"&"];
+}
 @end

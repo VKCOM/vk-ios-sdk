@@ -405,7 +405,7 @@
     [_executionOperation cancel];
     _executionOperation = nil;
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-	[self provideError:[NSError errorWithVkError:[VKError errorWithCode:VK_API_CANCELED]]];
+    [self provideError:[NSError errorWithVkError:[VKError errorWithCode:VK_API_CANCELED]]];
 }
 
 - (void)setupProgress:(VKHTTPOperation *)operation {
@@ -488,8 +488,6 @@
     NSString *lang = _preferredLang;
     if (self.useSystemLanguage) {
         lang = [NSLocale preferredLanguages][0];
-        if ([lang isEqualToString:@"uk"])
-            lang = @"ua";
         if (![SUPPORTED_LANGS_ARRAY containsObject:lang])
             lang = _preferredLang;
     }

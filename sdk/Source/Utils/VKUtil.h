@@ -46,4 +46,6 @@ Breaks key=value string to dictionary
 + (NSNumber *)parseNumberString:(id)number;
 
 + (UIColor *)colorWithRGB:(NSInteger)rgb;
+
++ (NSString *)queryStringFromParams:(NSDictionary *)params;
 @end
