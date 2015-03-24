@@ -126,7 +126,10 @@ Entry point for using VK sdk. Should be initialized at application start
 @property(nonatomic, weak) id <VKSdkDelegate> delegate;
 
 /// Returns a last app_id used for initializing the SDK
-@property(nonatomic, readonly) NSString *currentAppId;
+@property(nonatomic, readonly, copy) NSString *currentAppId;
+
+/// API version for making requests
+@property(nonatomic, readonly, copy) NSString *apiVersion;
 ///-------------------------------
 /// @name Initialization
 ///-------------------------------
@@ -152,7 +155,17 @@ Initialize SDK with responder for global SDK events and custom token key
 */
 + (void)initializeWithDelegate:(id <VKSdkDelegate>)delegate
                       andAppId:(NSString *)appId
-                andCustomToken:(VKAccessToken *)token;
+                andCustomToken:(VKAccessToken *)token DEPRECATED_ATTRIBUTE;
+
+/**
+Initialize SDK with responder for global SDK events
+@param delegate responder for global SDK events
+@param appId your application id (if you haven't, you can create standalone application here https://vk.com/editapp?act=create )
+@param apiVersion if you want to use latest API version, pass required version here
+*/
++ (void)initializeWithDelegate:(id <VKSdkDelegate>)delegate
+                      andAppId:(NSString *)appId
+                    apiVersion:(NSString *)version;
 
 ///-------------------------------
 /// @name Authentication in VK

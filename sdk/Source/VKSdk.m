@@ -50,7 +50,8 @@ typedef enum : NSUInteger {
 @interface VKSdk ()
 
 @property(nonatomic, assign) VKAuthorizationState authState;
-@property(nonatomic, strong) NSString *currentAppId;
+@property(nonatomic, copy) NSString *currentAppId;
+@property(nonatomic, readwrite, copy) NSString *apiVersion;
 @property(nonatomic, strong) VKAccessToken *accessToken;
 @property(nonatomic, strong) NSArray *permissions;
 
@@ -74,7 +75,22 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 }
 
 + (void)initializeWithDelegate:(id <VKSdkDelegate>)delegate andAppId:(NSString *)appId {
-    [self initializeWithDelegate:delegate andAppId:appId andCustomToken:vkSdkInstance.accessToken];
+    [self initializeWithDelegate:delegate andAppId:appId apiVersion:VK_SDK_API_VERSION];
+}
+
++ (void)initializeWithDelegate:(id <VKSdkDelegate>)delegate
+                      andAppId:(NSString *)appId
+                    apiVersion:(NSString *)version {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        vkSdkInstance = [(VKSdk *) [super alloc] initUniqueInstance];
+    });
+
+    vkSdkInstance.delegate = delegate;
+    vkSdkInstance.currentAppId = appId;
+    vkSdkInstance.apiVersion = version;
+
+    [[VKRequestsScheduler instance] setEnabled:YES];
 }
 
 + (void)initializeWithDelegate:(id <VKSdkDelegate>)delegate andAppId:(NSString *)appId andCustomToken:(VKAccessToken *)token {
@@ -86,6 +102,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
     vkSdkInstance.delegate = delegate;
     vkSdkInstance.currentAppId = appId;
+    vkSdkInstance.apiVersion = VK_SDK_API_VERSION;
 
     if (token && token != vkSdkInstance.accessToken) {
         vkSdkInstance.accessToken = token;
@@ -164,9 +181,13 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     NSString *clientId = vkSdkInstance.currentAppId;
 
     if (!inApp) {
-        NSURL *urlToOpen = [NSURL URLWithString:
-                [NSString stringWithFormat:@"%@?client_id=%@&scope=%@&revoke=%d&sdk_version=%@", VK_AUTHORIZE_URL_STRING, clientId, [permissions componentsJoinedByString:@","], revokeAccess ? 1 : 0, VK_SDK_VERSION]
-        ];
+        NSDictionary *params = @{@"client_id" : clientId ?: @"",
+                @"scope" : [permissions componentsJoinedByString:@","],
+                @"revoke" : @(revokeAccess),
+                @"sdk_version" : VK_SDK_VERSION
+        };
+
+        NSURL *urlToOpen = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", VK_AUTHORIZE_URL_STRING, [VKUtil queryStringFromParams:params]]];
         if (!forceOAuth && [[UIApplication sharedApplication] canOpenURL:urlToOpen]) {
             [VKSdk instance].authState = VKAuthorizationVkApp;
         } else {
@@ -236,11 +257,24 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
         return NO;
     }
     NSDictionary *parametersDict = [VKUtil explodeQueryString:parametersString];
-    BOOL inAppCheck = [urlString hasPrefix:@"https://oauth.vk.com"];
-    if ((!inAppCheck && parametersDict[@"error"]) ||
-            (inAppCheck && (parametersDict[@"cancel"] || parametersDict[@"error"] || parametersDict[@"fail"]))) {
+    BOOL inAppCheck = [[passedUrl host] isEqual:@"oauth.vk.com"];
+
+    void (^throwError)() = ^{
         VKError *error = [VKError errorWithQuery:parametersDict];
         [VKSdk setAccessTokenError:error];
+    };
+
+    if (!inAppCheck && parametersDict[@"error"]) {
+        if ([parametersDict[@"error_reason"] isEqual:@"sdk_error"]) {
+            //Try internal authorize
+            [self authorize:vkSdkInstance.permissions revokeAccess:YES forceOAuth:NO inApp:YES display:VK_DISPLAY_IOS];
+        } else {
+            throwError();
+        }
+        return NO;
+    }
+    if (inAppCheck && (parametersDict[@"cancel"] || parametersDict[@"error"] || parametersDict[@"fail"])) {
+        throwError();
         return NO;
     } else if (inAppCheck && parametersDict[@"success"]) {
         VKAccessToken *prevToken = [VKSdk getAccessToken];
