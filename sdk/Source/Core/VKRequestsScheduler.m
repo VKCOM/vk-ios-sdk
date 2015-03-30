@@ -16,14 +16,14 @@
     NSMutableDictionary *_scheduleDict;
     BOOL _enabled;
 }
-+ (NSDictionary *)limits {
-    static NSDictionary *limitsDictionary;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        limitsDictionary = @{@5000 : @3, @10000 : @5, @100000 : @8, @1000000 : @20, @(INT_MAX) : @35};
-    });
-    return limitsDictionary;
-}
+//+ (NSDictionary *)limits {
+//    static NSDictionary *limitsDictionary;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        limitsDictionary = @{@5000 : @3, @10000 : @5, @100000 : @8, @1000000 : @20, @(INT_MAX) : @35};
+//    });
+//    return limitsDictionary;
+//}
 
 + (instancetype)instance {
     static id sInstance;
@@ -45,23 +45,23 @@
 
 - (void)setEnabled:(BOOL)enabled {
     _enabled = enabled;
-    if ([VKSdk instance].currentAppId) {
-        [[VKRequest requestWithMethod:@"apps.get" andParameters:@{@"app_id" : [VKSdk instance].currentAppId} andHttpMethod:@"GET"] executeWithResultBlock:^(VKResponse *response) {
-            NSInteger members = [response.json[@"members_count"] integerValue];
-            NSDictionary *limitsDict = [[self class] limits];
-            NSArray *limits = [[limitsDict allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                return [obj1 compare:obj2];
-            }];
-
-            for (NSNumber *curLimit in limits) {
-                if (members < curLimit.integerValue) {
-                    _currentLimitPerSecond = [limitsDict[curLimit] integerValue];
-                    break;
-                }
-            }
-
-        } errorBlock:nil];
-    }
+//    if ([VKSdk instance].currentAppId) {
+//        [[VKRequest requestWithMethod:@"apps.get" andParameters:@{@"app_id" : [VKSdk instance].currentAppId} andHttpMethod:@"GET"] executeWithResultBlock:^(VKResponse *response) {
+//            NSInteger members = [response.json[@"members_count"] integerValue];
+//            NSDictionary *limitsDict = [[self class] limits];
+//            NSArray *limits = [[limitsDict allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+//                return [obj1 compare:obj2];
+//            }];
+//
+//            for (NSNumber *curLimit in limits) {
+//                if (members < curLimit.integerValue) {
+//                    _currentLimitPerSecond = [limitsDict[curLimit] integerValue];
+//                    break;
+//                }
+//            }
+//
+//        } errorBlock:nil];
+//    }
 }
 
 - (NSTimeInterval)currentAvailableInterval {
