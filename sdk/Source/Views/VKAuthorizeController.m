@@ -100,7 +100,7 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
             @"redirect_uri" : redirectUri ?: REDIRECT_URL,
             @"response_type" : @"token"
     };
-    return [NSString stringWithFormat:@"http://oauth.vk.com/authorize?%@", [VKUtil queryStringFromParams:params]];
+    return [NSString stringWithFormat:@"https://oauth.vk.com/authorize?%@", [VKUtil queryStringFromParams:params]];
 }
 
 #pragma mark View prepare
