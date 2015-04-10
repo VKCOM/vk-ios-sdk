@@ -69,6 +69,7 @@ extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperat
 @end
 
 @implementation VKUploadImageOperation
+@dynamic state;
 
 + (instancetype)operationWithUploadRequest:(VKUploadPhotoBase *)uploadRequest {
     VKUploadImageOperation *operation = [VKUploadImageOperation new];
