@@ -49,8 +49,6 @@
 
 @implementation VKAuthorizeController
 
-static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
-
 + (void)presentForAuthorizeWithAppId:(NSString *)appId
                       andPermissions:(NSArray *)permissions
                         revokeAccess:(BOOL)revoke
@@ -97,7 +95,7 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
             @"display" : display ?: VK_DISPLAY_MOBILE,
             @"client_id" : clientId ?: @"",
             @"sdk_version" : VK_SDK_VERSION,
-            @"redirect_uri" : redirectUri ?: REDIRECT_URL,
+            @"redirect_uri" : redirectUri ?: @"",
             @"response_type" : @"token"
     };
     return [NSString stringWithFormat:@"https://oauth.vk.com/authorize?%@", [VKUtil queryStringFromParams:params]];
@@ -156,7 +154,7 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
     self = [super init];
     _appId = appId;
     _scope = [permissions componentsJoinedByString:@","];
-    _redirectUri = [[self class] buildAuthorizationUrl:REDIRECT_URL clientId:_appId scope:_scope revoke:revoke display:display];
+    _redirectUri = [[self class] buildAuthorizationUrl:nil clientId:_appId scope:_scope revoke:revoke display:display];
     return self;
 }
 
@@ -183,7 +181,7 @@ static NSString *const REDIRECT_URL = @"https://oauth.vk.com/blank.html";
     if (!webView.hidden && !self.navigationItem.rightBarButtonItem) {
         [self setRightBarButtonActivity];
     }
-    if ([urlString hasPrefix:REDIRECT_URL]) {
+    if ([[[request URL] path] isEqual:@"/blank.html"]) {
         if ([VKSdk processOpenURL:[request URL] fromApplication:VK_ORIGINAL_CLIENT_BUNDLE] && _validationError)
             [_validationError.request repeat];
 
