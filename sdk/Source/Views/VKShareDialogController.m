@@ -935,17 +935,20 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         view.textView.text = _parent.text;
         [self prepare];
     } else {
-        VKShareDialogView *view = (VKShareDialogView *) self.view;
-        [view addSubview:view.notAuthorizedView];
-        if ([VKSdk wakeUpSession]) {
-            view.notAuthorizedLabel.text = VKLocalizedString(@"UserHasNoRequiredPermissions");
-        }
-        [view layoutSubviews];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(viewWillAppear:)
-                                                     name:UIApplicationDidBecomeActiveNotification
-                                                   object:nil];
+        [self setNotAuthorized];
     }
+}
+- (void) setNotAuthorized {
+    VKShareDialogView *view = (VKShareDialogView *) self.view;
+    [view addSubview:view.notAuthorizedView];
+    if ([VKSdk wakeUpSession]) {
+        view.notAuthorizedLabel.text = VKLocalizedString(@"UserHasNoRequiredPermissions");
+    }
+    [view layoutSubviews];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(viewWillAppear:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -1064,6 +1067,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 }
 
 - (void)vkSdkUserDeniedAccess:(VKError *)authorizationError {
+    [self setNotAuthorized];
 }
 
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller {

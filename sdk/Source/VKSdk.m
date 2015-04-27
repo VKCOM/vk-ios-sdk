@@ -343,8 +343,11 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     VKAccessToken *token = [VKAccessToken tokenFromDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
     if (!token || token.isExpired)
         return NO;
+    BOOL firstCall = vkSdkInstance.accessToken == nil;
     vkSdkInstance.accessToken = token;
-    [vkSdkInstance trackVisitor];
+    if (token && firstCall) {
+        [vkSdkInstance trackVisitor];
+    }
     return YES;
 }
 
@@ -352,7 +355,6 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     BOOL result = [self wakeUpSession];
     if (!result) return result;
     if (![self hasPermissions:permissions]) {
-        vkSdkInstance.accessToken = nil;
         return NO;
     }
     return YES;

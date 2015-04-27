@@ -379,8 +379,9 @@
         if (self.errorBlock) {
             self.errorBlock(self.error);
         }
-        for (VKRequest *postRequest in _postRequestsQueue)
+        for (VKRequest *postRequest in _postRequestsQueue) {
             if (postRequest.errorBlock) postRequest.errorBlock(self.error);
+        }
     } else {
         if (self.completeBlock)
             self.completeBlock(self.response);
