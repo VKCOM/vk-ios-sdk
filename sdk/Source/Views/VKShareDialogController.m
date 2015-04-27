@@ -930,13 +930,16 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     [super viewWillAppear:animated];
     if (self.prepared) return;
     VKShareDialogView *view = (VKShareDialogView *) self.view;
-    if ([VKSdk wakeUpSession]) {
+    if ([VKSdk wakeUpSession:self.parent.requestedScope]) {
         [view.notAuthorizedView removeFromSuperview];
         view.textView.text = _parent.text;
         [self prepare];
     } else {
         VKShareDialogView *view = (VKShareDialogView *) self.view;
         [view addSubview:view.notAuthorizedView];
+        if ([VKSdk wakeUpSession]) {
+            view.notAuthorizedLabel.text = VKLocalizedString(@"UserHasNoRequiredPermissions");
+        }
         [view layoutSubviews];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(viewWillAppear:)

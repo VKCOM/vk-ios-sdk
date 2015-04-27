@@ -253,9 +253,13 @@ Checks passed URL for access token
 + (BOOL)isLoggedIn;
 
 /**
-Make try to read token from defaults and start session again.
-*/
+ Make try to read token from defaults and start session again.
+ */
 + (BOOL)wakeUpSession;
+/**
+ Try to read token from defaults, then check for required permissions.
+ */
++ (BOOL)wakeUpSession:(NSArray *)permissions;
 
 /**
 Forces logout using OAuth (with VKAuthorizeController). Removes all cookies for *.vk.com.

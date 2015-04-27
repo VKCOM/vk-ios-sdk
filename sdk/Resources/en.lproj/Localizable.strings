@@ -31,6 +31,7 @@
 "UserWall%@"="%@ wall";
 "DenyPostingOn%@Wall" = "You are not allowed to post on %@ wall";
 "UserNotAuthorized"   = "You are not authorized with VK";
+"UserHasNoRequiredPermissions" = "To continue extra permissions required";
 "Enter"="Enter";
 "ErrorWhilePosting" = "An error accuired while executing your request. Please, try later";
 "Link" = "Link";
