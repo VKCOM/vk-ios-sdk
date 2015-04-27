@@ -24,93 +24,92 @@ typedef NSString *VKDisplayType;
 static VKDisplayType const VK_DISPLAY_IOS = @"ios";
 static VKDisplayType const VK_DISPLAY_MOBILE = @"mobile";
 //Commons
-static NSString *const VK_ORIGINAL_CLIENT_BUNDLE = @"com.vk.vkclient";
-static NSString *const VK_ORIGINAL_HD_CLIENT_BUNDLE = @"com.vk.vkhd";
-static NSString *const VK_DEBUG_CLIENT_BUNDLE = @"com.vk.odnoletkov.client";
-static NSString *const VK_API_USER_ID = @"user_id";
-static NSString *const VK_API_USER_IDS = @"user_ids";
-static NSString *const VK_API_FIELDS = @"fields";
-static NSString *const VK_API_SORT = @"sort";
-static NSString *const VK_API_OFFSET = @"offset";
-static NSString *const VK_API_COUNT = @"count";
-static NSString *const VK_API_OWNER_ID = @"owner_id";
+extern NSString *const VK_ORIGINAL_CLIENT_BUNDLE;
+extern NSString *const VK_ORIGINAL_HD_CLIENT_BUNDLE;
+extern NSString *const VK_DEBUG_CLIENT_BUNDLE;
+extern NSString *const VK_API_USER_ID;
+extern NSString *const VK_API_USER_IDS;
+extern NSString *const VK_API_FIELDS;
+extern NSString *const VK_API_SORT;
+extern NSString *const VK_API_OFFSET;
+extern NSString *const VK_API_COUNT;
+extern NSString *const VK_API_OWNER_ID;
 
 //auth
-static NSString *const VK_API_LANG = @"lang";
-static NSString *const VK_API_ACCESS_TOKEN = @"access_token";
-static NSString *const VK_API_SIG = @"sig";
+extern NSString *const VK_API_LANG;
+extern NSString *const VK_API_ACCESS_TOKEN;
+extern NSString *const VK_API_SIG;
 
 //get users
-static NSString *const VK_API_NAME_CASE = @"name_case";
-static NSString *const VK_API_ORDER = @"order";
+extern NSString *const VK_API_NAME_CASE;
+extern NSString *const VK_API_ORDER;
 
 //Get subscriptions
-static NSString *const VK_API_EXTENDED = @"extended";
+extern NSString *const VK_API_EXTENDED;
 
 //Search
-static NSString *const VK_API_Q = @"q";
-static NSString *const VK_API_CITY = @"city";
-static NSString *const VK_API_COUNTRY = @"country";
-static NSString *const VK_API_HOMETOWN = @"hometown";
-static NSString *const VK_API_UNIVERSITY_COUNTRY = @"university_country";
-static NSString *const VK_API_UNIVERSITY = @"university";
-static NSString *const VK_API_UNIVERSITY_YEAR = @"university_year";
-static NSString *const VK_API_SEX = @"sex";
-static NSString *const VK_API_STATUS = @"status";
-static NSString *const VK_API_AGE_FROM = @"age_from";
-static NSString *const VK_API_AGE_TO = @"age_to";
-static NSString *const VK_API_BIRTH_DAY = @"birth_day";
-static NSString *const VK_API_BIRTH_MONTH = @"birth_month";
-static NSString *const VK_API_BIRTH_YEAR = @"birth_year";
-static NSString *const VK_API_ONLINE = @"online";
-static NSString *const VK_API_HAS_PHOTO = @"has_photo";
-static NSString *const VK_API_SCHOOL_COUNTRY = @"school_country";
-static NSString *const VK_API_SCHOOL_CITY = @"school_city";
-static NSString *const VK_API_SCHOOL = @"school";
-static NSString *const VK_API_SCHOOL_YEAR = @"school_year";
-static NSString *const VK_API_RELIGION = @"religion";
-static NSString *const VK_API_INTERESTS = @"interests";
-static NSString *const VK_API_COMPANY = @"company";
-static NSString *const VK_API_POSITION = @"position";
-static NSString *const VK_API_GROUP_ID = @"group_id";
-static NSString *const VK_API_GROUP_IDS = @"group_ids";
+extern NSString *const VK_API_Q;
+extern NSString *const VK_API_CITY;
+extern NSString *const VK_API_COUNTRY;
+extern NSString *const VK_API_HOMETOWN;
+extern NSString *const VK_API_UNIVERSITY_COUNTRY;
+extern NSString *const VK_API_UNIVERSITY;
+extern NSString *const VK_API_UNIVERSITY_YEAR;
+extern NSString *const VK_API_SEX;
+extern NSString *const VK_API_STATUS;
+extern NSString *const VK_API_AGE_FROM;
+extern NSString *const VK_API_AGE_TO;
+extern NSString *const VK_API_BIRTH_DAY;
+extern NSString *const VK_API_BIRTH_MONTH;
+extern NSString *const VK_API_BIRTH_YEAR;
+extern NSString *const VK_API_ONLINE;
+extern NSString *const VK_API_HAS_PHOTO;
+extern NSString *const VK_API_SCHOOL_COUNTRY;
+extern NSString *const VK_API_SCHOOL_CITY;
+extern NSString *const VK_API_SCHOOL;
+extern NSString *const VK_API_SCHOOL_YEAR;
+extern NSString *const VK_API_RELIGION;
+extern NSString *const VK_API_INTERESTS;
+extern NSString *const VK_API_COMPANY;
+extern NSString *const VK_API_POSITION;
+extern NSString *const VK_API_GROUP_ID;
+extern NSString *const VK_API_GROUP_IDS;
 
-static NSString *const VK_API_FRIENDS_ONLY = @"friends_only";
-static NSString *const VK_API_FROM_GROUP = @"from_group";
-static NSString *const VK_API_MESSAGE = @"message";
-static NSString *const VK_API_ATTACHMENT = @"attachment";
-static NSString *const VK_API_ATTACHMENTS = @"attachments";
-static NSString *const VK_API_SERVICES = @"services";
-static NSString *const VK_API_SIGNED = @"signed";
-static NSString *const VK_API_PUBLISH_DATE = @"publish_date";
-static NSString *const VK_API_LAT = @"lat";
-static NSString *const VK_API_LONG = @"long";
-static NSString *const VK_API_PLACE_ID = @"place_id";
-static NSString *const VK_API_POST_ID = @"post_id";
+extern NSString *const VK_API_FRIENDS_ONLY;
+extern NSString *const VK_API_FROM_GROUP;
+extern NSString *const VK_API_MESSAGE;
+extern NSString *const VK_API_ATTACHMENT;
+extern NSString *const VK_API_ATTACHMENTS;
+extern NSString *const VK_API_SERVICES;
+extern NSString *const VK_API_SIGNED;
+extern NSString *const VK_API_PUBLISH_DATE;
+extern NSString *const VK_API_LAT;
+extern NSString *const VK_API_LONG;
+extern NSString *const VK_API_PLACE_ID;
+extern NSString *const VK_API_POST_ID;
 
 //Errors
-static NSString *const VK_API_ERROR_CODE = @"error_code";
-static NSString *const VK_API_ERROR_MSG = @"error_msg";
-static NSString *const VK_API_REQUEST_PARAMS = @"request_params";
+extern NSString *const VK_API_ERROR_CODE;
+extern NSString *const VK_API_ERROR_MSG;
+extern NSString *const VK_API_REQUEST_PARAMS;
 
 //Captcha
-static NSString *const VK_API_CAPTCHA_IMG = @"captcha_img";
-static NSString *const VK_API_CAPTCHA_SID = @"captcha_sid";
-static NSString *const VK_API_CAPTCHA_KEY = @"captcha_key";
-static NSString *const VK_API_REDIRECT_URI = @"redirect_uri";
+extern NSString *const VK_API_CAPTCHA_IMG;
+extern NSString *const VK_API_CAPTCHA_SID;
+extern NSString *const VK_API_CAPTCHA_KEY;
+extern NSString *const VK_API_REDIRECT_URI;
 
 
 //Photos
-static NSString *const VK_API_PHOTO = @"photo";
-static NSString *const VK_API_ALBUM_ID = @"album_id";
-
-
-//Enums
-
-typedef enum VKProgressType {
-    VKProgressTypeUpload,
-    VKProgressTypeDownload
-} VKProgressType;
+extern NSString *const VK_API_PHOTO;
+extern NSString *const VK_API_ALBUM_ID;
 
 //Events
-static NSString *const VKCaptchaAnsweredEvent = @"VKCaptchaAnsweredEvent";
+extern NSString *const VKCaptchaAnsweredEvent;
+
+//Enums
+typedef NS_ENUM(NSInteger, VKProgressType) {
+    VKProgressTypeUpload,
+    VKProgressTypeDownload
+};
+
