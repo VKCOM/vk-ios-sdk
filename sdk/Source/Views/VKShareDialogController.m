@@ -1085,8 +1085,10 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 
     CGFloat maxHeight = kAttachmentsViewSize;
     self.attachmentsArray = [NSMutableArray new];
+    VKShareDialogView *shareDialogView = (VKShareDialogView *) self.view;
     //Attach and upload images
     for (VKUploadImage *img in _parent.uploadImages) {
+        if (!(img.imageData || img.sourceImage)) continue;
         CGSize size = img.sourceImage.size;
         size = CGSizeMake(MAX(floor(size.width * maxHeight / size.height), 50), maxHeight);
         VKUploadingAttachment *attach = [VKUploadingAttachment new];
@@ -1110,6 +1112,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
             [self removeAttachIfExists:attach];
             attach.uploadingRequest = nil;
             [self.attachmentsScrollView reloadData];
+            [shareDialogView setNeedsLayout];
         }];
         [uploadRequest start];
         attach.uploadingRequest = uploadRequest;
@@ -1184,9 +1187,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     [self.attachmentsScrollView reloadData];
 
     if (_parent.shareLink) {
-        VKShareDialogView *view = (VKShareDialogView *) self.view;
-        [view setShareLink:_parent.shareLink];
-        [view layoutIfNeeded];
+        [shareDialogView setShareLink:_parent.shareLink];
     }
 }
 
