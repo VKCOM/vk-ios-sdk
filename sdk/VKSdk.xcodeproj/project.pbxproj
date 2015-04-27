@@ -77,6 +77,7 @@
 		1ACA6F1A8CF8466F058EE7BC /* VKGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA6C700C815D16F08DD4CD /* VKGroup.m */; };
 		1ACA6F8C335233B3D05A0F49 /* VKActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA6F9E65F7742733AB46DF /* VKActivity.m */; };
 		1ACA6FE428FEE2FCF7316DBB /* VKShareDialogController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA6536B0B95A5ADF4F4D7A /* VKShareDialogController.m */; };
+		F3007C5D1AEE50B5007CCA9D /* VKApiConst.m in Sources */ = {isa = PBXBuildFile; fileRef = F3007C5C1AEE50B5007CCA9D /* VKApiConst.m */; };
 		F3062B801A4185FF006B57F9 /* ic_vk_ios7_activity_logo~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F3062B7F1A4185FD006B57F9 /* ic_vk_ios7_activity_logo~ipad.png */; };
 		F3062B851A418A0E006B57F9 /* ic_vk_ios7_activity_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F3062B811A418A0E006B57F9 /* ic_vk_ios7_activity_logo.png */; };
 		F3062B861A418A0E006B57F9 /* ic_vk_ios7_activity_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3062B821A418A0E006B57F9 /* ic_vk_ios7_activity_logo@2x.png */; };
@@ -329,6 +330,7 @@
 		1ACA6FA4664723004E33ADE4 /* VKUploadImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUploadImage.m; sourceTree = "<group>"; };
 		1ACA6FE235BA094D8E3A0189 /* VKOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKOperation.m; sourceTree = "<group>"; };
 		1ACA6FEB2DD3739A1AFB8403 /* VKHTTPOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKHTTPOperation.m; sourceTree = "<group>"; };
+		F3007C5C1AEE50B5007CCA9D /* VKApiConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKApiConst.m; sourceTree = "<group>"; };
 		F3062B7F1A4185FD006B57F9 /* ic_vk_ios7_activity_logo~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_vk_ios7_activity_logo~ipad.png"; sourceTree = "<group>"; };
 		F3062B811A418A0E006B57F9 /* ic_vk_ios7_activity_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_vk_ios7_activity_logo.png; sourceTree = "<group>"; };
 		F3062B821A418A0E006B57F9 /* ic_vk_ios7_activity_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_vk_ios7_activity_logo@2x.png"; sourceTree = "<group>"; };
@@ -521,20 +523,21 @@
 			children = (
 				1ACA64C1D90338B2A13D2392 /* VKApiBase.h */,
 				1ACA628E1013456A0CB8D71E /* VKApiBase.m */,
-				1ACA671DB7C59D529BB25E7E /* VKApiWall.h */,
-				1ACA6D5C2E0E59A23C3D3B4C /* VKApiWall.m */,
+				1ACA68234EC488521F154B60 /* VKApiCaptcha.h */,
+				1ACA65061D1745F64BC42C75 /* VKApiCaptcha.m */,
 				1ACA677A8949D12D3EBD61A0 /* VKApiConst.h */,
-				1ACA6B464FB20A24CDB88211 /* VKApiUsers.h */,
-				1ACA64D734A10AC2CD085F88 /* VKApiUsers.m */,
+				F3007C5C1AEE50B5007CCA9D /* VKApiConst.m */,
+				1ACA6C753D37B145C7D5B400 /* VKApiFriends.h */,
+				1ACA662E0B2D50702F4A11AD /* VKApiFriends.m */,
 				1ACA6F7D1BDF127A8B140B32 /* VKApiGroups.h */,
 				1ACA62BE07D3E456A04ACE24 /* VKApiGroups.m */,
 				1ACA6553BCD1DA211D5E6B90 /* VKApiModels.h */,
 				1ACA68B40BC67B6B46A65F1B /* VKApiPhotos.h */,
 				1ACA6F5BA13759D288B8F36F /* VKApiPhotos.m */,
-				1ACA68234EC488521F154B60 /* VKApiCaptcha.h */,
-				1ACA65061D1745F64BC42C75 /* VKApiCaptcha.m */,
-				1ACA6C753D37B145C7D5B400 /* VKApiFriends.h */,
-				1ACA662E0B2D50702F4A11AD /* VKApiFriends.m */,
+				1ACA6B464FB20A24CDB88211 /* VKApiUsers.h */,
+				1ACA64D734A10AC2CD085F88 /* VKApiUsers.m */,
+				1ACA671DB7C59D529BB25E7E /* VKApiWall.h */,
+				1ACA6D5C2E0E59A23C3D3B4C /* VKApiWall.m */,
 			);
 			path = methods;
 			sourceTree = "<group>";
@@ -863,6 +866,7 @@
 				1ACA6A898C8C008BCA5FDB67 /* VKSchool.m in Sources */,
 				1ACA6EFBAFF03C8E578D43AF /* VKCounters.m in Sources */,
 				1ACA63F28B674B445A0AA335 /* VKRelative.m in Sources */,
+				F3007C5D1AEE50B5007CCA9D /* VKApiConst.m in Sources */,
 				1ACA6B4A1DE944C3C9860528 /* VKApiObject.m in Sources */,
 				1ACA69FC1C7F81D4F1ED05EB /* VKPhotoSize.m in Sources */,
 				1ACA62DBD361CE969E10CB2D /* VKUniversity.m in Sources */,
