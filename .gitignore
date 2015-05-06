@@ -19,7 +19,6 @@ CVS
 *.moved-aside
 **/*.xcodeproj/*
 **/!*.xcodeproj/project.pbxproj
-**/*.xcworkspace/*
 **/!*.xcworkspace/contents.xcworkspacedata
 **/*.xcuserdata/*
 !xcshareddata
