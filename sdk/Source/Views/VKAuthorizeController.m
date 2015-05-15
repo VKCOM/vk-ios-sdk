@@ -227,7 +227,7 @@
 }
 
 - (void)disableActiveElements {
-    NSString * javaScript = @"function removeElementsByClass(className){    var elements = document.getElementsByClassName(className);    for (var i = 0; i < elements.length; i++) {    	elements[i].parentNode.removeChild(elements[i]);    }};removeElementsByClass('mhb_home');removeElementsByClass('mhb_notify');function removeElementsDataHrefByClass(className){    var elements = document.getElementsByClassName(className);    for (var i = 0; i < elements.length; i++) {    	elements[i].setAttribute('data-href', '');    }};removeElementsDataHrefByClass('mhb_logo');";
+    NSString * javaScript = @"function removeElementsByClass(className){    var elements = document.getElementsByClassName(className);    for (var i = 0; i < elements.length; i++) {    	elements[i].parentNode.removeChild(elements[i]);    }};removeElementsByClass('mhb_home');removeElementsByClass('mhb_notify');function removeElementsHrefByClass(className){    var elements = document.getElementsByClassName(className);    for (var i = 0; i < elements.length; i++) {    	elements[i].setAttribute('data-href', ''); elements[i].setAttribute('href', '');     }};removeElementsHrefByClass('mhb_logo'); removeElementsHrefByClass('mhb_user');";
     [_webView stringByEvaluatingJavaScriptFromString:javaScript];
 }
 
