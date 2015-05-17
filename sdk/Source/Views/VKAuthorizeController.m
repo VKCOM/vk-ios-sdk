@@ -213,6 +213,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [self makeViewport];
+    [self disableActiveElements];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (300 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^(void) {
         _warningLabel.hidden = YES;
         webView.hidden = NO;
@@ -222,6 +223,11 @@
 
 - (void)makeViewport {
     NSString *javaScript = [NSString stringWithFormat:@"viewport = document.querySelector('meta[name=viewport]'); viewport.setAttribute('content', 'width = %d, height = %d, initial-scale = 1.0, maximum-scale = 1.0, minimum-scale = 1.0, user-scalable=yes');", (int) self.webView.frame.size.width, (int) self.webView.frame.size.height];
+    [_webView stringByEvaluatingJavaScriptFromString:javaScript];
+}
+
+- (void)disableActiveElements {
+    NSString * javaScript = @"function removeElementsByClass(className){    var elements = document.getElementsByClassName(className);    for (var i = 0; i < elements.length; i++) {    	elements[i].parentNode.removeChild(elements[i]);    }};removeElementsByClass('mhb_home');removeElementsByClass('mhb_notify');function removeElementsHrefByClass(className){    var elements = document.getElementsByClassName(className);    for (var i = 0; i < elements.length; i++) {    	elements[i].setAttribute('data-href', ''); elements[i].setAttribute('href', '');     }};removeElementsHrefByClass('mhb_logo'); removeElementsHrefByClass('mhb_user');";
     [_webView stringByEvaluatingJavaScriptFromString:javaScript];
 }
 
