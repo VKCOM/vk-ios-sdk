@@ -166,7 +166,7 @@ static NSString *const PERMISSIONS = @"permissions";
             EXPIRES_IN : self.expiresIn ?: @"0",
             USER_ID : self.userId ?: @"0",
             CREATED : @(self.created),
-            PERMISSIONS : self.permissions ?: @""
+            PERMISSIONS : [self.permissions componentsJoinedByString:@","] ?: @""
     } mutableCopy];
 
     if (self.secret) {
