@@ -260,6 +260,7 @@ static const CGFloat ipadHeight = 500.f;
 
 - (instancetype)init {
     self = [super init];
+    self.authorizeInApp = YES;
     defaultBarStyle = [UINavigationBar appearance].barStyle;
     [UINavigationBar appearance].barStyle = UIBarStyleDefault;
     _internalNavigation = [[UINavigationController alloc] initWithRootViewController:_targetShareDialog = [VKShareDialogControllerInternal new]];
