@@ -259,24 +259,26 @@ static const CGFloat ipadHeight = 500.f;
 
 
 - (instancetype)init {
-    self = [super init];
-    defaultBarStyle = [UINavigationBar appearance].barStyle;
-    [UINavigationBar appearance].barStyle = UIBarStyleDefault;
-    _internalNavigation = [[UINavigationController alloc] initWithRootViewController:_targetShareDialog = [VKShareDialogControllerInternal new]];
+    if (self = [super init]) {
+        defaultBarStyle = [UINavigationBar appearance].barStyle;
+        [UINavigationBar appearance].barStyle = UIBarStyleDefault;
+        _internalNavigation = [[UINavigationController alloc] initWithRootViewController:_targetShareDialog = [VKShareDialogControllerInternal new]];
 
-    _targetShareDialog.parent = self;
+        _targetShareDialog.parent = self;
+        _authorizeInApp = YES;
 
-    [self addChildViewController:_internalNavigation];
+        [self addChildViewController:_internalNavigation];
 
-    self.requestedScope = @[VK_PER_WALL, VK_PER_PHOTOS];
-    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        _transitionDelegate = [VKSharedTransitioningObject new];
-        self.modalPresentationStyle = UIModalPresentationCustom;
-        self.transitioningDelegate = _transitionDelegate;
-        self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    }
-    if (VK_IS_DEVICE_IPAD) {
-        self.modalPresentationStyle = UIModalPresentationFormSheet;
+        self.requestedScope = @[VK_PER_WALL, VK_PER_PHOTOS];
+        if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+            _transitionDelegate = [VKSharedTransitioningObject new];
+            self.modalPresentationStyle = UIModalPresentationCustom;
+            self.transitioningDelegate = _transitionDelegate;
+            self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        }
+        if (VK_IS_DEVICE_IPAD) {
+            self.modalPresentationStyle = UIModalPresentationFormSheet;
+        }
     }
     return self;
 }

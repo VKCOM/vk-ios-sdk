@@ -134,23 +134,18 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 + (void)authorize:(NSArray *)permissions
      revokeAccess:(BOOL)revokeAccess
        forceOAuth:(BOOL)forceOAuth {
-
-    if ([VKSdk instance].authState == VKAuthorizationInitialized &&
-            [vkSdkInstance.delegate respondsToSelector:@selector(vkSdkIsBasicAuthorization)]) {
-        [VKSdk instance].authState = [vkSdkInstance.delegate vkSdkIsBasicAuthorization] ? VKAuthorizationInitialized : VKAuthorizationVkApp;
-    }
-
+    
     //pull #87
     if ([[VKSdk instance].delegate respondsToSelector:@selector(vkSdkAuthorizationAllowFallbackToSafari)]) {
         if (![[VKSdk instance].delegate vkSdkAuthorizationAllowFallbackToSafari])
-            [VKSdk instance].authState = VKAuthorizationInitialized;
+            [VKSdk instance].authState = VKAuthorizationSafari;
     }
 
     //Если не VK app, то необходимо открыть сначала web view
     [self authorize:permissions
        revokeAccess:revokeAccess
          forceOAuth:forceOAuth
-              inApp:![self vkAppMayExists] && [VKSdk instance].authState == VKAuthorizationInitialized];
+              inApp:![self vkAppMayExists] && [VKSdk instance].authState != VKAuthorizationSafari];
 }
 
 + (void)authorize:(NSArray *)permissions
