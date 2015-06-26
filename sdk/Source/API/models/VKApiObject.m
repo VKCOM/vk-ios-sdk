@@ -187,19 +187,21 @@ static NSString *getPropertyName(objc_property_t prop) {
     unsigned int propertiesCount;
     //Get all properties of current class
     Class searchClass = [self class];
+    Class lastViewedClass = Nil;
     NSArray *ignoredProperties = [self ignoredProperties];
-    while (searchClass != [VKApiObject class]) {
+    while (lastViewedClass != [VKApiObject class]) {
         objc_property_t *properties = class_copyPropertyList(searchClass, &propertiesCount);
 
         for (int i = 0; i < propertiesCount; i++) {
             objc_property_t property = properties[i];
             VKPropertyHelper *helper = [[VKPropertyHelper alloc] initWith:property];
             if ([ignoredProperties containsObject:helper.propertyName])
-                return;
+                continue;
             if (processBlock)
                 processBlock(helper, propertiesCount);
         }
         free(properties);
+        lastViewedClass = searchClass;
         searchClass = [searchClass superclass];
     }
 }
