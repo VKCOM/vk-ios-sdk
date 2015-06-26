@@ -125,6 +125,8 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
         NSLog(@"users %@", users);
     }
     else if ([label isEqualToString:SHARE_DIALOG]) {
+        
+        
         VKShareDialogController * shareDialog = [VKShareDialogController new];
         shareDialog.text         = @"This post made with #vksdk #ios";
         shareDialog.vkImages     = @[@"-10889156_348122347",@"7840938_319411365",@"-60479154_333497085"];
