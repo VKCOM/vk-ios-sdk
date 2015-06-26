@@ -29,7 +29,7 @@
 
 NSString *const VKNetworkingOperationFailingURLRequestErrorKey = @"VKNetworkingOperationFailingURLRequestErrorKey";
 NSString *const VKNetworkingOperationFailingURLResponseErrorKey = @"VKNetworkingOperationFailingURLResponseErrorKey";
-
+NSString *const VKNetworkingOperationDidStart = @"VKNetworkingOperationDidStart";
 
 typedef void (^VKURLConnectionOperationProgressBlock)(NSUInteger bytes, long long totalBytes, long long totalBytesExpected);
 

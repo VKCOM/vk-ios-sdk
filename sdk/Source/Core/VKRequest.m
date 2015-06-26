@@ -30,6 +30,17 @@
 
 #define SUPPORTED_LANGS_ARRAY @[@"ru", @"en", @"ua", @"es", @"fi", @"de", @"it"]
 
+void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
+    if (!block) {
+        return;
+    }
+    if ([NSThread isMainThread]) {
+        block();
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), block);
+    }
+}
+
 @interface VKRequestTiming () {
     NSDate *_parseStartTime;
 }
@@ -242,7 +253,7 @@
     return request;
 }
 
-- (NSOperation *)executionOperation {
+- (NSOperation *)createExecutionOperation {
     VKHTTPOperation *operation = [VKHTTPOperation operationWithRequest:self];
     if (!operation)
         return nil;
@@ -253,7 +264,6 @@
     [operation setCompletionBlockWithSuccess:^(VKHTTPOperation *completedOperation, id JSON) {
         [_requestTiming loaded];
         if (_executionOperation.isCancelled) {
-            [self cleanUp];
             return;
         }
         if ([JSON objectForKey:@"error"]) {
@@ -268,7 +278,6 @@
     }                                failure:^(VKHTTPOperation *completedOperation, NSError *error) {
         [_requestTiming loaded];
         if (_executionOperation.isCancelled) {
-            [self cleanUp];
             return;
         }
         if (completedOperation.response.statusCode == 200) {
@@ -294,7 +303,10 @@
 }
 
 - (void)start {
-    _executionOperation = self.executionOperation;
+    self.response = nil;
+    self.error = nil;
+    
+    self.executionOperation = [self createExecutionOperation];
     if (_executionOperation == nil)
         return;
 
@@ -349,7 +361,6 @@
     [_requestTiming finished];
     self.response = vkResp;
     if (_executionOperation.isCancelled) {
-        [self cleanUp];
         return;
     }
     if (self.waitUntilDone) {
@@ -380,19 +391,15 @@
             self.errorBlock(self.error);
         }
         for (VKRequest *postRequest in _postRequestsQueue) {
-            if (postRequest.errorBlock) postRequest.errorBlock(self.error);
+            if (postRequest.errorBlock) {
+                postRequest.errorBlock(self.error);
+            }
         }
     } else {
-        if (self.completeBlock)
+        if (self.completeBlock) {
             self.completeBlock(self.response);
+        }
     }
-    [self cleanUp];
-}
-
-- (void)cleanUp {
-    self.response = nil;
-    self.error = nil;
-    self.executionOperation = nil;
 }
 
 - (void)repeat {
@@ -402,11 +409,17 @@
 }
 
 - (void)cancel {
-    _executionOperation.completionBlock = nil;
-    [_executionOperation cancel];
-    _executionOperation = nil;
+    self.executionOperation.completionBlock = nil;
+    [self.executionOperation cancel];
+    self.executionOperation = nil;
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [self provideError:[NSError errorWithVkError:[VKError errorWithCode:VK_API_CANCELED]]];
+    self.error = [NSError errorWithVkError:[VKError errorWithCode:VK_API_CANCELED]];
+    
+    vksdk_dispatch_on_main_queue_now(^{
+        [self finishRequest];
+    });
+    
+    
 }
 
 - (void)setupProgress:(VKHTTPOperation *)operation {
@@ -458,7 +471,7 @@
         }
         if (error.apiError.errorCode == 14) {
             //Captcha
-            dispatch_sync(dispatch_get_main_queue(), ^{
+            vksdk_dispatch_on_main_queue_now(^{
                 [[VKSdk instance].delegate vkSdkNeedCaptchaEnter:error.apiError];
             });
             return YES;
@@ -472,7 +485,7 @@
         }
         else if (error.apiError.errorCode == 17) {
             //Validation needed
-            dispatch_sync(dispatch_get_main_queue(), ^{
+            vksdk_dispatch_on_main_queue_now(^{
                 [VKAuthorizeController presentForValidation:error.apiError];
             });
 

@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "VKApiConst.h"
 
+VKDisplayType const VK_DISPLAY_IOS = @"ios";
+VKDisplayType const VK_DISPLAY_MOBILE = @"mobile";
+
 NSString *const VK_ORIGINAL_CLIENT_BUNDLE = @"com.vk.vkclient";
 NSString *const VK_ORIGINAL_HD_CLIENT_BUNDLE = @"com.vk.vkhd";
 NSString *const VK_DEBUG_CLIENT_BUNDLE = @"com.vk.odnoletkov.client";

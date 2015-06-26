@@ -26,7 +26,8 @@
 #import <Foundation/Foundation.h>
 #import "VKOperation.h"
 
-static NSString *const VKNetworkingOperationDidStart = @"VKNetworkingOperationDidStart";
+extern NSString *const VKNetworkingOperationDidStart;
+
 @class VKRequest;
 
 /**

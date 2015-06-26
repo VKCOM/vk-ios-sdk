@@ -41,7 +41,7 @@ extern inline BOOL VKStateTransitionIsValid(VKOperationState fromState, VKOperat
     return self;
 }
 
-- (NSOperation *)executionOperation {
+- (NSOperation *)createExecutionOperation {
     VKOperation *op = [VKUploadImageOperation operationWithUploadRequest:self];
     [op setResponseQueue:self.responseQueue];
     self.executionOperation = op;

@@ -25,6 +25,8 @@
 #import "VKShareDialogController.h"
 #import "VKUtil.h"
 
+NSString *const VKActivityTypePost = @"VKActivityTypePost";
+
 @implementation VKActivity {
     VKShareDialogController *shareDialog;
 }

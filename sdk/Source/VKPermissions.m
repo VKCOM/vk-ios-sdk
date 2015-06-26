@@ -22,6 +22,25 @@
 
 #import "VKPermissions.h"
 
+NSString *const VK_PER_NOTIFY = @"notify";
+NSString *const VK_PER_FRIENDS = @"friends";
+NSString *const VK_PER_PHOTOS = @"photos";
+NSString *const VK_PER_AUDIO = @"audio";
+NSString *const VK_PER_VIDEO = @"video";
+NSString *const VK_PER_DOCS = @"docs";
+NSString *const VK_PER_NOTES = @"notes";
+NSString *const VK_PER_PAGES = @"pages";
+NSString *const VK_PER_STATUS = @"status";
+NSString *const VK_PER_WALL = @"wall";
+NSString *const VK_PER_GROUPS = @"groups";
+NSString *const VK_PER_MESSAGES = @"messages";
+NSString *const VK_PER_NOTIFICATIONS = @"notifications";
+NSString *const VK_PER_STATS = @"stats";
+NSString *const VK_PER_ADS = @"ads";
+NSString *const VK_PER_OFFLINE = @"offline";
+NSString *const VK_PER_NOHTTPS = @"nohttps";
+NSString *const VK_PER_EMAIL = @"email";
+
 NSArray *parseVkPermissionsFromInteger(int permissionsValue) {
     NSMutableArray *res = [NSMutableArray new];
     if (permissionsValue & 1) [res addObject:VK_PER_NOTIFY];
