@@ -49,8 +49,9 @@
     self.completeBlock = completeBlock;
     self.errorBlock = errorBlock;
     _responses = [NSMutableArray arrayWithCapacity:_requests.count];
-    for (int i = 0; i < _requests.count; i++)
+    for (int i = 0; i < _requests.count; i++) {
         [_responses addObject:[NSNull null]];
+    }
 
     NSMutableArray *batchOperations = [NSMutableArray arrayWithCapacity:_requests.count];
     for (VKRequest *request in _requests) {
@@ -66,7 +67,7 @@
             if (originalErrorBlock) originalErrorBlock(error);
         };
 
-        [batchOperations addObject:request.executionOperation];
+        [batchOperations addObject:[request createExecutionOperation]];
     }
     [[VKHTTPClient getClient] enqueueBatchOfHTTPRequestOperations:batchOperations
                                                     progressBlock:nil
