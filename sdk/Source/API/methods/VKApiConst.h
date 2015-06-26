@@ -21,8 +21,8 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 typedef NSString *VKDisplayType;
-static VKDisplayType const VK_DISPLAY_IOS = @"ios";
-static VKDisplayType const VK_DISPLAY_MOBILE = @"mobile";
+extern VKDisplayType const VK_DISPLAY_IOS;
+extern VKDisplayType const VK_DISPLAY_MOBILE;
 //Commons
 extern NSString *const VK_ORIGINAL_CLIENT_BUNDLE;
 extern NSString *const VK_ORIGINAL_HD_CLIENT_BUNDLE;

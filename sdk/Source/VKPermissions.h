@@ -22,23 +22,23 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString *const VK_PER_NOTIFY = @"notify";
-static NSString *const VK_PER_FRIENDS = @"friends";
-static NSString *const VK_PER_PHOTOS = @"photos";
-static NSString *const VK_PER_AUDIO = @"audio";
-static NSString *const VK_PER_VIDEO = @"video";
-static NSString *const VK_PER_DOCS = @"docs";
-static NSString *const VK_PER_NOTES = @"notes";
-static NSString *const VK_PER_PAGES = @"pages";
-static NSString *const VK_PER_STATUS = @"status";
-static NSString *const VK_PER_WALL = @"wall";
-static NSString *const VK_PER_GROUPS = @"groups";
-static NSString *const VK_PER_MESSAGES = @"messages";
-static NSString *const VK_PER_NOTIFICATIONS = @"notifications";
-static NSString *const VK_PER_STATS = @"stats";
-static NSString *const VK_PER_ADS = @"ads";
-static NSString *const VK_PER_OFFLINE = @"offline";
-static NSString *const VK_PER_NOHTTPS = @"nohttps";
-static NSString *const VK_PER_EMAIL = @"email";
+extern NSString *const VK_PER_NOTIFY;
+extern NSString *const VK_PER_FRIENDS;
+extern NSString *const VK_PER_PHOTOS;
+extern NSString *const VK_PER_AUDIO;
+extern NSString *const VK_PER_VIDEO;
+extern NSString *const VK_PER_DOCS;
+extern NSString *const VK_PER_NOTES;
+extern NSString *const VK_PER_PAGES;
+extern NSString *const VK_PER_STATUS;
+extern NSString *const VK_PER_WALL;
+extern NSString *const VK_PER_GROUPS;
+extern NSString *const VK_PER_MESSAGES;
+extern NSString *const VK_PER_NOTIFICATIONS;
+extern NSString *const VK_PER_STATS;
+extern NSString *const VK_PER_ADS;
+extern NSString *const VK_PER_OFFLINE;
+extern NSString *const VK_PER_NOHTTPS;
+extern NSString *const VK_PER_EMAIL;
 
 NSArray *parseVkPermissionsFromInteger(int permissionsValue);
