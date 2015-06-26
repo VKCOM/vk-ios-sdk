@@ -27,6 +27,7 @@
 static int const VK_API_ERROR = -101;
 static int const VK_API_CANCELED = -102;
 static int const VK_API_REQUEST_NOT_PREPARED = -103;
+static int const VK_RESPONSE_STRING_PARSING_ERROR = -104;
 
 @class VKRequest;
 

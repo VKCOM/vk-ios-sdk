@@ -189,7 +189,13 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 - (NSString *)responseString {
     [self.lock lock];
     if (!_responseString && self.response && self.responseData) {
-        self.responseString = [[NSString alloc] initWithData:self.responseData encoding:self.responseStringEncoding];
+        _responseString = [[NSString alloc] initWithData:self.responseData encoding:self.responseStringEncoding];
+        if (!_responseString) {
+            VKError *vkError = [VKError errorWithCode:VK_RESPONSE_STRING_PARSING_ERROR];
+            vkError.request = self.vkRequest;
+            
+            self.error = [NSError errorWithVkError:vkError];
+        }
     }
     [self.lock unlock];
 
@@ -573,6 +579,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
 #pragma clang diagnostic ignored "-Warc-retain-cycles"
 #pragma clang diagnostic ignored "-Wgnu"
     self.completionBlock = ^{
+        [self responseJson];
         if (self.error) {
             if (failure) {
                 dispatch_async(self.failureCallbackQueue ?: dispatch_get_main_queue(), ^{
