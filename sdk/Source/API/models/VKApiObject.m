@@ -195,7 +195,7 @@ static NSString *getPropertyName(objc_property_t prop) {
             objc_property_t property = properties[i];
             VKPropertyHelper *helper = [[VKPropertyHelper alloc] initWith:property];
             if ([ignoredProperties containsObject:helper.propertyName])
-                return;
+                continue;
             if (processBlock)
                 processBlock(helper, propertiesCount);
         }
