@@ -17,13 +17,10 @@ CVS
 *.log
 *~.nib
 *.moved-aside
-**/*.xcodeproj/*
-**/!*.xcodeproj/project.pbxproj
-**/!*.xcworkspace/contents.xcworkspacedata
 **/*.xcuserdata/*
 !xcshareddata
 xcuserdata
-VKSdkWorkspace.xcworkspace/xcshareddata/
+**/xcshareddata/
 
 #Project files
 [Bb]uild/
