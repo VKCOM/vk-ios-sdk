@@ -212,7 +212,7 @@
         }
 
         //Set actual version of API
-        [_preparedParameters setObject:VK_SDK_API_VERSION forKey:@"v"];
+        [_preparedParameters setObject:[VKSdk instance].apiVersion forKey:@"v"];
         //Set preferred language for request
         [_preparedParameters setObject:self.preferredLang forKey:VK_API_LANG];
         //Set current access token from SDK object
