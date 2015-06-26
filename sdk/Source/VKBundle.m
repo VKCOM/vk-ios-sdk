@@ -27,7 +27,12 @@
     static dispatch_once_t onceToken;
     static NSBundle *myLibraryResourcesBundle = nil;
     dispatch_once(&onceToken, ^{
-        NSURL *url = [[NSBundle mainBundle] URLForResource:@"VKSdkResources" withExtension:@"bundle"];
+        NSString *fileName = @"VKSdkResources";
+        NSString *ext = @"bundle";
+        NSURL *url = [[NSBundle mainBundle] URLForResource:fileName withExtension:ext];
+        if (!url) {
+            url = [[NSBundle bundleForClass:[self class]] URLForResource:fileName withExtension:ext];
+        }
         if (url) {
             myLibraryResourcesBundle = [NSBundle bundleWithURL:url];
         }
