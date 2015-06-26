@@ -25,7 +25,7 @@
 #import "OrderedDictionary.h"
 #import "VKAuthorizeController.h"
 #import "VKHTTPClient.h"
-#import "VKHTTPOperation.h"
+#import "VKJSONOperation.h"
 #import "VKRequestsScheduler.h"
 
 #define SUPPORTED_LANGS_ARRAY @[@"ru", @"en", @"ua", @"es", @"fi", @"de", @"it"]
@@ -254,7 +254,7 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
 }
 
 - (NSOperation *)createExecutionOperation {
-    VKHTTPOperation *operation = [VKHTTPOperation operationWithRequest:self];
+    VKJSONOperation *operation = [VKJSONOperation operationWithRequest:self];
     if (!operation)
         return nil;
     if (_debugTiming) {
@@ -366,9 +366,7 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
     if (self.waitUntilDone) {
         dispatch_semaphore_signal(_waitUntilDoneSemaphore);
     } else {
-        dispatch_async(self.responseQueue, ^{
-            [self finishRequest];
-        });
+        [self finishRequest];
     }
 }
 
@@ -379,26 +377,28 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
         dispatch_semaphore_signal(_waitUntilDoneSemaphore);
     }
     else {
-        dispatch_async(self.responseQueue, ^{
-            [self finishRequest];
-        });
+        [self finishRequest];
     }
 }
 
 - (void)finishRequest {
     if (self.error) {
-        if (self.errorBlock) {
-            self.errorBlock(self.error);
-        }
-        for (VKRequest *postRequest in _postRequestsQueue) {
-            if (postRequest.errorBlock) {
-                postRequest.errorBlock(self.error);
+        dispatch_async(self.responseQueue, ^{
+            if (self.errorBlock) {
+                self.errorBlock(self.error);
             }
-        }
+            for (VKRequest *postRequest in _postRequestsQueue) {
+                if (postRequest.errorBlock) {
+                    postRequest.errorBlock(self.error);
+                }
+            }
+        });
     } else {
-        if (self.completeBlock) {
-            self.completeBlock(self.response);
-        }
+        dispatch_async(self.responseQueue, ^{
+            if (self.completeBlock) {
+                self.completeBlock(self.response);
+            }
+        });
     }
 }
 
@@ -414,11 +414,7 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
     self.executionOperation = nil;
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     self.error = [NSError errorWithVkError:[VKError errorWithCode:VK_API_CANCELED]];
-    
-    vksdk_dispatch_on_main_queue_now(^{
-        [self finishRequest];
-    });
-    
+    [self finishRequest];
     
 }
 

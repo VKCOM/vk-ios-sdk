@@ -1232,12 +1232,6 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         [cell hideProgress];
     }
 
-    //    [cell setOnDeleteBlock:^{
-    //        [self removeAttachIfExists:attach];
-    //        if (attach.uploadingRequest) {
-    //            [attach.uploadingRequest cancel];
-    //        }
-    //    }];
     return cell;
 }
 
@@ -1245,9 +1239,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     NSInteger index = [self.attachmentsArray indexOfObject:attach];
     if (index != NSNotFound) {
         [self.attachmentsArray removeObjectAtIndex:index];
-        [self.attachmentsScrollView performBatchUpdates:^{
-            [self.attachmentsScrollView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
-        }                                    completion:nil];
+        [self.attachmentsScrollView reloadData];
     }
 }
 

@@ -73,7 +73,7 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 
     if (!urlRequest)
         return nil;
-    VKHTTPOperation *operation = [[VKHTTPOperation alloc] initWithURLRequest:urlRequest];
+    VKHTTPOperation *operation = [[[self class] alloc] initWithURLRequest:urlRequest];
     operation.vkRequest = request;
     return operation;
 }
@@ -579,7 +579,6 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
 #pragma clang diagnostic ignored "-Warc-retain-cycles"
 #pragma clang diagnostic ignored "-Wgnu"
     self.completionBlock = ^{
-        [self responseJson];
         if (self.error) {
             if (failure) {
                 dispatch_async(self.failureCallbackQueue ?: dispatch_get_main_queue(), ^{
@@ -590,7 +589,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
         else {
             if (success) {
                 dispatch_async(self.successCallbackQueue ?: dispatch_get_main_queue(), ^{
-                    success(self, self.responseJson);
+                    success(self, self.responseData);
                 });
             }
         }

@@ -153,6 +153,7 @@
 		F3BACC62186883E8003158DA /* ic_vk_logo_nb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3BACC60186883E8003158DA /* ic_vk_logo_nb@2x.png */; };
 		F3C75431182133CC00964716 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C75430182133CC00964716 /* Foundation.framework */; };
 		F3C75436182133CC00964716 /* VKSdk.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3C75435182133CC00964716 /* VKSdk.h */; };
+		F3DA65B11B3DA34600E64A30 /* VKJSONOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DA65B01B3DA34600E64A30 /* VKJSONOperation.m */; };
 		F3EEFFA91827BB18000BB525 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFFA81827BB18000BB525 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -379,6 +380,8 @@
 		F3C7549A18226ABB00964716 /* VKAccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKAccessToken.m; sourceTree = "<group>"; };
 		F3D38E7D183F7B4800D05079 /* VKBatchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKBatchRequest.h; sourceTree = "<group>"; };
 		F3D38E7E183F7B4800D05079 /* VKBatchRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKBatchRequest.m; sourceTree = "<group>"; };
+		F3DA65AF1B3DA34600E64A30 /* VKJSONOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKJSONOperation.h; sourceTree = "<group>"; };
+		F3DA65B01B3DA34600E64A30 /* VKJSONOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKJSONOperation.m; sourceTree = "<group>"; };
 		F3EEFFA41827B726000BB525 /* VKPermissions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKPermissions.h; sourceTree = "<group>"; };
 		F3EEFFA61827B7F1000BB525 /* VKPermissions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKPermissions.m; sourceTree = "<group>"; };
 		F3EEFFA81827BB18000BB525 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -504,6 +507,8 @@
 				1ACA684708A969AF04E34B85 /* VKHTTPClient.m */,
 				1ACA6E01EE850C5782604D41 /* VKHTTPOperation.h */,
 				1ACA6FEB2DD3739A1AFB8403 /* VKHTTPOperation.m */,
+				F3DA65AF1B3DA34600E64A30 /* VKJSONOperation.h */,
+				F3DA65B01B3DA34600E64A30 /* VKJSONOperation.m */,
 				1ACA6B275906BC58E311AF45 /* VKObject.h */,
 				1ACA6062CBB5C51999B6F516 /* VKObject.m */,
 				1ACA61B2E964393FB2431C30 /* VKOperation.h */,
@@ -827,6 +832,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3DA65B11B3DA34600E64A30 /* VKJSONOperation.m in Sources */,
 				183C475B18B2F1ED00F978DB /* VKBundle.m in Sources */,
 				183C475A18B2F1ED00F978DB /* VKBatchRequest.m in Sources */,
 				183C475918B2F1ED00F978DB /* VKAccessToken.m in Sources */,
