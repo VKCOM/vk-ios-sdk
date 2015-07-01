@@ -34,7 +34,9 @@
     VKError *internalError = [VKError new];
     internalError.errorCode = [JSON[VK_API_ERROR_CODE] intValue];
     internalError.errorMessage = JSON[VK_API_ERROR_MSG];
+    internalError.errorText = JSON[VK_API_ERROR_TEXT];
     internalError.requestParams = JSON[VK_API_REQUEST_PARAMS];
+    internalError.json = JSON;
     if (internalError.errorCode == 14) {
         internalError.captchaImg = JSON[VK_API_CAPTCHA_IMG];
         internalError.captchaSid = JSON[VK_API_CAPTCHA_SID];
@@ -45,6 +47,7 @@
 
     VKError *mainError = [VKError errorWithCode:VK_API_ERROR];
     mainError.apiError = internalError;
+    mainError.json = JSON;
     return mainError;
 }
 

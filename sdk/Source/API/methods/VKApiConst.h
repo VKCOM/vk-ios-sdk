@@ -91,6 +91,7 @@ extern NSString *const VK_API_POST_ID;
 //Errors
 extern NSString *const VK_API_ERROR_CODE;
 extern NSString *const VK_API_ERROR_MSG;
+extern NSString *const VK_API_ERROR_TEXT;
 extern NSString *const VK_API_REQUEST_PARAMS;
 
 //Captcha

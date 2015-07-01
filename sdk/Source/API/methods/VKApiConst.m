@@ -79,6 +79,7 @@ NSString *const VK_API_POST_ID = @"post_id";
 //Errors
 NSString *const VK_API_ERROR_CODE = @"error_code";
 NSString *const VK_API_ERROR_MSG = @"error_msg";
+NSString *const VK_API_ERROR_TEXT = @"error_text";
 NSString *const VK_API_REQUEST_PARAMS = @"request_params";
 
 //Captcha

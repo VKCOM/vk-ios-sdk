@@ -48,6 +48,8 @@ Class for presenting VK SDK and VK API errors
 @property(nonatomic, strong) NSString *errorMessage;
 /// Reason for authorization fail
 @property(nonatomic, strong) NSString *errorReason;
+// Localized error text from server if there is one
+@property(nonatomic, strong) NSString *errorText;
 /// API parameters passed to request
 @property(nonatomic, strong) NSDictionary *requestParams;
 /// Captcha identifier for captcha-check
@@ -57,6 +59,7 @@ Class for presenting VK SDK and VK API errors
 /// Redirection address if validation check required
 @property(nonatomic, strong) NSString *redirectUri;
 
+@property(nonatomic, strong) id json;
 
 /**
 Generate new error with code
