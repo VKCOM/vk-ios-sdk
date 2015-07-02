@@ -240,7 +240,9 @@
     _finished = YES;
 
     if (_internalNavigationController.isBeingDismissed) {
-        completion();
+        if (completion) {
+            completion();
+        }
 
         return;
     }
@@ -251,8 +253,9 @@
                 [VKSdk.instance.delegate vkSdkWillDismissViewController:self];
             }
             [self.navigationController popViewControllerAnimated:YES];
-
-            completion();
+            if (completion) {
+                completion();
+            }
         } else if (self.presentingViewController) {
             if ([VKSdk.instance.delegate respondsToSelector:@selector(vkSdkWillDismissViewController:)]) {
                 [VKSdk.instance.delegate vkSdkWillDismissViewController:self];
@@ -261,8 +264,9 @@
                 if ([VKSdk.instance.delegate respondsToSelector:@selector(vkSdkDidDismissViewController:)]) {
                     [VKSdk.instance.delegate vkSdkDidDismissViewController:self];
                 }
-
-                completion();
+                if (completion) {
+                    completion();
+                }
             }];
         }
     } else {
