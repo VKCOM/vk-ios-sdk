@@ -249,6 +249,12 @@
             [_validationError.request cancel];
         }
     }];
+    if (_validationError) {
+        NSError *error = [NSError errorWithVkError:[VKError errorWithCode:VK_AUTHORIZE_CONTROLLER_CANCEL]];
+        if (_validationError.request.errorBlock) {
+            _validationError.request.errorBlock(error);
+        }
+    }
 }
 
 - (void)dismissWithCompletion:(void (^)())completion {
