@@ -141,7 +141,11 @@
     _webView.scrollView.clipsToBounds = NO;
     [view addSubview:_webView];
     if (self.internalNavigationController) {
+#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[VKBundle localizedString:@"Cancel"] style:UIBarButtonItemStylePlain target:self action:@selector(cancelAuthorization:)];
+#else
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[VKBundle localizedString:@"Cancel"] style:UIBarButtonItemStyleBordered target:self action:@selector(cancelAuthorization:)];
+#endif
     }
 }
 

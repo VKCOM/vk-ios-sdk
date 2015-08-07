@@ -142,7 +142,11 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
                                                             initWithActivityItems:items
                                                             applicationActivities:@[[VKActivity new]]];
         [activityViewController setValue:@"VK SDK" forKey:@"subject"];
+#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+        [activityViewController setCompletionWithItemsHandler:nil];
+#else
         [activityViewController setCompletionHandler:nil];
+#endif
         if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
             UIPopoverPresentationController *popover = activityViewController.popoverPresentationController;
             popover.sourceView = self.view;
