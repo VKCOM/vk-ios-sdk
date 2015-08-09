@@ -105,8 +105,8 @@ User type of VK API. See descriptions here https://vk.com/dev/fields
 @property(nonatomic, strong) NSNumber *rate;
 @property(nonatomic, strong) NSString *mobile_phone;
 @property(nonatomic, strong) NSString *home_phone;
-@property(nonatomic, strong) NSNumber *can_post;
-@property(nonatomic, strong) NSNumber *can_see_all_posts;
+@property(nonatomic, assign) BOOL can_post;
+@property(nonatomic, assign) BOOL can_see_all_posts;
 @property(nonatomic, strong) NSString *status;
 @property(nonatomic, strong) VKAudio *status_audio;
 @property(nonatomic, assign) bool status_loaded;
@@ -117,9 +117,8 @@ User type of VK API. See descriptions here https://vk.com/dev/fields
 @property(nonatomic, strong) NSString *nickname;
 @property(nonatomic, strong) VKExports *exports;
 @property(nonatomic, strong) NSNumber *wall_comments;
-@property(nonatomic, strong) NSNumber *can_write_private_message;
+@property(nonatomic, assign) BOOL can_write_private_message;
 @property(nonatomic, strong) NSString *phone;
-@property(nonatomic, strong) NSNumber *can_call;
 @property(nonatomic, strong) NSNumber *online_mobile;
 @property(nonatomic, strong) NSNumber *faculty;
 @property(nonatomic, strong) NSNumber *university;
