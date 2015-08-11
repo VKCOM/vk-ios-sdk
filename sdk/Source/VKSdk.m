@@ -40,12 +40,13 @@
 #import "VKAuthorizeController.h"
 #import "VKRequestsScheduler.h"
 
-typedef enum : NSUInteger {
-    VKAuthorizationInitialized = 1,
-    VKAuthorizationVkApp = 1 << 1,
-    VKAuthorizationWebview = 1 << 2,
-    VKAuthorizationSafari = 1 << 3
-} VKAuthorizationState;
+typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
+    VKAuthorizationInitialized,
+    VKAuthorizationVkApp,
+    VKAuthorizationWebview,
+    VKAuthorizationSafari,
+    VKAuthorizationAuthorized
+};
 
 @interface VKSdk ()
 
@@ -219,7 +220,10 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:VK_ACCESS_TOKEN_DEFAULTS_KEY];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+
     vkSdkInstance.accessToken = token;
+    vkSdkInstance.authState = VKAuthorizationAuthorized;
+
     BOOL respondsToRenew = [vkSdkInstance.delegate respondsToSelector:@selector(vkSdkRenewedToken:)],
             respondsToReceive = [vkSdkInstance.delegate respondsToSelector:@selector(vkSdkReceivedNewToken:)];
 
@@ -231,6 +235,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 + (void)setAccessTokenError:(VKError *)error {
     vkSdkInstance.permissions = nil;
+    vkSdkInstance.authState = VKAuthorizationInitialized;
     [vkSdkInstance.delegate vkSdkUserDeniedAccess:error];
 }
 
@@ -312,6 +317,13 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     return NO;
 }
 
++ (void)handleDidBecomeActive {
+    if (vkSdkInstance.authState == VKAuthorizationVkApp || vkSdkInstance.authState == VKAuthorizationSafari) {
+        VKError *error = [VKError errorWithQuery:@{@"cancel" : @1}];
+        [VKSdk setAccessTokenError:error];
+    }
+}
+
 + (void)forceLogout {
     NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
 
@@ -326,6 +338,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     if (vkSdkInstance) {
         vkSdkInstance.accessToken = nil;
         vkSdkInstance.permissions = nil;
+        vkSdkInstance.authState = VKAuthorizationInitialized;
     }
 }
 
