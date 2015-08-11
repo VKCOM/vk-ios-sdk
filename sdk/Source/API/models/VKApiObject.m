@@ -32,6 +32,7 @@
 
 static NSString *const INT_NAME = @"int";
 static NSString *const DOUBLE_NAME = @"double";
+static NSString *const BOOL_NAME = @"bool";
 static NSString *const ID_NAME = @"id";
 
 static NSMutableDictionary *classesProperties = nil;
@@ -44,16 +45,24 @@ static NSString *getPropertyType(objc_property_t property) {
     NSString *propertyType = [typeAttribute substringFromIndex:1];
     const char *rawPropertyType = [propertyType UTF8String];
 
-    if (strcmp(rawPropertyType, @encode(float)) == 0 ||
-            strcmp(rawPropertyType, @encode(CGFloat)) == 0 ||
-            strcmp(rawPropertyType, @encode(double)) == 0) {
+    if (strcmp(rawPropertyType, @encode(float)) == 0
+        || strcmp(rawPropertyType, @encode(double)) == 0) {
         return DOUBLE_NAME;
     }
-    else if (strcmp(rawPropertyType, @encode(int)) == 0 ||
-            strcmp(rawPropertyType, @encode(long)) == 0 ||
-            strcmp(rawPropertyType, @encode(NSInteger)) == 0 ||
-            strcmp(rawPropertyType, @encode(NSUInteger)) == 0) {
+    else if (strcmp(rawPropertyType, @encode(char)) == 0
+             || strcmp(rawPropertyType, @encode(short)) == 0
+             || strcmp(rawPropertyType, @encode(int)) == 0
+             || strcmp(rawPropertyType, @encode(long)) == 0
+             || strcmp(rawPropertyType, @encode(long long)) == 0
+             || strcmp(rawPropertyType, @encode(unsigned char)) == 0
+             || strcmp(rawPropertyType, @encode(unsigned short)) == 0
+             || strcmp(rawPropertyType, @encode(unsigned int)) == 0
+             || strcmp(rawPropertyType, @encode(unsigned long)) == 0
+             || strcmp(rawPropertyType, @encode(unsigned long long)) == 0) {
         return INT_NAME;
+    }
+    else if (strcmp(rawPropertyType, @encode(BOOL)) == 0) {
+        return BOOL_NAME;
     }
     else if (strcmp(rawPropertyType, @encode(id)) == 0) {
         return ID_NAME;
@@ -91,10 +100,11 @@ static NSString *getPropertyName(objc_property_t prop) {
 
 - (instancetype)initWith:(objc_property_t)prop {
     if (self = [super init]) {
-        self.property = prop;
-        self.propertyName = getPropertyName(prop);
+        _property = prop;
+        _propertyName = getPropertyName(prop);
         _propertyClassName = getPropertyType(self.property);
-        _isPrimitive = [@[DOUBLE_NAME, INT_NAME, ID_NAME] containsObject:_propertyClassName];
+        _isPrimitive = [@[DOUBLE_NAME, INT_NAME, BOOL_NAME] containsObject:_propertyClassName];
+        
         if (!_isPrimitive) {
             _propertyClass = NSClassFromString(_propertyClassName);
             if (!(_isModelsArray = [_propertyClass isSubclassOfClass:[VKApiObjectArray class]])) {
@@ -121,20 +131,25 @@ static NSString *getPropertyName(objc_property_t prop) {
 - (void)parse:(NSDictionary *)dict {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        classesProperties = [NSMutableDictionary dictionaryWithCapacity:100];
+        classesProperties = [NSMutableDictionary dictionary];
     });
     NSString *className = NSStringFromClass(self.class);
-    __block NSMutableDictionary *propDict = [classesProperties objectForKey:className];
-
+    __block NSMutableDictionary *propDict = nil;
+    @synchronized (classesProperties) {
+        propDict = [classesProperties objectForKey:className];
+    }
     if (!propDict) {
         [self enumPropertiesWithBlock:^(VKPropertyHelper *helper, int totalProps) {
             if (!propDict)
                 propDict = [NSMutableDictionary dictionaryWithCapacity:totalProps];
             propDict[helper.propertyName] = helper;
         }];
-        if (!propDict)
+        if (!propDict) {
             propDict = [NSMutableDictionary new];
-        classesProperties[className] = propDict;
+        }
+        @synchronized (classesProperties) {
+            classesProperties[className] = propDict;
+        }
     }
     NSMutableArray *warnings = PRINT_PARSE_DEBUG_INFO ? [NSMutableArray new] : nil;
     for (NSString *key in dict) {
@@ -143,10 +158,6 @@ static NSString *getPropertyName(objc_property_t prop) {
         id resultObject = nil;
         id parseObject = dict[key];
         NSString *propertyName = propHelper.propertyName;
-        if (propHelper.isPrimitive) {
-            [self setValue:parseObject forKey:propertyName];
-            continue;
-        }
         Class <VKApiObject> propertyClass = propHelper.propertyClass;
         if (propHelper.isModelsArray) {
             if ([parseObject isKindOfClass:[NSDictionary class]]) {
@@ -156,31 +167,44 @@ static NSString *getPropertyName(objc_property_t prop) {
                 resultObject = [propertyClass createWithArray:parseObject];
             }
             else {
-                if (PRINT_PARSE_DEBUG_INFO)
+                if (PRINT_PARSE_DEBUG_INFO) {
                     [warnings addObject:[NSString stringWithFormat:@"property %@ is parcelable, but data is not", propertyName]];
+                }
             }
         }
         else if (propHelper.isModel) {
             if ([parseObject isKindOfClass:[NSDictionary class]]) {
                 resultObject = [propertyClass createWithDictionary:parseObject];
+            } else if ([parseObject isKindOfClass:[NSArray class]]) {
+                resultObject = [propertyClass createWithArray:parseObject];
             }
             else {
-                if (PRINT_PARSE_DEBUG_INFO)
+                if (PRINT_PARSE_DEBUG_INFO) {
                     [warnings addObject:[NSString stringWithFormat:@"property %@ is parcelable, but data is not", propertyName]];
+                }
             }
         }
         else {
             resultObject = parseObject;
-            if (![resultObject isKindOfClass:propertyClass]) {
-                if (PRINT_PARSE_DEBUG_INFO)
+            if (propertyClass && ![resultObject isKindOfClass:propertyClass]) {
+                if ([(Class)propertyClass isSubclassOfClass:[NSString class]]) {
+                    resultObject = [resultObject respondsToSelector:@selector(stringValue)] ? [resultObject stringValue] : nil;
+                } else {
+                    resultObject = nil;
+                }
+                if (PRINT_PARSE_DEBUG_INFO) {
                     [warnings addObject:[NSString stringWithFormat:@"property with name %@ expected class %@, result class %@", propertyName, propertyClass, [resultObject class]]];
+                }
+            } else if (propHelper.isPrimitive) {
+                resultObject = [resultObject isKindOfClass:[NSNumber class]] ? resultObject : nil;
             }
         }
         [self setValue:resultObject forKey:propertyName];
     }
 
-    if (PRINT_PARSE_DEBUG_INFO && warnings.count)
+    if (PRINT_PARSE_DEBUG_INFO && warnings.count) {
         NSLog(@"Parsing %@ complete. Warnings: %@", self, warnings);
+    }
 }
 
 - (void)enumPropertiesWithBlock:(void (^)(VKPropertyHelper *helper, int totalProps))processBlock {
@@ -236,6 +260,12 @@ static NSString *getPropertyName(objc_property_t prop) {
 
 + (instancetype)createWithArray:(NSArray *)array {
     return nil;
+}
+
+-(void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if (PRINT_PARSE_DEBUG_INFO) {
+        NSLog(@"Parser tried to set value (%@) for undefined key (%@)", value, key);
+    }
 }
 
 @end
