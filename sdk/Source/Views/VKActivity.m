@@ -27,9 +27,11 @@
 
 NSString *const VKActivityTypePost = @"VKActivityTypePost";
 
-@implementation VKActivity {
-    VKShareDialogController *shareDialog;
-}
+@interface VKActivity ()
+@property (nonatomic, strong) VKShareDialogController *shareDialog;
+@end
+
+@implementation VKActivity
 + (UIActivityCategory)activityCategory {
     return UIActivityCategoryShare;
 }
@@ -59,29 +61,29 @@ NSString *const VKActivityTypePost = @"VKActivityTypePost";
 }
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems {
-    shareDialog = [VKShareDialogController new];
+    self.shareDialog = [VKShareDialogController new];
     NSMutableArray *uploadImages = [NSMutableArray new];
     for (id item in activityItems) {
         if ([item isKindOfClass:[NSString class]]) {
-            shareDialog.text = item;
+            self.shareDialog.text = item;
         } else if ([item isKindOfClass:[NSAttributedString class]]) {
-            shareDialog.text = [(NSAttributedString *) item string];
+            self.shareDialog.text = [(NSAttributedString *) item string];
         } else if ([item isKindOfClass:[UIImage class]]) {
             [uploadImages addObject:[VKUploadImage uploadImageWithImage:item andParams:[VKImageParameters jpegImageWithQuality:0.95]]];
         } else if ([item isKindOfClass:[NSURL class]]) {
-            shareDialog.shareLink = [[VKShareLink alloc] initWithTitle:nil link:item];
+            self.shareDialog.shareLink = [[VKShareLink alloc] initWithTitle:nil link:item];
         }
     }
-    shareDialog.uploadImages = uploadImages;
+    self.shareDialog.uploadImages = uploadImages;
     __weak __typeof(self) wself = self;
-    [shareDialog setCompletionHandler:^(VKShareDialogControllerResult result) {
+    [self.shareDialog setCompletionHandler:^(VKShareDialogControllerResult result) {
         __strong __typeof(wself) sself = wself;
         [sself activityDidFinish:result == VKShareDialogControllerResultDone];
-        sself->shareDialog = nil;
+        sself.shareDialog = nil;
     }];
 }
 
 - (UIViewController *)activityViewController {
-    return shareDialog;
+    return self.shareDialog;
 }
 @end
