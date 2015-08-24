@@ -248,6 +248,11 @@ Checks passed URL for access token
 + (BOOL)processOpenURL:(NSURL *)passedUrl fromApplication:(NSString *)sourceApplication;
 
 /**
+Handle `[AppDelegate applicationDidBecomeActive]` for cases like user starts authorization process but switch back to app without giving access
+*/
++ (void)handleDidBecomeActive;
+
+/**
 * Checks if somebody logged in with SDK
 */
 + (BOOL)isLoggedIn;
