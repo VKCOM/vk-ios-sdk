@@ -382,8 +382,9 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
 }
 
 - (void)finishRequest {
+    void (^block)(void) = NULL;
     if (self.error) {
-        dispatch_async(self.responseQueue, ^{
+        block = ^{
             if (self.errorBlock) {
                 self.errorBlock(self.error);
             }
@@ -392,13 +393,18 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
                     postRequest.errorBlock(self.error);
                 }
             }
-        });
+        };
     } else {
-        dispatch_async(self.responseQueue, ^{
+        block = ^{
             if (self.completeBlock) {
                 self.completeBlock(self.response);
             }
-        });
+        };
+    }
+    if (self.waitUntilDone) {
+        block();
+    } else {
+        dispatch_async(self.responseQueue, block);
     }
 }
 
