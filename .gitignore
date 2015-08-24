@@ -18,9 +18,7 @@ CVS
 *~.nib
 *.moved-aside
 **/*.xcuserdata/*
-!xcshareddata
 xcuserdata
-**/xcshareddata/
 
 #Project files
 [Bb]uild/
