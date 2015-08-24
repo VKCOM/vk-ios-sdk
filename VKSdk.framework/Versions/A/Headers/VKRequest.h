@@ -154,6 +154,11 @@ Starts loading of prepared request. You can use it instead of executeWithResultB
 - (void)start;
 
 /**
+ Creates loading operation for this request
+ */
+- (NSOperation*) createExecutionOperation;
+
+/**
 Repeats this request with initial parameters and blocks.
 Used attempts will be set to 0.
 */

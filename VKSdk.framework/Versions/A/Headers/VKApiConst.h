@@ -21,8 +21,8 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 typedef NSString *VKDisplayType;
-static VKDisplayType const VK_DISPLAY_IOS = @"ios";
-static VKDisplayType const VK_DISPLAY_MOBILE = @"mobile";
+extern VKDisplayType const VK_DISPLAY_IOS;
+extern VKDisplayType const VK_DISPLAY_MOBILE;
 //Commons
 extern NSString *const VK_ORIGINAL_CLIENT_BUNDLE;
 extern NSString *const VK_ORIGINAL_HD_CLIENT_BUNDLE;
@@ -91,6 +91,7 @@ extern NSString *const VK_API_POST_ID;
 //Errors
 extern NSString *const VK_API_ERROR_CODE;
 extern NSString *const VK_API_ERROR_MSG;
+extern NSString *const VK_API_ERROR_TEXT;
 extern NSString *const VK_API_REQUEST_PARAMS;
 
 //Captcha
