@@ -318,7 +318,12 @@ static const CGFloat ipadHeight = 500.f;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self rotateToInterfaceOrientation:self.interfaceOrientation appear:YES];
+#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+#else
+    UIInterfaceOrientation orientation = self.interfaceOrientation;
+#endif
+    [self rotateToInterfaceOrientation:orientation appear:YES];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -919,7 +924,11 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     [super viewDidLoad];
     UIImage *image = [VKBundle vkLibraryImageNamed:@"ic_vk_logo_nb"];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
+#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Cancel") style:UIBarButtonItemStylePlain target:self action:@selector(close:)];
+#else
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Cancel") style:UIBarButtonItemStyleBordered target:self action:@selector(close:)];
+#endif
     _originalSdkDelegate = [VKSdk instance].delegate;
     [VKSdk instance].delegate = self;
 }
