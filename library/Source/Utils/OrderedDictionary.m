@@ -23,7 +23,7 @@
 
 #import "OrderedDictionary.h"
 
-NSString *DescriptionForObject(NSObject *object, id locale, NSUInteger indent) {
+NSString *VKDescriptionForObject(NSObject *object, id locale, NSUInteger indent) {
     NSString *objectString;
     if ([object isKindOfClass:[NSString class]]) {
         objectString = (NSString *) object;
@@ -116,8 +116,8 @@ NSString *DescriptionForObject(NSObject *object, id locale, NSUInteger indent) {
     for (NSObject *key in self) {
         [description appendFormat:@"%@    %@ = %@;\n",
                                   indentString,
-                                  DescriptionForObject(key, locale, level),
-                                  DescriptionForObject([self objectForKey:key], locale, level)];
+                                  VKDescriptionForObject(key, locale, level),
+                                  VKDescriptionForObject([self objectForKey:key], locale, level)];
     }
     [description appendFormat:@"%@}\n", indentString];
     return description;
