@@ -156,14 +156,15 @@ typedef enum CornerFlag {
             self.activity.frame.size.width,
             self.activity.frame.size.height);
     self.activity.hidesWhenStopped = YES;
+    [self addSubview:self.activity];
 
-    self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 24, 0, 24, 24)];
-    self.deleteButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    self.deleteButton.showsTouchWhenHighlighted = YES;
-    self.deleteButton.exclusiveTouch = YES;
-    [self.deleteButton setBackgroundImage:VKImageNamed(@"ic_deletephoto") forState:UIControlStateNormal];
-    [self.deleteButton addTarget:self action:@selector(cancelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    //    [self.contentView addSubview:self.deleteButton];
+//    self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 24, 0, 24, 24)];
+//    self.deleteButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+//    self.deleteButton.showsTouchWhenHighlighted = YES;
+//    self.deleteButton.exclusiveTouch = YES;
+//    [self.deleteButton setBackgroundImage:VKImageNamed(@"ic_deletephoto") forState:UIControlStateNormal];
+//    [self.deleteButton addTarget:self action:@selector(cancelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.contentView addSubview:self.deleteButton];
 
     return self;
 }
@@ -171,23 +172,18 @@ typedef enum CornerFlag {
 - (void)setProgress:(CGFloat)progress {
     _progress = progress;
     if (progress > 0) {
-        [self addSubview:self.progressView];
-        [self.activity removeFromSuperview];
+        self.activity.hidden = YES;
         self.progressView.hidden = NO;
         self.progressView.progress = progress;
     } else {
-        [self.progressView removeFromSuperview];
-        if (!self.activity.superview) {
-            [self addSubview:self.activity];
-            [self.activity startAnimating];
-        }
+        self.activity.hidden = NO;
+        [self.activity startAnimating];
     }
 }
 
 - (void)hideProgress {
     self.progressView.hidden = YES;
     [self.activity stopAnimating];
-    [self.activity removeFromSuperview];
 }
 
 - (void)cancelButtonClick:(UIButton *)sender {
@@ -240,6 +236,12 @@ typedef enum CornerFlag {
 @property(nonatomic, weak) VKShareDialogController *parent;
 @end
 
+@interface VKHelperNavigationController : UINavigationController
+@end
+
+@interface VKShareDialogView : UIView
+@end
+
 ///-------------------------------
 /// @name Presentation view controller for dialog
 ///-------------------------------
@@ -248,21 +250,35 @@ static const CGFloat ipadWidth = 500.f;
 static const CGFloat ipadHeight = 500.f;
 
 @interface VKShareDialogController ()
+@property (nonatomic, strong, readonly) UINavigationController *internalNavigation;
+@property (nonatomic, strong, readonly) VKSharedTransitioningObject *transitionDelegate;
+@property (nonatomic, strong, readonly) VKShareDialogControllerInternal *targetShareDialog;
 @end
 
 @implementation VKShareDialogController {
-    UINavigationController *_internalNavigation;
-    VKSharedTransitioningObject *_transitionDelegate;
-    VKShareDialogControllerInternal *_targetShareDialog;
+    
     UIBarStyle defaultBarStyle;
 }
 
++(void)initialize {
+    if ([self class] == [VKShareDialogController class]) {
+        UINavigationBar<UIAppearanceContainer> *appearance = [UINavigationBar appearanceWhenContainedIn:[VKHelperNavigationController class], nil];
+        appearance.barStyle = UIBarStyleDefault;
+        
+        [appearance setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+        [appearance setShadowImage:nil];
+        [appearance setTitleTextAttributes:nil];
+        
+        [[UIBarButtonItem appearanceWhenContainedIn:[VKHelperNavigationController class], nil] setTitleTextAttributes:nil forState:UIControlStateNormal];
+        [[UIBarButtonItem appearanceWhenContainedIn:[VKHelperNavigationController class], nil] setTitleTextAttributes:nil forState:UIControlStateHighlighted];
+        
+        [[UIActivityIndicatorView appearanceWhenContainedIn:[VKHelperNavigationController class], nil] setColor:nil];
+    }
+}
 
 - (instancetype)init {
     if (self = [super init]) {
-        defaultBarStyle = [UINavigationBar appearance].barStyle;
-        [UINavigationBar appearance].barStyle = UIBarStyleDefault;
-        _internalNavigation = [[UINavigationController alloc] initWithRootViewController:_targetShareDialog = [VKShareDialogControllerInternal new]];
+        _internalNavigation = [[VKHelperNavigationController alloc] initWithRootViewController:_targetShareDialog = [VKShareDialogControllerInternal new]];
 
         _targetShareDialog.parent = self;
         _authorizeInApp = YES;
@@ -700,7 +716,7 @@ static const CGFloat ipadHeight = 500.f;
 ///-------------------------------
 static const CGFloat kAttachmentsViewSize = 100.0f;
 
-@interface VKShareDialogView : UIView <UITextViewDelegate>
+@interface VKShareDialogView () <UITextViewDelegate>
 @property(nonatomic, strong) UIView *notAuthorizedView;
 @property(nonatomic, strong) UILabel *notAuthorizedLabel;
 @property(nonatomic, strong) UIButton *notAuthorizedButton;
@@ -1362,5 +1378,8 @@ static NSString *const SETTINGS_LIVEJOURNAL = @"ExportLivejournal";
     return self;
 }
 
+@end
+
+@implementation VKHelperNavigationController
 @end
 
