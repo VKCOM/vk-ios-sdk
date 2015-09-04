@@ -148,6 +148,9 @@ static NSString *const kVKMultipartFormBoundary = @"Boundary(======VK_SDK======)
 }
 
 - (void)enqueueOperation:(NSOperation *)operation {
+    if (!operation) {
+        return;
+    }
     [self.operationQueue addOperation:operation];
 }
 
