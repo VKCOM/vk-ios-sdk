@@ -426,7 +426,7 @@ static const CGFloat ipadHeight = 500.f;
     return UIStatusBarStyleDefault;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
