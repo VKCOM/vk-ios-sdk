@@ -13,11 +13,43 @@ Setup URL-schema of Your Application
 
 To use authorization via VK App you need to setup a url-schema of your application. 
 
-<b>Xcode 5:</b>
+<b>Xcode 5 and above:</b>
 Open your application settings then select the Info tab. In the URL Types section click the plus sign. Enter vk+APP_ID (e.g. **vk1234567**) to the Identifier and URL Schemes fields.
 
 <b>Xcode 4:</b>
 Open your Info.plist then add a new row URL Types. Set the URL identifier to vk+APP_ID
+
+
+Configuring application for iOS 9
+----------
+iOS 9 changes the way of applications security and way of using unsecured connections. Basically, you don't have to change anything in transport security settings. But, if you're planing to use VK API with "nohttps" scope, you have to change security settings that way (in your Info.plist file):
+```
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSExceptionDomains</key>
+    <dict>
+        <key>vk.com</key>
+        <dict>
+            <key>NSExceptionRequiresForwardSecrecy</key>
+            <false/>
+            <key>NSIncludesSubdomains</key>
+            <true/>
+            <key>NSExceptionAllowsInsecureHTTPLoads</key>
+            <true/>
+        </dict>
+    </dict>
+</dict>
+```
+
+We're don't recommend you to use "nohttps" scope.
+
+Also, for iOS 9 you have to enumerate app schemas which you app using (and checking for canOpenURL:) to have ability to open that apps. For VK SDK you should change your Info.plist in that way:
+```
+<key>LSApplicationQueriesSchemes</key>
+<array>
+    <string>vkauthorize</string>
+</array>
+```
 
 Adding VK iOS SDK to your iOS application
 ==========
