@@ -47,6 +47,7 @@ Also, for iOS 9 you have to enumerate app schemas which you app using (and check
 ```
 <key>LSApplicationQueriesSchemes</key>
 <array>
+    <string>vk</string>
     <string>vkauthorize</string>
 </array>
 ```
