@@ -503,9 +503,10 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
 - (NSString *)preferredLang {
     NSString *lang = _preferredLang;
     if (self.useSystemLanguage) {
-        lang = [NSLocale preferredLanguages][0];
-        if (![SUPPORTED_LANGS_ARRAY containsObject:lang])
+        lang = [ [ [ [ [NSLocale preferredLanguages] firstObject] componentsSeparatedByString:@"_"] firstObject] lowercaseString];
+        if (![SUPPORTED_LANGS_ARRAY containsObject:lang]) {
             lang = _preferredLang;
+        }
     }
     return lang;
 }
