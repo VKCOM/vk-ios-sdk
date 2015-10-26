@@ -39,12 +39,14 @@
 #import "VKSdk.h"
 #import "VKAuthorizeController.h"
 #import "VKRequestsScheduler.h"
+#import <SafariServices/SafariServices.h>
 
 typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
     VKAuthorizationInitialized,
     VKAuthorizationVkApp,
     VKAuthorizationWebview,
     VKAuthorizationSafari,
+    VKAuthorizationSafariInApp,
     VKAuthorizationAuthorized
 };
 
@@ -55,6 +57,7 @@ typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
 @property(nonatomic, readwrite, copy) NSString *apiVersion;
 @property(nonatomic, strong) VKAccessToken *accessToken;
 @property(nonatomic, strong) NSArray *permissions;
+@property(nonatomic, weak) UIViewController *presentedSafariViewController;
 
 @end
 
@@ -135,7 +138,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 + (void)authorize:(NSArray *)permissions
      revokeAccess:(BOOL)revokeAccess
        forceOAuth:(BOOL)forceOAuth {
-    
+
     //pull #87
     if ([[VKSdk instance].delegate respondsToSelector:@selector(vkSdkAuthorizationAllowFallbackToSafari)]) {
         if (![[VKSdk instance].delegate vkSdkAuthorizationAllowFallbackToSafari])
@@ -193,7 +196,17 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
                                                            scope:[permissions componentsJoinedByString:@","]
                                                           revoke:revokeAccess
                                                          display:@"mobile"]];
-            [VKSdk instance].authState = VKAuthorizationSafari;
+
+            if ([SFSafariViewController class]) {
+                [VKSdk instance].authState = VKAuthorizationSafariInApp;
+
+                SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL:urlToOpen];
+                [[VKSdk instance].delegate vkSdkShouldPresentViewController:viewController];
+                [VKSdk instance].presentedSafariViewController = viewController;
+                return;
+            } else {
+                [VKSdk instance].authState = VKAuthorizationSafari;
+            }
         }
         [[UIApplication sharedApplication] openURL:urlToOpen];
     } else {
@@ -294,6 +307,10 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
         if (!token.accessToken) {
             return NO;
         }
+
+        if (vkSdkInstance.authState == VKAuthorizationSafariInApp && vkSdkInstance.presentedSafariViewController) {
+            [vkSdkInstance.presentedSafariViewController dismissViewControllerAnimated:YES completion:nil];
+        }
         [VKSdk setAccessToken:token];
     }
     return YES;
@@ -304,7 +321,8 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
             [sourceApplication isEqualToString:VK_ORIGINAL_CLIENT_BUNDLE] ||
             [sourceApplication isEqualToString:VK_ORIGINAL_HD_CLIENT_BUNDLE] ||
             (
-                    ([sourceApplication isEqualToString:@"com.apple.mobilesafari"] || !sourceApplication) &&
+                    ([sourceApplication isEqualToString:@"com.apple.mobilesafari"] ||
+                            [sourceApplication isEqualToString:@"com.apple.SafariViewService"] || !sourceApplication) &&
                             [passedUrl.scheme isEqualToString:[NSString stringWithFormat:@"vk%@", vkSdkInstance.currentAppId]]
             )
             ) {
