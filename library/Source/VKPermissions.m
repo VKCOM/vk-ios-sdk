@@ -41,7 +41,7 @@ NSString *const VK_PER_OFFLINE = @"offline";
 NSString *const VK_PER_NOHTTPS = @"nohttps";
 NSString *const VK_PER_EMAIL = @"email";
 
-NSArray *parseVkPermissionsFromInteger(int permissionsValue) {
+NSArray *VKParseVkPermissionsFromInteger(int permissionsValue) {
     NSMutableArray *res = [NSMutableArray new];
     if (permissionsValue & 1) [res addObject:VK_PER_NOTIFY];
     if (permissionsValue & 2) [res addObject:VK_PER_FRIENDS];
