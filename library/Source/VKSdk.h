@@ -46,6 +46,17 @@ typedef NS_OPTIONS(NSUInteger, VKAuthorizationOptions) {
     VKAuthorizationOptionsDisableSafariController = 1 << 1,
 };
 
+typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
+    VKAuthorizationUnknown, // Authorization state unknown, probably something went wrong
+    VKAuthorizationInitialized, // SDK initialized and ready to authorize
+    VKAuthorizationPending, // Authorization state pending, probably we're trying to load auth information
+    VKAuthorizationExternal, // Started external authorization process
+    VKAuthorizationSafariInApp, // Started in app authorization process, using SafariViewController
+    VKAuthorizationWebview, // Started in app authorization process, using webview
+    VKAuthorizationAuthorized, // User authorized
+    VKAuthorizationError, // An error occured, try to wake up session later
+};
+
 /**
  SDK events delegate protocol.
  You should implement it, typically as main view controller or as application delegate.
@@ -200,20 +211,14 @@ Checks passed URL for access token
 
 
 /**
-* Checks if somebody logged in with SDK
-*/
+ Checks if somebody logged in with SDK (call after wakeUpSession)
+ */
 + (BOOL)isLoggedIn;
 
-#warning Make async
 /**
- Make try to read token from defaults and start session again.
+ This method is trying to retrieve token from storage, and check application still permitted to use user access token
  */
-+ (BOOL)wakeUpSession;
-
-/**
- Try to read token from defaults, then check for required permissions.
- */
-+ (BOOL)wakeUpSession:(NSArray *)permissions;
++ (void)wakeUpSession:(NSArray *)permissions completeBlock:(void(^)(VKAuthorizationState, NSError *)) wakeUpBlock;
 
 /**
 Forces logout using OAuth (with VKAuthorizeController). Removes all cookies for *.vk.com.
@@ -230,7 +235,7 @@ Has no effect for logout in VK app
 Check existing permissions
 @param permissions array of permissions you want to check
 */
-+ (BOOL)hasPermissions:(NSArray *)permissions;
+- (BOOL)hasPermissions:(NSArray *)permissions;
 
 /**
 Enables or disables scheduling for requests

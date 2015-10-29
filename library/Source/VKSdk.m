@@ -42,14 +42,6 @@
 #import "VKRequestsScheduler.h"
 #import "VKUser.h"
 
-typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
-    VKAuthorizationInitialized,
-    VKAuthorizationExternal,
-    VKAuthorizationSafariInApp,
-    VKAuthorizationWebview,
-    VKAuthorizationAuthorized
-};
-
 @interface VKWeakDelegate : NSProxy <VKSdkDelegate>
 @property (nonatomic, weak) id<VKSdkDelegate> weakTarget;
 
@@ -198,10 +190,10 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 + (void)setAccessToken:(VKAccessToken *)token {
     [token saveTokenToDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
+    
     id oldToken = vkSdkInstance.accessToken;
     if (!token && oldToken) {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:VK_ACCESS_TOKEN_DEFAULTS_KEY];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [VKAccessToken delete:VK_ACCESS_TOKEN_DEFAULTS_KEY];
     }
 
     vkSdkInstance.authState = token ? VKAuthorizationAuthorized : VKAuthorizationInitialized;
@@ -223,30 +215,26 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     
     void (^notifyAuthorization)(VKAccessToken*, VKError*) = ^ (VKAccessToken *token, VKError *error){
         VKAuthorizationResult *res = [VKAuthorizationResult new];
-        res.error = error;
+        res.error = error ? [NSError errorWithVkError:error] : nil;
         res.token = token;
         if (token) {
-            [instance trackVisitor:^(VKUser *visitor, NSInteger per, VKError *error) {
+            [instance requestSdkState:^(VKUser *visitor, NSInteger per, NSError *error) {
                 if (visitor) {
-                    NSMutableArray *permissions = [VKParseVkPermissionsFromInteger(per) mutableCopy];
-                    if ([instance.permissions containsObject:VK_PER_OFFLINE]) {
-                        [permissions addObject:VK_PER_OFFLINE];
-                    }
-                    if ([instance.permissions containsObject:VK_PER_NOHTTPS]) {
-                        [permissions addObject:VK_PER_NOHTTPS];
-                    }
+                    
                     VKAccessTokenMutable * mToken = (VKAccessTokenMutable *) [token mutableCopy];
-                    instance.permissions = mToken.permissions = [permissions copy];
+                    instance.permissions = mToken.permissions = [instance updatePermissions:per];
                     mToken.localUser = visitor;
                     
                     [self setAccessToken:mToken];
-                    
+                    res.user = visitor;
                     res.token = mToken;
                 } else if (error) {
                     res.error = error;
                 }
                 [instance notifyDelegate:@selector(vkSdkAccessAuthorizationFinishedWithResult:) obj:res];
-            } token:token];
+            } trackVisitor:YES token:token];
+        } else {
+            [instance notifyDelegate:@selector(vkSdkAccessAuthorizationFinishedWithResult:) obj:res];
         }
         
     };
@@ -357,37 +345,81 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     return false;
 }
 
-+ (BOOL)wakeUpSession {
++ (void)wakeUpSession:(NSArray *)permissions completeBlock:(void(^)(VKAuthorizationState, NSError *error)) wakeUpBlock {
     VKAccessToken *token = [VKAccessToken savedToken:VK_ACCESS_TOKEN_DEFAULTS_KEY];
-    if (!token || token.isExpired)
-        return NO;
-    BOOL firstCall = vkSdkInstance.accessToken == nil;
-    vkSdkInstance.accessToken = token;
-    if (token && firstCall) {
-#warning here
-//        [vkSdkInstance trackVisitor];
-    }
-    return YES;
-}
-
-+ (BOOL)wakeUpSession:(NSArray *)permissions {
-    BOOL result = [self wakeUpSession];
-    if (!result) return result;
-    return [self hasPermissions:permissions];
-}
-
-+ (BOOL)hasPermissions:(NSArray *)permissions {
-    for (NSString *p in permissions) {
-        BOOL exists = NO;
-        for (NSString *existingPemission in vkSdkInstance.accessToken.permissions) {
-            if ([existingPemission isEqualToString:p]) {
-                exists = YES;
-                break;
+    VKSdk *instance = [self instance];
+    if (!token || token.isExpired) {
+        [instance resetSdkState];
+        wakeUpBlock(instance.authState, nil);
+    } else {
+        
+        BOOL firstCall = instance.accessToken == nil;
+        instance.accessToken = token;
+        instance.authState = VKAuthorizationPending;
+        
+        [[VKSdk instance] requestSdkState:^(VKUser *visitor, NSInteger per, NSError *error) {
+            
+            instance.authState = VKAuthorizationUnknown;
+            if (visitor) {
+                VKAccessTokenMutable * mToken = (VKAccessTokenMutable *) [token mutableCopy];
+                instance.permissions = mToken.permissions = [instance updatePermissions:per];
+                mToken.localUser = visitor;
+                instance.accessToken = mToken;
+                
+                if ([instance hasPermissions:permissions]) {
+                    instance.authState = VKAuthorizationAuthorized;
+                } else {
+                    [instance resetSdkState];
+                }
+            } else if (error) {
+                instance.authState = VKAuthorizationError;
+                instance.accessToken = nil;
+                
+                VKError *vkError = error.vkError;
+                if (vkError.errorCode == 5) {
+                    //Remove token from storage
+                    [self setAccessToken:nil];
+                    instance.authState = VKAuthorizationInitialized;
+                }
             }
-        }
-        if (!exists) return NO;
+            wakeUpBlock(instance.authState, error);
+            
+        } trackVisitor:firstCall token:token];
+        
     }
-    return YES;
+    
+}
+
+- (BOOL)hasPermissions:(NSArray *)permissions {
+    NSMutableArray *mutablePermissions = permissions ? [permissions mutableCopy] : [NSMutableArray new];
+    [mutablePermissions removeObject:VK_PER_EMAIL];
+    [mutablePermissions removeObject:VK_PER_NOHTTPS];
+    [mutablePermissions removeObject:VK_PER_OFFLINE];
+    
+    BOOL allExisted = YES;
+    NSSet *tokenPermission = [NSSet setWithArray:self.accessToken.permissions];
+    for (NSString *p in mutablePermissions) {
+        if (![tokenPermission containsObject:p]) {
+            allExisted = NO;
+            break;
+        }
+    }
+    return allExisted;
+}
+
+
+-(NSArray *)updatePermissions:(NSInteger)appPermissions {
+    NSMutableArray *permissions = [VKParseVkPermissionsFromInteger(appPermissions) mutableCopy];
+    if ([self.permissions containsObject:VK_PER_OFFLINE]) {
+        [permissions addObject:VK_PER_OFFLINE];
+    }
+    if ([self.permissions containsObject:VK_PER_NOHTTPS]) {
+        [permissions addObject:VK_PER_NOHTTPS];
+    }
+    if ([self.permissions containsObject:VK_PER_EMAIL]) {
+        [permissions addObject:VK_PER_EMAIL];
+    }
+    return permissions;
 }
 
 + (void)setSchedulerEnabled:(BOOL)enabled {
@@ -399,7 +431,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 - (instancetype)initUniqueInstance {
     self = [super init];
-    self.authState = VKAuthorizationInitialized;
+    [self resetSdkState];
     _sdkDelegates = [NSMutableArray new];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     return self;
@@ -419,30 +451,26 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     return _currentAppId;
 }
 
-- (void)trackVisitor:(void (^)(VKUser *visitor, NSInteger permissions, VKError *error))infoCallback token:(VKAccessToken*)token {
-    
-    VKRequest *req = [VKRequest requestWithMethod:@"execute" andParameters:@{@"code" : @"return {stats:API.stats.trackVisitor(), permissions:API.account.getAppPermissions(), user:API.users.get({fields : \"photo_50,photo_100,photo_200\"})[0]};"}];
+- (void)requestSdkState:(void (^)(VKUser *visitor, NSInteger permissions, NSError *error))infoCallback trackVisitor:(BOOL)trackVisitor token:(VKAccessToken*)token {
+    NSString *code = [NSString stringWithFormat:@"return {permissions:API.account.getAppPermissions(),user:API.users.get({fields : \"photo_50,photo_100,photo_200\"})[0],%1$@};", trackVisitor ? @"stats:API.stats.trackVisitor()," : @""];
+    VKRequest *req = [VKRequest requestWithMethod:@"execute" andParameters:@{@"code" : code}];
     req.specialToken = token;
+    req.preventThisErrorsHandling = @[@5];
     [req executeWithResultBlock:^(VKResponse *response) {
          VKUser *user = [[VKUser alloc] initWithDictionary:response.json[@"user"]];
          if (infoCallback) {
              infoCallback(user, [VK_ENSURE_NUM(response.json[@"permissions"]) integerValue], nil);
          }
     } errorBlock:^(NSError *error) {
-         VKError *vkError = error.vkError;
-         if (vkError.errorCode == 5) {
-             [self setAccessToken:nil];
-             self.authState = VKAuthorizationInitialized;
-             [self notifyDelegate:@selector(vkSdkUserAuthorizationFailed:) obj:vkError];
-         }
          if (infoCallback) {
-             infoCallback(nil, 0, vkError);
+             infoCallback(nil, 0, error);
          }
     }];
 }
 
 - (void) notifyUserAuthorizationFailed:(VKError*) error {
     [self notifyDelegate:@selector(vkSdkUserAuthorizationFailed:) obj:error];
+    [[self class] setAccessToken:nil];
     [self resetSdkState];
 }
 

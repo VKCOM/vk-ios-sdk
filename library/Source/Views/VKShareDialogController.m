@@ -861,19 +861,21 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     [super viewWillAppear:animated];
     if (self.prepared) return;
     VKShareDialogView *view = (VKShareDialogView *) self.view;
-    if ([VKSdk wakeUpSession:self.parent.requestedScope]) {
-        [view.notAuthorizedView removeFromSuperview];
-        view.textView.text = self.parent.text;
-        [self prepare];
-    } else {
-        [self setNotAuthorized];
-    }
+    [VKSdk wakeUpSession:self.parent.requestedScope completeBlock:^(VKAuthorizationState state, NSError *error) {
+        if (state == VKAuthorizationAuthorized) {
+            [view.notAuthorizedView removeFromSuperview];
+            view.textView.text = self.parent.text;
+            [self prepare];
+        } else {
+            [self setNotAuthorized];
+        }
+    }];
 }
 
 - (void) setNotAuthorized {
     VKShareDialogView *view = (VKShareDialogView *) self.view;
     [view addSubview:view.notAuthorizedView];
-    if ([VKSdk wakeUpSession]) {
+    if ([VKSdk accessToken]) {
         view.notAuthorizedLabel.text = VKLocalizedString(@"UserHasNoRequiredPermissions");
     }
     [view layoutSubviews];

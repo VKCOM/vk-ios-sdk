@@ -41,4 +41,4 @@ extern NSString *const VK_PER_OFFLINE;
 extern NSString *const VK_PER_NOHTTPS;
 extern NSString *const VK_PER_EMAIL;
 
-extern NSArray *VKParseVkPermissionsFromInteger(int permissionsValue);
+extern NSArray *VKParseVkPermissionsFromInteger(NSInteger permissionsValue);

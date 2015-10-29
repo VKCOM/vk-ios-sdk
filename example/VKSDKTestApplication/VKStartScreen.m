@@ -35,10 +35,13 @@ static NSArray  * SCOPE = nil;
 	[super viewDidLoad];
     [[VKSdk initializeWithAppId:@"3974615"] registerDelegate:self];
     [[VKSdk instance] setUiDelegate:self];
-    if ([VKSdk wakeUpSession])
-    {
-        [self startWorking];
-    }
+    [VKSdk wakeUpSession:SCOPE completeBlock:^(VKAuthorizationState state, NSError *error) {
+        if (state == VKAuthorizationAuthorized) {
+            [self startWorking];
+        } else if (error) {
+            [[[UIAlertView alloc] initWithTitle:nil message:[error description] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+        }
+    }];
 }
 - (void)startWorking {
     [self performSegueWithIdentifier:NEXT_CONTROLLER_SEGUE_ID sender:self];
@@ -80,12 +83,13 @@ static NSArray  * SCOPE = nil;
     }
 }
 
-- (void)vkSdkShouldPresentViewController:(UIViewController *)controller {
-	[self.navigationController.topViewController presentViewController:controller animated:YES completion:nil];
-}
-
 -(void)vkSdkUserAuthorizationFailed:(VKError *)result {
     [[[UIAlertView alloc] initWithTitle:nil message:@"Access denied" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)vkSdkShouldPresentViewController:(UIViewController *)controller {
+	[self.navigationController.topViewController presentViewController:controller animated:YES completion:nil];
 }
 
 @end

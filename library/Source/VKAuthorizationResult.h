@@ -25,5 +25,6 @@
 
 @interface VKAuthorizationResult : VKObject
 @property (nonatomic, strong) VKAccessToken *token;
-@property (nonatomic, strong) VKError *error;
+@property (nonatomic, strong) VKUser *user;
+@property (nonatomic, strong) NSError *error;
 @end

@@ -81,7 +81,8 @@ Class for execution API-requests
 @property(nonatomic, readonly) VKRequestTiming *requestTiming;
 /// Return YES if current request was started
 @property(nonatomic, readonly) BOOL isExecuting;
-
+/// Return YES if current request was started
+@property(nonatomic, copy) NSArray *preventThisErrorsHandling;
 
 ///-------------------------------
 /// @name Preparing requests

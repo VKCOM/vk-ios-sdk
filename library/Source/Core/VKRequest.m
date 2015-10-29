@@ -477,11 +477,14 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
 - (BOOL)processCommonError:(VKError *)error {
     if (error.errorCode == VK_API_ERROR) {
         error.apiError.request = self;
+        if ([self.preventThisErrorsHandling containsObject:@(error.apiError.errorCode)]) {
+            return NO;
+        }
         if (error.apiError.errorCode == 5) {
             vksdk_dispatch_on_main_queue_now(^{
                 [error.apiError notiftAuthorizationFailed];
             });
-            return YES;
+            return NO;
         }
         if (error.apiError.errorCode == 6) {
             //Too many requests per second
