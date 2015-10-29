@@ -25,13 +25,7 @@
 //  Modified by Ruslan Kavetsky
 
 #import "VKAccessToken.h"
-#import "VKUtil.h"
 #import "VKSdk.h"
-
-
-@implementation VKAccessToken {
-    NSString *_accessToken;
-}
 
 static NSString *const ACCESS_TOKEN = @"access_token";
 static NSString *const EXPIRES_IN = @"expires_in";
@@ -42,13 +36,29 @@ static NSString *const HTTPS_REQUIRED = @"https_required";
 static NSString *const CREATED = @"created";
 static NSString *const PERMISSIONS = @"permissions";
 
+@interface VKAccessToken () {
+@protected
+    NSString *_accessToken;
+    NSString *_userId;
+    NSString *_secret;
+    NSArray *_permissions;
+    BOOL _httpsRequired;
+    NSInteger _expiresIn;
+    VKUser *_localUser;
+    
+}
+@property(nonatomic, readwrite, copy) NSString *accessToken;
+@end
+
+@implementation VKAccessToken
+
 #pragma mark - Creating
 
 + (instancetype)tokenWithToken:(NSString *)accessToken
                         secret:(NSString *)secret
                         userId:(NSString *)userId {
 
-    return [[VKAccessToken alloc] initWithToken:accessToken secret:secret userId:userId];
+    return [[self alloc] initWithToken:accessToken secret:secret userId:userId];
 }
 
 - (instancetype)initWithToken:(NSString *)accessToken
@@ -56,7 +66,7 @@ static NSString *const PERMISSIONS = @"permissions";
                        userId:(NSString *)userId {
     self = [super init];
     if (self) {
-        _accessToken = accessToken;
+        _accessToken = [accessToken copy];
         _secret = secret;
         _userId = userId;
     }
@@ -65,7 +75,7 @@ static NSString *const PERMISSIONS = @"permissions";
 
 
 + (instancetype)tokenFromUrlString:(NSString *)urlString {
-    return [[VKAccessToken alloc] initWithUrlString:urlString];
+    return [[self alloc] initWithUrlString:urlString];
 }
 
 - (instancetype)initWithUrlString:(NSString *)urlString {
@@ -74,11 +84,11 @@ static NSString *const PERMISSIONS = @"permissions";
     if (self) {
 
         NSDictionary *parameters = [VKUtil explodeQueryString:urlString];
-        _accessToken = parameters[ACCESS_TOKEN];
-        _expiresIn = parameters[EXPIRES_IN];
-        _userId = parameters[USER_ID];
-        _secret = parameters[SECRET];
-        _email = parameters[EMAIL];
+        _accessToken = [parameters[ACCESS_TOKEN] copy];
+        _expiresIn = [parameters[EXPIRES_IN] integerValue];
+        _userId = [parameters[USER_ID] copy];
+        _secret = [parameters[SECRET] copy];
+        _email = [parameters[EMAIL] copy];
         _httpsRequired = NO;
 
         NSString *permissionsString = parameters[PERMISSIONS];
@@ -93,66 +103,55 @@ static NSString *const PERMISSIONS = @"permissions";
         if (parameters[HTTPS_REQUIRED])
             _httpsRequired = [parameters[HTTPS_REQUIRED] intValue] == 1;
 
-        if ([parameters objectForKey:CREATED]) {
-            _created = [parameters[CREATED] floatValue];
-        } else {
-            _created = [[NSDate new] timeIntervalSince1970];
-        }
-
+        _created = parameters[CREATED] ? [parameters[CREATED] floatValue] : [[NSDate new] timeIntervalSince1970];
         [self checkIfExpired];
     }
 
     return self;
 }
 
-+ (instancetype)tokenFromFile:(NSString *)filePath {
-    NSData *data = [NSData dataWithContentsOfFile:filePath];
-    if (!data)
-        return nil;
-    return [self tokenFromUrlString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+- (instancetype) initWithVKAccessToken:(VKAccessToken *) token {
+    if (self = [super init]) {
+        _accessToken = [token.accessToken copy];
+        _expiresIn = token.expiresIn;
+        _userId = [token.userId copy];
+        _secret = [token.secret copy];
+        _httpsRequired = token.httpsRequired;
+        _created = token.created;
+        _permissions = [token.permissions copy];
+        _email = [token.email copy];
+    }
+    return self;
 }
 
 + (instancetype)tokenFromDefaults:(NSString *)defaultsKey {
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:defaultsKey];
-
-    if (!data) {
-        return nil;
-    } else {
-        return [self tokenFromUrlString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
-    }
+    
+    return data ? [self tokenFromUrlString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]] : nil;
 }
 
 #pragma mark - Expire
 
 - (BOOL)isExpired {
-    if (_accessToken == nil)
-        return YES;
-    int expiresIn = [self.expiresIn intValue];
-    return expiresIn > 0 && expiresIn + self.created < [[NSDate new] timeIntervalSince1970];
+    return self.expiresIn > 0 && self.expiresIn + self.created < [[NSDate new] timeIntervalSince1970];
 }
 
 - (void)checkIfExpired {
-    if (_accessToken && self.isExpired)
-        [[[VKSdk instance] delegate] vkSdkTokenHasExpired:self];
+    if (self.accessToken && self.isExpired) {
+        [self notifyTokenExpired];
+    }
 }
 
 #pragma mark -
 
 - (NSString *)accessToken {
-    if (_accessToken) [self checkIfExpired];
+    if (_accessToken && self.isExpired) {
+        [self notifyTokenExpired];
+    }
     return _accessToken;
 }
 
 #pragma mark - Save / Load
-
-- (void)saveTokenToFile:(NSString *)filePath {
-    NSError *error = nil;
-    NSFileManager *manager = [NSFileManager defaultManager];
-    if ([manager fileExistsAtPath:filePath])
-        [manager removeItemAtPath:filePath error:&error];
-
-    [[self serialize] writeToFile:filePath atomically:YES];
-}
 
 - (void)saveTokenToDefaults:(NSString *)defaultsKey {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -163,7 +162,7 @@ static NSString *const PERMISSIONS = @"permissions";
 - (NSData *)serialize {
     NSMutableDictionary *dict = [@{
             ACCESS_TOKEN : self.accessToken ?: @"",
-            EXPIRES_IN : self.expiresIn ?: @"0",
+            EXPIRES_IN : @(self.expiresIn),
             USER_ID : self.userId ?: @"0",
             CREATED : @(self.created),
             PERMISSIONS : [self.permissions componentsJoinedByString:@","] ?: @""
@@ -183,6 +182,48 @@ static NSString *const PERMISSIONS = @"permissions";
         [result addObject:[NSString stringWithFormat:@"%@=%@", key, dict[key]]];
 
     return [[result componentsJoinedByString:@"&"] dataUsingEncoding:NSUTF8StringEncoding];
+}
+
+- (id)mutableCopy {
+    return [[VKAccessTokenMutable alloc] initWithVKAccessToken:self];
+}
+
+- (id)copy {
+    return [(VKAccessToken*)[[self class] alloc] initWithVKAccessToken:self];
+}
+
+@end
+
+
+@implementation VKAccessTokenMutable
+@dynamic accessToken, expiresIn, userId, secret, permissions, httpsRequired, localUser;
+
+-(void)setAccessToken:(NSString *)accessToken {
+    _accessToken = [accessToken copy];
+}
+
+-(void)setExpiresIn:(NSInteger)expiresIn {
+    _expiresIn = expiresIn;
+}
+
+-(void)setUserId:(NSString *)userId {
+    _userId = [userId copy];
+}
+
+-(void)setSecret:(NSString *)secret {
+    _secret = [secret copy];
+}
+
+-(void)setPermissions:(NSArray *)permissions {
+    _permissions = [permissions copy];
+}
+
+-(void)setHttpsRequired:(BOOL)httpsRequired {
+    _httpsRequired = httpsRequired;
+}
+
+-(void)setLocalUser:(VKUser *)localUser {
+    _localUser = localUser;
 }
 
 @end
