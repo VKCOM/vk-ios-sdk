@@ -31,7 +31,7 @@
 /**
 Presents VK API access token that used for loading API methods and other stuff.
 */
-@interface VKAccessToken : VKObject
+@interface VKAccessToken : VKObject<NSCoding>
 
 /// String token for use in request parameters
 @property(nonatomic, readonly, copy) NSString *accessToken;
@@ -81,7 +81,7 @@ Retrieve token from user defaults. Token must be saved to defaults with saveToke
 @param defaultsKey path to file with saved token
 @return parsed token
 */
-+ (instancetype)tokenFromDefaults:(NSString *)defaultsKey;
++ (instancetype)savedToken:(NSString *)defaultsKey;
 
 /**
 Save token into user defaults by specified key
@@ -91,6 +91,11 @@ Save token into user defaults by specified key
 
 /// Return YES if token has expired
 - (BOOL)isExpired;
+
+/**
+ Remove token from storage
+ */
++ (void)delete:(NSString *)service;
 
 @end
 

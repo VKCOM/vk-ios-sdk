@@ -61,6 +61,10 @@ static NSString *const PERMISSIONS = @"permissions";
     return [[self alloc] initWithToken:accessToken secret:secret userId:userId];
 }
 
++ (instancetype)tokenFromUrlString:(NSString *)urlString {
+    return [[self alloc] initWithUrlString:urlString];
+}
+
 - (instancetype)initWithToken:(NSString *)accessToken
                        secret:(NSString *)secret
                        userId:(NSString *)userId {
@@ -73,9 +77,53 @@ static NSString *const PERMISSIONS = @"permissions";
     return self;
 }
 
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super init]) {
+        _accessToken = [aDecoder decodeObjectForKey:ACCESS_TOKEN];
+        _userId = [aDecoder decodeObjectForKey:USER_ID];
+        _secret = [aDecoder decodeObjectForKey:SECRET];
+        _email = [aDecoder decodeObjectForKey:EMAIL];
+        _permissions = [self restorePermissions:[aDecoder decodeObjectForKey:PERMISSIONS]];
+        
+        _httpsRequired = [aDecoder decodeBoolForKey:HTTPS_REQUIRED];
+        _expiresIn = [aDecoder decodeIntegerForKey:EXPIRES_IN];
+        _created = [aDecoder decodeFloatForKey:CREATED];
+    }
+    return self;
+}
 
-+ (instancetype)tokenFromUrlString:(NSString *)urlString {
-    return [[self alloc] initWithUrlString:urlString];
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    if (self.accessToken) {
+        [aCoder encodeObject:self.accessToken forKey:ACCESS_TOKEN];
+    }
+    if (self.userId) {
+        [aCoder encodeObject:self.userId forKey:USER_ID];
+    }
+    if (self.secret) {
+        [aCoder encodeObject:self.secret forKey:SECRET];
+    }
+    if (self.email) {
+        [aCoder encodeObject:self.email forKey:EMAIL];
+    }
+    
+    NSString *permissions = [self.permissions componentsJoinedByString:@","];
+    if (permissions.length > 0) {
+        [aCoder encodeObject:permissions forKey:PERMISSIONS];
+    }
+    
+    [aCoder encodeBool:self.httpsRequired forKey:HTTPS_REQUIRED];
+    [aCoder encodeInteger:self.expiresIn forKey:EXPIRES_IN];
+    [aCoder encodeFloat:self.created forKey:CREATED];
+}
+
+- (NSArray*)restorePermissions:(NSString*)permissionsString {
+    permissionsString = [permissionsString stringByReplacingOccurrencesOfString:@"(" withString:@""];
+    permissionsString = [permissionsString stringByReplacingOccurrencesOfString:@")" withString:@""];
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSString *comp in [permissionsString componentsSeparatedByString:@","]) {
+        [array addObject:[comp stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    }
+    return array;
 }
 
 - (instancetype)initWithUrlString:(NSString *)urlString {
@@ -91,17 +139,11 @@ static NSString *const PERMISSIONS = @"permissions";
         _email = [parameters[EMAIL] copy];
         _httpsRequired = NO;
 
-        NSString *permissionsString = parameters[PERMISSIONS];
-        permissionsString = [permissionsString stringByReplacingOccurrencesOfString:@"(" withString:@""];
-        permissionsString = [permissionsString stringByReplacingOccurrencesOfString:@")" withString:@""];
-        NSMutableArray *array = [NSMutableArray array];
-        for (NSString *comp in [permissionsString componentsSeparatedByString:@","]) {
-            [array addObject:[comp stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-        }
-        _permissions = [array copy];
+        _permissions = [self restorePermissions:parameters[PERMISSIONS]];
 
-        if (parameters[HTTPS_REQUIRED])
+        if (parameters[HTTPS_REQUIRED]) {
             _httpsRequired = [parameters[HTTPS_REQUIRED] intValue] == 1;
+        }
 
         _created = parameters[CREATED] ? [parameters[CREATED] floatValue] : [[NSDate new] timeIntervalSince1970];
         [self checkIfExpired];
@@ -124,10 +166,16 @@ static NSString *const PERMISSIONS = @"permissions";
     return self;
 }
 
-+ (instancetype)tokenFromDefaults:(NSString *)defaultsKey {
++ (instancetype)savedToken:(NSString *)defaultsKey {
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:defaultsKey];
-    
-    return data ? [self tokenFromUrlString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]] : nil;
+    if (data) {
+        VKAccessToken *token = [self tokenFromUrlString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:defaultsKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self save:defaultsKey data:token];
+        return token;
+    }
+    return [self load:defaultsKey];
 }
 
 #pragma mark - Expire
@@ -142,6 +190,10 @@ static NSString *const PERMISSIONS = @"permissions";
     }
 }
 
++ (NSString*)encodingKey:(NSString*)key {
+    return [key stringByAppendingString:@"_enc"];
+}
+
 #pragma mark -
 
 - (NSString *)accessToken {
@@ -154,9 +206,7 @@ static NSString *const PERMISSIONS = @"permissions";
 #pragma mark - Save / Load
 
 - (void)saveTokenToDefaults:(NSString *)defaultsKey {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[self serialize] forKey:defaultsKey];
-    [defaults synchronize];
+    [[self class] save:defaultsKey data:self];
 }
 
 - (NSData *)serialize {
@@ -190,6 +240,53 @@ static NSString *const PERMISSIONS = @"permissions";
 
 - (id)copy {
     return [(VKAccessToken*)[[self class] alloc] initWithVKAccessToken:self];
+}
+
+/**
+ Simple keychain requests
+ Source: http://stackoverflow.com/a/5251820/1271424
+ */
+
++ (NSMutableDictionary *)getKeychainQuery:(NSString *)service {
+    return [NSMutableDictionary dictionaryWithObjectsAndKeys:
+            (__bridge id)kSecClassGenericPassword, (__bridge id)kSecClass,
+            service, (__bridge id)kSecAttrService,
+            service, (__bridge id)kSecAttrAccount,
+            (__bridge id)kSecAttrAccessibleAfterFirstUnlock, (__bridge id)kSecAttrAccessible,
+            nil];
+}
+
++ (void)save:(NSString *)service data:(VKAccessToken*)token {
+    NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
+    SecItemDelete((__bridge CFDictionaryRef)keychainQuery);
+    [keychainQuery setObject:[NSKeyedArchiver archivedDataWithRootObject:token] forKey:(__bridge id)kSecValueData];
+    SecItemAdd((__bridge CFDictionaryRef)keychainQuery, NULL);
+}
+
++ (VKAccessToken*)load:(NSString *)service {
+    id ret = nil;
+    NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
+    [keychainQuery setObject:(id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];
+    [keychainQuery setObject:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
+    CFDataRef keyData = NULL;
+    if (SecItemCopyMatching((__bridge CFDictionaryRef)keychainQuery, (CFTypeRef *)&keyData) == noErr) {
+        @try {
+            ret = [NSKeyedUnarchiver unarchiveObjectWithData:(__bridge NSData *)keyData];
+        }
+        @catch (NSException *e) {
+            NSLog(@"Unarchive of %@ failed: %@", service, e);
+        }
+        @finally {}
+    }
+    if (keyData) {
+        CFRelease(keyData);
+    }
+    return ret;
+}
+
++ (void)delete:(NSString *)service {
+    NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
+    SecItemDelete((__bridge CFDictionaryRef)keychainQuery);
 }
 
 @end

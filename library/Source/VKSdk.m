@@ -343,8 +343,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
             [[NSHTTPCookieStorage sharedHTTPCookieStorage]
                     deleteCookie:cookie];
         }
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:VK_ACCESS_TOKEN_DEFAULTS_KEY];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [VKAccessToken delete:VK_ACCESS_TOKEN_DEFAULTS_KEY];
 
     if (vkSdkInstance) {
         vkSdkInstance.accessToken = nil;
@@ -359,7 +358,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 }
 
 + (BOOL)wakeUpSession {
-    VKAccessToken *token = [VKAccessToken tokenFromDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
+    VKAccessToken *token = [VKAccessToken savedToken:VK_ACCESS_TOKEN_DEFAULTS_KEY];
     if (!token || token.isExpired)
         return NO;
     BOOL firstCall = vkSdkInstance.accessToken == nil;
