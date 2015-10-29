@@ -171,17 +171,17 @@
 		F34671011B8B7D07003EF74B /* VKError.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA6A6A44F31EF577C52D25 /* VKError.m */; };
 		F34671021B8B7D07003EF74B /* VKHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA6B563F483A0A35070645 /* VKHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F34671031B8B7D07003EF74B /* VKHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA684708A969AF04E34B85 /* VKHTTPClient.m */; };
-		F34671041B8B7D07003EF74B /* VKHTTPOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA6E01EE850C5782604D41 /* VKHTTPOperation.h */; };
+		F34671041B8B7D07003EF74B /* VKHTTPOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA6E01EE850C5782604D41 /* VKHTTPOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F34671051B8B7D07003EF74B /* VKHTTPOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA6FEB2DD3739A1AFB8403 /* VKHTTPOperation.m */; };
-		F34671061B8B7D07003EF74B /* VKJSONOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = F3DA65AF1B3DA34600E64A30 /* VKJSONOperation.h */; };
+		F34671061B8B7D07003EF74B /* VKJSONOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = F3DA65AF1B3DA34600E64A30 /* VKJSONOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F34671071B8B7D07003EF74B /* VKJSONOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DA65B01B3DA34600E64A30 /* VKJSONOperation.m */; };
 		F34671081B8B7D07003EF74B /* VKObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA6B275906BC58E311AF45 /* VKObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F34671091B8B7D07003EF74B /* VKObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA6062CBB5C51999B6F516 /* VKObject.m */; };
-		F346710A1B8B7D07003EF74B /* VKOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA61B2E964393FB2431C30 /* VKOperation.h */; };
+		F346710A1B8B7D07003EF74B /* VKOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA61B2E964393FB2431C30 /* VKOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F346710B1B8B7D07003EF74B /* VKOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA6FE235BA094D8E3A0189 /* VKOperation.m */; };
 		F346710C1B8B7D07003EF74B /* VKRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA69C5C9C5019C00FA4FE9 /* VKRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F346710D1B8B7D07003EF74B /* VKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA6422AA73710CE582104B /* VKRequest.m */; };
-		F346710E1B8B7D07003EF74B /* VKRequestsScheduler.h in Headers */ = {isa = PBXBuildFile; fileRef = F3454FCE1ABB1D1A00B15E85 /* VKRequestsScheduler.h */; };
+		F346710E1B8B7D07003EF74B /* VKRequestsScheduler.h in Headers */ = {isa = PBXBuildFile; fileRef = F3454FCE1ABB1D1A00B15E85 /* VKRequestsScheduler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F346710F1B8B7D07003EF74B /* VKRequestsScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = F3454FCF1ABB1D1A00B15E85 /* VKRequestsScheduler.m */; };
 		F34671101B8B7D07003EF74B /* VKResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA6B2CF4703D6489516BCE /* VKResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F34671111B8B7D07003EF74B /* VKResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA624D02724AC703780337 /* VKResponse.m */; };
@@ -223,11 +223,11 @@
 		F34671351B8B7D07003EF74B /* VKCaptchaView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA61750D18E769710C23D2 /* VKCaptchaView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F34671361B8B7D07003EF74B /* VKCaptchaViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA60549B5805BC010388F6 /* VKCaptchaViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F34671371B8B7D07003EF74B /* VKShareDialogController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA636E76F65CA58F05D4C9 /* VKShareDialogController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F34671381B8B7D07003EF74B /* VKSharedTransitioningObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA6A7961FA6DBB3C1530F9 /* VKSharedTransitioningObject.h */; };
+		F34671381B8B7D07003EF74B /* VKSharedTransitioningObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA6A7961FA6DBB3C1530F9 /* VKSharedTransitioningObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F34671391B8B7D07003EF74B /* VKUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA671427725230741603BC /* VKUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F346713A1B8B7D07003EF74B /* NSData+MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA60466E2608234660028D /* NSData+MD5.h */; };
+		F346713A1B8B7D07003EF74B /* NSData+MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA60466E2608234660028D /* NSData+MD5.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F346713B1B8B7D07003EF74B /* OrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA6CCE31EAF497A4030D24 /* OrderedDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F346713C1B8B7D07003EF74B /* NSString+MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA6E07E9640D2B9D9B4831 /* NSString+MD5.h */; };
+		F346713C1B8B7D07003EF74B /* NSString+MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA6E07E9640D2B9D9B4831 /* NSString+MD5.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F346713D1B8B7D07003EF74B /* VKUploadImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA68CDC5C08713A61C5AD1 /* VKUploadImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F346713E1B8B7D07003EF74B /* VKImageParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA62D0E659DB7778EF2633 /* VKImageParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F36114A9197685810085898F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F36114A4197684870085898F /* Localizable.strings */; };
@@ -239,7 +239,7 @@
 		F36114CA1977DC2D0085898F /* ic_deletephoto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114C61977DC2D0085898F /* ic_deletephoto@2x.png */; };
 		F36114D11978060F0085898F /* img_newpostattachlink.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114CF1978060F0085898F /* img_newpostattachlink.png */; };
 		F36114D21978060F0085898F /* img_newpostattachlink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114D01978060F0085898F /* img_newpostattachlink@2x.png */; };
-		F3769D411BDFDC6F00AEC4AF /* VKAuthorizationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = F3769D3F1BDFDC6F00AEC4AF /* VKAuthorizationResult.h */; };
+		F3769D411BDFDC6F00AEC4AF /* VKAuthorizationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = F3769D3F1BDFDC6F00AEC4AF /* VKAuthorizationResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3769D421BDFDC6F00AEC4AF /* VKAuthorizationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = F3769D401BDFDC6F00AEC4AF /* VKAuthorizationResult.m */; };
 		F3769D431BDFDC6F00AEC4AF /* VKAuthorizationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = F3769D401BDFDC6F00AEC4AF /* VKAuthorizationResult.m */; };
 		F3769D441BDFDD3C00AEC4AF /* VKAuthorizationResult.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3769D3F1BDFDC6F00AEC4AF /* VKAuthorizationResult.h */; };
@@ -709,14 +709,14 @@
 		1ACA6F81E7D41D5219AB4B25 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				1ACA6F8866BE96889BB9DA68 /* VKUtil.m */,
-				1ACA671427725230741603BC /* VKUtil.h */,
-				1ACA6108D9F4E0C7644BAC52 /* NSString+MD5.m */,
-				1ACA628625B4301841232A88 /* NSData+MD5.m */,
-				1ACA69BCB967C1A6450F9935 /* OrderedDictionary.m */,
 				1ACA60466E2608234660028D /* NSData+MD5.h */,
-				1ACA6CCE31EAF497A4030D24 /* OrderedDictionary.h */,
+				1ACA628625B4301841232A88 /* NSData+MD5.m */,
 				1ACA6E07E9640D2B9D9B4831 /* NSString+MD5.h */,
+				1ACA6108D9F4E0C7644BAC52 /* NSString+MD5.m */,
+				1ACA6CCE31EAF497A4030D24 /* OrderedDictionary.h */,
+				1ACA69BCB967C1A6450F9935 /* OrderedDictionary.m */,
+				1ACA671427725230741603BC /* VKUtil.h */,
+				1ACA6F8866BE96889BB9DA68 /* VKUtil.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
