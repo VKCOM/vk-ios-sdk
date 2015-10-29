@@ -20,6 +20,8 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import <SafariServices/SafariServices.h>
+
 #import "VKShareDialogController.h"
 #import "VKBundle.h"
 #import "VKUtil.h"
@@ -31,110 +33,13 @@
 
 
 ///----------------------------
-/// @name Processing preview images
-///----------------------------
-
-typedef enum CornerFlag {
-    CornerFlagTopLeft = 0x01,
-    CornerFlagTopRight = 0x02,
-    CornerFlagBottomLeft = 0x04,
-    CornerFlagBottomRight = 0x08,
-    CornerFlagAll = CornerFlagTopLeft | CornerFlagTopRight | CornerFlagBottomLeft | CornerFlagBottomRight
-} CornerFlag;
-
-@interface UIImage (RoundedImage)
-- (UIImage *)vkRoundCornersImage:(CGFloat)cornerRadius resultSize:(CGSize)imageSize;
-@end
-
-@implementation UIImage (RoundedImage)
-- (void)addRoundedRectToPath:(CGContextRef)context rect:(CGRect)rect width:(float)ovalWidth height:(float)ovalHeight toCorners:(CornerFlag)corners {
-    if (ovalWidth == 0 || ovalHeight == 0) {
-        CGContextAddRect(context, rect);
-        return;
-    }
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, CGRectGetMinX(rect), CGRectGetMinY(rect));
-    CGContextScaleCTM(context, ovalWidth, ovalHeight);
-    float fw = CGRectGetWidth(rect) / ovalWidth;
-    float fh = CGRectGetHeight(rect) / ovalHeight;
-    CGContextMoveToPoint(context, fw, fh / 2);
-    if (corners & CornerFlagTopRight) {
-        CGContextAddArcToPoint(context, fw, fh, fw / 2, fh, 1);
-    } else {
-        CGContextAddLineToPoint(context, fw, fh);
-    }
-    if (corners & CornerFlagTopLeft) {
-        CGContextAddArcToPoint(context, 0, fh, 0, fh / 2, 1);
-    } else {
-        CGContextAddLineToPoint(context, 0, fh);
-    }
-    if (corners & CornerFlagBottomLeft) {
-        CGContextAddArcToPoint(context, 0, 0, fw / 2, 0, 1);
-    } else {
-        CGContextAddLineToPoint(context, 0, 0);
-    }
-    if (corners & CornerFlagBottomRight) {
-        CGContextAddArcToPoint(context, fw, 0, fw, fh / 2, 1);
-    } else {
-        CGContextAddLineToPoint(context, fw, 0);
-    }
-    CGContextClosePath(context);
-    CGContextRestoreGState(context);
-}
-
-- (UIImage *)vkRoundCornersImage:(CGFloat)cornerRadius resultSize:(CGSize)imageSize {
-    CGImageRef imageRef = self.CGImage;
-    float imageWidth = CGImageGetWidth(imageRef);
-    float imageHeight = CGImageGetHeight(imageRef);
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGRect drawRect = (CGRect) {CGPointZero, imageWidth, imageHeight};
-    float w = imageSize.width * [UIScreen mainScreen].scale;
-    float h = imageSize.height * [UIScreen mainScreen].scale;
-    cornerRadius *= [UIScreen mainScreen].scale;
-
-    CGContextRef context = CGBitmapContextCreate(NULL, w, h, 8, w * 4, colorSpace, kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
-    if (!context) {
-        CGColorSpaceRelease(colorSpace);
-        return nil;
-    }
-    CGContextClearRect(context, CGRectMake(0, 0, w, h));
-    CGColorSpaceRelease(colorSpace);
-    if (!context)
-        return nil;
-    CGRect clipRect = CGRectMake(0, 0, w, h);
-    float widthScale = w / imageWidth;
-    float heightScale = h / imageHeight;
-    float scale = MAX(widthScale, heightScale);
-    drawRect.size.width = imageWidth * scale;
-    drawRect.size.height = imageHeight * scale;
-    drawRect.origin.x = (w - drawRect.size.width) / 2.0f;
-    drawRect.origin.y = (h - drawRect.size.height) / 2.0f;
-    [self addRoundedRectToPath:context rect:clipRect width:cornerRadius height:cornerRadius toCorners:CornerFlagAll];
-    CGContextClip(context);
-
-    CGContextSaveGState(context);
-    CGContextDrawImage(context, drawRect, imageRef);
-    CGContextRestoreGState(context);
-    CGImageRef decompressedImageRef = CGBitmapContextCreateImage(context);
-    CGContextRelease(context);
-    UIImage *decompressedImage = [[UIImage alloc] initWithCGImage:decompressedImageRef];
-    CGImageRelease(decompressedImageRef);
-    return decompressedImage;
-}
-
-@end
-
-///----------------------------
 /// @name Attachment cells
 ///----------------------------
 
 @interface VKPhotoAttachmentCell : UICollectionViewCell
-@property(nonatomic, assign) CGFloat progress;
 @property(nonatomic, strong) UIProgressView *progressView;
 @property(nonatomic, strong) UIActivityIndicatorView *activity;
-@property(nonatomic, strong) UIButton *deleteButton;
 @property(nonatomic, strong) UIImageView *attachImageView;
-@property(nonatomic, copy) void(^onDeleteBlock)(void);
 @end
 
 @implementation VKPhotoAttachmentCell
@@ -158,19 +63,10 @@ typedef enum CornerFlag {
     self.activity.hidesWhenStopped = YES;
     [self addSubview:self.activity];
 
-//    self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 24, 0, 24, 24)];
-//    self.deleteButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-//    self.deleteButton.showsTouchWhenHighlighted = YES;
-//    self.deleteButton.exclusiveTouch = YES;
-//    [self.deleteButton setBackgroundImage:VKImageNamed(@"ic_deletephoto") forState:UIControlStateNormal];
-//    [self.deleteButton addTarget:self action:@selector(cancelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.contentView addSubview:self.deleteButton];
-
     return self;
 }
 
 - (void)setProgress:(CGFloat)progress {
-    _progress = progress;
     if (progress > 0) {
         self.activity.hidden = YES;
         self.progressView.hidden = NO;
@@ -186,26 +82,13 @@ typedef enum CornerFlag {
     [self.activity stopAnimating];
 }
 
-- (void)cancelButtonClick:(UIButton *)sender {
-    if (_onDeleteBlock) {
-        _onDeleteBlock();
-    }
-}
-
-- (void)willMoveToSuperview:(UIView *)newSuperview {
-    if (!newSuperview) {
-        self.onDeleteBlock = nil;
-    }
-}
 @end
 
 @interface VKUploadingAttachment : VKObject
-@property(nonatomic, assign) BOOL isUploaded;
 @property(nonatomic, assign) BOOL isDownloading;
 @property(nonatomic, assign) CGSize attachSize;
 @property(nonatomic, strong) NSString *attachmentString;
 @property(nonatomic, strong) UIImage *preview;
-@property(nonatomic, strong) VKUploadImage *targetUpload;
 @property(nonatomic, weak) VKRequest *uploadingRequest;
 @end
 
@@ -228,18 +111,37 @@ typedef enum CornerFlag {
 
 @interface VKShareSettingsController : UITableViewController
 @property(nonatomic, strong) VKPostSettings *currentSettings;
+@property(nonatomic, strong) NSArray *rows;
 
 - (instancetype)initWithPostSettings:(VKPostSettings *)settings;
 @end
 
-@interface VKShareDialogControllerInternal : UIViewController <UITextViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, VKSdkDelegate>
+@interface VKShareDialogControllerInternal : UIViewController <UITextViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, VKSdkDelegate, VKSdkUIDelegate>
 @property(nonatomic, weak) VKShareDialogController *parent;
+@property(nonatomic, readonly) UICollectionView *attachmentsScrollView;
+@property(nonatomic, strong) UIBarButtonItem *sendButton;
+@property(nonatomic, strong) NSMutableArray *attachmentsArray;
+@property(nonatomic, strong) VKPostSettings *postSettings;
+@property(nonatomic, assign) BOOL prepared;
+
+@property(nonatomic, weak) id<VKSdkUIDelegate> oldDelegate;
 @end
 
 @interface VKHelperNavigationController : UINavigationController
 @end
 
-@interface VKShareDialogView : UIView
+@class VKPlaceholderTextView;
+@class VKLinkAttachView;
+
+@interface VKShareDialogView : UIView <UITextViewDelegate>
+@property(nonatomic, strong) UIView *notAuthorizedView;
+@property(nonatomic, strong) UILabel *notAuthorizedLabel;
+@property(nonatomic, strong) UIButton *notAuthorizedButton;
+@property(nonatomic, strong) UIScrollView *contentScrollView;
+@property(nonatomic, strong) UIButton *privacyButton;
+@property(nonatomic, strong) UICollectionView *attachmentsCollection;
+@property(nonatomic, strong) VKPlaceholderTextView *textView;
+@property(nonatomic, strong) VKLinkAttachView *linkAttachView;
 @end
 
 ///-------------------------------
@@ -253,6 +155,7 @@ static const CGFloat ipadHeight = 500.f;
 @property (nonatomic, strong, readonly) UINavigationController *internalNavigation;
 @property (nonatomic, strong, readonly) VKSharedTransitioningObject *transitionDelegate;
 @property (nonatomic, strong, readonly) VKShareDialogControllerInternal *targetShareDialog;
+@property (nonatomic, copy, readwrite) NSString *postId;
 @end
 
 @implementation VKShareDialogController {
@@ -260,6 +163,8 @@ static const CGFloat ipadHeight = 500.f;
     UIBarStyle defaultBarStyle;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 +(void)initialize {
     if ([self class] == [VKShareDialogController class]) {
         UINavigationBar<UIAppearanceContainer> *appearance = [UINavigationBar appearanceWhenContainedIn:[VKHelperNavigationController class], nil];
@@ -275,23 +180,26 @@ static const CGFloat ipadHeight = 500.f;
         [[UIActivityIndicatorView appearanceWhenContainedIn:[VKHelperNavigationController class], nil] setColor:nil];
     }
 }
+#pragma clang diagnostic pop
 
 - (instancetype)init {
     if (self = [super init]) {
         _internalNavigation = [[VKHelperNavigationController alloc] initWithRootViewController:_targetShareDialog = [VKShareDialogControllerInternal new]];
 
         _targetShareDialog.parent = self;
-        _authorizeInApp = YES;
 
-        [self addChildViewController:_internalNavigation];
+        [self addChildViewController:self.internalNavigation];
 
-        self.requestedScope = @[VK_PER_WALL, VK_PER_PHOTOS];
+        _requestedScope = @[VK_PER_WALL, VK_PER_PHOTOS];
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "UnavailableInDeploymentTarget"
         if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
             _transitionDelegate = [VKSharedTransitioningObject new];
             self.modalPresentationStyle = UIModalPresentationCustom;
             self.transitioningDelegate = _transitionDelegate;
             self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         }
+#pragma clang diagnostic pop
         if (VK_IS_DEVICE_IPAD) {
             self.modalPresentationStyle = UIModalPresentationFormSheet;
         }
@@ -308,12 +216,12 @@ static const CGFloat ipadHeight = 500.f;
     if (VK_IS_DEVICE_IPAD) {
         self.view.backgroundColor = [UIColor clearColor];
     } else {
-        _internalNavigation.view.layer.cornerRadius = 10;
-        _internalNavigation.view.layer.masksToBounds = YES;
+        self.internalNavigation.view.layer.cornerRadius = 10;
+        self.internalNavigation.view.layer.masksToBounds = YES;
     }
-    [_internalNavigation beginAppearanceTransition:YES animated:NO];
-    [self.view addSubview:_internalNavigation.view];
-    [_internalNavigation endAppearanceTransition];
+    [self.internalNavigation beginAppearanceTransition:YES animated:NO];
+    [self.view addSubview:self.internalNavigation.view];
+    [self.internalNavigation endAppearanceTransition];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -324,29 +232,30 @@ static const CGFloat ipadHeight = 500.f;
     }
 }
 
-
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "UnavailableInDeploymentTarget"
 - (CGSize)preferredContentSize {
     if (UIUserInterfaceIdiomPad == [[UIDevice currentDevice] userInterfaceIdiom]) {
         return CGSizeMake(ipadWidth, ipadHeight);
     }
     return [super preferredContentSize];
 }
+#pragma clang diagnostic pop
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-#else
-    UIInterfaceOrientation orientation = self.interfaceOrientation;
-#endif
     [self rotateToInterfaceOrientation:orientation appear:YES];
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 
     [self rotateToInterfaceOrientation:toInterfaceOrientation appear:NO];
 }
+#pragma clang diagnostic pop
 
 - (void)rotateToInterfaceOrientation:(UIInterfaceOrientation)orientation appear:(BOOL)onAppear {
     if (VK_IS_DEVICE_IPAD) {
@@ -355,7 +264,7 @@ static const CGFloat ipadHeight = 500.f;
             viewSize.width = ipadWidth;
             viewSize.height = ipadHeight;
         }
-        _internalNavigation.view.frame = CGRectMake(0, 0, viewSize.width, viewSize.height);
+        self.internalNavigation.view.frame = CGRectMake(0, 0, viewSize.width, viewSize.height);
         return;
     }
 
@@ -395,11 +304,11 @@ static const CGFloat ipadHeight = 500.f;
         }
     }
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") || onAppear || UIInterfaceOrientationIsPortrait(orientation)) {
-        _internalNavigation.view.frame = CGRectMake(roundf((CGRectGetWidth(self.view.frame) - viewSize.width) / 2),
+        self.internalNavigation.view.frame = CGRectMake(roundf((CGRectGetWidth(self.view.frame) - viewSize.width) / 2),
                 roundf((CGRectGetHeight(self.view.frame) - viewSize.height) / 2),
                 viewSize.width, viewSize.height);
     } else if (UIInterfaceOrientationIsLandscape(orientation)) {
-        _internalNavigation.view.frame = CGRectMake(roundf((CGRectGetHeight(self.view.frame) - viewSize.width) / 2),
+        self.internalNavigation.view.frame = CGRectMake(roundf((CGRectGetHeight(self.view.frame) - viewSize.width) / 2),
                 roundf((CGRectGetWidth(self.view.frame) - viewSize.height) / 2),
                 viewSize.width, viewSize.height);
     }
@@ -408,8 +317,8 @@ static const CGFloat ipadHeight = 500.f;
             CGRect frame;
             frame.origin = CGPointZero;
             frame.size = selfSize;
-            _internalNavigation.view.frame = frame;
-            _internalNavigation.view.layer.cornerRadius = 3;
+            self.internalNavigation.view.frame = frame;
+            self.internalNavigation.view.layer.cornerRadius = 3;
         }
     }
 }
@@ -430,20 +339,18 @@ static const CGFloat ipadHeight = 500.f;
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void)presentIn:(UIViewController *)viewController __deprecated {
-    [viewController presentViewController:self animated:YES completion:nil];
-    self.dismissAutomatically = YES;
-}
-
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "UnavailableInDeploymentTarget"
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        _internalNavigation.navigationBar.barTintColor = VK_COLOR;
-        _internalNavigation.navigationBar.tintColor = [UIColor whiteColor];
-        _internalNavigation.automaticallyAdjustsScrollViewInsets = NO;
+        self.internalNavigation.navigationBar.barTintColor = VK_COLOR;
+        self.internalNavigation.navigationBar.tintColor = [UIColor whiteColor];
+        self.internalNavigation.automaticallyAdjustsScrollViewInsets = NO;
     }
 
 }
+#pragma clang diagnostic pop
 
 - (void)setUploadImages:(NSArray *)uploadImages {
     _uploadImages = [uploadImages filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
@@ -512,47 +419,42 @@ static const CGFloat ipadHeight = 500.f;
     if (!self.placeholder.length) {
         return;
     }
-    if (!self.text.length) {
-        [_placeholderLabel setHidden:NO];
-    } else {
-        [_placeholderLabel setHidden:YES];
-    }
+    [self.self.placeholderLabel setHidden:self.text.length != 0];
 }
 
 - (void)setText:(NSString *)text {
     [super setText:text];
-    if (!self.text.length) {
-        [_placeholderLabel setHidden:NO];
-    } else {
-        [_placeholderLabel setHidden:YES];
-    }
+    [self.placeholderLabel setHidden:self.text.length != 0];
 }
 
 - (void)setPlaceholder:(NSString *)placeholder {
     _placeholder = placeholder;
     if (placeholder.length) {
-        if (_placeholderLabel == nil) {
+        if (self.placeholderLabel == nil) {
             UIEdgeInsets inset = self.contentInset;
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "UnavailableInDeploymentTarget"
             if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
                 inset = self.textContainerInset;
             }
-            _placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(inset.left + 4, inset.top, self.bounds.size.width - inset.left - inset.right, 0)];
-            _placeholderLabel.font = self.font;
-            _placeholderLabel.hidden = YES;
-            _placeholderLabel.textColor = self.placeholderColor;
-            _placeholderLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            _placeholderLabel.numberOfLines = 0;
-            _placeholderLabel.backgroundColor = [UIColor clearColor];
-            [self addSubview:_placeholderLabel];
+#pragma clang diagnostic pop
+            self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(inset.left + 4, inset.top, self.bounds.size.width - inset.left - inset.right, 0)];
+            self.placeholderLabel.font = self.font;
+            self.placeholderLabel.hidden = YES;
+            self.placeholderLabel.textColor = self.placeholderColor;
+            self.placeholderLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            self.placeholderLabel.numberOfLines = 0;
+            self.placeholderLabel.backgroundColor = [UIColor clearColor];
+            [self addSubview:self.placeholderLabel];
         }
 
-        _placeholderLabel.text = placeholder;
-        [_placeholderLabel sizeToFit];
-        [self sendSubviewToBack:_placeholderLabel];
+        self.placeholderLabel.text = placeholder;
+        [self.placeholderLabel sizeToFit];
+        [self sendSubviewToBack:self.placeholderLabel];
     }
 
     if (self.text.length == 0 && placeholder.length) {
-        [_placeholderLabel setHidden:NO];
+        [self.placeholderLabel setHidden:NO];
     }
 }
 
@@ -563,6 +465,8 @@ static const CGFloat ipadHeight = 500.f;
 */
 - (CGFloat)measureHeightOfUITextView {
     UITextView *textView = self;
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "UnavailableInDeploymentTarget"
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         CGRect frame = textView.bounds;
 
@@ -598,6 +502,7 @@ static const CGFloat ipadHeight = 500.f;
         CGFloat measuredHeight = ceilf(CGRectGetHeight(size) + topBottomPadding);
         return measuredHeight;
     }
+#pragma clang diagnostic pop
     else {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
         if (self.text.length && textView.contentSize.height > 0) {
@@ -668,7 +573,6 @@ static const CGFloat ipadHeight = 500.f;
 @interface VKLinkAttachView : UIView
 @property(nonatomic, strong) UILabel *linkTitle;
 @property(nonatomic, strong) UILabel *linkHost;
-@property(nonatomic, strong) VKShareLink *targetLink;
 @end
 
 @implementation VKLinkAttachView
@@ -696,17 +600,16 @@ static const CGFloat ipadHeight = 500.f;
 }
 
 - (void)sizeToFit {
-    [_linkTitle sizeToFit];
-    _linkTitle.frame = CGRectMake(0, 0, self.frame.size.width, _linkHost.frame.size.height);
-    [_linkHost sizeToFit];
-    _linkHost.frame = CGRectMake(0, CGRectGetMaxY(_linkTitle.frame) + 2, self.frame.size.width, _linkHost.frame.size.height);
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, CGRectGetMaxY(_linkHost.frame));
+    [self.linkTitle sizeToFit];
+    self.linkTitle.frame = CGRectMake(0, 0, self.frame.size.width, self.linkHost.frame.size.height);
+    [self.linkHost sizeToFit];
+    self.linkHost.frame = CGRectMake(0, CGRectGetMaxY(self.linkTitle.frame) + 2, self.frame.size.width, self.linkHost.frame.size.height);
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, CGRectGetMaxY(self.linkHost.frame));
 }
 
 - (void)setTargetLink:(VKShareLink *)targetLink {
-    _targetLink = targetLink;
-    _linkTitle.text = [targetLink.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    _linkHost.text = [targetLink.link.host stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    self.linkTitle.text = [targetLink.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    self.linkHost.text = [targetLink.link.host stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [self sizeToFit];
 }
 @end
@@ -715,17 +618,6 @@ static const CGFloat ipadHeight = 500.f;
 /// @name View for internal share dialog controller
 ///-------------------------------
 static const CGFloat kAttachmentsViewSize = 100.0f;
-
-@interface VKShareDialogView () <UITextViewDelegate>
-@property(nonatomic, strong) UIView *notAuthorizedView;
-@property(nonatomic, strong) UILabel *notAuthorizedLabel;
-@property(nonatomic, strong) UIButton *notAuthorizedButton;
-@property(nonatomic, strong) UIScrollView *contentScrollView;
-@property(nonatomic, strong) UIButton *privacyButton;
-@property(nonatomic, strong) UICollectionView *attachmentsCollection;
-@property(nonatomic, strong) VKPlaceholderTextView *textView;
-@property(nonatomic, strong) VKLinkAttachView *linkAttachView;
-@end
 
 @implementation VKShareDialogView {
     CGFloat lastTextViewHeight;
@@ -758,11 +650,11 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         [_notAuthorizedView addSubview:_notAuthorizedButton];
 
         UIImage *buttonBg = VKImageNamed(@"BlueBtn");
-        buttonBg = [buttonBg stretchableImageWithLeftCapWidth:floor(buttonBg.size.width / 2) topCapHeight:floorf(buttonBg.size.height / 2)];
+        buttonBg = [buttonBg stretchableImageWithLeftCapWidth:(NSInteger) floorf(buttonBg.size.width / 2) topCapHeight:(NSInteger) floorf(buttonBg.size.height / 2)];
         [_notAuthorizedButton setBackgroundImage:buttonBg forState:UIControlStateNormal];
 
         buttonBg = VKImageNamed(@"BlueBtn_pressed");
-        buttonBg = [buttonBg stretchableImageWithLeftCapWidth:floor(buttonBg.size.width / 2) topCapHeight:floorf(buttonBg.size.height / 2)];
+        buttonBg = [buttonBg stretchableImageWithLeftCapWidth:(NSInteger) floorf(buttonBg.size.width / 2) topCapHeight:(NSInteger) floorf(buttonBg.size.height / 2)];
         [_notAuthorizedButton setBackgroundImage:buttonBg forState:UIControlStateHighlighted];
 
     }
@@ -786,14 +678,16 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 
     _textView.backgroundColor = [UIColor clearColor];
     _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "UnavailableInDeploymentTarget"
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         _textView.textContainerInset = UIEdgeInsetsMake(12, 10, 12, 10);
         _textView.textContainer.lineBreakMode = NSLineBreakByWordWrapping;
-
     } else {
         _textView.frame = CGRectMake(0, 0, frame.size.width - 20, 36);
         _textView.contentInset = UIEdgeInsetsMake(12, 10, 12, 0);
     }
+#pragma clang diagnostic pop
     _textView.font = [UIFont systemFontOfSize:16.0f];
     _textView.delegate = self;
     _textView.textAlignment = NSTextAlignmentLeft;
@@ -817,22 +711,26 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    if (_notAuthorizedView.superview) {
-        _notAuthorizedView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
-        CGSize notAuthorizedTextBoundingSize = CGSizeMake(CGRectGetWidth(_notAuthorizedView.frame) - 20, CGFLOAT_MAX);
+    if (self.notAuthorizedView.superview) {
+        self.notAuthorizedView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+        CGSize notAuthorizedTextBoundingSize = CGSizeMake(CGRectGetWidth(self.notAuthorizedView.frame) - 20, CGFLOAT_MAX);
         CGSize notAuthorizedTextSize;
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "UnavailableInDeploymentTarget"
         if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
             paragraphStyle.alignment = NSTextAlignmentLeft;
 
-            NSDictionary *attributes = @{NSFontAttributeName : _notAuthorizedLabel.font,
+            NSDictionary *attributes = @{NSFontAttributeName : self.notAuthorizedLabel.font,
                     NSParagraphStyleAttributeName : paragraphStyle};
 
-            notAuthorizedTextSize = [_notAuthorizedLabel.text boundingRectWithSize:notAuthorizedTextBoundingSize
+
+            notAuthorizedTextSize = [self.notAuthorizedLabel.text boundingRectWithSize:notAuthorizedTextBoundingSize
                                                                            options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
                                                                         attributes:attributes
                                                                            context:nil].size;
+
         } else {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
             notAuthorizedTextSize = [_notAuthorizedLabel.text sizeWithFont:_notAuthorizedLabel.font
@@ -840,33 +738,40 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
                                                              lineBreakMode:NSLineBreakByWordWrapping];
 #endif
         }
+#pragma clang diagnostic pop
 
-        [_notAuthorizedButton sizeToFit];
+        [self.notAuthorizedButton sizeToFit];
 
-        _notAuthorizedLabel.frame = CGRectMake(10, roundf((CGRectGetHeight(_notAuthorizedView.frame) - notAuthorizedTextSize.height - CGRectGetHeight(_notAuthorizedButton.frame)) / 2), notAuthorizedTextBoundingSize.width, roundf(notAuthorizedTextSize.height));
+        self.notAuthorizedLabel.frame = CGRectMake(
+                10,
+                roundf((CGRectGetHeight(self.notAuthorizedView.frame) - notAuthorizedTextSize.height - CGRectGetHeight(self.notAuthorizedButton.frame)) / 2),
+                notAuthorizedTextBoundingSize.width,
+                roundf(notAuthorizedTextSize.height));
 
-        _notAuthorizedButton.frame = CGRectMake(roundf(_notAuthorizedLabel.center.x) - roundf(CGRectGetWidth(_notAuthorizedButton.frame) / 2),
-                CGRectGetMaxY(_notAuthorizedLabel.frame) + roundf(CGRectGetHeight(_notAuthorizedButton.frame) / 2),
-                CGRectGetWidth(_notAuthorizedButton.frame), CGRectGetHeight(_notAuthorizedButton.frame));
+        self.notAuthorizedButton.frame = CGRectMake(
+                roundf(self.notAuthorizedLabel.center.x) - roundf(CGRectGetWidth(self.notAuthorizedButton.frame) / 2),
+                CGRectGetMaxY(self.notAuthorizedLabel.frame) + roundf(CGRectGetHeight(self.notAuthorizedButton.frame) / 2),
+                CGRectGetWidth(self.notAuthorizedButton.frame),
+                CGRectGetHeight(self.notAuthorizedButton.frame));
     }
     //Workaround for iOS 6 - ignoring contentInset.right
-    _textView.frame = CGRectMake(0, 0, self.frame.size.width - (VK_SYSTEM_VERSION_LESS_THAN(@"7.0") ? 20 : 0), [_textView measureHeightOfUITextView]);
+    self.textView.frame = CGRectMake(0, 0, self.frame.size.width - (VK_SYSTEM_VERSION_LESS_THAN(@"7.0") ? 20 : 0), [self.textView measureHeightOfUITextView]);
     [self positionSubviews];
 }
 
 - (void)positionSubviews {
-    lastTextViewHeight = _textView.frame.size.height;
-    _attachmentsCollection.frame = CGRectMake(0, lastTextViewHeight, self.frame.size.width, [_attachmentsCollection numberOfItemsInSection:0] ? kAttachmentsViewSize : 0);
-    if (_linkAttachView) {
-        _linkAttachView.frame = CGRectMake(14, CGRectGetMaxY(_attachmentsCollection.frame) + 5, self.frame.size.width - 20, 0);
-        [_linkAttachView sizeToFit];
+    lastTextViewHeight = self.textView.frame.size.height;
+    self.attachmentsCollection.frame = CGRectMake(0, lastTextViewHeight, self.frame.size.width, [self.attachmentsCollection numberOfItemsInSection:0] ? kAttachmentsViewSize : 0);
+    if (self.linkAttachView) {
+        self.linkAttachView.frame = CGRectMake(14, CGRectGetMaxY(self.attachmentsCollection.frame) + 5, self.frame.size.width - 20, 0);
+        [self.linkAttachView sizeToFit];
     }
 
-    _contentScrollView.contentSize = CGSizeMake(self.frame.size.width, _linkAttachView ? CGRectGetMaxY(_linkAttachView.frame) : CGRectGetMaxY(_attachmentsCollection.frame));
+    self.contentScrollView.contentSize = CGSizeMake(self.frame.size.width, self.linkAttachView ? CGRectGetMaxY(self.linkAttachView.frame) : CGRectGetMaxY(self.attachmentsCollection.frame));
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    CGFloat newHeight = [_textView measureHeightOfUITextView];
+    CGFloat newHeight = [self.textView measureHeightOfUITextView];
     if (fabs(newHeight - lastTextViewHeight) > 1) {
         textView.frame = CGRectMake(0, 0, self.frame.size.width - (VK_SYSTEM_VERSION_LESS_THAN(@"7.0") ? 20 : 0), newHeight);
         [textView layoutIfNeeded];
@@ -884,34 +789,29 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 }
 
 - (void)setShareLink:(VKShareLink *)link {
-    _linkAttachView = [[VKLinkAttachView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 0)];
-    _linkAttachView.targetLink = link;
-    [_contentScrollView addSubview:_linkAttachView];
+    self.linkAttachView = [[VKLinkAttachView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 0)];
+    self.linkAttachView.targetLink = link;
+    [self.contentScrollView addSubview:self.linkAttachView];
     [self setNeedsLayout];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleDefault;
-}
 @end
 
 ///-------------------------------
 /// @name Internal view controller, root for share dialog navigation controller
 ///-------------------------------
-@interface VKShareDialogControllerInternal ()
-@property(nonatomic, readonly) UICollectionView *attachmentsScrollView;
-@property(nonatomic, strong) UIBarButtonItem *sendButton;
-@property(nonatomic, strong) NSMutableArray *attachmentsArray;
-@property(nonatomic, strong) id targetOwner;
-@property(nonatomic, strong) VKPostSettings *postSettings;
-@property(nonatomic, assign) BOOL prepared;
-@property(nonatomic, strong) id <VKSdkDelegate> originalSdkDelegate;
-
-@end
 
 @implementation VKShareDialogControllerInternal {
     dispatch_queue_t imageProcessingQueue;
 }
+
+- (void)dealloc {
+    [[VKSdk instance] unregisterDelegate:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "UnavailableInDeploymentTarget"
 - (instancetype)init {
     self = [super init];
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
@@ -920,6 +820,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     imageProcessingQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     return self;
 }
+#pragma clang diagnostic pop
 
 - (void)loadView {
     VKShareDialogView *view = [[VKShareDialogView alloc] initWithFrame:CGRectMake(0, 0, ipadWidth, ipadHeight)];
@@ -945,12 +846,15 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 #else
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Cancel") style:UIBarButtonItemStyleBordered target:self action:@selector(close:)];
 #endif
-    _originalSdkDelegate = [VKSdk instance].delegate;
-    [VKSdk instance].delegate = self;
+    [[VKSdk instance] registerDelegate:self];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    if (self.oldDelegate) {
+        [VKSdk instance].uiDelegate = self.oldDelegate;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -959,12 +863,13 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     VKShareDialogView *view = (VKShareDialogView *) self.view;
     if ([VKSdk wakeUpSession:self.parent.requestedScope]) {
         [view.notAuthorizedView removeFromSuperview];
-        view.textView.text = _parent.text;
+        view.textView.text = self.parent.text;
         [self prepare];
     } else {
         [self setNotAuthorized];
     }
 }
+
 - (void) setNotAuthorized {
     VKShareDialogView *view = (VKShareDialogView *) self.view;
     [view addSubview:view.notAuthorizedView];
@@ -978,35 +883,29 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
                                                object:nil];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    [VKSdk instance].delegate = _originalSdkDelegate;
-}
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+#pragma clang diagnostic pop
 
 - (void)prepare {
 
-    _postSettings = [VKPostSettings new];
+    self.postSettings = [VKPostSettings new];
     [self createAttachments];
     [[[VKApi users] get:@{VK_API_FIELDS : @"first_name_acc,can_post,sex,exports"}] executeWithResultBlock:^(VKResponse *response) {
         VKUser *user = [response.parsedModel firstObject];
         //Set this flags as @0 to show in the interface
-        _postSettings.friendsOnly = @0;
+        self.postSettings.friendsOnly = @0;
         if (user.exports.twitter) {
-            _postSettings.exportTwitter = @0;
+            self.postSettings.exportTwitter = @0;
         }
         if (user.exports.facebook) {
-            _postSettings.exportFacebook = @0;
+            self.postSettings.exportFacebook = @0;
         }
         if (user.exports.livejournal) {
-            _postSettings.exportLivejournal = @0;
+            self.postSettings.exportLivejournal = @0;
         }
     }                                                                                          errorBlock:nil];
     self.prepared = YES;
@@ -1014,17 +913,17 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 }
 
 - (NSArray *)rightBarButtonItems {
-    if (!_sendButton) {
-        _sendButton = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Done") style:UIBarButtonItemStyleDone target:self action:@selector(sendMessage:)];
+    if (!self.sendButton) {
+        self.sendButton = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Done") style:UIBarButtonItemStyleDone target:self action:@selector(sendMessage:)];
     }
-    return @[_sendButton];
+    return @[self.sendButton];
 }
 
 - (void)close:(id)sender {
-    if (_parent.completionHandler != NULL) {
-        _parent.completionHandler(VKShareDialogControllerResultCancelled);
+    if (self.parent.completionHandler != NULL) {
+        self.parent.completionHandler(self.parent, VKShareDialogControllerResultCancelled);
     }
-    if (_parent.dismissAutomatically) {
+    if (self.parent.dismissAutomatically) {
         [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     }
 }
@@ -1046,24 +945,28 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         }
         [attachStrings addObject:attach.attachmentString];
     }
-    if (_parent.shareLink) {
-        [attachStrings addObject:[_parent.shareLink.link absoluteString]];
+    if (self.parent.shareLink) {
+        [attachStrings addObject:[self.parent.shareLink.link absoluteString]];
     }
 
     VKRequest *post = [[VKApi wall] post:@{VK_API_MESSAGE : textView.text ?: @"",
             VK_API_ATTACHMENTS : [attachStrings componentsJoinedByString:@","]}];
     NSMutableArray *exports = [NSMutableArray new];
-    if (_postSettings.friendsOnly.boolValue) [post addExtraParameters:@{VK_API_FRIENDS_ONLY : @1}];
-    if (_postSettings.exportTwitter.boolValue) [exports addObject:@"twitter"];
-    if (_postSettings.exportFacebook.boolValue) [exports addObject:@"facebook"];
-    if (_postSettings.exportLivejournal.boolValue) [exports addObject:@"livejournal"];
+    if (self.postSettings.friendsOnly.boolValue) [post addExtraParameters:@{VK_API_FRIENDS_ONLY : @1}];
+    if (self.postSettings.exportTwitter.boolValue) [exports addObject:@"twitter"];
+    if (self.postSettings.exportFacebook.boolValue) [exports addObject:@"facebook"];
+    if (self.postSettings.exportLivejournal.boolValue) [exports addObject:@"livejournal"];
     if (exports.count) [post addExtraParameters:@{VK_API_SERVICES : [exports componentsJoinedByString:@","]}];
 
     [post executeWithResultBlock:^(VKResponse *response) {
-        if (_parent.completionHandler != NULL) {
-            _parent.completionHandler(VKShareDialogControllerResultDone);
+        NSNumber *post_id = VK_ENSURE_NUM(response.json[@"post_id"]);
+        if (post_id) {
+            self.parent.postId = [NSString stringWithFormat:@"%@_%@", [VKSdk accessToken].userId, post_id];
         }
-        if (_parent.dismissAutomatically) {
+        if (self.parent.completionHandler != NULL) {
+            self.parent.completionHandler(self.parent, VKShareDialogControllerResultDone);
+        }
+        if (self.parent.dismissAutomatically) {
             [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
         }
     }                 errorBlock:^(NSError *error) {
@@ -1081,24 +984,23 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 }
 
 - (void)authorize:(id)sender {
-    [VKSdk instance].delegate = self;
-    [VKSdk authorize:_parent.requestedScope revokeAccess:YES forceOAuth:NO inApp:[VKSdk vkAppMayExists] ? NO : _parent.authorizeInApp];
+    self.oldDelegate = [VKSdk instance].uiDelegate;
+    
+    [VKSdk instance].uiDelegate = self;
+    [VKSdk authorize:self.parent.requestedScope];
 }
+
+#pragma mark - VK SDK Delegate
 
 - (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {
     VKCaptchaViewController *captcha = [VKCaptchaViewController captchaControllerWithError:captchaError];
     [self.navigationController presentViewController:captcha animated:YES completion:nil];
 }
 
-- (void)vkSdkTokenHasExpired:(VKAccessToken *)expiredToken {
-}
-
-- (void)vkSdkUserDeniedAccess:(VKError *)authorizationError {
-    [self setNotAuthorized];
-}
-
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller {
-    if ([controller isKindOfClass:[UINavigationController class]]) {
+    if ([SFSafariViewController class] && [controller isKindOfClass:[SFSafariViewController class]]) {
+        [self.navigationController presentViewController:controller animated:YES completion:nil];
+    } else if ([controller isKindOfClass:[UINavigationController class]]) {
         UINavigationController *nav = (UINavigationController *) controller;
         UIViewController *target = nav.viewControllers[0];
         nav.viewControllers = @[];
@@ -1108,8 +1010,14 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     }
 }
 
-- (void)vkSdkReceivedNewToken:(VKAccessToken *)newToken {
+- (void)vkSdkAccessAuthorizationFinishedWithResult:(VKAuthorizationResult*) result {
+    if (result.error) {
+        [self setNotAuthorized];
+    }
+}
 
+-(void)vkSdkUserAuthorizationFailed:(VKError *)result {
+    [self setNotAuthorized];
 }
 
 #pragma mark -Attachments
@@ -1121,22 +1029,19 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     self.attachmentsArray = [NSMutableArray new];
     VKShareDialogView *shareDialogView = (VKShareDialogView *) self.view;
     //Attach and upload images
-    for (VKUploadImage *img in _parent.uploadImages) {
+    for (VKUploadImage *img in self.parent.uploadImages) {
         if (!(img.imageData || img.sourceImage)) continue;
         CGSize size = img.sourceImage.size;
-        size = CGSizeMake(MAX(floor(size.width * maxHeight / size.height), 50), maxHeight);
+        size = CGSizeMake(MAX(floorf(size.width * maxHeight / size.height), 50.f), maxHeight);
         VKUploadingAttachment *attach = [VKUploadingAttachment new];
-        attach.isUploaded = NO;
         attach.attachSize = size;
-        attach.targetUpload = img;
-        attach.preview = [img.sourceImage vkRoundCornersImage:0.0f resultSize:size];
+        attach.preview = [img.sourceImage vks_roundCornersImage:0.0f resultSize:size];
         [self.attachmentsArray addObject:attach];
 
         VKRequest *uploadRequest = [VKApi uploadWallPhotoRequest:img.sourceImage parameters:img.parameters userId:0 groupId:0];
 
         [uploadRequest setCompleteBlock:^(VKResponse *res) {
             VKPhoto *photo = [res.parsedModel firstObject];
-            attach.isUploaded = YES;
             attach.attachmentString = photo.attachmentString;
             attach.uploadingRequest = nil;
             [self.attachmentsScrollView reloadData];
@@ -1152,9 +1057,9 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         attach.uploadingRequest = uploadRequest;
     }
 
-    if (_parent.vkImages.count) {
+    if (self.parent.vkImages.count) {
         NSMutableDictionary *attachById = [NSMutableDictionary new];
-        for (NSString *photo in _parent.vkImages) {
+        for (NSString *photo in self.parent.vkImages) {
             NSAssert([photo isKindOfClass:[NSString class]], @"vkImages must contains only string photo ids");
             if (attachById[photo]) continue;
             VKUploadingAttachment *attach = [VKUploadingAttachment new];
@@ -1165,7 +1070,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
             attachById[photo] = attach;
         }
 
-        VKRequest *req = [VKRequest requestWithMethod:@"photos.getById" andParameters:@{@"photos" : [_parent.vkImages componentsJoinedByString:@","], @"photo_sizes" : @1} andHttpMethod:@"GET" classOfModel:[VKPhotoArray class]];
+        VKRequest *req = [VKRequest requestWithMethod:@"photos.getById" andParameters:@{@"photos" : [self.parent.vkImages componentsJoinedByString:@","], @"photo_sizes" : @1} modelClass:[VKPhotoArray class]];
         [req setCompleteBlock:^(VKResponse *res) {
             VKPhotoArray *photos = res.parsedModel;
             NSArray *requiredSizes = @[@"p", @"q", @"m"];
@@ -1187,7 +1092,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
                 VKHTTPOperation *imageLoad = [[VKHTTPOperation alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:photoSrc]]];
                 [imageLoad setCompletionBlockWithSuccess:^(VKHTTPOperation *operation, id responseObject) {
                     UIImage *result = [UIImage imageWithData:operation.responseData];
-                    result = [result vkRoundCornersImage:0 resultSize:CGSizeMake(kAttachmentsViewSize, kAttachmentsViewSize)];
+                    result = [result vks_roundCornersImage:0 resultSize:CGSizeMake(kAttachmentsViewSize, kAttachmentsViewSize)];
                     dispatch_sync(dispatch_get_main_queue(), ^{
                         attach.preview = result;
                         attach.isDownloading = NO;
@@ -1207,7 +1112,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
             }
             [self.attachmentsScrollView performBatchUpdates:^{
                 for (VKUploadingAttachment *attach in attachById.allValues) {
-                    NSInteger index = [self.attachmentsArray indexOfObject:attach];
+                    NSUInteger index = [self.attachmentsArray indexOfObject:attach];
                     if (index != NSNotFound) {
                         [self.attachmentsArray removeObjectAtIndex:index];
                         [self.attachmentsScrollView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
@@ -1220,8 +1125,8 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     }
     [self.attachmentsScrollView reloadData];
 
-    if (_parent.shareLink) {
-        [shareDialogView setShareLink:_parent.shareLink];
+    if (self.parent.shareLink) {
+        [shareDialogView setShareLink:self.parent.shareLink];
     }
 }
 
@@ -1232,13 +1137,13 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    VKUploadingAttachment *object = self.attachmentsArray[indexPath.item];
+    VKUploadingAttachment *object = self.attachmentsArray[(NSUInteger) indexPath.item];
     return object.attachSize;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    VKUploadingAttachment *attach = self.attachmentsArray[indexPath.item];
-    VKPhotoAttachmentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"VKPhotoAttachmentCell" forIndexPath:indexPath];
+    VKUploadingAttachment *attach = self.attachmentsArray[(NSUInteger) indexPath.item];
+    VKPhotoAttachmentCell *cell = (VKPhotoAttachmentCell *) [collectionView dequeueReusableCellWithReuseIdentifier:@"VKPhotoAttachmentCell" forIndexPath:indexPath];
 
     cell.attachImageView.image = attach.preview;
     VKRequest *request = attach.uploadingRequest;
@@ -1263,15 +1168,15 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 - (void)removeAttachIfExists:(VKUploadingAttachment *)attach {
     NSInteger index = [self.attachmentsArray indexOfObject:attach];
     if (index != NSNotFound) {
-        [self.attachmentsArray removeObjectAtIndex:index];
+        [self.attachmentsArray removeObjectAtIndex:(NSUInteger) index];
         [self.attachmentsScrollView reloadData];
     }
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    _sendButton.enabled = YES;
+    self.sendButton.enabled = YES;
     if (!textView.text.length && !self.attachmentsArray.count) {
-        _sendButton.enabled = NO;
+        self.sendButton.enabled = NO;
     }
 }
 @end
@@ -1281,23 +1186,19 @@ static NSString *const SETTINGS_TWITTER = @"ExportTwitter";
 static NSString *const SETTINGS_FACEBOOK = @"ExportFacebook";
 static NSString *const SETTINGS_LIVEJOURNAL = @"ExportLivejournal";
 
-@interface VKShareSettingsController ()
-@property(nonatomic, strong) NSArray *rows;
-@end
-
 @implementation VKShareSettingsController
 
 - (instancetype)initWithPostSettings:(VKPostSettings *)settings {
     self = [super init];
     self.currentSettings = settings;
     NSMutableArray *newRows = [NSMutableArray new];
-    if (_currentSettings.friendsOnly)
+    if (self.currentSettings.friendsOnly)
         [newRows addObject:SETTINGS_FRIENDS_ONLY];
-    if (_currentSettings.exportTwitter)
+    if (self.currentSettings.exportTwitter)
         [newRows addObject:SETTINGS_TWITTER];
-    if (_currentSettings.exportFacebook)
+    if (self.currentSettings.exportFacebook)
         [newRows addObject:SETTINGS_FACEBOOK];
-    if (_currentSettings.exportLivejournal)
+    if (self.currentSettings.exportLivejournal)
         [newRows addObject:SETTINGS_LIVEJOURNAL];
     self.rows = newRows;
     return self;
@@ -1328,7 +1229,7 @@ static NSString *const SETTINGS_LIVEJOURNAL = @"ExportLivejournal";
     } else {
         switchView = (UISwitch *) cell.accessoryView;
     }
-    NSString *currentRow = self.rows[indexPath.row];
+    NSString *currentRow = self.rows[(NSUInteger) indexPath.row];
     if ([currentRow isEqual:SETTINGS_FRIENDS_ONLY]) {
         switchView.on = self.currentSettings.friendsOnly.boolValue;
     } else {
@@ -1339,12 +1240,7 @@ static NSString *const SETTINGS_LIVEJOURNAL = @"ExportLivejournal";
         } else if ([currentRow isEqual:SETTINGS_LIVEJOURNAL]) {
             switchView.on = self.currentSettings.exportLivejournal.boolValue;
         }
-        if (self.currentSettings.friendsOnly.boolValue) {
-            switchView.enabled = NO;
-
-        } else {
-            switchView.enabled = YES;
-        }
+        switchView.enabled = !self.currentSettings.friendsOnly.boolValue;
     }
     cell.textLabel.text = VKLocalizedString(currentRow);
     switchView.tag = 100 + indexPath.row;
@@ -1353,7 +1249,7 @@ static NSString *const SETTINGS_LIVEJOURNAL = @"ExportLivejournal";
 }
 
 - (void)switchChanged:(UISwitch *)sender {
-    NSString *currentRow = self.rows[sender.tag - 100];
+    NSString *currentRow = self.rows[(NSUInteger) (sender.tag - 100)];
     if ([currentRow isEqual:SETTINGS_FRIENDS_ONLY]) {
         self.currentSettings.friendsOnly = @(sender.on);
         [self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.3];

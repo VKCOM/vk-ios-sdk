@@ -239,6 +239,10 @@
 		F36114CA1977DC2D0085898F /* ic_deletephoto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114C61977DC2D0085898F /* ic_deletephoto@2x.png */; };
 		F36114D11978060F0085898F /* img_newpostattachlink.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114CF1978060F0085898F /* img_newpostattachlink.png */; };
 		F36114D21978060F0085898F /* img_newpostattachlink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114D01978060F0085898F /* img_newpostattachlink@2x.png */; };
+		F3769D411BDFDC6F00AEC4AF /* VKAuthorizationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = F3769D3F1BDFDC6F00AEC4AF /* VKAuthorizationResult.h */; };
+		F3769D421BDFDC6F00AEC4AF /* VKAuthorizationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = F3769D401BDFDC6F00AEC4AF /* VKAuthorizationResult.m */; };
+		F3769D431BDFDC6F00AEC4AF /* VKAuthorizationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = F3769D401BDFDC6F00AEC4AF /* VKAuthorizationResult.m */; };
+		F3769D441BDFDD3C00AEC4AF /* VKAuthorizationResult.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3769D3F1BDFDC6F00AEC4AF /* VKAuthorizationResult.h */; };
 		F3909FE51A9C7B24006540A6 /* NSError+VKError.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1ACA6A36848AD5D36847B463 /* NSError+VKError.h */; };
 		F3909FE61A9C7B24006540A6 /* VKRequest.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1ACA69C5C9C5019C00FA4FE9 /* VKRequest.h */; };
 		F3909FE71A9C7B24006540A6 /* VKError.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1ACA6DAE30C094CEFFDC106A /* VKError.h */; };
@@ -328,6 +332,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				F3769D441BDFDD3C00AEC4AF /* VKAuthorizationResult.h in Copy Files */,
 				F34670201B8B6BF3003EF74B /* VKSdk.h in Copy Files */,
 				F3909FE51A9C7B24006540A6 /* NSError+VKError.h in Copy Files */,
 				F3909FE61A9C7B24006540A6 /* VKRequest.h in Copy Files */,
@@ -499,6 +504,8 @@
 		F36114C61977DC2D0085898F /* ic_deletephoto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_deletephoto@2x.png"; sourceTree = "<group>"; };
 		F36114CF1978060F0085898F /* img_newpostattachlink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_newpostattachlink.png; sourceTree = "<group>"; };
 		F36114D01978060F0085898F /* img_newpostattachlink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_newpostattachlink@2x.png"; sourceTree = "<group>"; };
+		F3769D3F1BDFDC6F00AEC4AF /* VKAuthorizationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKAuthorizationResult.h; sourceTree = "<group>"; };
+		F3769D401BDFDC6F00AEC4AF /* VKAuthorizationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKAuthorizationResult.m; sourceTree = "<group>"; };
 		F39A00AF1A3A019A00167AEB /* BlueBtn_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueBtn_pressed.png; sourceTree = "<group>"; };
 		F39A00B01A3A019A00167AEB /* BlueBtn_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BlueBtn_pressed@2x.png"; sourceTree = "<group>"; };
 		F39A00B11A3A019A00167AEB /* BlueBtn_pressed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BlueBtn_pressed@3x.png"; sourceTree = "<group>"; };
@@ -832,14 +839,16 @@
 			isa = PBXGroup;
 			children = (
 				F3C7549918226ABB00964716 /* VKAccessToken.h */,
-				F3D38E7D183F7B4800D05079 /* VKBatchRequest.h */,
-				F3BACC5618659493003158DA /* VKBundle.h */,
-				F3EEFFA41827B726000BB525 /* VKPermissions.h */,
-				F3EEFFBC1827C582000BB525 /* VKSdkVersion.h */,
 				F3C7549A18226ABB00964716 /* VKAccessToken.m */,
+				F3769D3F1BDFDC6F00AEC4AF /* VKAuthorizationResult.h */,
+				F3769D401BDFDC6F00AEC4AF /* VKAuthorizationResult.m */,
+				F3D38E7D183F7B4800D05079 /* VKBatchRequest.h */,
 				F3D38E7E183F7B4800D05079 /* VKBatchRequest.m */,
+				F3BACC5618659493003158DA /* VKBundle.h */,
 				F3BACC5718659493003158DA /* VKBundle.m */,
+				F3EEFFA41827B726000BB525 /* VKPermissions.h */,
 				F3EEFFA61827B7F1000BB525 /* VKPermissions.m */,
+				F3EEFFBC1827C582000BB525 /* VKSdkVersion.h */,
 			);
 			name = SDK;
 			sourceTree = "<group>";
@@ -889,6 +898,7 @@
 				F34671101B8B7D07003EF74B /* VKResponse.h in Headers */,
 				F346713E1B8B7D07003EF74B /* VKImageParameters.h in Headers */,
 				F34670E41B8B7CE4003EF74B /* VKApiCaptcha.h in Headers */,
+				F3769D411BDFDC6F00AEC4AF /* VKAuthorizationResult.h in Headers */,
 				F34671271B8B7D07003EF74B /* VKUniversity.h in Headers */,
 				F34671371B8B7D07003EF74B /* VKShareDialogController.h in Headers */,
 				F34670F51B8B7D07003EF74B /* VKAccessToken.h in Headers */,
@@ -1135,6 +1145,7 @@
 				F34670DB1B8B7CD9003EF74B /* VKActivity.m in Sources */,
 				F34671241B8B7D07003EF74B /* VKApiObject.m in Sources */,
 				F34671031B8B7D07003EF74B /* VKHTTPClient.m in Sources */,
+				F3769D431BDFDC6F00AEC4AF /* VKAuthorizationResult.m in Sources */,
 				F34670E11B8B7CDE003EF74B /* VKApi.m in Sources */,
 				F34670DC1B8B7CD9003EF74B /* VKAuthorizeController.m in Sources */,
 				F34671321B8B7D07003EF74B /* VKUploadMessagesPhotoRequest.m in Sources */,
@@ -1201,6 +1212,7 @@
 				1ACA6227186398789D76C4ED /* VKHTTPClient.m in Sources */,
 				1ACA61E9A3EB0BD49B9EFAB8 /* VKError.m in Sources */,
 				1ACA6DF69C81F31A23FFAD31 /* VKResponse.m in Sources */,
+				F3769D421BDFDC6F00AEC4AF /* VKAuthorizationResult.m in Sources */,
 				1ACA6AD5392AA08C69341D2B /* VKOperation.m in Sources */,
 				1ACA6E680DE6950E435D84D6 /* VKObject.m in Sources */,
 				1ACA696D77203A8BB76E975F /* VKApi.m in Sources */,

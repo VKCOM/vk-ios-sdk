@@ -46,15 +46,13 @@
 
 - (VKRequest *)prepareRequestWithMethodName:(NSString *)methodName andParameters:(NSDictionary *)methodParameters andHttpMethod:(NSString *)httpMethod {
     return [VKRequest requestWithMethod:[NSString stringWithFormat:@"%@.%@", _methodGroup, methodName]
-                          andParameters:methodParameters
-                          andHttpMethod:httpMethod];
+                          andParameters:methodParameters];
 }
 
 - (VKRequest *)prepareRequestWithMethodName:(NSString *)methodName andParameters:(NSDictionary *)methodParameters andHttpMethod:(NSString *)httpMethod andClassOfModel:(Class)modelClass {
     return [VKRequest requestWithMethod:[NSString stringWithFormat:@"%@.%@", _methodGroup, methodName]
                           andParameters:methodParameters
-                          andHttpMethod:httpMethod
-                           classOfModel:modelClass];
+                           modelClass:modelClass];
 }
 
 @end

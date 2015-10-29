@@ -26,11 +26,11 @@
 
 @implementation VKUploadMessagesPhotoRequest
 - (VKRequest *)getServerRequest {
-    return [VKRequest requestWithMethod:@"photos.getMessagesUploadServer" andParameters:nil andHttpMethod:@"POST"];
+    return [VKRequest requestWithMethod:@"photos.getMessagesUploadServer" andParameters:nil];
 }
 
 - (VKRequest *)getSaveRequest:(VKResponse *)response {
-    return [VKRequest requestWithMethod:@"photos.saveMessagesPhoto" andParameters:response.json andHttpMethod:@"POST" classOfModel:[VKPhotoArray class]];
+    return [VKRequest requestWithMethod:@"photos.saveMessagesPhoto" andParameters:response.json modelClass:[VKPhotoArray class]];
 
 }
 @end

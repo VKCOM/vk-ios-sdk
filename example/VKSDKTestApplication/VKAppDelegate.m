@@ -33,8 +33,4 @@
 	return YES;
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    [VKSdk handleDidBecomeActive];
-}
-
 @end

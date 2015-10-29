@@ -47,17 +47,19 @@ Causes UIWebView in standard UINavigationController be presented for user valida
 + (void)presentForValidation:(VKError *)validationError;
 
 /**
-Builds url for oauth authorization
-@param redirectUri uri for redirect
-@param clientId id of your application
-@param scope requested scope for application
-@param revoke If YES, user will see permissions list and allow to logout (if logged in already)
-@param display select display type
-@return Complete url-string for grant authorization
+ Builds url for oauth authorization
+ @param prefix url prefix for authorization url
+ @param redirectUri uri for redirect
+ @param clientId id of your application
+ @param scope requested scope for application
+ @param revoke If YES, user will see permissions list and allow to logout (if logged in already)
+ @param display select display type
+ @return Complete url-string for grant authorization
 */
-+ (NSString *)buildAuthorizationUrl:(NSString *)redirectUri
-                           clientId:(NSString *)clientId
-                              scope:(NSString *)scope
-                             revoke:(BOOL)revoke
-                            display:(VKDisplayType)display;
++ (NSURL *)buildAuthorizationURL:(NSString *)prefix
+                     redirectUri:(NSString *)redirectUri
+                        clientId:(NSString *)clientId
+                           scope:(NSString *)scope
+                          revoke:(BOOL)revoke
+                         display:(NSString *)display;
 @end
