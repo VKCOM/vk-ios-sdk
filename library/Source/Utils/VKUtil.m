@@ -75,3 +75,92 @@ static NSString *const kCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()',*"
     return [array componentsJoinedByString:@"&"];
 }
 @end
+
+///----------------------------
+/// @name Processing preview images
+///----------------------------
+
+typedef enum CornerFlag {
+    CornerFlagTopLeft = 0x01,
+    CornerFlagTopRight = 0x02,
+    CornerFlagBottomLeft = 0x04,
+    CornerFlagBottomRight = 0x08,
+    CornerFlagAll = CornerFlagTopLeft | CornerFlagTopRight | CornerFlagBottomLeft | CornerFlagBottomRight
+} CornerFlag;
+
+
+
+@implementation UIImage (RoundedImage)
+- (void)vks_addRoundedRectToPath:(CGContextRef)context rect:(CGRect)rect width:(float)ovalWidth height:(float)ovalHeight toCorners:(CornerFlag)corners {
+    if (ovalWidth == 0 || ovalHeight == 0) {
+        CGContextAddRect(context, rect);
+        return;
+    }
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, CGRectGetMinX(rect), CGRectGetMinY(rect));
+    CGContextScaleCTM(context, ovalWidth, ovalHeight);
+    float fw = CGRectGetWidth(rect) / ovalWidth;
+    float fh = CGRectGetHeight(rect) / ovalHeight;
+    CGContextMoveToPoint(context, fw, fh / 2);
+    if (corners & CornerFlagTopRight) {
+        CGContextAddArcToPoint(context, fw, fh, fw / 2, fh, 1);
+    } else {
+        CGContextAddLineToPoint(context, fw, fh);
+    }
+    if (corners & CornerFlagTopLeft) {
+        CGContextAddArcToPoint(context, 0, fh, 0, fh / 2, 1);
+    } else {
+        CGContextAddLineToPoint(context, 0, fh);
+    }
+    if (corners & CornerFlagBottomLeft) {
+        CGContextAddArcToPoint(context, 0, 0, fw / 2, 0, 1);
+    } else {
+        CGContextAddLineToPoint(context, 0, 0);
+    }
+    if (corners & CornerFlagBottomRight) {
+        CGContextAddArcToPoint(context, fw, 0, fw, fh / 2, 1);
+    } else {
+        CGContextAddLineToPoint(context, fw, 0);
+    }
+    CGContextClosePath(context);
+    CGContextRestoreGState(context);
+}
+
+- (UIImage *)vks_roundCornersImage:(CGFloat)cornerRadius resultSize:(CGSize)imageSize {
+    CGImageRef imageRef = self.CGImage;
+    float imageWidth = CGImageGetWidth(imageRef);
+    float imageHeight = CGImageGetHeight(imageRef);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGRect drawRect = (CGRect) {CGPointZero, imageWidth, imageHeight};
+    size_t w = (size_t) (imageSize.width * [UIScreen mainScreen].scale);
+    size_t h = (size_t) (imageSize.height * [UIScreen mainScreen].scale);
+    cornerRadius *= [UIScreen mainScreen].scale;
+
+    CGContextRef context = CGBitmapContextCreate(NULL, w, h, 8, w * 4, colorSpace, kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
+    if (!context) {
+        CGColorSpaceRelease(colorSpace);
+        return nil;
+    }
+    CGContextClearRect(context, CGRectMake(0, 0, w, h));
+    CGColorSpaceRelease(colorSpace);
+    CGRect clipRect = CGRectMake(0, 0, w, h);
+    float widthScale = w / imageWidth;
+    float heightScale = h / imageHeight;
+    float scale = MAX(widthScale, heightScale);
+    drawRect.size.width = imageWidth * scale;
+    drawRect.size.height = imageHeight * scale;
+    drawRect.origin.x = (w - drawRect.size.width) / 2.0f;
+    drawRect.origin.y = (h - drawRect.size.height) / 2.0f;
+    [self vks_addRoundedRectToPath:context rect:clipRect width:cornerRadius height:cornerRadius toCorners:CornerFlagAll];
+    CGContextClip(context);
+
+    CGContextSaveGState(context);
+    CGContextDrawImage(context, drawRect, imageRef);
+    CGContextRestoreGState(context);
+    CGImageRef decompressedImageRef = CGBitmapContextCreateImage(context);
+    CGContextRelease(context);
+    UIImage *decompressedImage = [[UIImage alloc] initWithCGImage:decompressedImageRef];
+    CGImageRelease(decompressedImageRef);
+    return decompressedImage;
+}
+@end
