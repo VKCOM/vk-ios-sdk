@@ -23,6 +23,7 @@
 #import <objc/runtime.h>
 #import "VKApiObject.h"
 #import "VKApiObjectArray.h"
+#import "VKUtil.h"
 
 #ifdef DEBUG
 #define PRINT_PARSE_DEBUG_INFO YES
@@ -121,7 +122,12 @@ static NSString *getPropertyName(objc_property_t prop) {
 @implementation VKApiObject
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
+    dict = VK_ENSURE_DICT(dict);
+    if (!dict) {
+        return nil;
+    }
     if ((self = [super init])) {
+        
         [self parse:dict];
         self.fields = dict;
     }
