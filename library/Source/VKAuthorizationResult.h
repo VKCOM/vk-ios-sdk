@@ -6,8 +6,10 @@
 //  Copyright © 2015 VK. All rights reserved.
 //
 
-#import <VKSdkFramework/VKSdkFramework.h>
+#import "VKAccessToken.h"
+#import "VKError.h"
 
 @interface VKAuthorizationResult : VKObject
-
+@property (nonatomic, strong) VKAccessToken *token;
+@property (nonatomic, strong) VKError *error;
 @end
