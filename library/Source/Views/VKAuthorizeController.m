@@ -174,7 +174,7 @@
 
 - (void)startLoading {
     if (!self.redirectUri) {
-        self.redirectUri = [NSURL URLWithString:_validationError.redirectUri];
+        self.redirectUri = [NSURL URLWithString:self.validationError.redirectUri];
 
     }
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.redirectUri];
@@ -185,18 +185,18 @@
 #pragma mark Web view work
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    _lastRequest = request;
+    self.lastRequest = request;
     NSString *urlString = [[request URL] absoluteString];
-    _statusBar.text = urlString;
+    self.statusBar.text = urlString;
     if (!webView.hidden && !self.navigationItem.rightBarButtonItem) {
         [self setRightBarButtonActivity];
     }
     if ([[[request URL] path] isEqual:@"/blank.html"]) {
         [self dismissWithCompletion:^{
-            if ([VKSdk processOpenInternalURL:[request URL] validation:_validationError != nil] && _validationError) {
-                [_validationError.request repeat];
-            } else if (_validationError) {
-                [_validationError.request cancel];
+            if ([VKSdk processOpenInternalURL:[request URL] validation:self.validationError != nil] && self.validationError) {
+                [self.validationError.request repeat];
+            } else if (self.validationError) {
+                [self.validationError.request cancel];
             }
         }];
         return NO;
@@ -205,9 +205,9 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    if (_finished) return;
+    if (self.finished) return;
     if ([error code] != NSURLErrorCancelled) {
-        _warningLabel.hidden = NO;
+        self.warningLabel.hidden = NO;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (500 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^(void) {
             [webView loadRequest:_lastRequest];
             if (!self.navigationItem.rightBarButtonItem)

@@ -279,19 +279,20 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
         throwError();
         result = NO;
     } else if (inAppCheck && parametersDict[@"success"]) {
-        VKAccessToken *prevToken = [VKSdk accessToken];
-        VKAccessTokenMutable *token = [VKAccessTokenMutable tokenWithToken:parametersDict[@"access_token"] ?: prevToken.accessToken
-                                                                    secret:parametersDict[@"secret"] ?: prevToken.secret
-                                                                    userId:parametersDict[@"user_id"] ?: prevToken.userId];
-        token.expiresIn = prevToken.expiresIn;
-        token.permissions = prevToken.permissions;
-        token.httpsRequired = prevToken.httpsRequired;
-        
-        
-        if (!validation) {
-            notifyAuthorization(token, nil);
-        } else {
-            [self setAccessToken:token];
+        if (parametersDict[@"access_token"]) {
+            VKAccessToken *prevToken = [VKSdk accessToken];
+            VKAccessTokenMutable *token = [VKAccessTokenMutable tokenWithToken:parametersDict[@"access_token"] ?: prevToken.accessToken
+                                                                        secret:parametersDict[@"secret"] ?: prevToken.secret
+                                                                        userId:parametersDict[@"user_id"] ?: prevToken.userId];
+            token.expiresIn = prevToken.expiresIn;
+            token.permissions = prevToken.permissions;
+            token.httpsRequired = prevToken.httpsRequired;
+            
+            if (!validation) {
+                notifyAuthorization(token, nil);
+            } else {
+                [self setAccessToken:token];
+            }
         }
     } else {
 
@@ -346,7 +347,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 }
 
 + (void)wakeUpSession:(NSArray *)permissions completeBlock:(void(^)(VKAuthorizationState, NSError *error)) wakeUpBlock {
-    VKAccessToken *token = [VKAccessToken savedToken:VK_ACCESS_TOKEN_DEFAULTS_KEY];
+    VKAccessToken *token = [self accessToken] ?: [VKAccessToken savedToken:VK_ACCESS_TOKEN_DEFAULTS_KEY];
     VKSdk *instance = [self instance];
     if (!token || token.isExpired) {
         [instance resetSdkState];

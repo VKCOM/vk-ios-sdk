@@ -209,31 +209,6 @@ static NSString *const PERMISSIONS = @"permissions";
     [[self class] save:defaultsKey data:self];
 }
 
-- (NSData *)serialize {
-    NSMutableDictionary *dict = [@{
-            ACCESS_TOKEN : self.accessToken ?: @"",
-            EXPIRES_IN : @(self.expiresIn),
-            USER_ID : self.userId ?: @"0",
-            CREATED : @(self.created),
-            PERMISSIONS : [self.permissions componentsJoinedByString:@","] ?: @""
-    } mutableCopy];
-
-    if (self.secret) {
-        dict[SECRET] = self.secret;
-    }
-
-    if (self.httpsRequired) {
-        dict[HTTPS_REQUIRED] = @(1);
-    }
-
-    NSMutableArray *result = [NSMutableArray new];
-
-    for (NSString *key in dict)
-        [result addObject:[NSString stringWithFormat:@"%@=%@", key, dict[key]]];
-
-    return [[result componentsJoinedByString:@"&"] dataUsingEncoding:NSUTF8StringEncoding];
-}
-
 - (id)mutableCopy {
     return [[VKAccessTokenMutable alloc] initWithVKAccessToken:self];
 }
