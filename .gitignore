@@ -30,3 +30,5 @@ Pods
 #AppCode
 */.idea/*
 .idea/*
+
+SDKBuildSteps.info
