@@ -74,12 +74,12 @@ After user answered current captcha, call answerCaptcha: method with user entere
  Notifies delegate about authorization was completed successfully, and token received
  @param result contains new token or error, retrieved after VK authorization
  */
-- (void)vkSdkAccessAuthorizationFinishedWithResult:(VKAuthorizationResult*) result;
+- (void)vkSdkAccessAuthorizationFinishedWithResult:(VKAuthorizationResult *)result;
 
 /**
  Notifies delegate about access error, mostly connected with user deauthorized application
  */
-- (void)vkSdkUserAuthorizationFailed:(VKError*) result;
+- (void)vkSdkUserAuthorizationFailed:(VKError *)result;
 
 @optional
 
@@ -88,7 +88,7 @@ After user answered current captcha, call answerCaptcha: method with user entere
  @param newToken new token for API requests
  @param oldToken previous used token
  */
-- (void)vkSdkAccessTokenUpdated:(VKAccessToken*) newToken oldToken:(VKAccessToken*)oldToken;
+- (void)vkSdkAccessTokenUpdated:(VKAccessToken *)newToken oldToken:(VKAccessToken *)oldToken;
 
 /**
  Notifies delegate about existing token has expired
@@ -120,7 +120,6 @@ After user answered current captcha, call answerCaptcha: method with user entere
 @end
 
 
-
 /**
 Entry point for using VK sdk. Should be initialized at application start
 */
@@ -129,7 +128,7 @@ Entry point for using VK sdk. Should be initialized at application start
 ///-------------------------------
 /// @name Delegate
 ///-------------------------------
-@property(nonatomic, readwrite, weak) id<VKSdkUIDelegate> uiDelegate;
+@property(nonatomic, readwrite, weak) id <VKSdkUIDelegate> uiDelegate;
 
 /// Returns a last app_id used for initializing the SDK
 @property(nonatomic, readonly, copy) NSString *currentAppId;
@@ -156,17 +155,17 @@ Initialize SDK with responder for global SDK events
 @param apiVersion if you want to use latest API version, pass required version here
 */
 + (instancetype)initializeWithAppId:(NSString *)appId
-                 apiVersion:(NSString *)version;
+                         apiVersion:(NSString *)version;
 
 /**
  Adds a weak object reference to an object implementing the VKSdkDelegate protocol
  */
-- (void)registerDelegate:(id<VKSdkDelegate>) delegate;
+- (void)registerDelegate:(id <VKSdkDelegate>)delegate;
 
 /**
  Removes an object reference SDK delegate
  */
-- (void)unregisterDelegate:(id<VKSdkDelegate>) delegate;
+- (void)unregisterDelegate:(id <VKSdkDelegate>)delegate;
 
 ///-------------------------------
 /// @name Authentication in VK
@@ -218,7 +217,7 @@ Checks passed URL for access token
 /**
  This method is trying to retrieve token from storage, and check application still permitted to use user access token
  */
-+ (void)wakeUpSession:(NSArray *)permissions completeBlock:(void(^)(VKAuthorizationState, NSError *)) wakeUpBlock;
++ (void)wakeUpSession:(NSArray *)permissions completeBlock:(void (^)(VKAuthorizationState, NSError *))wakeUpBlock;
 
 /**
 Forces logout using OAuth (with VKAuthorizeController). Removes all cookies for *.vk.com.
@@ -244,25 +243,31 @@ Enables or disables scheduling for requests
 
 // Deny allocating more SDK
 + (instancetype)alloc NS_UNAVAILABLE;
+
 - (instancetype)init NS_UNAVAILABLE;
+
 + (instancetype)new NS_UNAVAILABLE;
 
 @end
 
 @interface VKAccessToken (HttpsRequired)
-- (void) setAccessTokenRequiredHTTPS;
-- (void) notifyTokenExpired;
+- (void)setAccessTokenRequiredHTTPS;
+
+- (void)notifyTokenExpired;
 @end
 
 @interface VKError (CaptchaRequest)
-- (void) notifyCaptchaRequired;
-- (void) notiftAuthorizationFailed;
+- (void)notifyCaptchaRequired;
+
+- (void)notiftAuthorizationFailed;
 @end
 
 @interface UIViewController (VKController)
 
-- (void) vks_presentViewControllerThroughDelegate;
-- (void) vks_viewControllerWillDismiss;
-- (void) vks_viewControllerDidDismiss;
+- (void)vks_presentViewControllerThroughDelegate;
+
+- (void)vks_viewControllerWillDismiss;
+
+- (void)vks_viewControllerDidDismiss;
 
 @end

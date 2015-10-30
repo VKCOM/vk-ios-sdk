@@ -28,7 +28,7 @@
 NSString *const VKActivityTypePost = @"VKActivityTypePost";
 
 @interface VKActivity ()
-@property (nonatomic, strong) VKShareDialogController *shareDialog;
+@property(nonatomic, strong) VKShareDialogController *shareDialog;
 @end
 
 @implementation VKActivity

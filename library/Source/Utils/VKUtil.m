@@ -89,7 +89,6 @@ typedef enum CornerFlag {
 } CornerFlag;
 
 
-
 @implementation UIImage (RoundedImage)
 - (void)vks_addRoundedRectToPath:(CGContextRef)context rect:(CGRect)rect width:(float)ovalWidth height:(float)ovalHeight toCorners:(CornerFlag)corners {
     if (ovalWidth == 0 || ovalHeight == 0) {

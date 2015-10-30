@@ -177,7 +177,7 @@ Starts loading of prepared request. You can use it instead of executeWithResultB
 /**
  Creates loading operation for this request
  */
-- (NSOperation*) createExecutionOperation;
+- (NSOperation *)createExecutionOperation;
 
 /**
 Repeats this request with initial parameters and blocks.
@@ -200,6 +200,6 @@ Adds additional parameters to that request
 - (void)addExtraParameters:(NSDictionary *)extraParameters;
 
 /// Specify language for API request
-- (void)setPreferredLang:(NSString*)lang;
+- (void)setPreferredLang:(NSString *)lang;
 
 @end

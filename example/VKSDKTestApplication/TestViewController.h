@@ -21,10 +21,10 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
-@interface TestViewController : UITableViewController
-{
+
+@interface TestViewController : UITableViewController {
 @private
-    VKRequest * callingRequest;
+    VKRequest *callingRequest;
 }
-@property (nonatomic, strong) IBOutlet UILabel * tokenLabel;
+@property(nonatomic, strong) IBOutlet UILabel *tokenLabel;
 @end

@@ -124,7 +124,7 @@
 @property(nonatomic, strong) VKPostSettings *postSettings;
 @property(nonatomic, assign) BOOL prepared;
 
-@property(nonatomic, weak) id<VKSdkUIDelegate> oldDelegate;
+@property(nonatomic, weak) id <VKSdkUIDelegate> oldDelegate;
 @end
 
 @interface VKHelperNavigationController : UINavigationController
@@ -152,34 +152,36 @@ static const CGFloat ipadWidth = 500.f;
 static const CGFloat ipadHeight = 500.f;
 
 @interface VKShareDialogController ()
-@property (nonatomic, strong, readonly) UINavigationController *internalNavigation;
-@property (nonatomic, strong, readonly) VKSharedTransitioningObject *transitionDelegate;
-@property (nonatomic, strong, readonly) VKShareDialogControllerInternal *targetShareDialog;
-@property (nonatomic, copy, readwrite) NSString *postId;
+@property(nonatomic, strong, readonly) UINavigationController *internalNavigation;
+@property(nonatomic, strong, readonly) VKSharedTransitioningObject *transitionDelegate;
+@property(nonatomic, strong, readonly) VKShareDialogControllerInternal *targetShareDialog;
+@property(nonatomic, copy, readwrite) NSString *postId;
 @end
 
 @implementation VKShareDialogController {
-    
+
     UIBarStyle defaultBarStyle;
 }
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-+(void)initialize {
+
++ (void)initialize {
     if ([self class] == [VKShareDialogController class]) {
-        UINavigationBar<UIAppearanceContainer> *appearance = [UINavigationBar appearanceWhenContainedIn:[VKHelperNavigationController class], nil];
+        UINavigationBar <UIAppearanceContainer> *appearance = [UINavigationBar appearanceWhenContainedIn:[VKHelperNavigationController class], nil];
         appearance.barStyle = UIBarStyleDefault;
-        
+
         [appearance setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
         [appearance setShadowImage:nil];
         [appearance setTitleTextAttributes:nil];
-        
+
         [[UIBarButtonItem appearanceWhenContainedIn:[VKHelperNavigationController class], nil] setTitleTextAttributes:nil forState:UIControlStateNormal];
         [[UIBarButtonItem appearanceWhenContainedIn:[VKHelperNavigationController class], nil] setTitleTextAttributes:nil forState:UIControlStateHighlighted];
-        
+
         [[UIActivityIndicatorView appearanceWhenContainedIn:[VKHelperNavigationController class], nil] setColor:nil];
     }
 }
+
 #pragma clang diagnostic pop
 
 - (instancetype)init {
@@ -234,12 +236,14 @@ static const CGFloat ipadHeight = 500.f;
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "UnavailableInDeploymentTarget"
+
 - (CGSize)preferredContentSize {
     if (UIUserInterfaceIdiomPad == [[UIDevice currentDevice] userInterfaceIdiom]) {
         return CGSizeMake(ipadWidth, ipadHeight);
     }
     return [super preferredContentSize];
 }
+
 #pragma clang diagnostic pop
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -250,11 +254,13 @@ static const CGFloat ipadHeight = 500.f;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 
     [self rotateToInterfaceOrientation:toInterfaceOrientation appear:NO];
 }
+
 #pragma clang diagnostic pop
 
 - (void)rotateToInterfaceOrientation:(UIInterfaceOrientation)orientation appear:(BOOL)onAppear {
@@ -341,6 +347,7 @@ static const CGFloat ipadHeight = 500.f;
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "UnavailableInDeploymentTarget"
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
@@ -350,6 +357,7 @@ static const CGFloat ipadHeight = 500.f;
     }
 
 }
+
 #pragma clang diagnostic pop
 
 - (void)setUploadImages:(NSArray *)uploadImages {
@@ -727,9 +735,9 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 
 
             notAuthorizedTextSize = [self.notAuthorizedLabel.text boundingRectWithSize:notAuthorizedTextBoundingSize
-                                                                           options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
-                                                                        attributes:attributes
-                                                                           context:nil].size;
+                                                                               options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
+                                                                            attributes:attributes
+                                                                               context:nil].size;
 
         } else {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
@@ -812,6 +820,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "UnavailableInDeploymentTarget"
+
 - (instancetype)init {
     self = [super init];
     if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
@@ -820,6 +829,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     imageProcessingQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     return self;
 }
+
 #pragma clang diagnostic pop
 
 - (void)loadView {
@@ -849,9 +859,9 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     [[VKSdk instance] registerDelegate:self];
 }
 
--(void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+
     if (self.oldDelegate) {
         [VKSdk instance].uiDelegate = self.oldDelegate;
     }
@@ -872,7 +882,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     }];
 }
 
-- (void) setNotAuthorized {
+- (void)setNotAuthorized {
     VKShareDialogView *view = (VKShareDialogView *) self.view;
     [view addSubview:view.notAuthorizedView];
     if ([VKSdk accessToken]) {
@@ -887,9 +897,11 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
+
 #pragma clang diagnostic pop
 
 - (void)prepare {
@@ -987,7 +999,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 
 - (void)authorize:(id)sender {
     self.oldDelegate = [VKSdk instance].uiDelegate;
-    
+
     [VKSdk instance].uiDelegate = self;
     [VKSdk authorize:self.parent.requestedScope];
 }
@@ -1012,13 +1024,13 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     }
 }
 
-- (void)vkSdkAccessAuthorizationFinishedWithResult:(VKAuthorizationResult*) result {
+- (void)vkSdkAccessAuthorizationFinishedWithResult:(VKAuthorizationResult *)result {
     if (result.error) {
         [self setNotAuthorized];
     }
 }
 
--(void)vkSdkUserAuthorizationFailed:(VKError *)result {
+- (void)vkSdkUserAuthorizationFailed:(VKError *)result {
     [self setNotAuthorized];
 }
 

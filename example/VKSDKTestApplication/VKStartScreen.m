@@ -24,15 +24,17 @@
 
 static NSString *const TOKEN_KEY = @"my_application_access_token";
 static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
-static NSArray  * SCOPE = nil;
+static NSArray *SCOPE = nil;
+
 @interface VKStartScreen () <UIAlertViewDelegate, VKSdkUIDelegate>
 
 @end
+
 @implementation VKStartScreen
 
 - (void)viewDidLoad {
     SCOPE = @[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_EMAIL, VK_PER_MESSAGES];
-	[super viewDidLoad];
+    [super viewDidLoad];
     [[VKSdk initializeWithAppId:@"3974615"] registerDelegate:self];
     [[VKSdk instance] setUiDelegate:self];
     [VKSdk wakeUpSession:SCOPE completeBlock:^(VKAuthorizationState state, NSError *error) {
@@ -43,22 +45,24 @@ static NSArray  * SCOPE = nil;
         }
     }];
 }
+
 - (void)startWorking {
     [self performSegueWithIdentifier:NEXT_CONTROLLER_SEGUE_ID sender:self];
 }
+
 - (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)authorize:(id)sender {
-	[VKSdk authorize:SCOPE];
+    [VKSdk authorize:SCOPE];
 }
 
 - (IBAction)openShareDialog:(id)sender {
-    VKShareDialogController * shareDialog = [VKShareDialogController new];
-    shareDialog.text         = @"This post created using #vksdk #ios";
-    shareDialog.shareLink    = [[VKShareLink alloc] initWithTitle:@"Super puper link, but nobody knows" link:[NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]];
+    VKShareDialogController *shareDialog = [VKShareDialogController new];
+    shareDialog.text = @"This post created using #vksdk #ios";
+    shareDialog.shareLink = [[VKShareLink alloc] initWithTitle:@"Super puper link, but nobody knows" link:[NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]];
     [shareDialog setCompletionHandler:^(VKShareDialogController *dialog, VKShareDialogControllerResult result) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
@@ -67,15 +71,15 @@ static NSArray  * SCOPE = nil;
 
 
 - (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {
-	VKCaptchaViewController *vc = [VKCaptchaViewController captchaControllerWithError:captchaError];
-	[vc presentIn:self.navigationController.topViewController];
+    VKCaptchaViewController *vc = [VKCaptchaViewController captchaControllerWithError:captchaError];
+    [vc presentIn:self.navigationController.topViewController];
 }
 
 - (void)vkSdkTokenHasExpired:(VKAccessToken *)expiredToken {
-	[self authorize:nil];
+    [self authorize:nil];
 }
 
-- (void)vkSdkAccessAuthorizationFinishedWithResult:(VKAuthorizationResult*) result {
+- (void)vkSdkAccessAuthorizationFinishedWithResult:(VKAuthorizationResult *)result {
     if (result.token) {
         [self startWorking];
     } else if (result.error) {
@@ -83,13 +87,13 @@ static NSArray  * SCOPE = nil;
     }
 }
 
--(void)vkSdkUserAuthorizationFailed:(VKError *)result {
+- (void)vkSdkUserAuthorizationFailed:(VKError *)result {
     [[[UIAlertView alloc] initWithTitle:nil message:@"Access denied" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller {
-	[self.navigationController.topViewController presentViewController:controller animated:YES completion:nil];
+    [self.navigationController.topViewController presentViewController:controller animated:YES completion:nil];
 }
 
 @end

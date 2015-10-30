@@ -55,7 +55,7 @@ Breaks key=value string to dictionary
 - (UIImage *)vks_roundCornersImage:(CGFloat)cornerRadius resultSize:(CGSize)imageSize;
 @end
 
-static inline NSNumber* VK_ENSURE_NUM(id obj) {
+static inline NSNumber *VK_ENSURE_NUM(id obj) {
     return [obj isKindOfClass:[NSNumber class]] ? obj : nil;
 }
 

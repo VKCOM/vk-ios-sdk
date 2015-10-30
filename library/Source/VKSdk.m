@@ -42,10 +42,11 @@
 #import "VKRequestsScheduler.h"
 
 @interface VKWeakDelegate : NSProxy <VKSdkDelegate>
-@property (nonatomic, weak) id<VKSdkDelegate> weakTarget;
+@property(nonatomic, weak) id <VKSdkDelegate> weakTarget;
 
-+(instancetype) with:(id<VKSdkDelegate>)delegate;
--(BOOL)isEqualTarget:(id<VKSdkDelegate>)delegate;
++ (instancetype)with:(id <VKSdkDelegate>)delegate;
+
+- (BOOL)isEqualTarget:(id <VKSdkDelegate>)delegate;
 
 @end
 
@@ -103,7 +104,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     return vkSdkInstance;
 }
 
--(void)registerDelegate:(id<VKSdkDelegate>)delegate {
+- (void)registerDelegate:(id <VKSdkDelegate>)delegate {
     for (VKWeakDelegate *d in self.sdkDelegates) {
         if ([d isEqualTarget:delegate]) {
             return;
@@ -112,7 +113,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     [self.sdkDelegates addObject:[VKWeakDelegate with:delegate]];
 }
 
--(void)unregisterDelegate:(id<VKSdkDelegate>)delegate {
+- (void)unregisterDelegate:(id <VKSdkDelegate>)delegate {
     for (VKWeakDelegate *d in [self.sdkDelegates copy]) {
         if ([d isEqualTarget:delegate]) {
             [self.sdkDelegates removeObject:d];
@@ -125,7 +126,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 #pragma mark Authorization
 
-+(void)authorize:(NSArray *)permissions {
++ (void)authorize:(NSArray *)permissions {
     [self authorize:permissions withOptions:VKAuthorizationOptionsUnlimitedToken];
 }
 
@@ -148,7 +149,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     }
 
     instance.permissions = permissions;
-    
+
     BOOL vkApp = [self vkAppMayExists] && instance.authState == VKAuthorizationInitialized;
     BOOL safariEnabled = !(options & VKAuthorizationOptionsDisableSafariController);
 
@@ -159,7 +160,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
                                                               scope:[permissions componentsJoinedByString:@","]
                                                              revoke:YES
                                                             display:vkApp ? VK_DISPLAY_IOS : VK_DISPLAY_MOBILE];
-    
+
     if (vkApp) {
         [[UIApplication sharedApplication] openURL:urlToOpen];
         instance.authState = VKAuthorizationExternal;
@@ -188,7 +189,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 + (void)setAccessToken:(VKAccessToken *)token {
     [token saveTokenToDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
-    
+
     id oldToken = vkSdkInstance.accessToken;
     if (!token && oldToken) {
         [VKAccessToken delete:VK_ACCESS_TOKEN_DEFAULTS_KEY];
@@ -210,19 +211,19 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     }
 
     VKSdk *instance = [self instance];
-    
-    void (^notifyAuthorization)(VKAccessToken*, VKError*) = ^ (VKAccessToken *token, VKError *error){
+
+    void (^notifyAuthorization)(VKAccessToken *, VKError *) = ^(VKAccessToken *token, VKError *error) {
         VKAuthorizationResult *res = [VKAuthorizationResult new];
         res.error = error ? [NSError errorWithVkError:error] : nil;
         res.token = token;
         if (token) {
             [instance requestSdkState:^(VKUser *visitor, NSInteger per, NSError *err) {
                 if (visitor) {
-                    
-                    VKAccessTokenMutable * mToken = (VKAccessTokenMutable *) [token mutableCopy];
+
+                    VKAccessTokenMutable *mToken = (VKAccessTokenMutable *) [token mutableCopy];
                     instance.permissions = mToken.permissions = [instance updatePermissions:per];
                     mToken.localUser = visitor;
-                    
+
                     [self setAccessToken:mToken];
                     res.user = visitor;
                     res.token = mToken;
@@ -230,13 +231,13 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
                     res.error = err;
                 }
                 [instance notifyDelegate:@selector(vkSdkAccessAuthorizationFinishedWithResult:) obj:res];
-            } trackVisitor:YES token:token];
+            }            trackVisitor:YES token:token];
         } else {
             [instance notifyDelegate:@selector(vkSdkAccessAuthorizationFinishedWithResult:) obj:res];
         }
-        
+
     };
-    
+
     NSString *parametersString = [urlString substringFromIndex:rangeOfHash.location + 1];
     if (parametersString.length == 0) {
         VKError *error = [VKError errorWithCode:VK_API_CANCELED];
@@ -248,7 +249,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     }
     NSDictionary *parametersDict = [VKUtil explodeQueryString:parametersString];
     BOOL inAppCheck = [[passedUrl host] isEqual:@"oauth.vk.com"];
-    
+
     void (^hideViews)() = ^{
         if (instance.presentedSafariViewController) {
             [instance.presentedSafariViewController dismissViewControllerAnimated:YES completion:nil];
@@ -263,7 +264,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
             [instance resetSdkState];
         }
     };
-    
+
     BOOL result = YES;
     if (!inAppCheck && parametersDict[@"error"]) {
         if ([parametersDict[@"error_reason"] isEqual:@"sdk_error"] && instance.authState == VKAuthorizationExternal) {
@@ -285,7 +286,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
             token.expiresIn = prevToken.expiresIn;
             token.permissions = prevToken.permissions;
             token.httpsRequired = prevToken.httpsRequired;
-            
+
             if (!validation) {
                 notifyAuthorization(token, nil);
             } else {
@@ -310,15 +311,15 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 + (BOOL)processOpenURL:(NSURL *)passedUrl fromApplication:(NSString *)sourceApplication {
     if ([sourceApplication isEqualToString:VK_DEBUG_CLIENT_BUNDLE]
-        || [sourceApplication isEqualToString:VK_ORIGINAL_CLIENT_BUNDLE]
-        || [sourceApplication isEqualToString:VK_ORIGINAL_HD_CLIENT_BUNDLE]
-        || [passedUrl.scheme isEqualToString:[NSString stringWithFormat:@"vk%@", vkSdkInstance.currentAppId]]) {
+            || [sourceApplication isEqualToString:VK_ORIGINAL_CLIENT_BUNDLE]
+            || [sourceApplication isEqualToString:VK_ORIGINAL_HD_CLIENT_BUNDLE]
+            || [passedUrl.scheme isEqualToString:[NSString stringWithFormat:@"vk%@", vkSdkInstance.currentAppId]]) {
         return [self processOpenURL:passedUrl validation:NO];
     }
     return NO;
 }
 
-+ (BOOL)processOpenInternalURL:(NSURL *)passedUrl validation:(BOOL) validation {
++ (BOOL)processOpenInternalURL:(NSURL *)passedUrl validation:(BOOL)validation {
     return [self processOpenURL:passedUrl validation:validation];
 }
 
@@ -344,27 +345,27 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     return false;
 }
 
-+ (void)wakeUpSession:(NSArray *)permissions completeBlock:(void(^)(VKAuthorizationState, NSError *error)) wakeUpBlock {
++ (void)wakeUpSession:(NSArray *)permissions completeBlock:(void (^)(VKAuthorizationState, NSError *error))wakeUpBlock {
     VKAccessToken *token = [self accessToken] ?: [VKAccessToken savedToken:VK_ACCESS_TOKEN_DEFAULTS_KEY];
     VKSdk *instance = [self instance];
     if (!token || token.isExpired) {
         [instance resetSdkState];
         wakeUpBlock(instance.authState, nil);
     } else {
-        
+
         BOOL firstCall = instance.accessToken == nil;
         instance.accessToken = token;
         instance.authState = VKAuthorizationPending;
-        
+
         [[VKSdk instance] requestSdkState:^(VKUser *visitor, NSInteger per, NSError *error) {
-            
+
             instance.authState = VKAuthorizationUnknown;
             if (visitor) {
-                VKAccessTokenMutable * mToken = (VKAccessTokenMutable *) [token mutableCopy];
+                VKAccessTokenMutable *mToken = (VKAccessTokenMutable *) [token mutableCopy];
                 instance.permissions = mToken.permissions = [instance updatePermissions:per];
                 mToken.localUser = visitor;
                 instance.accessToken = mToken;
-                
+
                 if ([instance hasPermissions:permissions]) {
                     instance.authState = VKAuthorizationAuthorized;
                 } else {
@@ -373,7 +374,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
             } else if (error) {
                 instance.authState = VKAuthorizationError;
                 instance.accessToken = nil;
-                
+
                 VKError *vkError = error.vkError;
                 if (vkError.errorCode == 5) {
                     //Remove token from storage
@@ -382,11 +383,11 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
                 }
             }
             wakeUpBlock(instance.authState, error);
-            
-        } trackVisitor:firstCall token:token];
-        
+
+        }                    trackVisitor:firstCall token:token];
+
     }
-    
+
 }
 
 - (BOOL)hasPermissions:(NSArray *)permissions {
@@ -394,7 +395,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     [mutablePermissions removeObject:VK_PER_EMAIL];
     [mutablePermissions removeObject:VK_PER_NOHTTPS];
     [mutablePermissions removeObject:VK_PER_OFFLINE];
-    
+
     BOOL allExisted = YES;
     NSSet *tokenPermission = [NSSet setWithArray:self.accessToken.permissions];
     for (NSString *p in mutablePermissions) {
@@ -407,7 +408,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 }
 
 
--(NSArray *)updatePermissions:(NSInteger)appPermissions {
+- (NSArray *)updatePermissions:(NSInteger)appPermissions {
     NSMutableArray *permissions = [VKParseVkPermissionsFromInteger(appPermissions) mutableCopy];
     if ([self.permissions containsObject:VK_PER_OFFLINE]) {
         [permissions addObject:VK_PER_OFFLINE];
@@ -450,24 +451,24 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     return _currentAppId;
 }
 
-- (void)requestSdkState:(void (^)(VKUser *visitor, NSInteger permissions, NSError *error))infoCallback trackVisitor:(BOOL)trackVisitor token:(VKAccessToken*)token {
+- (void)requestSdkState:(void (^)(VKUser *visitor, NSInteger permissions, NSError *error))infoCallback trackVisitor:(BOOL)trackVisitor token:(VKAccessToken *)token {
     NSString *code = [NSString stringWithFormat:@"return {permissions:API.account.getAppPermissions(),user:API.users.get({fields : \"photo_50,photo_100,photo_200\"})[0],%1$@};", trackVisitor ? @"stats:API.stats.trackVisitor()," : @""];
     VKRequest *req = [VKRequest requestWithMethod:@"execute" andParameters:@{@"code" : code}];
     req.specialToken = token;
     req.preventThisErrorsHandling = @[@5];
     [req executeWithResultBlock:^(VKResponse *response) {
-         VKUser *user = [[VKUser alloc] initWithDictionary:response.json[@"user"]];
-         if (infoCallback) {
-             infoCallback(user, [VK_ENSURE_NUM(response.json[@"permissions"]) integerValue], nil);
-         }
-    } errorBlock:^(NSError *error) {
-         if (infoCallback) {
-             infoCallback(nil, 0, error);
-         }
+        VKUser *user = [[VKUser alloc] initWithDictionary:response.json[@"user"]];
+        if (infoCallback) {
+            infoCallback(user, [VK_ENSURE_NUM(response.json[@"permissions"]) integerValue], nil);
+        }
+    }                errorBlock:^(NSError *error) {
+        if (infoCallback) {
+            infoCallback(nil, 0, error);
+        }
     }];
 }
 
-- (void) notifyUserAuthorizationFailed:(VKError*) error {
+- (void)notifyUserAuthorizationFailed:(VKError *)error {
     [self notifyDelegate:@selector(vkSdkUserAuthorizationFailed:) obj:error];
     [[self class] setAccessToken:nil];
     [self resetSdkState];
@@ -480,7 +481,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     self.accessToken = nil;
 }
 
-- (void) notifyDelegate:(SEL)sel obj:(id)obj {
+- (void)notifyDelegate:(SEL)sel obj:(id)obj {
     for (VKWeakDelegate *del in self.sdkDelegates) {
         if ([del respondsToSelector:sel]) {
 #pragma clang diagnostic push
@@ -491,10 +492,10 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     }
 }
 
--(void)setAccessToken:(VKAccessToken *)accessToken {
+- (void)setAccessToken:(VKAccessToken *)accessToken {
     VKAccessToken *old = _accessToken;
     _accessToken = accessToken;
-    
+
     for (VKWeakDelegate *del in self.sdkDelegates) {
         if ([del respondsToSelector:@selector(vkSdkAccessTokenUpdated:oldToken:)]) {
             [del performSelector:@selector(vkSdkAccessTokenUpdated:oldToken:) withObject:self.accessToken withObject:old];
@@ -514,18 +515,18 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     Class objectClass;
 }
 
-+(instancetype)with:(id<VKSdkDelegate>)delegate {
++ (instancetype)with:(id <VKSdkDelegate>)delegate {
     VKWeakDelegate *res = [[self alloc] initWithObject:delegate];
     return res;
 }
 
--(instancetype) initWithObject:(id<VKSdkDelegate>)object {
+- (instancetype)initWithObject:(id <VKSdkDelegate>)object {
     self.weakTarget = object;
     objectClass = [object class];
     return self;
 }
 
--(NSMethodSignature *)methodSignatureForSelector:(SEL)sel {
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)sel {
     NSObject *targ = (id) self.weakTarget;
     if (targ) {
         return [targ methodSignatureForSelector:sel];
@@ -534,13 +535,13 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     }
 }
 
--(void)forwardInvocation:(NSInvocation *)invocation {
+- (void)forwardInvocation:(NSInvocation *)invocation {
     if (self.weakTarget) {
         [invocation invokeWithTarget:self.weakTarget];
     }
 }
 
--(BOOL)isEqualTarget:(id<VKSdkDelegate>)delegate {
+- (BOOL)isEqualTarget:(id <VKSdkDelegate>)delegate {
     return _weakTarget == delegate;
 }
 
@@ -549,13 +550,13 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 @implementation VKAccessToken (HttpsRequired)
 
--(void)setAccessTokenRequiredHTTPS {
+- (void)setAccessTokenRequiredHTTPS {
     VKAccessTokenMutable *token = (VKAccessTokenMutable *) [[VKSdk accessToken] mutableCopy];
     token.httpsRequired = YES;
     [VKSdk setAccessToken:token];
 }
 
-- (void) notifyTokenExpired {
+- (void)notifyTokenExpired {
     [[VKSdk instance] notifyDelegate:@selector(vkSdkTokenHasExpired:) obj:self];
 }
 
@@ -564,11 +565,11 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 @implementation VKError (CaptchaRequest)
 
-- (void) notifyCaptchaRequired {
+- (void)notifyCaptchaRequired {
     [[VKSdk instance] notifyDelegate:@selector(vkSdkNeedCaptchaEnter:) obj:self];
 }
 
-- (void) notiftAuthorizationFailed {
+- (void)notiftAuthorizationFailed {
     [[VKSdk instance] notifyUserAuthorizationFailed:self];
 }
 
@@ -577,17 +578,17 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 @implementation UIViewController (VKController)
 
-- (void) vks_presentViewControllerThroughDelegate {
+- (void)vks_presentViewControllerThroughDelegate {
     [[VKSdk instance].uiDelegate vkSdkShouldPresentViewController:self];
 }
 
-- (void) vks_viewControllerWillDismiss {
+- (void)vks_viewControllerWillDismiss {
     if ([[VKSdk instance].uiDelegate respondsToSelector:@selector(vkSdkWillDismissViewController:)]) {
         [[VKSdk instance].uiDelegate vkSdkWillDismissViewController:self];
     }
 }
 
-- (void) vks_viewControllerDidDismiss {
+- (void)vks_viewControllerDidDismiss {
     if ([[VKSdk instance].uiDelegate respondsToSelector:@selector(vkSdkDidDismissViewController:)]) {
         [[VKSdk instance].uiDelegate vkSdkDidDismissViewController:self];
     }

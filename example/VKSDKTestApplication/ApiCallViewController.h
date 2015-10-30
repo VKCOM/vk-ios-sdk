@@ -21,8 +21,9 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+
 @interface ApiCallViewController : UIViewController
-@property (nonatomic, strong) IBOutlet UILabel * methodName;
-@property (nonatomic, strong) IBOutlet UITextView * callResult;
-@property (nonatomic, strong) VKRequest * callingRequest;
+@property(nonatomic, strong) IBOutlet UILabel *methodName;
+@property(nonatomic, strong) IBOutlet UITextView *callResult;
+@property(nonatomic, strong) VKRequest *callingRequest;
 @end

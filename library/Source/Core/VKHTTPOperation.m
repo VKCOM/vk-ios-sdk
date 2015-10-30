@@ -68,6 +68,7 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 
 @implementation VKHTTPOperation
 @dynamic lock;
+
 + (instancetype)operationWithRequest:(VKRequest *)request {
     NSURLRequest *urlRequest = [request getPreparedRequest];
 
@@ -126,14 +127,14 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
     }
     if (_successCallbackQueue) {
 #if !OS_OBJECT_USE_OBJC
-		dispatch_release(_successCallbackQueue);
+        dispatch_release(_successCallbackQueue);
 #endif
         _successCallbackQueue = NULL;
     }
 
     if (_failureCallbackQueue) {
 #if !OS_OBJECT_USE_OBJC
-		dispatch_release(_failureCallbackQueue);
+        dispatch_release(_failureCallbackQueue);
 #endif
         _failureCallbackQueue = NULL;
     }
@@ -193,7 +194,7 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
         if (!_responseString) {
             VKError *vkError = [VKError errorWithCode:VK_RESPONSE_STRING_PARSING_ERROR];
             vkError.request = self.vkRequest;
-            
+
             self.error = [NSError errorWithVkError:vkError];
         }
     }
@@ -377,7 +378,7 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 
 #pragma mark - NSURLConnectionDelegate
 
-- (void)connection:(NSURLConnection __unused *)connection
+- (void)       connection:(NSURLConnection __unused *)connection
           didSendBodyData:(NSInteger)bytesWritten
         totalBytesWritten:(NSInteger)totalBytesWritten
 totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
@@ -541,14 +542,14 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
     if (successCallbackQueue != _successCallbackQueue) {
         if (_successCallbackQueue) {
 #if !OS_OBJECT_USE_OBJC
-			dispatch_release(_successCallbackQueue);
+            dispatch_release(_successCallbackQueue);
 #endif
             _successCallbackQueue = NULL;
         }
 
         if (successCallbackQueue) {
 #if !OS_OBJECT_USE_OBJC
-			dispatch_retain(successCallbackQueue);
+            dispatch_retain(successCallbackQueue);
 #endif
             _successCallbackQueue = successCallbackQueue;
         }
@@ -559,14 +560,14 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
     if (failureCallbackQueue != _failureCallbackQueue) {
         if (_failureCallbackQueue) {
 #if !OS_OBJECT_USE_OBJC
-			dispatch_release(_failureCallbackQueue);
+            dispatch_release(_failureCallbackQueue);
 #endif
             _failureCallbackQueue = NULL;
         }
 
         if (failureCallbackQueue) {
 #if !OS_OBJECT_USE_OBJC
-			dispatch_retain(failureCallbackQueue);
+            dispatch_retain(failureCallbackQueue);
 #endif
             _failureCallbackQueue = failureCallbackQueue;
         }

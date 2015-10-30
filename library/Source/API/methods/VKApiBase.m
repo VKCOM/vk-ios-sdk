@@ -52,7 +52,7 @@
 - (VKRequest *)prepareRequestWithMethodName:(NSString *)methodName andParameters:(NSDictionary *)methodParameters andHttpMethod:(NSString *)httpMethod andClassOfModel:(Class)modelClass {
     return [VKRequest requestWithMethod:[NSString stringWithFormat:@"%@.%@", _methodGroup, methodName]
                           andParameters:methodParameters
-                           modelClass:modelClass];
+                             modelClass:modelClass];
 }
 
 @end

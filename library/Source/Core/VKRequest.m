@@ -319,7 +319,7 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
 - (void)start {
     self.response = nil;
     self.error = nil;
-    
+
     self.executionOperation = [self createExecutionOperation];
     if (_executionOperation == nil)
         return;
@@ -435,7 +435,7 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     self.error = [NSError errorWithVkError:[VKError errorWithCode:VK_API_CANCELED]];
     [self finishRequest];
-    
+
 }
 
 - (void)setupProgress:(VKHTTPOperation *)operation {
@@ -522,10 +522,10 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
 
 #pragma mark Properties
 
-- (NSString*) language {
+- (NSString *)language {
     NSString *lang = self.requestLang;
     if (self.useSystemLanguage) {
-        NSString *sysLang = [ [ [ [ [NSLocale preferredLanguages] firstObject] componentsSeparatedByString:@"_"] firstObject] lowercaseString];
+        NSString *sysLang = [[[[[NSLocale preferredLanguages] firstObject] componentsSeparatedByString:@"_"] firstObject] lowercaseString];
         if ([SUPPORTED_LANGS_ARRAY containsObject:sysLang]) {
             lang = sysLang;
         }

@@ -27,14 +27,14 @@
 + (instancetype)uploadImageWithData:(NSData *)data andParams:(VKImageParameters *)params {
     VKUploadImage *image = [VKUploadImage new];
     image.imageData = data;
-    image.parameters = params ? : [VKImageParameters jpegImageWithQuality:0.9];
+    image.parameters = params ?: [VKImageParameters jpegImageWithQuality:0.9];
     return image;
 }
 
 + (instancetype)uploadImageWithImage:(UIImage *)image andParams:(VKImageParameters *)params {
     VKUploadImage *upload = [VKUploadImage new];
     upload.sourceImage = image;
-    upload.parameters = params ? : [VKImageParameters jpegImageWithQuality:0.9];
+    upload.parameters = params ?: [VKImageParameters jpegImageWithQuality:0.9];
     return upload;
 }
 @end

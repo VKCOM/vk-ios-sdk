@@ -45,7 +45,7 @@ static NSString *const PERMISSIONS = @"permissions";
     BOOL _httpsRequired;
     NSInteger _expiresIn;
     VKUser *_localUser;
-    
+
 }
 @property(nonatomic, readwrite, copy) NSString *accessToken;
 @end
@@ -84,7 +84,7 @@ static NSString *const PERMISSIONS = @"permissions";
         _secret = [aDecoder decodeObjectForKey:SECRET];
         _email = [aDecoder decodeObjectForKey:EMAIL];
         _permissions = [self restorePermissions:[aDecoder decodeObjectForKey:PERMISSIONS]];
-        
+
         _httpsRequired = [aDecoder decodeBoolForKey:HTTPS_REQUIRED];
         _expiresIn = [aDecoder decodeIntegerForKey:EXPIRES_IN];
         _created = [aDecoder decodeDoubleForKey:CREATED];
@@ -105,18 +105,18 @@ static NSString *const PERMISSIONS = @"permissions";
     if (self.email) {
         [aCoder encodeObject:self.email forKey:EMAIL];
     }
-    
+
     NSString *permissions = [self.permissions componentsJoinedByString:@","];
     if (permissions.length > 0) {
         [aCoder encodeObject:permissions forKey:PERMISSIONS];
     }
-    
+
     [aCoder encodeBool:self.httpsRequired forKey:HTTPS_REQUIRED];
     [aCoder encodeInteger:self.expiresIn forKey:EXPIRES_IN];
     [aCoder encodeDouble:self.created forKey:CREATED];
 }
 
-- (NSArray*)restorePermissions:(NSString*)permissionsString {
+- (NSArray *)restorePermissions:(NSString *)permissionsString {
     permissionsString = [permissionsString stringByReplacingOccurrencesOfString:@"(" withString:@""];
     permissionsString = [permissionsString stringByReplacingOccurrencesOfString:@")" withString:@""];
     NSMutableArray *array = [NSMutableArray array];
@@ -152,7 +152,7 @@ static NSString *const PERMISSIONS = @"permissions";
     return self;
 }
 
-- (instancetype) initWithVKAccessToken:(VKAccessToken *) token {
+- (instancetype)initWithVKAccessToken:(VKAccessToken *)token {
     if (self = [super init]) {
         _accessToken = [token.accessToken copy];
         _expiresIn = token.expiresIn;
@@ -225,22 +225,22 @@ static NSString *const PERMISSIONS = @"permissions";
             (__bridge id) kSecAttrAccessible : (__bridge id) kSecAttrAccessibleAfterFirstUnlock} mutableCopy];
 }
 
-+ (void)save:(NSString *)service data:(VKAccessToken*)token {
++ (void)save:(NSString *)service data:(VKAccessToken *)token {
     NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
-    SecItemDelete((__bridge CFDictionaryRef)keychainQuery);
+    SecItemDelete((__bridge CFDictionaryRef) keychainQuery);
     keychainQuery[(__bridge id) kSecValueData] = [NSKeyedArchiver archivedDataWithRootObject:token];
-    SecItemAdd((__bridge CFDictionaryRef)keychainQuery, NULL);
+    SecItemAdd((__bridge CFDictionaryRef) keychainQuery, NULL);
 }
 
-+ (VKAccessToken*)load:(NSString *)service {
++ (VKAccessToken *)load:(NSString *)service {
     id ret = nil;
     NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
     keychainQuery[(__bridge id) kSecReturnData] = (id) kCFBooleanTrue;
     keychainQuery[(__bridge id) kSecMatchLimit] = (__bridge id) kSecMatchLimitOne;
     CFDataRef keyData = NULL;
-    if (SecItemCopyMatching((__bridge CFDictionaryRef)keychainQuery, (CFTypeRef *)&keyData) == noErr) {
+    if (SecItemCopyMatching((__bridge CFDictionaryRef) keychainQuery, (CFTypeRef *) &keyData) == noErr) {
         @try {
-            ret = [NSKeyedUnarchiver unarchiveObjectWithData:(__bridge NSData *)keyData];
+            ret = [NSKeyedUnarchiver unarchiveObjectWithData:(__bridge NSData *) keyData];
         }
         @catch (NSException *e) {
             NSLog(@"Unarchive of %@ failed: %@", service, e);
@@ -255,7 +255,7 @@ static NSString *const PERMISSIONS = @"permissions";
 
 + (void)delete:(NSString *)service {
     NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
-    SecItemDelete((__bridge CFDictionaryRef)keychainQuery);
+    SecItemDelete((__bridge CFDictionaryRef) keychainQuery);
 }
 
 @end
@@ -264,31 +264,31 @@ static NSString *const PERMISSIONS = @"permissions";
 @implementation VKAccessTokenMutable
 @dynamic accessToken, expiresIn, userId, secret, permissions, httpsRequired, localUser;
 
--(void)setAccessToken:(NSString *)accessToken {
+- (void)setAccessToken:(NSString *)accessToken {
     _accessToken = [accessToken copy];
 }
 
--(void)setExpiresIn:(NSInteger)expiresIn {
+- (void)setExpiresIn:(NSInteger)expiresIn {
     _expiresIn = expiresIn;
 }
 
--(void)setUserId:(NSString *)userId {
+- (void)setUserId:(NSString *)userId {
     _userId = [userId copy];
 }
 
--(void)setSecret:(NSString *)secret {
+- (void)setSecret:(NSString *)secret {
     _secret = [secret copy];
 }
 
--(void)setPermissions:(NSArray *)permissions {
+- (void)setPermissions:(NSArray *)permissions {
     _permissions = [permissions copy];
 }
 
--(void)setHttpsRequired:(BOOL)httpsRequired {
+- (void)setHttpsRequired:(BOOL)httpsRequired {
     _httpsRequired = httpsRequired;
 }
 
--(void)setLocalUser:(VKUser *)localUser {
+- (void)setLocalUser:(VKUser *)localUser {
     _localUser = localUser;
 }
 

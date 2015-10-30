@@ -25,14 +25,14 @@
 #import "VKUtil.h"
 #import "VKSharedTransitioningObject.h"
 
-@interface VKCaptchaViewController()
-@property (nonatomic, strong) VKCaptchaView *captchaView;
+@interface VKCaptchaViewController ()
+@property(nonatomic, strong) VKCaptchaView *captchaView;
 @end
 
 @implementation VKCaptchaViewController {
     VKSharedTransitioningObject *_transitionDelegate;
-    
 }
+
 + (instancetype)captchaControllerWithError:(VKError *)error {
     VKCaptchaViewController *controller = [VKCaptchaViewController new];
     controller->_captchaError = error;
@@ -60,32 +60,25 @@
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (CGRect) captchaFrameForScreenSize:(CGSize)screenSize {
+- (CGRect)captchaFrameForScreenSize:(CGSize)screenSize {
     CGRect captchaFrame = CGRectMake(0, 0, kCaptchaImageWidth + 10, kCaptchaViewHeight + 10);
     captchaFrame.origin = CGPointMake(
-                                      roundf((screenSize.width - captchaFrame.size.width) / 2.f),
-                                      roundf((screenSize.height / 2 - captchaFrame.size.height) / 2.f));
+            roundf((screenSize.width - captchaFrame.size.width) / 2.f),
+            roundf((screenSize.height / 2 - captchaFrame.size.height) / 2.f));
     return captchaFrame;
 }
 
--(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-        screenSize = CGSizeMake(MAX(screenSize.width,screenSize.height),MIN(screenSize.width, screenSize.height));
+        screenSize = CGSizeMake(MAX(screenSize.width, screenSize.height), MIN(screenSize.width, screenSize.height));
     } else {
-        screenSize = CGSizeMake(MIN(screenSize.width,screenSize.height),MAX(screenSize.width, screenSize.height));
+        screenSize = CGSizeMake(MIN(screenSize.width, screenSize.height), MAX(screenSize.width, screenSize.height));
     }
-    
-    
+
+
     self.captchaView.frame = [self captchaFrameForScreenSize:screenSize];
-//    CGRect captchaFrame = CGRectMake(0, 0, kCaptchaImageWidth + 10, kCaptchaViewHeight + 10);
-//    
-//    
-//    captchaFrame.origin = CGPointMake(
-//                                      roundf((self.view.frame.size.width - captchaFrame.size.width) / 2.f),
-//                                      roundf((self.view.frame.size.height / 2 - captchaFrame.size.height) / 2.f) - kCaptchaViewHeight);
-//    self.captchaView.frame = captchaFrame;
 }
 
 - (void)presentIn:(UIViewController *)controller {

@@ -7,7 +7,6 @@
 //
 
 #import "VKJSONOperation.h"
-#import "VKRequest.h"
 
 @implementation VKJSONOperation
 - (void)setCompletionBlockWithSuccess:(void (^)(VKHTTPOperation *operation, id responseObject))success

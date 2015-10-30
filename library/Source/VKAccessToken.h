@@ -31,7 +31,7 @@
 /**
 Presents VK API access token that used for loading API methods and other stuff.
 */
-@interface VKAccessToken : VKObject<NSCoding>
+@interface VKAccessToken : VKObject <NSCoding>
 
 /// String token for use in request parameters
 @property(nonatomic, readonly, copy) NSString *accessToken;

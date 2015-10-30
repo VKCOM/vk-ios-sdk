@@ -162,7 +162,7 @@ static NSString *const kVKMultipartFormBoundary = @"Boundary(======VK_SDK======)
             }
         });
 #if !OS_OBJECT_USE_OBJC
-	    dispatch_release(dispatchGroup);
+        dispatch_release(dispatchGroup);
 #endif
     }];
 

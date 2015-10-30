@@ -33,7 +33,7 @@
 @end
 
 @interface VKSdk ()
-+ (BOOL)processOpenInternalURL:(NSURL *)passedUrl validation:(BOOL) validation;
++ (BOOL)processOpenInternalURL:(NSURL *)passedUrl validation:(BOOL)validation;
 @end
 
 @interface VKAuthorizeController ()
@@ -103,7 +103,7 @@
             @"redirect_uri" : redirectUri ?: @"",
             @"response_type" : @"token"
     };
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", prefix ? : @"https://oauth.vk.com/authorize", [VKUtil queryStringFromParams:params]]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", prefix ?: @"https://oauth.vk.com/authorize", [VKUtil queryStringFromParams:params]]];
 }
 
 #pragma mark View prepare
@@ -244,7 +244,7 @@
     [self dismissWithCompletion:^{
         if (!_validationError) {
             //Silent cancel
-            [VKSdk processOpenInternalURL:[NSURL URLWithString:@"#"] validation:YES];
+            [VKSdk processOpenInternalURL:[NSURL URLWithString:@"#"] validation:NO];
         } else {
             [_validationError.request cancel];
         }
@@ -281,7 +281,7 @@
     } else {
         [self vks_viewControllerWillDismiss];
         [_internalNavigationController.presentingViewController dismissViewControllerAnimated:YES completion:^{
-           [self vks_viewControllerDidDismiss];
+            [self vks_viewControllerDidDismiss];
             completion();
         }];
     }

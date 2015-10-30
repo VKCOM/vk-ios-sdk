@@ -21,16 +21,17 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKAppDelegate.h"
+
 @implementation VKAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	return YES;
+    return YES;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-	[VKSdk processOpenURL:url fromApplication:sourceApplication];
-	
-	return YES;
+    [VKSdk processOpenURL:url fromApplication:sourceApplication];
+
+    return YES;
 }
 
 @end
