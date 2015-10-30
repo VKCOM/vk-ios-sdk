@@ -40,13 +40,11 @@
 #import "VKSdk.h"
 #import "VKAuthorizeController.h"
 #import "VKRequestsScheduler.h"
-#import "VKUser.h"
 
 @interface VKWeakDelegate : NSProxy <VKSdkDelegate>
 @property (nonatomic, weak) id<VKSdkDelegate> weakTarget;
 
 +(instancetype) with:(id<VKSdkDelegate>)delegate;
-
 -(BOOL)isEqualTarget:(id<VKSdkDelegate>)delegate;
 
 @end
@@ -218,7 +216,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
         res.error = error ? [NSError errorWithVkError:error] : nil;
         res.token = token;
         if (token) {
-            [instance requestSdkState:^(VKUser *visitor, NSInteger per, NSError *error) {
+            [instance requestSdkState:^(VKUser *visitor, NSInteger per, NSError *err) {
                 if (visitor) {
                     
                     VKAccessTokenMutable * mToken = (VKAccessTokenMutable *) [token mutableCopy];
@@ -228,8 +226,8 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
                     [self setAccessToken:mToken];
                     res.user = visitor;
                     res.token = mToken;
-                } else if (error) {
-                    res.error = error;
+                } else if (err) {
+                    res.error = err;
                 }
                 [instance notifyDelegate:@selector(vkSdkAccessAuthorizationFinishedWithResult:) obj:res];
             } trackVisitor:YES token:token];
@@ -528,7 +526,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 }
 
 -(NSMethodSignature *)methodSignatureForSelector:(SEL)sel {
-    NSObject *targ = self.weakTarget;
+    NSObject *targ = (id) self.weakTarget;
     if (targ) {
         return [targ methodSignatureForSelector:sel];
     } else {
@@ -552,7 +550,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 @implementation VKAccessToken (HttpsRequired)
 
 -(void)setAccessTokenRequiredHTTPS {
-    VKAccessTokenMutable *token = [[VKSdk accessToken] mutableCopy];
+    VKAccessTokenMutable *token = (VKAccessTokenMutable *) [[VKSdk accessToken] mutableCopy];
     token.httpsRequired = YES;
     [VKSdk setAccessToken:token];
 }

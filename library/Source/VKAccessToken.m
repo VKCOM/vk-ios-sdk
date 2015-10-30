@@ -77,7 +77,7 @@ static NSString *const PERMISSIONS = @"permissions";
     return self;
 }
 
-- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super init]) {
         _accessToken = [aDecoder decodeObjectForKey:ACCESS_TOKEN];
         _userId = [aDecoder decodeObjectForKey:USER_ID];
@@ -87,7 +87,7 @@ static NSString *const PERMISSIONS = @"permissions";
         
         _httpsRequired = [aDecoder decodeBoolForKey:HTTPS_REQUIRED];
         _expiresIn = [aDecoder decodeIntegerForKey:EXPIRES_IN];
-        _created = [aDecoder decodeFloatForKey:CREATED];
+        _created = [aDecoder decodeDoubleForKey:CREATED];
     }
     return self;
 }
@@ -113,7 +113,7 @@ static NSString *const PERMISSIONS = @"permissions";
     
     [aCoder encodeBool:self.httpsRequired forKey:HTTPS_REQUIRED];
     [aCoder encodeInteger:self.expiresIn forKey:EXPIRES_IN];
-    [aCoder encodeFloat:self.created forKey:CREATED];
+    [aCoder encodeDouble:self.created forKey:CREATED];
 }
 
 - (NSArray*)restorePermissions:(NSString*)permissionsString {
@@ -190,10 +190,6 @@ static NSString *const PERMISSIONS = @"permissions";
     }
 }
 
-+ (NSString*)encodingKey:(NSString*)key {
-    return [key stringByAppendingString:@"_enc"];
-}
-
 #pragma mark -
 
 - (NSString *)accessToken {
@@ -206,15 +202,15 @@ static NSString *const PERMISSIONS = @"permissions";
 #pragma mark - Save / Load
 
 - (void)saveTokenToDefaults:(NSString *)defaultsKey {
-    [[self class] save:defaultsKey data:self];
+    [[self class] save:defaultsKey data:[self copy]];
+}
+
+- (id)copy {
+    return [[VKAccessToken alloc] initWithVKAccessToken:self];
 }
 
 - (id)mutableCopy {
     return [[VKAccessTokenMutable alloc] initWithVKAccessToken:self];
-}
-
-- (id)copy {
-    return [(VKAccessToken*)[[self class] alloc] initWithVKAccessToken:self];
 }
 
 /**
@@ -223,26 +219,24 @@ static NSString *const PERMISSIONS = @"permissions";
  */
 
 + (NSMutableDictionary *)getKeychainQuery:(NSString *)service {
-    return [NSMutableDictionary dictionaryWithObjectsAndKeys:
-            (__bridge id)kSecClassGenericPassword, (__bridge id)kSecClass,
-            service, (__bridge id)kSecAttrService,
-            service, (__bridge id)kSecAttrAccount,
-            (__bridge id)kSecAttrAccessibleAfterFirstUnlock, (__bridge id)kSecAttrAccessible,
-            nil];
+    return [@{(__bridge id) kSecClass : (__bridge id) kSecClassGenericPassword,
+            (__bridge id) kSecAttrService : service,
+            (__bridge id) kSecAttrAccount : service,
+            (__bridge id) kSecAttrAccessible : (__bridge id) kSecAttrAccessibleAfterFirstUnlock} mutableCopy];
 }
 
 + (void)save:(NSString *)service data:(VKAccessToken*)token {
     NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
     SecItemDelete((__bridge CFDictionaryRef)keychainQuery);
-    [keychainQuery setObject:[NSKeyedArchiver archivedDataWithRootObject:token] forKey:(__bridge id)kSecValueData];
+    keychainQuery[(__bridge id) kSecValueData] = [NSKeyedArchiver archivedDataWithRootObject:token];
     SecItemAdd((__bridge CFDictionaryRef)keychainQuery, NULL);
 }
 
 + (VKAccessToken*)load:(NSString *)service {
     id ret = nil;
     NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
-    [keychainQuery setObject:(id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];
-    [keychainQuery setObject:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
+    keychainQuery[(__bridge id) kSecReturnData] = (id) kCFBooleanTrue;
+    keychainQuery[(__bridge id) kSecMatchLimit] = (__bridge id) kSecMatchLimitOne;
     CFDataRef keyData = NULL;
     if (SecItemCopyMatching((__bridge CFDictionaryRef)keychainQuery, (CFTypeRef *)&keyData) == noErr) {
         @try {
