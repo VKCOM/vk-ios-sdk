@@ -87,7 +87,7 @@ Using SDK
 
 SDK Initialization
 ----------
-1) Put this code to the application delegate method `application:openURL:sourceApplication:annotation:`
+1) Put this code to the application delegate method
 ```
 //iOS 9 workflow
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
