@@ -566,7 +566,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 @implementation VKError (CaptchaRequest)
 
 - (void)notifyCaptchaRequired {
-    [[VKSdk instance] notifyDelegate:@selector(vkSdkNeedCaptchaEnter:) obj:self];
+    [[VKSdk instance].uiDelegate vkSdkNeedCaptchaEnter:self];
 }
 
 - (void)notiftAuthorizationFailed {

@@ -63,12 +63,6 @@ typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
 */
 @protocol VKSdkDelegate <NSObject>
 @required
-/**
-Calls when user must perform captcha-check
-@param captchaError error returned from API. You can load captcha image from <b>captchaImg</b> property.
-After user answered current captcha, call answerCaptcha: method with user entered answer.
-*/
-- (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError;
 
 /**
  Notifies delegate about authorization was completed successfully, and token received
@@ -106,6 +100,13 @@ After user answered current captcha, call answerCaptcha: method with user entere
  */
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller;
 
+/**
+ Calls when user must perform captcha-check
+ @param captchaError error returned from API. You can load captcha image from <b>captchaImg</b> property.
+ After user answered current captcha, call answerCaptcha: method with user entered answer.
+ */
+- (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError;
+
 @optional
 /**
  * Called when a controller presented by SDK will be dismissed
@@ -116,6 +117,8 @@ After user answered current captcha, call answerCaptcha: method with user entere
  * Called when a controller presented by SDK did dismiss
  */
 - (void)vkSdkDidDismissViewController:(UIViewController *)controller;
+
+
 
 @end
 
