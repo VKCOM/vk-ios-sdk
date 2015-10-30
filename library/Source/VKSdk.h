@@ -78,7 +78,7 @@ typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
 @optional
 
 /**
- Notifies delegate about receiving new access token
+ Notifies delegate about access token changed
  @param newToken new token for API requests
  @param oldToken previous used token
  */

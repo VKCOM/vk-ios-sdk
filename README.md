@@ -11,13 +11,9 @@ You will require your Application ID (referenced as API_ID in the documentation)
 Setup URL-schema of Your Application
 ----------
 
-To use authorization via VK App you need to setup a url-schema of your application. 
+To use authorization via VK App you need to setup a url-schema of your application, which looks like vk+APP_ID (e.g. **vk1234567**).
 
-<b>Xcode 5 and above:</b>
-Open your application settings then select the Info tab. In the URL Types section click the plus sign. Enter vk+APP_ID (e.g. **vk1234567**) to the Identifier and URL Schemes fields.
-
-<b>Xcode 4:</b>
-Open your Info.plist then add a new row URL Types. Set the URL identifier to vk+APP_ID
+[Read how to implement your own URL Scheme here] (https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/Introduction/Introduction.html), Also there is [nice Twitter tutorial] (https://dev.twitter.com/cards/mobile/url-schemes)
 
 
 Configuring application for iOS 9
@@ -48,6 +44,7 @@ Also, for iOS 9 you have to enumerate app schemas which you app using (and check
 <key>LSApplicationQueriesSchemes</key>
 <array>
     <string>vk</string>
+    <string>vk-share</string>
     <string>vkauthorize</string>
 </array>
 ```
@@ -75,15 +72,18 @@ Installation with source code
 Add `VKSdk.framework` and `VKSdkResources.bundle` files into your project. In the Application settings open **Build phases**, then the **Link Binary with Libraries** section, add `VKSdk.framework` there. Add `VKSdkResources.bundle` into **Copy bundle resources** section. Import the main header:
 
     #import <VKSdk.h>
+    
+    
+Installation with framework project
+----------
+
+If you targeting an application only to iOS 8 and above, you can use the SDK framework target. Add `VK-ios-sdk.xcodeproj` as sub-project of your project. Open your project in Xcode, and on the "General" tab find the "Embedded Binaries" section. Press plus sign, and select "VKSdkFramework.framework" from the VK-ios-sdk project. Import the main header:
+
+    #import <VKSdkFramework/VKSdk.h>
+
 
 Using SDK
 ==========
-Pre-requirements
-----------
-**Please read this section carefully if you don't want your app to be rejected!**
-
-If your application is using VK SDK to provide the basic application functions, your app may be rejected by default (reason 10.6, see this issue #64), because the SDK is trying to authorize user through the Mobile Safari.
-If you making such application, implement `-(BOOL)vkSdkIsBasicAuthorization {return YES;}` delegate method for tell SDK authorize with UIWebView first.
 
 SDK Initialization
 ----------
@@ -97,36 +97,49 @@ SDK Initialization
 ```
 2) Initialize SDK with your APP_ID for any delegate.
 ```
-    [VKSdk initializeWithDelegate:delegate andAppId:YOUR_APP_ID];
-    if ([VKSdk wakeUpSession])
-    {
-        //Start working
-    }
+    VKSdk *sdkInstance = [VKSdk initializeWithAppId:YOUR_APP_ID];
+```
+
+See full description of `VKSdkDelegate` protocol here: http://cocoadocs.org/docsets/VK-ios-sdk
+
+Starting from version 2.0 there are two types of delegates available: common delegate and UI delegate. You can register as much common delegates, as you need, but an UI delegate may be only one. After the SDK initialization you should register delegates separately:
+```
+[sdkInstance registerDelegate:delegate];
+[sdkInstance setUiDelegate:uiDelegate];
+```
+
+3) You need to check, if there is previous session available, so call asynchronous method `wakeUpSession:completeBlock:`:
+```
+    [VKSdk wakeUpSession:SCOPE completeBlock:^(VKAuthorizationState state, NSError *error) {
+        if (state == VKAuthorizationAuthorized) {
+            // Authorized and ready to go
+        } else if (error) {
+            // Some error happend, but you may try later
+        }
+    }];
 ``` 
-See full description of `VKSdkDelegate` protocol here: http://vkcom.github.io/vk-ios-sdk/Protocols/VKSdkDelegate.html
+
+Check out the VKAuthorizationState parameter. You can get several states:
+* VKAuthorizationInitialized – means the SDK is ready to work, and you can authorize user with `+authorize:` method. Probably, an old session has expired, and we wiped it out. *This is not an error.*
+* VKAuthorizationAuthorized - means a previous session is okay, and you can continue working with user data.
+* VKAuthorizationError - means some error happened when we tried to check the authorization. Probably, the internet connection has a bad quality. You have to try again later.
+
 
 User Authorization
 ----------
 
-There are several methods for authorization: 
-
+If you don't have a session yet, you have to authorize user with a next method: 
+```
     [VKSdk authorize:scope];
-    [VKSdk authorize:scope revokeAccess:YES];
-    [VKSdk authorize:scope revokeAccess:YES forceOAuth:YES];
+``` 
 
-Generally, `[VKSdk authorize:scope revokeAccess:YES]` is enough for your needs. 
+After authorization, all common delegates will be called with a next method:
+```
+- (void)vkSdkAccessAuthorizationFinishedWithResult:(VKAuthorizationResult *)result;
+```
 
-When succeeded, the following method of delegate will be called:
+`VKAuthorizationResult` contains some initial information: new access token object, basic user information, and error (if authorization failed).
 
-    -(void) vkSdkReceivedNewToken:(VKAccessToken*) newToken;
-
-In case of error (e.g., user canceled authorization):
-
-    -(void) vkSdkUserDeniedAccess:(VKError*) authorizationError;
-
-To get the User ID after authorization use method of `VKAccessToken` class
-
-    [[VKSdk getAccessToken] userId] //Return NSString - authorized user id
 
 API Requests
 ==========
@@ -142,12 +155,7 @@ Below we have listed the examples for several request types.
 
     VKRequest * audioReq = [[VKApi audio] get:@{VK_API_OWNER_ID : @"896232"}];
 
-3) Http (not https) request (only if scope `VK_PER_NOHTTPS` has been passed)
-
-    VKRequest * audioReq = [[VKApi audio] get:@{VK_API_OWNER_ID : @"896232"}]; 
-    audioReq.secure = NO;
-
-4) Request with predetermined maximum number of attempts.
+3) Request with predetermined maximum number of attempts.
 
     VKRequest * postReq = [[VKApi wall] post:@{VK_API_MESSAGE : @"Test"}]; 
     postReq.attempts = 10; 
@@ -156,11 +164,11 @@ Below we have listed the examples for several request types.
 
 It will take 10 attempts until succeeds or an API error occurs. 
 
-5) Request that calls a method of VK API (keep in mind scope value).
+4) Request that calls any method of VK API.
 
-    VKRequest * getWall = [VKRequest requestWithMethod:@"wall.get" andParameters:@{VK_API_OWNER_ID : @"-1"} andHttpMethod:@"GET"];
+    VKRequest * getWall = [VKRequest requestWithMethod:@"wall.get" andParameters:@{VK_API_OWNER_ID : @"-1"}];
 
-6) Request for uploading photos on user wall.
+5) Request for uploading photos on user wall.
 
     VKRequest * request = [VKApi uploadWallPhotoRequest:[UIImage imageNamed:@"my_photo"] parameters:[VKImageParameters pngImage] userId:0 groupId:0 ];
 
@@ -181,7 +189,7 @@ Error Handling
 ----------
 Every request can return `NSError` with domain equal to `VKSdkErrorDomain`. SDK can return networking error or internal SDK error (e.g. request was canceled). Category `NSError+VKError` provides vkError property that describes error event. Compare error code with the global constant `VK_API_ERROR`. If they equal that means you process vkError property as API error. Otherwise you should handle an http error. 
 
-Some errors (e.g., captcha error, validation error) can be proccessed by the SDK. Appropriate delegate methods will be called for this purpose. 
+Some errors (e.g., captcha error, validation error) can be proccessed by the SDK. Appropriate ui delegate method will be called for this purpose. 
 Below is an example of captcha error processing:
 
     -(void) vkSdkNeedCaptchaEnter:(VKError*) captchaError 
@@ -216,6 +224,7 @@ request2.completeBlock = ^(VKResponse*) { ... };
     
 4) The result of each method returns to a corresponding completeBlock. The responses array contains responses of the requests in order they have been passed.
 
+
 Working with Share dialog
 ==========
 Share dialog allows you to create a user friendly dialog for sharing text and photos from your application directly to VK. See the Share dialog usage example:
@@ -241,10 +250,15 @@ shareDialog.shareLink    = [[VKShareLink alloc] initWithTitle:@"Super puper link
 
 6) present the dialog viewcontroller in your view controller
 
+
 Working with share activity
 ==========
 
-VK SDK provides a special class for working with `UIActivityViewController` - `VKActivity`. See example below for understand how it works:
+VK SDK provides a special class for working with `UIActivityViewController` - `VKActivity`. 
+
+Pay attention to the fact, that a VK app has it own Share extension starting from version 2.4. Starting from version 2.5 it will support special URL scheme to check, if Share extension is available. You should call `[VKActivity vkShareExtensionEnabled]` method to remove VKActivity from activities list, if a VK share extension available.
+
+See example below for understand how it works:
 
 ```
 NSArray *items = @[[UIImage imageNamed:@"apple"], @"Check out information about VK SDK" , [NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]]; //1
