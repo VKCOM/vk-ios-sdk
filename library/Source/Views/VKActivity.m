@@ -36,6 +36,10 @@ NSString *const VKActivityTypePost = @"VKActivityTypePost";
     return UIActivityCategoryShare;
 }
 
++ (BOOL)vkShareExtensionEnabled {
+    return NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1 && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"vk-share://extension"]];
+}
+
 - (NSString *)activityType {
     return VKActivityTypePost;
 }

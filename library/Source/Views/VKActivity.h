@@ -29,4 +29,11 @@ extern NSString *const VKActivityTypePost;
 */
 @interface VKActivity : UIActivity
 
+/**
+ * You should call this method to checks if VK app can show share extension (available from version 2.4, but flag supported in 2.5).
+ *
+ * @return YES, if VK Share extension available, and you don't have use VKActivity class
+ */
++ (BOOL)vkShareExtensionEnabled;
+
 @end
