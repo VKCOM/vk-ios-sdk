@@ -162,6 +162,7 @@ static NSString *const PERMISSIONS = @"permissions";
         _created = token.created;
         _permissions = [token.permissions copy];
         _email = [token.email copy];
+        _localUser = token.localUser;
     }
     return self;
 }
