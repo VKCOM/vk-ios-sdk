@@ -115,24 +115,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vca-Tg-iuf">
-                                <rect key="frame" x="0.0" y="327" width="320" height="30"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Share dialog"/>
-                                <connections>
-                                    <action selector="openShareDialog:" destination="EGh-wy-2rb" eventType="touchUpInside" id="cQu-uq-Sdy"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YWF-ld-CDZ">
-                                <rect key="frame" x="0.0" y="264" width="320" height="30"/>
+                                <rect key="frame" x="0.0" y="269" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Get new access token"/>
                                 <connections>
                                     <action selector="authorize:" destination="EGh-wy-2rb" eventType="touchUpInside" id="wgy-u4-m5V"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vca-Tg-iuf">
+                                <rect key="frame" x="0.0" y="320" width="320" height="30"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Share dialog"/>
+                                <connections>
+                                    <action selector="openShareDialog:" destination="EGh-wy-2rb" eventType="touchUpInside" id="cQu-uq-Sdy"/>
                                 </connections>
                             </button>
                         </subviews>
