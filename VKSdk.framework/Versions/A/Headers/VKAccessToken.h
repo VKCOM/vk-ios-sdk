@@ -26,38 +26,39 @@
 
 #import <Foundation/Foundation.h>
 #import "VKObject.h"
+#import "VKUser.h"
 
 /**
 Presents VK API access token that used for loading API methods and other stuff.
 */
-@interface VKAccessToken : VKObject
+@interface VKAccessToken : VKObject <NSCoding>
 
 /// String token for use in request parameters
-@property(nonatomic, readonly) NSString *accessToken;
-
-/// Time when token expires
-@property(nonatomic, strong) NSString *expiresIn;
+@property(nonatomic, readonly, copy) NSString *accessToken;
 
 /// Current user id for this token
-@property(nonatomic, strong) NSString *userId;
+@property(nonatomic, readonly, copy) NSString *userId;
 
 /// User secret to sign requests (if nohttps used)
-@property(nonatomic, strong) NSString *secret;
-
-/// If user sets "Always use HTTPS" setting in his profile, it will be true
-@property(nonatomic, assign) BOOL httpsRequired;
-
-/// Indicates time of token creation
-@property(nonatomic, assign) NSTimeInterval created;
-
-/// Return YES if token has expired
-@property(nonatomic, assign) BOOL isExpired;
+@property(nonatomic, readonly, copy) NSString *secret;
 
 // Permisiions assosiated with token
-@property(nonatomic, strong) NSArray *permissions;
+@property(nonatomic, readonly, copy) NSArray *permissions;
 
 // User email (if passed)
-@property(nonatomic, readwrite, copy) NSString *email;
+@property(nonatomic, readonly, copy) NSString *email;
+
+/// Time when token expires
+@property(nonatomic, readonly, assign) NSInteger expiresIn;
+
+/// If user sets "Always use HTTPS" setting in his profile, it will be true
+@property(nonatomic, readonly, assign) BOOL httpsRequired;
+
+/// Indicates time of token creation
+@property(nonatomic, readonly, assign) NSTimeInterval created;
+
+/// Indicates time of token creation
+@property(nonatomic, readonly, strong) VKUser *localUser;
 
 /**
 Retrieve token from key-value query string
@@ -76,24 +77,11 @@ Create token with existing properties
 + (instancetype)tokenWithToken:(NSString *)accessToken secret:(NSString *)secret userId:(NSString *)userId;
 
 /**
-Retrieve token from file. Token must be saved into file with saveTokenToFile method
-@param filePath path to file with saved token
-@return parsed token
-*/
-+ (instancetype)tokenFromFile:(NSString *)filePath;
-
-/**
 Retrieve token from user defaults. Token must be saved to defaults with saveTokenToDefaults method
 @param defaultsKey path to file with saved token
 @return parsed token
 */
-+ (instancetype)tokenFromDefaults:(NSString *)defaultsKey;
-
-/**
-Save token into specified file
-@param filePath path to file with saved token
-*/
-- (void)saveTokenToFile:(NSString *)filePath;
++ (instancetype)savedToken:(NSString *)defaultsKey;
 
 /**
 Save token into user defaults by specified key
@@ -101,4 +89,22 @@ Save token into user defaults by specified key
 */
 - (void)saveTokenToDefaults:(NSString *)defaultsKey;
 
+/// Return YES if token has expired
+- (BOOL)isExpired;
+
+/**
+ Remove token from storage
+ */
++ (void)delete:(NSString *)service;
+
+@end
+
+@interface VKAccessTokenMutable : VKAccessToken
+@property(nonatomic, readwrite, copy) NSString *accessToken;
+@property(nonatomic, readwrite, copy) NSString *userId;
+@property(nonatomic, readwrite, copy) NSString *secret;
+@property(nonatomic, readwrite, copy) NSArray *permissions;
+@property(nonatomic, readwrite, assign) BOOL httpsRequired;
+@property(nonatomic, readwrite, assign) NSInteger expiresIn;
+@property(nonatomic, readwrite, strong) VKUser *localUser;
 @end

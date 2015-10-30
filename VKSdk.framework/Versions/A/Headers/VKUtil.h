@@ -49,3 +49,20 @@ Breaks key=value string to dictionary
 
 + (NSString *)queryStringFromParams:(NSDictionary *)params;
 @end
+
+
+@interface UIImage (RoundedImage)
+- (UIImage *)vks_roundCornersImage:(CGFloat)cornerRadius resultSize:(CGSize)imageSize;
+@end
+
+static inline NSNumber *VK_ENSURE_NUM(id obj) {
+    return [obj isKindOfClass:[NSNumber class]] ? obj : nil;
+}
+
+static inline NSDictionary *VK_ENSURE_DICT(id data) {
+    return [data isKindOfClass:NSDictionary.class] ? data : nil;
+}
+
+static inline NSArray *VK_ENSURE_ARRAY(id data) {
+    return [data isKindOfClass:NSArray.class] ? data : nil;
+}

@@ -46,8 +46,6 @@ Creates and debug timings for VKRequest
 Class for execution API-requests
 */
 @interface VKRequest : VKObject
-/// Specify language for API request
-@property(nonatomic, copy) NSString *preferredLang;
 /// Specify progress for uploading or downloading. Useless for text requests (because gzip encoding bytesTotal will always return -1)
 
 @property(nonatomic, copy) void (^progressBlock)(VKProgressType progressType, long long bytesLoaded, long long bytesTotal);
@@ -83,34 +81,57 @@ Class for execution API-requests
 @property(nonatomic, readonly) VKRequestTiming *requestTiming;
 /// Return YES if current request was started
 @property(nonatomic, readonly) BOOL isExecuting;
-
+/// Return YES if current request was started
+@property(nonatomic, copy) NSArray *preventThisErrorsHandling;
 
 ///-------------------------------
 /// @name Preparing requests
 ///-------------------------------
 /**
-Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
-@param method API-method name, e.g. audio.get
-@param parameters method parameters
-@param httpMethod HTTP method for execution, e.g. GET, POST
-@return Complete request object for execute or configure method
+ Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
+ @param method API-method name, e.g. audio.get
+ @param parameters method parameters
+ @param httpMethod HTTP method for execution, e.g. GET, POST
+ @return Complete request object for execute or configure method
+ @deprecated Use requestWithMethod:andParameters: instead
 */
 + (instancetype)requestWithMethod:(NSString *)method
                     andParameters:(NSDictionary *)parameters
-                    andHttpMethod:(NSString *)httpMethod;
+                    andHttpMethod:(NSString *)httpMethod __deprecated;
+
+/**
+ Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
+ @param method API-method name, e.g. audio.get
+ @param parameters method parameters
+ @return Complete request object for execute or configure method
+*/
++ (instancetype)requestWithMethod:(NSString *)method
+                    andParameters:(NSDictionary *)parameters;
+
+/**
+ Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
+ @param method API-method name, e.g. audio.get
+ @param parameters method parameters
+ @param httpMethod HTTP method for execution, e.g. GET, POST
+ @param modelClass class for automatic parse
+ @return Complete request object for execute or configure method
+ @deprecated Use requestWithMethod:andParameters:modelClass: instead
+*/
++ (instancetype)requestWithMethod:(NSString *)method
+                    andParameters:(NSDictionary *)parameters
+                    andHttpMethod:(NSString *)httpMethod
+                     classOfModel:(Class)modelClass __deprecated;
 
 /**
 Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
 @param method API-method name, e.g. audio.get
 @param parameters method parameters
-@param httpMethod HTTP method for execution, e.g. GET, POST
 @param modelClass class for automatic parse
 @return Complete request object for execute or configure method
 */
 + (instancetype)requestWithMethod:(NSString *)method
                     andParameters:(NSDictionary *)parameters
-                    andHttpMethod:(NSString *)httpMethod
-                     classOfModel:(Class)modelClass;
+                       modelClass:(Class)modelClass;
 
 /**
 Creates new request for upload image to url
@@ -156,7 +177,7 @@ Starts loading of prepared request. You can use it instead of executeWithResultB
 /**
  Creates loading operation for this request
  */
-- (NSOperation*) createExecutionOperation;
+- (NSOperation *)createExecutionOperation;
 
 /**
 Repeats this request with initial parameters and blocks.
@@ -177,5 +198,8 @@ Adds additional parameters to that request
 @param extraParameters parameters supposed to be added
 */
 - (void)addExtraParameters:(NSDictionary *)extraParameters;
+
+/// Specify language for API request
+- (void)setPreferredLang:(NSString *)lang;
 
 @end

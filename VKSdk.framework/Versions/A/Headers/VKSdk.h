@@ -39,79 +39,89 @@
 #import "VKUploadImage.h"
 #import "VKShareDialogController.h"
 #import "VKActivity.h"
+#import "VKAuthorizationResult.h"
+
+typedef NS_OPTIONS(NSUInteger, VKAuthorizationOptions) {
+    VKAuthorizationOptionsUnlimitedToken = 1 << 0,
+    VKAuthorizationOptionsDisableSafariController = 1 << 1,
+};
+
+typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
+    VKAuthorizationUnknown, // Authorization state unknown, probably something went wrong
+    VKAuthorizationInitialized, // SDK initialized and ready to authorize
+    VKAuthorizationPending, // Authorization state pending, probably we're trying to load auth information
+    VKAuthorizationExternal, // Started external authorization process
+    VKAuthorizationSafariInApp, // Started in app authorization process, using SafariViewController
+    VKAuthorizationWebview, // Started in app authorization process, using webview
+    VKAuthorizationAuthorized, // User authorized
+    VKAuthorizationError, // An error occured, try to wake up session later
+};
 
 /**
-Global SDK events delegate protocol.
-You should implement it, typically as main view controller or as application delegate.
+ SDK events delegate protocol.
+ You should implement it, typically as main view controller or as application delegate.
 */
 @protocol VKSdkDelegate <NSObject>
 @required
-/**
-Calls when user must perform captcha-check
-@param captchaError error returned from API. You can load captcha image from <b>captchaImg</b> property.
-After user answered current captcha, call answerCaptcha: method with user entered answer.
-*/
-- (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError;
 
 /**
-Notifies delegate about existing token has expired
-@param expiredToken old token that has expired
-*/
+ Notifies delegate about authorization was completed successfully, and token received
+ @param result contains new token or error, retrieved after VK authorization
+ */
+- (void)vkSdkAccessAuthorizationFinishedWithResult:(VKAuthorizationResult *)result;
+
+/**
+ Notifies delegate about access error, mostly connected with user deauthorized application
+ */
+- (void)vkSdkUserAuthorizationFailed:(VKError *)result;
+
+@optional
+
+/**
+ Notifies delegate about access token changed
+ @param newToken new token for API requests
+ @param oldToken previous used token
+ */
+- (void)vkSdkAccessTokenUpdated:(VKAccessToken *)newToken oldToken:(VKAccessToken *)oldToken;
+
+/**
+ Notifies delegate about existing token has expired
+ @param expiredToken old token that has expired
+ */
 - (void)vkSdkTokenHasExpired:(VKAccessToken *)expiredToken;
 
-/**
-Notifies delegate about user authorization cancelation
-@param authorizationError error that describes authorization error
-*/
-- (void)vkSdkUserDeniedAccess:(VKError *)authorizationError;
+@end
 
+
+@protocol VKSdkUIDelegate <NSObject>
 /**
-Pass view controller that should be presented to user. Usually, it's an authorization window
-@param controller view controller that must be shown to user
-*/
+ Pass view controller that should be presented to user. Usually, it's an authorization window
+ @param controller view controller that must be shown to user
+ */
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller;
 
 /**
-Notifies delegate about receiving new access token
-@param newToken new token for API requests
-*/
-- (void)vkSdkReceivedNewToken:(VKAccessToken *)newToken;
+ Calls when user must perform captcha-check
+ @param captchaError error returned from API. You can load captcha image from <b>captchaImg</b> property.
+ After user answered current captcha, call answerCaptcha: method with user entered answer.
+ */
+- (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError;
 
 @optional
 /**
-Notifies delegate about receiving predefined token (initializeWithDelegate:andAppId:andCustomToken: token is not nil)
-@param token used token for API requests
-*/
-- (void)vkSdkAcceptedUserToken:(VKAccessToken *)token;
-
-/**
-Notifies delegate about receiving new access token
-@param newToken new token for API requests
-*/
-- (void)vkSdkRenewedToken:(VKAccessToken *)newToken;
-
-/**
-Requests delegate about redirect to Safari during authorization procedure.
-By default returns YES
-*/
-- (BOOL)vkSdkAuthorizationAllowFallbackToSafari;
-
-/**
-Applications which not using VK SDK as main way of authentication should override this method and return NO.
-By default returns YES.
-*/
-- (BOOL)vkSdkIsBasicAuthorization;
-
-/**
-* Called when a controller presented by SDK will be dismissed
-*/
+ * Called when a controller presented by SDK will be dismissed
+ */
 - (void)vkSdkWillDismissViewController:(UIViewController *)controller;
 
 /**
-* Called when a controller presented by SDK did dismiss
-*/
+ * Called when a controller presented by SDK did dismiss
+ */
 - (void)vkSdkDidDismissViewController:(UIViewController *)controller;
+
+
+
 @end
+
 
 /**
 Entry point for using VK sdk. Should be initialized at application start
@@ -121,9 +131,7 @@ Entry point for using VK sdk. Should be initialized at application start
 ///-------------------------------
 /// @name Delegate
 ///-------------------------------
-
-/// Responder for global SDK events
-@property(nonatomic, weak) id <VKSdkDelegate> delegate;
+@property(nonatomic, readwrite, weak) id <VKSdkUIDelegate> uiDelegate;
 
 /// Returns a last app_id used for initializing the SDK
 @property(nonatomic, readonly, copy) NSString *currentAppId;
@@ -139,101 +147,57 @@ Returns instance of VK sdk. You should never use that directly
 + (instancetype)instance;
 
 /**
-Initialize SDK with responder for global SDK events
-@param delegate responder for global SDK events
+Initialize SDK with responder for global SDK events with default api version from VK_SDK_API_VERSION
 @param appId your application id (if you haven't, you can create standalone application here https://vk.com/editapp?act=create )
 */
-+ (void)initializeWithDelegate:(id <VKSdkDelegate>)delegate
-                      andAppId:(NSString *)appId;
-
-/**
-Initialize SDK with responder for global SDK events and custom token key
-(e.g., saved from other source or for some test reasons)
-@param delegate responder for global SDK events
-@param appId your application id (if you haven't, you can create standalone application here https://vk.com/editapp?act=create )
-@param token custom-created access token
-*/
-+ (void)initializeWithDelegate:(id <VKSdkDelegate>)delegate
-                      andAppId:(NSString *)appId
-                andCustomToken:(VKAccessToken *)token DEPRECATED_ATTRIBUTE;
++ (instancetype)initializeWithAppId:(NSString *)appId;
 
 /**
 Initialize SDK with responder for global SDK events
-@param delegate responder for global SDK events
 @param appId your application id (if you haven't, you can create standalone application here https://vk.com/editapp?act=create )
 @param apiVersion if you want to use latest API version, pass required version here
 */
-+ (void)initializeWithDelegate:(id <VKSdkDelegate>)delegate
-                      andAppId:(NSString *)appId
-                    apiVersion:(NSString *)version;
++ (instancetype)initializeWithAppId:(NSString *)appId
+                         apiVersion:(NSString *)version;
+
+/**
+ Adds a weak object reference to an object implementing the VKSdkDelegate protocol
+ */
+- (void)registerDelegate:(id <VKSdkDelegate>)delegate;
+
+/**
+ Removes an object reference SDK delegate
+ */
+- (void)unregisterDelegate:(id <VKSdkDelegate>)delegate;
 
 ///-------------------------------
 /// @name Authentication in VK
 ///-------------------------------
 
 /**
-Starts authorization process. If VKapp is available in system, it will opens and requests access from user.
+Starts authorization process to retrieve unlimited token. If VKapp is available in system, it will opens and requests access from user.
 Otherwise Mobile Safari will be opened for access request.
 @param permissions array of permissions for your applications. All permissions you can
 */
 + (void)authorize:(NSArray *)permissions;
 
 /**
-Starts authorization process. If VKapp is available in system, it will opens and requests access from user.
-Otherwise Mobile Safari will be opened for access request.
-@param permissions Array of permissions for your applications. All permissions you can
-@param revokeAccess If YES, user will allow logout (to change user)
-*/
-+ (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess;
-
-/**
-Starts authorization process.
-@param permissions Array of permissions for your applications. All permissions you can
-@param revokeAccess If YES, user will allow logout (to change user)
-@param forceOAuth If YES, SDK will use only oauth authorization through mobile safari. Otherwise, it will try to authorize through VK application
-*/
-+ (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth;
-
-/**
-Starts authorization process.
-@param permissions Array of permissions for your applications. All permissions you can
-@param revokeAccess If YES, user will allow logout (to change user)
-@param forceOAuth If YES, SDK will use only oauth authorization through mobile safari. Otherwise, it will try to authorize through VK application
-@param inApp If YES, SDK will try to open modal window with webview to authorize. This method strongly not recommended as user should enter his account data in your application. For use modal view add VKSdkResources.bundle to your project.
-*/
-+ (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth inApp:(BOOL)inApp;
-
-/**
-Starts authorization process.
-@param permissions Array of permissions for your applications. All permissions you can
-@param revokeAccess If YES, user will allow logout (to change user)
-@param forceOAuth If YES, SDK will use only oauth authorization through mobile safari. Otherwise, it will try to authorize through VK application
-@param inApp If YES, SDK will try to open modal window with webview to authorize. This method strongly not recommended as user should enter his account data in your application. For use modal view add VKSdkResources.bundle to your project.
-@param displayType Defines view of authorization screen
-*/
-+ (void)authorize:(NSArray *)permissions revokeAccess:(BOOL)revokeAccess forceOAuth:(BOOL)forceOAuth inApp:(BOOL)inApp display:(VKDisplayType)displayType;
+ Starts authorization process. If VKapp is available in system, it will opens and requests access from user.
+ Otherwise Mobile Safari will be opened for access request.
+ @param permissions array of permissions for your applications. All permissions you can
+ @param options special options
+ */
++ (void)authorize:(NSArray *)permissions withOptions:(VKAuthorizationOptions)options;
 
 ///-------------------------------
 /// @name Access token methods
 ///-------------------------------
 
 /**
-Set API token to passed
-@param token token must be used for API requests
-*/
-+ (void)setAccessToken:(VKAccessToken *)token;
-
-/**
-Notify SDK that user denied login
-@param error Descripbes error which was happends while trying to recieve token
-*/
-+ (void)setAccessTokenError:(VKError *)error;
-
-/**
 Returns token for API requests
 @return Received access token or nil, if user not yet authorized
 */
-+ (VKAccessToken *)getAccessToken;
++ (VKAccessToken *)accessToken;
 
 ///-------------------------------
 /// @name Other methods
@@ -247,24 +211,16 @@ Checks passed URL for access token
 */
 + (BOOL)processOpenURL:(NSURL *)passedUrl fromApplication:(NSString *)sourceApplication;
 
-/**
-Handle `[AppDelegate applicationDidBecomeActive]` for cases like user starts authorization process but switch back to app without giving access
-*/
-+ (void)handleDidBecomeActive;
 
 /**
-* Checks if somebody logged in with SDK
-*/
+ Checks if somebody logged in with SDK (call after wakeUpSession)
+ */
 + (BOOL)isLoggedIn;
 
 /**
- Make try to read token from defaults and start session again.
+ This method is trying to retrieve token from storage, and check application still permitted to use user access token
  */
-+ (BOOL)wakeUpSession;
-/**
- Try to read token from defaults, then check for required permissions.
- */
-+ (BOOL)wakeUpSession:(NSArray *)permissions;
++ (void)wakeUpSession:(NSArray *)permissions completeBlock:(void (^)(VKAuthorizationState, NSError *))wakeUpBlock;
 
 /**
 Forces logout using OAuth (with VKAuthorizeController). Removes all cookies for *.vk.com.
@@ -281,7 +237,7 @@ Has no effect for logout in VK app
 Check existing permissions
 @param permissions array of permissions you want to check
 */
-+ (BOOL)hasPermissions:(NSArray *)permissions;
+- (BOOL)hasPermissions:(NSArray *)permissions;
 
 /**
 Enables or disables scheduling for requests
@@ -289,11 +245,32 @@ Enables or disables scheduling for requests
 + (void)setSchedulerEnabled:(BOOL)enabled;
 
 // Deny allocating more SDK
-+ (instancetype)alloc __attribute__((unavailable("alloc not available, call initialize: or instance instead")));
++ (instancetype)alloc NS_UNAVAILABLE;
 
-- (instancetype)init __attribute__((unavailable("init not available, call initialize: or instance instead")));
+- (instancetype)init NS_UNAVAILABLE;
 
-+ (instancetype)new __attribute__((unavailable("new not available, call initialize: or instance instead")));
++ (instancetype)new NS_UNAVAILABLE;
 
+@end
+
+@interface VKAccessToken (HttpsRequired)
+- (void)setAccessTokenRequiredHTTPS;
+
+- (void)notifyTokenExpired;
+@end
+
+@interface VKError (CaptchaRequest)
+- (void)notifyCaptchaRequired;
+
+- (void)notiftAuthorizationFailed;
+@end
+
+@interface UIViewController (VKController)
+
+- (void)vks_presentViewControllerThroughDelegate;
+
+- (void)vks_viewControllerWillDismiss;
+
+- (void)vks_viewControllerDidDismiss;
 
 @end
