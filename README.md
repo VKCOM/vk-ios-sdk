@@ -106,7 +106,7 @@ SDK Initialization
     VKSdk *sdkInstance = [VKSdk initializeWithAppId:YOUR_APP_ID];
 ```
 
-Starting from version 2.0 there are two types of delegates available: common delegate and UI delegate. You can register as much common delegates, as you need, but an UI delegate may be only one. After the SDK initialization you should register delegates separately:
+Starting from version 1.3 there are two types of delegates available: common delegate and UI delegate. You can register as much common delegates, as you need, but an UI delegate may be only one. After the SDK initialization you should register delegates separately:
 ```
 [sdkInstance registerDelegate:delegate];
 [sdkInstance setUiDelegate:uiDelegate];
