@@ -64,23 +64,23 @@ Podfile
     
 Then import the main header.
 
-    #import <VKSdk.h>
+    #import <VKSdk/VKSdk.h>
 
 Installation with source code
 ----------
 
 Add `VKSdk.framework` and `VKSdkResources.bundle` files into your project. In the Application settings open **Build phases**, then the **Link Binary with Libraries** section, add `VKSdk.framework` there. Add `VKSdkResources.bundle` into **Copy bundle resources** section. Import the main header:
 
-    #import <VKSdk.h>
+    #import <VKSdk/VKSdk.h>
     
     
 Installation with framework project
 ----------
 
 If you targeting an application only to iOS 8 and above, you can use the SDK framework target. Add `VK-ios-sdk.xcodeproj` as sub-project of your project. Open your project in Xcode, and on the "General" tab find the "Embedded Binaries" section. Press plus sign, and select "VKSdkFramework.framework" from the VK-ios-sdk project. Import the main header:
-
-    #import <VKSdkFramework/VKSdk.h>
-
+```
+#import <VKSdkFramework/VKSdk.h>
+```
 
 Using SDK
 ==========
@@ -103,7 +103,7 @@ SDK Initialization
 ```
 2) Initialize SDK with your APP_ID for any delegate.
 ```
-    VKSdk *sdkInstance = [VKSdk initializeWithAppId:YOUR_APP_ID];
+VKSdk *sdkInstance = [VKSdk initializeWithAppId:YOUR_APP_ID];
 ```
 
 Starting from version 1.3 there are two types of delegates available: common delegate and UI delegate. You can register as much common delegates, as you need, but an UI delegate may be only one. After the SDK initialization you should register delegates separately:
@@ -117,13 +117,13 @@ See full description of `VKSdkDelegate` and `VKSdkUIDelegate` protocol here: htt
 
 3) You need to check, if there is previous session available, so call asynchronous method `wakeUpSession:completeBlock:`:
 ```
-    [VKSdk wakeUpSession:SCOPE completeBlock:^(VKAuthorizationState state, NSError *error) {
-        if (state == VKAuthorizationAuthorized) {
-            // Authorized and ready to go
-        } else if (error) {
-            // Some error happend, but you may try later
-        }
-    }];
+[VKSdk wakeUpSession:SCOPE completeBlock:^(VKAuthorizationState state, NSError *error) {
+    if (state == VKAuthorizationAuthorized) {
+        // Authorized and ready to go
+    } else if (error) {
+        // Some error happend, but you may try later
+    }
+}];
 ``` 
 
 Check out the VKAuthorizationState parameter. You can get several states:
@@ -137,7 +137,7 @@ User Authorization
 
 If you don't have a session yet, you have to authorize user with a next method: 
 ```
-    [VKSdk authorize:scope];
+[VKSdk authorize:scope];
 ``` 
 
 After authorization, all common delegates will be called with a next method:
