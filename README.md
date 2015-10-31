@@ -106,13 +106,14 @@ SDK Initialization
     VKSdk *sdkInstance = [VKSdk initializeWithAppId:YOUR_APP_ID];
 ```
 
-See full description of `VKSdkDelegate` protocol here: http://cocoadocs.org/docsets/VK-ios-sdk
-
 Starting from version 2.0 there are two types of delegates available: common delegate and UI delegate. You can register as much common delegates, as you need, but an UI delegate may be only one. After the SDK initialization you should register delegates separately:
 ```
 [sdkInstance registerDelegate:delegate];
 [sdkInstance setUiDelegate:uiDelegate];
 ```
+
+See full description of `VKSdkDelegate` and `VKSdkUIDelegate` protocol here: http://cocoadocs.org/docsets/VK-ios-sdk
+
 
 3) You need to check, if there is previous session available, so call asynchronous method `wakeUpSession:completeBlock:`:
 ```
