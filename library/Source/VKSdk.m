@@ -151,7 +151,10 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     instance.permissions = [permissionsSet copy];
     permissions = [permissionsSet allObjects];
 
-    BOOL vkApp = [self vkAppMayExists] && instance.authState == VKAuthorizationInitialized;
+    BOOL vkApp = [self vkAppMayExists]
+            && instance.authState == VKAuthorizationInitialized
+            && [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad /*Temporary workaround, because iPad app authorization is buggy*/;
+
     BOOL safariEnabled = !(options & VKAuthorizationOptionsDisableSafariController);
 
     NSString *clientId = instance.currentAppId;
@@ -472,7 +475,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 }
 
 - (void)notifyUserAuthorizationFailed:(VKError *)error {
-    [self notifyDelegate:@selector(vkSdkUserAuthorizationFailed:) obj:error];
+    [self notifyDelegate:@selector(vkSdkUserAuthorizationFailed) obj:nil];
     [[self class] setAccessToken:nil];
     [self resetSdkState];
 }

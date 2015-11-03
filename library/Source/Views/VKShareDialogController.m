@@ -1030,7 +1030,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     }
 }
 
-- (void)vkSdkUserAuthorizationFailed:(VKError *)result {
+- (void)vkSdkUserAuthorizationFailed {
     [self setNotAuthorized];
 }
 
