@@ -153,7 +153,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
     BOOL vkApp = [self vkAppMayExists]
             && instance.authState == VKAuthorizationInitialized
-            && [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad /*Temporary workaround, because iPad app authorization is buggy*/;
+            && [UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad /*Temporary workaround, because iPad app authorization is buggy*/;
 
     BOOL safariEnabled = !(options & VKAuthorizationOptionsDisableSafariController);
 
