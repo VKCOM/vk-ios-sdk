@@ -65,7 +65,7 @@ typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
 @required
 
 /**
- Notifies delegate about authorization was completed successfully, and token received
+ Notifies delegate about authorization was completed, and returns authorization result which presents new token or error.
  @param result contains new token or error, retrieved after VK authorization
  */
 - (void)vkSdkAccessAuthorizationFinishedWithResult:(VKAuthorizationResult *)result;
@@ -73,7 +73,7 @@ typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
 /**
  Notifies delegate about access error, mostly connected with user deauthorized application
  */
-- (void)vkSdkUserAuthorizationFailed:(VKError *)result;
+- (void)vkSdkUserAuthorizationFailed;
 
 @optional
 
