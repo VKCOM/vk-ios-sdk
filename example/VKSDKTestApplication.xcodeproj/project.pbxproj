@@ -10,6 +10,7 @@
 		F34670291B8B7A9A003EF74B /* libVKSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F34670281B8B7A9A003EF74B /* libVKSdk.a */; };
 		F346702B1B8B7ADA003EF74B /* VKSdkResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F346702A1B8B7ADA003EF74B /* VKSdkResources.bundle */; };
 		F36114C21976DC770085898F /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114C11976DC770085898F /* apple.png */; };
+		F3769E671BE8D48800AEC4AF /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3769E661BE8D48800AEC4AF /* SafariServices.framework */; };
 		F3B7EEAB184353CF00104B90 /* ApiCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B7EEAA184353CF00104B90 /* ApiCallViewController.m */; };
 		F3D38E6F183CD29700D05079 /* VKStartScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D38E6E183CD29700D05079 /* VKStartScreen.m */; };
 		F3DC2446183B811E00E3A93D /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3DC2445183B811E00E3A93D /* Storyboard.storyboard */; };
@@ -30,6 +31,7 @@
 		F346702A1B8B7ADA003EF74B /* VKSdkResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = VKSdkResources.bundle; path = ../VKSdkResources.bundle; sourceTree = "<group>"; };
 		F36114AA197687050085898F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F36114C11976DC770085898F /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple.png; sourceTree = "<group>"; };
+		F3769E661BE8D48800AEC4AF /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		F3B7EEA9184353CF00104B90 /* ApiCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiCallViewController.h; sourceTree = "<group>"; };
 		F3B7EEAA184353CF00104B90 /* ApiCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiCallViewController.m; sourceTree = "<group>"; };
 		F3BACC301865902D003158DA /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -59,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3769E671BE8D48800AEC4AF /* SafariServices.framework in Frameworks */,
 				F34670291B8B7A9A003EF74B /* libVKSdk.a in Frameworks */,
 				F3EEFFD01827F9B5000BB525 /* SystemConfiguration.framework in Frameworks */,
 				F3EEFFCE1827F9AF000BB525 /* MobileCoreServices.framework in Frameworks */,
@@ -92,6 +95,7 @@
 		F3EEFF681827B1DD000BB525 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F3769E661BE8D48800AEC4AF /* SafariServices.framework */,
 				F34670281B8B7A9A003EF74B /* libVKSdk.a */,
 				F3EEFFCF1827F9B5000BB525 /* SystemConfiguration.framework */,
 				F3EEFFCD1827F9AF000BB525 /* MobileCoreServices.framework */,
