@@ -62,7 +62,7 @@
 @property(nonatomic, readwrite, strong) VKAccessToken *accessToken;
 @property(nonatomic, weak) UIViewController *presentedSafariViewController;
 
-@property(nonatomic, strong) NSArray *permissions;
+@property(nonatomic, strong) NSSet *permissions;
 @end
 
 @interface VKRequest ()
@@ -132,23 +132,24 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 + (void)authorize:(NSArray *)permissions withOptions:(VKAuthorizationOptions)options {
     permissions = permissions ?: @[];
+    NSMutableSet *permissionsSet = [NSMutableSet setWithArray:permissions ?: @[]];
 
     if (options & VKAuthorizationOptionsUnlimitedToken) {
-        permissions = [permissions mutableCopy];
-        [(NSMutableArray *) permissions addObject:VK_PER_OFFLINE];
+        [permissionsSet addObject:VK_PER_OFFLINE];
     }
     VKSdk *instance = [VKSdk instance];
     instance.lastKnownOptions = options;
 
-    if ([self accessToken] && [instance.permissions isEqualToArray:permissions]) {
+    if ([self accessToken] && [instance.permissions isEqualToSet:permissionsSet]) {
         instance.accessToken = [self accessToken];
         return;
     }
     if (instance.authState == VKAuthorizationAuthorized) {
         instance.authState = VKAuthorizationInitialized;
     }
-
-    instance.permissions = permissions;
+    
+    instance.permissions = [permissionsSet copy];
+    permissions = [permissionsSet allObjects];
 
     BOOL vkApp = [self vkAppMayExists] && instance.authState == VKAuthorizationInitialized;
     BOOL safariEnabled = !(options & VKAuthorizationOptionsDisableSafariController);
@@ -221,7 +222,8 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
                 if (visitor) {
 
                     VKAccessTokenMutable *mToken = (VKAccessTokenMutable *) [token mutableCopy];
-                    instance.permissions = mToken.permissions = [instance updatePermissions:per];
+                    mToken.permissions = [instance updatePermissions:per];
+                    instance.permissions = [NSSet setWithArray:mToken.permissions ?: @[]];
                     mToken.localUser = visitor;
 
                     [self setAccessToken:mToken];
@@ -269,7 +271,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     if (!inAppCheck && parametersDict[@"error"]) {
         if ([parametersDict[@"error_reason"] isEqual:@"sdk_error"] && instance.authState == VKAuthorizationExternal) {
             //Try internal authorize
-            [self authorize:instance.permissions];
+            [self authorize:[instance.permissions allObjects]];
         } else {
             throwError();
         }
@@ -296,7 +298,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     } else {
 
         NSMutableString *newParametersString = [parametersString mutableCopy];
-        [newParametersString appendFormat:@"&permissions=%@", [instance.permissions componentsJoinedByString:@","]];
+        [newParametersString appendFormat:@"&permissions=%@", [[instance.permissions allObjects] componentsJoinedByString:@","]];
 
         VKAccessToken *token = [VKAccessToken tokenFromUrlString:newParametersString];
         if (!token.accessToken) {
@@ -362,7 +364,8 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
             instance.authState = VKAuthorizationUnknown;
             if (visitor) {
                 VKAccessTokenMutable *mToken = (VKAccessTokenMutable *) [token mutableCopy];
-                instance.permissions = mToken.permissions = [instance updatePermissions:per];
+                mToken.permissions = [instance updatePermissions:per];
+                instance.permissions = [NSSet setWithArray:mToken.permissions ?: @[]];
                 mToken.localUser = visitor;
                 instance.accessToken = mToken;
 
@@ -443,7 +446,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 - (void)handleDidBecomeActive {
     if (self.authState == VKAuthorizationExternal) {
-        [VKSdk authorize:vkSdkInstance.permissions withOptions:vkSdkInstance.lastKnownOptions];
+        [VKSdk authorize:[vkSdkInstance.permissions allObjects] withOptions:vkSdkInstance.lastKnownOptions];
     }
 }
 
