@@ -525,7 +525,11 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
 - (NSString *)language {
     NSString *lang = self.requestLang;
     if (self.useSystemLanguage) {
-        NSString *sysLang = [[[[[NSLocale preferredLanguages] firstObject] componentsSeparatedByString:@"_"] firstObject] lowercaseString];
+        static NSString *sysLang = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            sysLang = [[[[[NSLocale preferredLanguages] firstObject] componentsSeparatedByCharactersInSet:[NSCharacterSet punctuationCharacterSet]] firstObject] lowercaseString];
+        });
         if ([SUPPORTED_LANGS_ARRAY containsObject:sysLang]) {
             lang = sysLang;
         }
