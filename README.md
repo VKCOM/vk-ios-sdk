@@ -13,7 +13,7 @@ Setup URL-schema of Your Application
 
 To use authorization via VK App you need to setup a url-schema of your application, which looks like vk+APP_ID (e.g. **vk1234567**).
 
-[Read how to implement your own URL Scheme here] (https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/Introduction/Introduction.html), Also there is [nice Twitter tutorial] (https://dev.twitter.com/cards/mobile/url-schemes)
+[Read how to implement your own URL Scheme here] (https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/Inter-AppCommunication/Inter-AppCommunication.html#//apple_ref/doc/uid/TP40007072-CH6-SW10), Also there is [nice Twitter tutorial] (https://dev.twitter.com/cards/mobile/url-schemes)
 
 
 Configuring application for iOS 9
