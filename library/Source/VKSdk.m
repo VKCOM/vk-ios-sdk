@@ -416,6 +416,9 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 - (NSArray *)updatePermissions:(NSInteger)appPermissions {
     NSMutableArray *permissions = [VKParseVkPermissionsFromInteger(appPermissions) mutableCopy];
+    if ([self.permissions containsObject:VK_PER_NOTIFY]) {
+        [permissions addObject:VK_PER_NOTIFY];
+    }
     if ([self.permissions containsObject:VK_PER_OFFLINE]) {
         [permissions addObject:VK_PER_OFFLINE];
     }
