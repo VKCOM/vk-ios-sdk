@@ -73,6 +73,7 @@
 @implementation VKSdk
 
 static VKSdk *vkSdkInstance = nil;
+static NSArray *kSpecialPermissions = nil;
 static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_DONT_TOUCH_THIS_PLEASE";
 static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
@@ -95,6 +96,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         vkSdkInstance = [(VKSdk *) [super alloc] initUniqueInstance];
+        kSpecialPermissions = @[VK_PER_OFFLINE, VK_PER_NOHTTPS, VK_PER_NOTIFY, VK_PER_EMAIL];
     });
 
     vkSdkInstance.currentAppId = appId;
@@ -163,7 +165,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
                                                            clientId:clientId
                                                               scope:[permissions componentsJoinedByString:@","]
                                                              revoke:YES
-                                                            display:vkApp ? VK_DISPLAY_IOS : VK_DISPLAY_MOBILE];
+                                                            display:VK_DISPLAY_IOS];
 
     if (vkApp) {
         [[UIApplication sharedApplication] openURL:urlToOpen];
@@ -398,9 +400,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 - (BOOL)hasPermissions:(NSArray *)permissions {
     NSMutableArray *mutablePermissions = permissions ? [permissions mutableCopy] : [NSMutableArray new];
-    [mutablePermissions removeObject:VK_PER_EMAIL];
-    [mutablePermissions removeObject:VK_PER_NOHTTPS];
-    [mutablePermissions removeObject:VK_PER_OFFLINE];
+    [mutablePermissions removeObjectsInArray:kSpecialPermissions];
 
     BOOL allExisted = YES;
     NSSet *tokenPermission = [NSSet setWithArray:self.accessToken.permissions];
@@ -415,20 +415,13 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 
 - (NSArray *)updatePermissions:(NSInteger)appPermissions {
-    NSMutableArray *permissions = [VKParseVkPermissionsFromInteger(appPermissions) mutableCopy];
-    if ([self.permissions containsObject:VK_PER_NOTIFY]) {
-        [permissions addObject:VK_PER_NOTIFY];
+    NSMutableSet *permissions = [NSMutableSet setWithArray:VKParseVkPermissionsFromInteger(appPermissions)];
+    for (NSString *sPermission in kSpecialPermissions) {
+        if ([self.permissions containsObject:sPermission]) {
+            [permissions addObject:sPermission];
+        }
     }
-    if ([self.permissions containsObject:VK_PER_OFFLINE]) {
-        [permissions addObject:VK_PER_OFFLINE];
-    }
-    if ([self.permissions containsObject:VK_PER_NOHTTPS]) {
-        [permissions addObject:VK_PER_NOHTTPS];
-    }
-    if ([self.permissions containsObject:VK_PER_EMAIL]) {
-        [permissions addObject:VK_PER_EMAIL];
-    }
-    return permissions;
+    return [permissions allObjects];
 }
 
 + (void)setSchedulerEnabled:(BOOL)enabled {
