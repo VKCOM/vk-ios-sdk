@@ -66,21 +66,28 @@ Then import the main header.
 
     #import <VKSdk/VKSdk.h>
 
-Installation with source code
+Installation with [Carthage] (https://github.com/Carthage/Carthage)
 ----------
+*iOS 8 and upper only*
 
-Add `VKSdk.framework` and `VKSdkResources.bundle` files into your project. In the Application settings open **Build phases**, then the **Link Binary with Libraries** section, add `VKSdk.framework` there. Add `VKSdkResources.bundle` into **Copy bundle resources** section. Import the main header:
+Your cartfile must contains next row:
+```
+github "VKCOM/vk-ios-sdk" >= 1.3.8
+```
+   
+See building instructions for [Carthage here] (https://github.com/Carthage/Carthage#if-youre-building-for-ios)
+   
+Then import the main header.
 
-    #import <VKSdk/VKSdk.h>
-    
+    #import <VKSdkFramework/VKSdkFramework.h> 
     
 Installation with framework project
 ----------
 
 If you targeting an application only to iOS 8 and above, you can use the SDK framework target. Add `VK-ios-sdk.xcodeproj` as sub-project of your project. Open your project in Xcode, and on the "General" tab find the "Embedded Binaries" section. Press plus sign, and select "VKSdkFramework.framework" from the VK-ios-sdk project. Import the main header:
-```
-#import <VKSdkFramework/VKSdk.h>
-```
+
+    #import <VKSdkFramework/VKSdkFramework.h>
+
 
 Using SDK
 ==========
