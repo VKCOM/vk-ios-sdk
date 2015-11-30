@@ -61,8 +61,8 @@ static NSArray *SCOPE = nil;
 
 - (IBAction)openShareDialog:(id)sender {
     VKShareDialogController *shareDialog = [VKShareDialogController new];
-    shareDialog.text = @"This post created using #vksdk #ios";
-    shareDialog.shareLink = [[VKShareLink alloc] initWithTitle:@"Super puper link, but nobody knows" link:[NSURL URLWithString:@"https://vk.com/dev/ios_sdk"]];
+    shareDialog.text = @"This post created created created created and made and post and delivered using #vksdk #ios";
+    shareDialog.uploadImages = @[ [VKUploadImage uploadImageWithImage:[UIImage imageNamed:@"apple"] andParams:[VKImageParameters jpegImageWithQuality:1.0] ] ];
     [shareDialog setCompletionHandler:^(VKShareDialogController *dialog, VKShareDialogControllerResult result) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
@@ -87,7 +87,7 @@ static NSArray *SCOPE = nil;
     }
 }
 
-- (void)vkSdkUserAuthorizationFailed:(VKError *)result {
+- (void)vkSdkUserAuthorizationFailed {
     [[[UIAlertView alloc] initWithTitle:nil message:@"Access denied" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
