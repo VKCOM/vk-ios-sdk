@@ -142,6 +142,7 @@
 @property(nonatomic, strong) UICollectionView *attachmentsCollection;
 @property(nonatomic, strong) VKPlaceholderTextView *textView;
 @property(nonatomic, strong) VKLinkAttachView *linkAttachView;
+@property(nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @end
 
 ///-------------------------------
@@ -664,7 +665,12 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         buttonBg = VKImageNamed(@"BlueBtn_pressed");
         buttonBg = [buttonBg stretchableImageWithLeftCapWidth:(NSInteger) floorf(buttonBg.size.width / 2) topCapHeight:(NSInteger) floorf(buttonBg.size.height / 2)];
         [_notAuthorizedButton setBackgroundImage:buttonBg forState:UIControlStateHighlighted];
-
+        
+        _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _activityIndicator.center = self.center;
+        _activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+        _activityIndicator.hidesWhenStopped = YES;
+        [self addSubview:_activityIndicator];
     }
 
     _contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
@@ -871,11 +877,16 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     [super viewWillAppear:animated];
     if (self.prepared) return;
     VKShareDialogView *view = (VKShareDialogView *) self.view;
+    view.textView.hidden = YES;
+    [view.activityIndicator startAnimating];
     [VKSdk wakeUpSession:self.parent.requestedScope completeBlock:^(VKAuthorizationState state, NSError *error) {
+        [view.activityIndicator stopAnimating];
         if (state == VKAuthorizationAuthorized) {
             [view.notAuthorizedView removeFromSuperview];
+            view.textView.hidden = NO;
             view.textView.text = self.parent.text;
             [self prepare];
+            [view textViewDidChange:view.textView];
         } else {
             [self setNotAuthorized];
         }
@@ -887,6 +898,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     [view addSubview:view.notAuthorizedView];
     if ([VKSdk accessToken]) {
         view.notAuthorizedLabel.text = VKLocalizedString(@"UserHasNoRequiredPermissions");
+        view.textView.hidden = YES;
     }
     [view layoutSubviews];
     [[NSNotificationCenter defaultCenter] addObserver:self
