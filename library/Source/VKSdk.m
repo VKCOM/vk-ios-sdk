@@ -154,8 +154,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     permissions = [permissionsSet allObjects];
 
     BOOL vkApp = [self vkAppMayExists]
-            && instance.authState == VKAuthorizationInitialized
-            && [UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad /*Temporary workaround, because iPad app authorization is buggy*/;
+            && instance.authState == VKAuthorizationInitialized;
 
     BOOL safariEnabled = !(options & VKAuthorizationOptionsDisableSafariController);
 
@@ -188,7 +187,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 }
 
 + (BOOL)vkAppMayExists {
-    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:VK_AUTHORIZE_URL_STRING]];
+    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:VK_AUTHORIZE_URL_STRING]] && [UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad /*Temporary workaround, because iPad app authorization is buggy*/;
 }
 
 #pragma mark Access token
