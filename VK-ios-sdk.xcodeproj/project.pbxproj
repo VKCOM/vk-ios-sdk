@@ -283,6 +283,9 @@
 		F3BACC61186883E8003158DA /* ic_vk_logo_nb.png in Resources */ = {isa = PBXBuildFile; fileRef = F3BACC5F186883E8003158DA /* ic_vk_logo_nb.png */; };
 		F3BACC62186883E8003158DA /* ic_vk_logo_nb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3BACC60186883E8003158DA /* ic_vk_logo_nb@2x.png */; };
 		F3C68F151C0C7E6600E1EB5E /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3769E701BE8E41C00AEC4AF /* SafariServices.framework */; };
+		F3C68F171C0C855C00E1EB5E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C68F161C0C855C00E1EB5E /* Security.framework */; };
+		F3C68F181C0C857F00E1EB5E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3769E6E1BE8E41800AEC4AF /* CoreGraphics.framework */; };
+		F3C68F191C0C858300E1EB5E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C68F161C0C855C00E1EB5E /* Security.framework */; };
 		F3C75431182133CC00964716 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C75430182133CC00964716 /* Foundation.framework */; };
 		F3DA65B11B3DA34600E64A30 /* VKJSONOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DA65B01B3DA34600E64A30 /* VKJSONOperation.m */; };
 		F3EEFFA91827BB18000BB525 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFFA81827BB18000BB525 /* UIKit.framework */; };
@@ -498,6 +501,7 @@
 		F3BACC5718659493003158DA /* VKBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKBundle.m; sourceTree = "<group>"; };
 		F3BACC5F186883E8003158DA /* ic_vk_logo_nb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_vk_logo_nb.png; sourceTree = "<group>"; };
 		F3BACC60186883E8003158DA /* ic_vk_logo_nb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_vk_logo_nb@2x.png"; sourceTree = "<group>"; };
+		F3C68F161C0C855C00E1EB5E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F3C7542D182133CC00964716 /* libVKSdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVKSdk.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3C75430182133CC00964716 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F3C75437182133CC00964716 /* VKSdk.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKSdk.m; sourceTree = "<group>"; };
@@ -518,6 +522,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3C68F171C0C855C00E1EB5E /* Security.framework in Frameworks */,
 				F3769E711BE8E41C00AEC4AF /* SafariServices.framework in Frameworks */,
 				F3769E6F1BE8E41800AEC4AF /* CoreGraphics.framework in Frameworks */,
 				F346704B1B8B7C70003EF74B /* Foundation.framework in Frameworks */,
@@ -536,6 +541,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3C68F191C0C858300E1EB5E /* Security.framework in Frameworks */,
+				F3C68F181C0C857F00E1EB5E /* CoreGraphics.framework in Frameworks */,
 				F3C68F151C0C7E6600E1EB5E /* SafariServices.framework in Frameworks */,
 				F3EEFFA91827BB18000BB525 /* UIKit.framework in Frameworks */,
 				F3C75431182133CC00964716 /* Foundation.framework in Frameworks */,
@@ -790,6 +797,7 @@
 		F3C7542F182133CC00964716 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F3C68F161C0C855C00E1EB5E /* Security.framework */,
 				F3769E701BE8E41C00AEC4AF /* SafariServices.framework */,
 				F3769E6E1BE8E41800AEC4AF /* CoreGraphics.framework */,
 				F36114BF1976CEB80085898F /* QuartzCore.framework */,
