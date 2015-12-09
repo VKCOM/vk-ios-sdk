@@ -978,6 +978,12 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     VKRequest *post = [[VKApi wall] post:@{VK_API_MESSAGE : textView.text ?: @"",
             VK_API_ATTACHMENTS : [attachStrings componentsJoinedByString:@","]}];
     NSMutableArray *exports = [NSMutableArray new];
+    if (self.parent.location) {
+        CLLocationCoordinate2D location = *(self.parent.location);
+        NSString *latitude = [NSString stringWithFormat:@"%f", location.latitude];
+        NSString *longitude = [NSString stringWithFormat:@"%f", location.longitude];
+        [post addExtraParameters:@{VK_API_LAT: latitude, VK_API_LONG: longitude}];
+    }
     if (self.postSettings.friendsOnly.boolValue) [post addExtraParameters:@{VK_API_FRIENDS_ONLY : @1}];
     if (self.postSettings.exportTwitter.boolValue) [exports addObject:@"twitter"];
     if (self.postSettings.exportFacebook.boolValue) [exports addObject:@"facebook"];
