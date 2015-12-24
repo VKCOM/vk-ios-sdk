@@ -192,7 +192,7 @@
         [self setRightBarButtonActivity];
     }
     if ([[[request URL] path] isEqual:@"/blank.html"]) {
-        [self dismissWithCompletion:^{
+        [self dismissWithAuthorizationCancellationState: NO completion:^{
             if ([VKSdk processOpenInternalURL:[request URL] validation:self.validationError != nil] && self.validationError) {
                 [self.validationError.request repeat];
             } else if (self.validationError) {
@@ -241,7 +241,7 @@
 #pragma mark Cancelation and dismiss
 
 - (void)cancelAuthorization:(id)sender {
-    [self dismissWithCompletion:^{
+  [self dismissWithAuthorizationCancellationState: YES completion: ^{
         if (!_validationError) {
             //Silent cancel
             [VKSdk processOpenInternalURL:[NSURL URLWithString:@"#"] validation:NO];
@@ -257,7 +257,7 @@
     }
 }
 
-- (void)dismissWithCompletion:(void (^)())completion {
+- (void)dismissWithAuthorizationCancellationState:(BOOL)wasCancelled completion:(void (^)())completion {
     _finished = YES;
 
     if (_internalNavigationController.isBeingDismissed) {
@@ -270,24 +270,24 @@
 
     if (!_internalNavigationController) {
         if (self.navigationController) {
-            [self vks_viewControllerWillDismiss];
+            [self vks_viewControllerWillDismissWithAuthorizationCancellationState:wasCancelled];
             [self.navigationController popViewControllerAnimated:YES];
             if (completion) {
                 completion();
             }
         } else if (self.presentingViewController) {
-            [self vks_viewControllerWillDismiss];
+            [self vks_viewControllerWillDismissWithAuthorizationCancellationState:wasCancelled];
             [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
-                [self vks_viewControllerDidDismiss];
+                [self vks_viewControllerDidDismissWithAuthorizationCancellationState:wasCancelled];
                 if (completion) {
                     completion();
                 }
             }];
         }
     } else {
-        [self vks_viewControllerWillDismiss];
+        [self vks_viewControllerWillDismissWithAuthorizationCancellationState:wasCancelled];
         [_internalNavigationController.presentingViewController dismissViewControllerAnimated:YES completion:^{
-            [self vks_viewControllerDidDismiss];
+            [self vks_viewControllerDidDismissWithAuthorizationCancellationState:wasCancelled];
             completion();
         }];
     }
