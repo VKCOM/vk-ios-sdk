@@ -583,18 +583,16 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     [[VKSdk instance].uiDelegate vkSdkShouldPresentViewController:self];
 }
 
-- (void)vks_viewControllerWillDismissWithAuthorizationCancellationState: (BOOL)cancelled {
-  if ([[VKSdk instance].uiDelegate respondsToSelector:@selector(vkSdkWillDismissViewController:wasCancelled:)]) {
-    [[VKSdk instance].uiDelegate vkSdkWillDismissViewController:self wasCancelled:cancelled];
+- (void)vks_viewControllerWillDismiss {
+    if ([[VKSdk instance].uiDelegate respondsToSelector:@selector(vkSdkWillDismissViewController:)]) {
+        [[VKSdk instance].uiDelegate vkSdkWillDismissViewController:self];
     }
 }
 
-- (void)vks_viewControllerDidDismissWithAuthorizationCancellationState: (BOOL)cancelled {
-  if ([[VKSdk instance].uiDelegate respondsToSelector:@selector(vkSdkDidDismissViewController:hadBeenCancelled:)]) {
-        [[VKSdk instance].uiDelegate vkSdkDidDismissViewController:self hadBeenCancelled:cancelled];
-    
+- (void)vks_viewControllerDidDismiss {
+    if ([[VKSdk instance].uiDelegate respondsToSelector:@selector(vkSdkDidDismissViewController:)]) {
+        [[VKSdk instance].uiDelegate vkSdkDidDismissViewController:self];
     }
-  
 }
 
 @end

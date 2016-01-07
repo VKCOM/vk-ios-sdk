@@ -109,20 +109,16 @@ typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
 
 @optional
 /**
- *  Called when a controller presented by SDK will be dismissed
- *
- *  @param controller       View Controller that will be dismissed
- *  @param hadBeenCancelled Bool value stating whether the authorization had been cancelled by the user
+ * Called when a controller presented by SDK will be dismissed
  */
-- (void)vkSdkWillDismissViewController:(UIViewController *)controller wasCancelled:(BOOL)wasCancelled;
+- (void)vkSdkWillDismissViewController:(UIViewController *)controller;
 
 /**
- *  Called when a controller presented by SDK did dismiss
- *
- *  @param controller View Controller that was dismissed
- *  @param hadBeenCancelled  Bool value stating whether the authorization had been cancelled by the user
+ * Called when a controller presented by SDK did dismiss
  */
-- (void)vkSdkDidDismissViewController:(UIViewController *)controller hadBeenCancelled:(BOOL)hadBeenCancelled;
+- (void)vkSdkDidDismissViewController:(UIViewController *)controller;
+
+
 
 @end
 
@@ -196,9 +192,6 @@ Otherwise Mobile Safari will be opened for access request.
 ///-------------------------------
 /// @name Access token methods
 ///-------------------------------
-
-
-+ (void)setAccessToken:(VKAccessToken *)token;
 
 /**
 Returns token for API requests
@@ -276,8 +269,8 @@ Enables or disables scheduling for requests
 
 - (void)vks_presentViewControllerThroughDelegate;
 
-- (void)vks_viewControllerWillDismissWithAuthorizationCancellationState: (BOOL)cancelled;
+- (void)vks_viewControllerWillDismiss;
 
-- (void)vks_viewControllerDidDismissWithAuthorizationCancellationState: (BOOL)cancelled;
+- (void)vks_viewControllerDidDismiss;
 
 @end
