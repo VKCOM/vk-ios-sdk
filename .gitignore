@@ -19,6 +19,7 @@ CVS
 *.moved-aside
 **/*.xcuserdata/*
 xcuserdata
+xcschemes
 
 #Project files
 [Bb]uild/
