@@ -93,16 +93,20 @@
                            scope:(NSString *)scope
                           revoke:(BOOL)revoke
                          display:(NSString *)display {
-    NSDictionary *params = @{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
             @"v" : [[VKSdk instance] apiVersion],
             @"scope" : scope ?: @"",
             @"revoke" : @(revoke),
-            @"display" : display ?: VK_DISPLAY_MOBILE,
             @"client_id" : clientId ?: @"",
             @"sdk_version" : VK_SDK_VERSION,
-            @"redirect_uri" : redirectUri ?: @"",
-            @"response_type" : @"token"
-    };
+    }];
+    
+    if (redirectUri) {
+        params[@"redirect_uri"] = redirectUri;
+        params[@"response_type"] = @"token";
+        params[@"display"] = display ?: VK_DISPLAY_MOBILE;
+    }
+    
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", prefix ?: @"https://oauth.vk.com/authorize", [VKUtil queryStringFromParams:params]]];
 }
 

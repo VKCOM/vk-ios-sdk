@@ -160,7 +160,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
     NSString *clientId = instance.currentAppId;
     NSURL *urlToOpen = [VKAuthorizeController buildAuthorizationURL:vkApp ? VK_AUTHORIZE_URL_STRING : nil
-                                                        redirectUri:[NSString stringWithFormat:@"vk%@://authorize", clientId]
+                                                        redirectUri:vkApp ? nil : [NSString stringWithFormat:@"vk%@://authorize", clientId]
                                                            clientId:clientId
                                                               scope:[permissions componentsJoinedByString:@","]
                                                              revoke:YES
@@ -187,7 +187,7 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 }
 
 + (BOOL)vkAppMayExists {
-    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:VK_AUTHORIZE_URL_STRING]] && [UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad /*Temporary workaround, because iPad app authorization is buggy*/;
+    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:VK_AUTHORIZE_URL_STRING]];
 }
 
 #pragma mark Access token
