@@ -88,6 +88,12 @@ NSString *const VK_API_CAPTCHA_SID = @"captcha_sid";
 NSString *const VK_API_CAPTCHA_KEY = @"captcha_key";
 NSString *const VK_API_REDIRECT_URI = @"redirect_uri";
 
+//Documents
+NSString *const VK_API_DOC_ID = @"doc_id";
+NSString *const VK_API_ACCESS_KEY = @"access_key";
+NSString *const VK_API_FILE = @"file";
+NSString *const VK_API_TITLE = @"title";
+NSString *const VK_API_TAGS = @"tags";
 
 //Photos
 NSString *const VK_API_PHOTO = @"photo";

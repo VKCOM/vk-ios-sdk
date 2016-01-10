@@ -100,6 +100,13 @@ extern NSString *const VK_API_CAPTCHA_SID;
 extern NSString *const VK_API_CAPTCHA_KEY;
 extern NSString *const VK_API_REDIRECT_URI;
 
+// Documents
+extern NSString *const VK_API_DOC_ID;
+extern NSString *const VK_API_ACCESS_KEY;
+extern NSString *const VK_API_FILE;
+extern NSString *const VK_API_TITLE;
+extern NSString *const VK_API_TAGS;
+
 
 //Photos
 extern NSString *const VK_API_PHOTO;

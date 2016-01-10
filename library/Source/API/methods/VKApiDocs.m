@@ -60,8 +60,16 @@
   return [self prepareRequestWithMethodName:@"getById" andParameters:@{@"docs" : IDs} andHttpMethod:@"GET" andClassOfModel:[VKDocsArray class]];
 }
 
+- (VKRequest *)getUploadServer {
+  return [self prepareRequestWithMethodName:@"getUploadServer" andParameters:nil andHttpMethod:@"GET"];
+}
+
 - (VKRequest *)getUploadServer:(NSInteger)group_id {
   return [self prepareRequestWithMethodName:@"getUploadServer" andParameters:@{VK_API_GROUP_ID : [@(group_id) stringValue]} andHttpMethod:@"GET"];
+}
+
+- (VKRequest *)getWallUploadServer {
+  return [self prepareRequestWithMethodName:@"getWallUploadServer" andParameters:nil andHttpMethod:@"GET"];
 }
 
 - (VKRequest *)getWallUploadServer:(NSInteger)group_id {

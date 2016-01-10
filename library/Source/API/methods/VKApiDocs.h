@@ -81,7 +81,15 @@
  *  Returns the server address for document upload.
  *  https://vk.com/dev/docs.getUploadServer
  *
- *  @param group_id Community ID (if the document will be uploaded to the community).
+ *  @return Request to load
+ */
+- (VKRequest *)getUploadServer;
+
+/**
+ *  Returns the server address for document upload.
+ *  https://vk.com/dev/docs.getUploadServer
+ *
+ *  @param group_id ID of the community the document will be uploaded to.
  *
  *  @return Request to load
  */
@@ -91,7 +99,15 @@
  *  Returns the server address for document upload onto a user's or community's wall.
  *  https://vk.com/dev/docs.getWallUploadServer
  *
- *  @param group_id Community ID (if the document will be uploaded to the community).
+ *  @return Request to load
+ */
+- (VKRequest *)getWallUploadServer;
+
+/**
+ *  Returns the server address for document upload onto a user's or community's wall.
+ *  https://vk.com/dev/docs.getWallUploadServer
+ *
+ *  @param group_id ID of the community the document will be uploaded to.
  *
  *  @return Request to load
  */
