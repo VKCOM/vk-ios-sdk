@@ -77,11 +77,11 @@
 }
 
 - (VKRequest *)save:(NSString *)file {
-  return [self prepareRequestWithMethodName:@"delete" andParameters:@{VK_API_FILE : file} andHttpMethod:@"POST" andClassOfModel:[VKDocsArray class]];
+  return [self prepareRequestWithMethodName:@"save" andParameters:@{VK_API_FILE : file} andHttpMethod:@"POST" andClassOfModel:[VKDocsArray class]];
 }
 
 - (VKRequest *)save:(NSString *)file andTitle:(NSString *)title {
-  return [self prepareRequestWithMethodName:@"delete" andParameters:@{
+  return [self prepareRequestWithMethodName:@"save" andParameters:@{
                                                                       VK_API_FILE   : file,
                                                                       VK_API_TITLE  : title,
                                                                       } andHttpMethod:@"POST" andClassOfModel:[VKDocsArray class]];
@@ -89,7 +89,7 @@
 
 
 - (VKRequest *)save:(NSString *)file andTitle:(NSString *)title andTags:(NSString *)tags {
-  return [self prepareRequestWithMethodName:@"delete" andParameters:@{
+  return [self prepareRequestWithMethodName:@"save" andParameters:@{
                                                                       VK_API_FILE   : file,
                                                                       VK_API_TITLE  : title,
                                                                       VK_API_TAGS   : tags
@@ -97,7 +97,7 @@
 }
 
 - (VKRequest *)delete:(NSInteger)ownerID andDocID:(NSInteger)docID {
-  return [self prepareRequestWithMethodName:@"save" andParameters:@{
+  return [self prepareRequestWithMethodName:@"delete" andParameters:@{
                                                                 VK_API_OWNER_ID : [@(ownerID) stringValue],
                                                                 VK_API_DOC_ID   : [@(docID) stringValue],
                                                                 } andHttpMethod:@"POST"];
