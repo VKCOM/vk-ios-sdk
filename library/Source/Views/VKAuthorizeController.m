@@ -23,6 +23,20 @@
 #import "VKAuthorizeController.h"
 #import "VKBundle.h"
 
+NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
+
+@interface VKAuthorizationContext ()
+@property (nonatomic, readwrite, strong) NSString *authPrefix;
+@property (nonatomic, readwrite, strong) NSString *redirectUri;
+@property (nonatomic, readwrite, strong) NSString *clientId;
+@property (nonatomic, readwrite, strong) NSString *displayType;
+@property (nonatomic, readwrite, strong) NSString *responseType;
+@property (nonatomic, readwrite, strong) NSArray<NSString*> *scope;
+@property (nonatomic, readwrite) BOOL revoke;
+
+@property (nonatomic, assign) BOOL usingVkApp;
+@end
+
 @implementation UINavigationController (LastControllerBar)
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -87,27 +101,29 @@
     controller.internalNavigationController = navigation;
 }
 
-+ (NSURL *)buildAuthorizationURL:(NSString *)prefix
-                     redirectUri:(NSString *)redirectUri
-                        clientId:(NSString *)clientId
-                           scope:(NSString *)scope
-                          revoke:(BOOL)revoke
-                         display:(NSString *)display {
++ (NSURL *)buildAuthorizationURLWithContext:(VKAuthorizationContext*) ctx {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
-            @"v" : [[VKSdk instance] apiVersion],
-            @"scope" : scope ?: @"",
-            @"revoke" : @(revoke),
-            @"client_id" : clientId ?: @"",
-            @"sdk_version" : VK_SDK_VERSION,
-    }];
-    
-    if (redirectUri) {
-        params[@"redirect_uri"] = redirectUri;
-        params[@"response_type"] = @"token";
-        params[@"display"] = display ?: VK_DISPLAY_MOBILE;
+              @"v" : [[VKSdk instance] apiVersion],
+              @"revoke" : @(ctx.revoke),
+              @"sdk_version" : VK_SDK_VERSION,
+              }];
+    if (ctx.clientId) {
+        params[@"client_id"] = ctx.clientId;
+    }
+    if (ctx.scope) {
+        params[@"scope"] = [ctx.scope componentsJoinedByString:@","];
+    }
+    if (ctx.redirectUri) {
+        params[@"redirect_uri"] = ctx.redirectUri;
+    }
+    if (ctx.responseType) {
+        params[@"response_type"] = ctx.responseType;
+    }
+    if (ctx.displayType) {
+        params[@"display"] = ctx.displayType;
     }
     
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", prefix ?: @"https://oauth.vk.com/authorize", [VKUtil queryStringFromParams:params]]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", ctx.authPrefix ?: @"https://oauth.vk.com/authorize", [VKUtil queryStringFromParams:params]]];
 }
 
 #pragma mark View prepare
@@ -167,7 +183,12 @@
     self = [super init];
     _appId = appId;
     _scope = [permissions componentsJoinedByString:@","];
-    _redirectUri = [[self class] buildAuthorizationURL:nil redirectUri:nil clientId:_appId scope:_scope revoke:revoke display:display];
+    _redirectUri = [[self class] buildAuthorizationURLWithContext:
+                    [VKAuthorizationContext contextWithAuthType:VKAuthorizationTypeWebView
+                                                       clientId:appId
+                                                    displayType:display
+                                                          scope:permissions
+                                                         revoke:revoke]];
     return self;
 }
 
@@ -299,6 +320,37 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+@end
+
+@implementation VKAuthorizationContext
+
++(instancetype) contextWithAuthType:(VKAuthorizationType) authType
+                           clientId:(NSString*)clientId
+                        displayType:(NSString*)displayType
+                              scope:(NSArray<NSString*>*)scope
+                             revoke:(BOOL) revoke {
+    VKAuthorizationContext *res = [self new];
+    res.scope = scope;
+    res.revoke = revoke;
+    res.clientId = clientId;
+    res.displayType = displayType;
+    
+    switch (authType) {
+        case VKAuthorizationTypeApp:
+            res.authPrefix = VK_AUTHORIZE_URL_STRING;
+            break;
+        case VKAuthorizationTypeSafari:
+            res.redirectUri = [NSString stringWithFormat:@"vk%@://authorize", clientId];
+            res.responseType = @"token";
+            break;
+        default:
+            res.responseType = @"token";
+            break;
+    }
+    
+    return res;
 }
 
 @end

@@ -22,6 +22,36 @@
 
 #import <UIKit/UIKit.h>
 #import "VKSdk.h"
+extern NSString *VK_AUTHORIZE_URL_STRING;
+
+typedef NS_ENUM(NSInteger, VKAuthorizationType) {
+    VKAuthorizationTypeWebView,
+    VKAuthorizationTypeSafari,
+    VKAuthorizationTypeApp
+};
+
+@interface VKAuthorizationContext : VKObject
+@property (nonatomic, readonly, strong) NSString *clientId;
+@property (nonatomic, readonly, strong) NSString *displayType;
+@property (nonatomic, readonly, strong) NSArray<NSString*> *scope;
+@property (nonatomic, readonly) BOOL revoke;
+
+/**
+ Prepare context for building oauth url
+ @param authType type of authorization will be used
+ @param clientId id of the application
+ @param displayType selected display type
+ @param scope requested scope for application
+ @param revoke If YES, user will see permissions list and allow to logout (if logged in already)
+ @return Prepared context, which must be passed into buildAuthorizationURLWithContext: method
+ */
++(instancetype) contextWithAuthType:(VKAuthorizationType) authType
+                           clientId:(NSString*)clientId
+                        displayType:(NSString*)displayType
+                              scope:(NSArray<NSString*>*)scope
+                             revoke:(BOOL) revoke;
+
+@end
 
 /**
 Controller for authorization through webview (if VK app not available)
@@ -46,20 +76,6 @@ Causes UIWebView in standard UINavigationController be presented for user valida
 */
 + (void)presentForValidation:(VKError *)validationError;
 
-/**
- Builds url for oauth authorization
- @param prefix url prefix for authorization url
- @param redirectUri uri for redirect
- @param clientId id of your application
- @param scope requested scope for application
- @param revoke If YES, user will see permissions list and allow to logout (if logged in already)
- @param display select display type
- @return Complete url-string for grant authorization
-*/
-+ (NSURL *)buildAuthorizationURL:(NSString *)prefix
-                     redirectUri:(NSString *)redirectUri
-                        clientId:(NSString *)clientId
-                           scope:(NSString *)scope
-                          revoke:(BOOL)revoke
-                         display:(NSString *)display;
++ (NSURL *)buildAuthorizationURLWithContext:(VKAuthorizationContext*) ctx;
+
 @end

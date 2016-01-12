@@ -75,7 +75,7 @@
 static VKSdk *vkSdkInstance = nil;
 static NSArray *kSpecialPermissions = nil;
 static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_DONT_TOUCH_THIS_PLEASE";
-static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
+
 
 #pragma mark Initialization
 
@@ -159,12 +159,13 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     BOOL safariEnabled = !(options & VKAuthorizationOptionsDisableSafariController);
 
     NSString *clientId = instance.currentAppId;
-    NSURL *urlToOpen = [VKAuthorizeController buildAuthorizationURL:vkApp ? VK_AUTHORIZE_URL_STRING : nil
-                                                        redirectUri:vkApp ? nil : [NSString stringWithFormat:@"vk%@://authorize", clientId]
-                                                           clientId:clientId
-                                                              scope:[permissions componentsJoinedByString:@","]
-                                                             revoke:YES
-                                                            display:VK_DISPLAY_IOS];
+    VKAuthorizationContext *authContext =
+    [VKAuthorizationContext contextWithAuthType:vkApp ? VKAuthorizationTypeApp : VKAuthorizationTypeSafari
+                                       clientId:clientId
+                                    displayType:VK_DISPLAY_IOS
+                                          scope:permissions
+                                         revoke:YES];
+    NSURL *urlToOpen = [VKAuthorizeController buildAuthorizationURLWithContext:authContext];
 
     if (vkApp) {
         [[UIApplication sharedApplication] openURL:urlToOpen];
@@ -172,6 +173,9 @@ static NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     } else if (safariEnabled && [SFSafariViewController class] && instance.authState < VKAuthorizationSafariInApp) {
         SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL:urlToOpen];
         viewController.delegate = instance;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            viewController.modalPresentationStyle = UIModalPresentationFormSheet;
+        }
         [viewController vks_presentViewControllerThroughDelegate];
         instance.presentedSafariViewController = viewController;
 
