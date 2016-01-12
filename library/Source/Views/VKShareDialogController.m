@@ -193,7 +193,7 @@ static const CGFloat ipadHeight = 500.f;
 
         [self addChildViewController:self.internalNavigation];
 
-		_requestedScope = ([VKSdk accessToken] && [VKSdk accessToken].permissions.count > 0) ? [VKSdk accessToken].permissions : @[VK_PER_WALL, VK_PER_PHOTOS];
+        _requestedScope = ([VKSdk accessToken] && [VKSdk accessToken].permissions.count > 0) ? [VKSdk accessToken].permissions : @[VK_PER_WALL, VK_PER_PHOTOS];
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "UnavailableInDeploymentTarget"
         if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
