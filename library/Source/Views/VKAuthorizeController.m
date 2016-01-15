@@ -340,6 +340,7 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     switch (authType) {
         case VKAuthorizationTypeApp:
             res.authPrefix = VK_AUTHORIZE_URL_STRING;
+            res.displayType = nil;
             break;
         case VKAuthorizationTypeSafari:
             res.redirectUri = [NSString stringWithFormat:@"vk%@://authorize", clientId];

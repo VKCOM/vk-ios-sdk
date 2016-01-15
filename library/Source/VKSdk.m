@@ -173,9 +173,6 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
     } else if (safariEnabled && [SFSafariViewController class] && instance.authState < VKAuthorizationSafariInApp) {
         SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL:urlToOpen];
         viewController.delegate = instance;
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            viewController.modalPresentationStyle = UIModalPresentationFormSheet;
-        }
         [viewController vks_presentViewControllerThroughDelegate];
         instance.presentedSafariViewController = viewController;
 
@@ -221,6 +218,13 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 
     VKSdk *instance = [self instance];
 
+    void (^hideViews)() = ^{
+        if (instance.presentedSafariViewController) {
+            [instance.presentedSafariViewController dismissViewControllerAnimated:YES completion:nil];
+            instance.presentedSafariViewController = nil;
+        }
+    };
+    
     void (^notifyAuthorization)(VKAccessToken *, VKError *) = ^(VKAccessToken *token, VKError *error) {
         VKAuthorizationResult *res = [VKAuthorizationResult new];
         res.error = error ? [NSError errorWithVkError:error] : nil;
@@ -241,9 +245,12 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
                     res.error = err;
                 }
                 [instance notifyDelegate:@selector(vkSdkAccessAuthorizationFinishedWithResult:) obj:res];
+                hideViews();
             }            trackVisitor:YES token:token];
+            
         } else {
             [instance notifyDelegate:@selector(vkSdkAccessAuthorizationFinishedWithResult:) obj:res];
+            hideViews();
         }
 
     };
@@ -259,13 +266,6 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
     }
     NSDictionary *parametersDict = [VKUtil explodeQueryString:parametersString];
     BOOL inAppCheck = [[passedUrl host] isEqual:@"oauth.vk.com"];
-
-    void (^hideViews)() = ^{
-        if (instance.presentedSafariViewController) {
-            [instance.presentedSafariViewController dismissViewControllerAnimated:YES completion:nil];
-            instance.presentedSafariViewController = nil;
-        }
-    };
 
     void (^throwError)() = ^{
         VKError *error = [VKError errorWithQuery:parametersDict];
@@ -315,7 +315,9 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
             notifyAuthorization(token, nil);
         }
     }
-    hideViews();
+    if (!result) {
+        hideViews();
+    }
     return result;
 }
 
@@ -438,7 +440,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
     self = [super init];
     [self resetSdkState];
     _sdkDelegates = [NSMutableArray new];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidBecomeActive) name:UIApplicationWillEnterForegroundNotification object:nil];
     return self;
 }
 
@@ -447,9 +449,11 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 }
 
 - (void)handleDidBecomeActive {
-    if (self.authState == VKAuthorizationExternal) {
-        [VKSdk authorize:[vkSdkInstance.permissions allObjects] withOptions:vkSdkInstance.lastKnownOptions];
-    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self.authState == VKAuthorizationExternal) {
+            [VKSdk authorize:[vkSdkInstance.permissions allObjects] withOptions:vkSdkInstance.lastKnownOptions];
+        }
+    });
 }
 
 - (NSString *)currentAppId {
