@@ -29,8 +29,10 @@
 #import "VKApiConst.h"
 #import "VKApiCaptcha.h"
 #import "VKApiGroups.h"
+#import "VKApiDocs.h"
 #import "VKImageParameters.h"
 #import "VKApiModels.h"
+
 
 /**
 Provides access for API parts.

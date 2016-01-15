@@ -31,3 +31,4 @@
 #import "VKSchool.h"
 #import "VKUniversity.h"
 #import "VKGroup.h"
+#import "VKDocs.h"
