@@ -24,7 +24,7 @@
 
 @implementation VKApiCaptcha
 - (VKRequest *)force {
-    return [self prepareRequestWithMethodName:@"force" andParameters:nil];
+    return [self prepareRequestWithMethodName:@"force" parameters:nil];
 }
 
 @end

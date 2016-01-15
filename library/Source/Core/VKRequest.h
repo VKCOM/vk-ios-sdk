@@ -87,13 +87,15 @@ Class for execution API-requests
 ///-------------------------------
 /// @name Preparing requests
 ///-------------------------------
+
+
 /**
  Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
  @param method API-method name, e.g. audio.get
  @param parameters method parameters
  @param httpMethod HTTP method for execution, e.g. GET, POST
  @return Complete request object for execute or configure method
- @deprecated Use requestWithMethod:andParameters: instead
+ @deprecated Use requestWithMethod:parameters: instead
 */
 + (instancetype)requestWithMethod:(NSString *)method
                     andParameters:(NSDictionary *)parameters
@@ -104,9 +106,21 @@ Class for execution API-requests
  @param method API-method name, e.g. audio.get
  @param parameters method parameters
  @return Complete request object for execute or configure method
+ @deprecated Use requestWithMethod:parameters: instead
 */
 + (instancetype)requestWithMethod:(NSString *)method
-                    andParameters:(NSDictionary *)parameters;
+                    andParameters:(NSDictionary *)parameters __deprecated;
+
+/**
+ Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
+ @param method API-method name, e.g. audio.get
+ @param parameters method parameters
+ @param modelClass class for automatic parse
+ @return Complete request object for execute or configure method
+ */
++ (instancetype)requestWithMethod:(NSString *)method
+                    andParameters:(NSDictionary *)parameters
+                       modelClass:(Class)modelClass __deprecated;
 
 /**
  Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
@@ -116,21 +130,30 @@ Class for execution API-requests
  @param modelClass class for automatic parse
  @return Complete request object for execute or configure method
  @deprecated Use requestWithMethod:andParameters:modelClass: instead
-*/
+ */
 + (instancetype)requestWithMethod:(NSString *)method
                     andParameters:(NSDictionary *)parameters
                     andHttpMethod:(NSString *)httpMethod
                      classOfModel:(Class)modelClass __deprecated;
 
 /**
-Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
-@param method API-method name, e.g. audio.get
-@param parameters method parameters
-@param modelClass class for automatic parse
-@return Complete request object for execute or configure method
-*/
+ Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
+ @param method API-method name, e.g. audio.get
+ @param parameters method parameters
+ @return Complete request object for execute or configure method
+ */
 + (instancetype)requestWithMethod:(NSString *)method
-                    andParameters:(NSDictionary *)parameters
+                       parameters:(NSDictionary *)parameters;
+
+/**
+ Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
+ @param method API-method name, e.g. audio.get
+ @param parameters method parameters
+ @param modelClass class for automatic parse
+ @return Complete request object for execute or configure method
+ */
++ (instancetype)requestWithMethod:(NSString *)method
+                       parameters:(NSDictionary *)parameters
                        modelClass:(Class)modelClass;
 
 /**

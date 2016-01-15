@@ -39,35 +39,23 @@ Return group name for current methods builder
 - (NSString *)getMethodGroup;
 
 /**
-Builds request and return it for configure and loading
-@param methodName Selected method name
-@param methodParameters Selected method parameters
-@return request to configure and load
-*/
+ Builds request and return it for configure and loading
+ @param methodName Selected method name
+ @param methodParameters Selected method parameters
+ @return request to configure and load
+ */
 - (VKRequest *)prepareRequestWithMethodName:(NSString *)methodName
-                              andParameters:(NSDictionary *)methodParameters;
+                                 parameters:(NSDictionary *)methodParameters;
 
 /**
-Builds request and return it for configure and loading
-@param methodName Selected method name
-@param methodParameters Selected method parameters
-@param httpMethod HTTP method for loading request. E.g. GET or POST
-@return request to configure and load
-*/
+ Builds request and return it for configure and loading
+ @param methodName Selected method name
+ @param methodParameters Selected method parameters
+ @param modelClass Class of model, based on VKApiObject, for model parsing
+ @return request to configure and load
+ */
 - (VKRequest *)prepareRequestWithMethodName:(NSString *)methodName
-                              andParameters:(NSDictionary *)methodParameters
-                              andHttpMethod:(NSString *)httpMethod;
+                                 parameters:(NSDictionary *)methodParameters
+                                 modelClass:(Class)modelClass;
 
-/**
-Builds request and return it for configure and loading
-@param methodName Selected method name
-@param methodParameters Selected method parameters
-@param httpMethod HTTP method for loading request. E.g. GET or POST
-@param modelClass Class of model, based on VKApiObject, for model parsing
-@return request to configure and load
-*/
-- (VKRequest *)prepareRequestWithMethodName:(NSString *)methodName
-                              andParameters:(NSDictionary *)methodParameters
-                              andHttpMethod:(NSString *)httpMethod
-                            andClassOfModel:(Class)modelClass;
 @end

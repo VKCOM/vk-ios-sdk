@@ -128,7 +128,7 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
     return dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 }
 
-#pragma mark Init
+#pragma mark Deprecated
 
 + (instancetype)requestWithMethod:(NSString *)method andParameters:(NSDictionary *)parameters andHttpMethod:(NSString *)httpMethod {
     return [self requestWithMethod:method andParameters:parameters];
@@ -144,11 +144,22 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
 }
 
 + (instancetype)requestWithMethod:(NSString *)method andParameters:(NSDictionary *)parameters modelClass:(Class)modelClass {
+    return [self requestWithMethod:method parameters:parameters modelClass:modelClass];
+}
+
+#pragma mark Init
+
++ (instancetype)requestWithMethod:(NSString *)method
+                       parameters:(NSDictionary *)parameters {
+    return [self requestWithMethod:method parameters:parameters modelClass:nil];
+}
+
++ (instancetype)requestWithMethod:(NSString *)method parameters:(NSDictionary *)parameters modelClass:(Class)modelClass {
     VKRequest *newRequest = [self new];
     //Common parameters
     newRequest.parseModel = modelClass != nil;
     newRequest.requestTimeout = 25;
-
+    
     newRequest.methodName = method;
     newRequest.methodParameters = parameters;
     newRequest.httpMethod = @"POST";

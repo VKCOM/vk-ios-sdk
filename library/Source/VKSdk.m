@@ -462,7 +462,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 
 - (void)requestSdkState:(void (^)(VKUser *visitor, NSInteger permissions, NSError *error))infoCallback trackVisitor:(BOOL)trackVisitor token:(VKAccessToken *)token {
     NSString *code = [NSString stringWithFormat:@"return {permissions:API.account.getAppPermissions(),user:API.users.get({fields : \"photo_50,photo_100,photo_200\"})[0],%1$@};", trackVisitor ? @"stats:API.stats.trackVisitor()," : @""];
-    VKRequest *req = [VKRequest requestWithMethod:@"execute" andParameters:@{@"code" : code}];
+    VKRequest *req = [VKRequest requestWithMethod:@"execute" parameters:@{@"code" : code}];
     req.specialToken = token;
     req.preventThisErrorsHandling = @[@5];
     [req executeWithResultBlock:^(VKResponse *response) {

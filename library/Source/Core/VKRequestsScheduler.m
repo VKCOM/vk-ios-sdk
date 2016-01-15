@@ -61,7 +61,7 @@
 - (void)setEnabled:(BOOL)enabled {
     _enabled = enabled;
 //    if ([VKSdk instance].currentAppId) {
-//        [[VKRequest requestWithMethod:@"apps.get" andParameters:@{@"app_id" : [VKSdk instance].currentAppId} andHttpMethod:@"GET"] executeWithResultBlock:^(VKResponse *response) {
+//        [[VKRequest requestWithMethod:@"apps.get" parameters:@{@"app_id" : [VKSdk instance].currentAppId} andHttpMethod:@"GET"] executeWithResultBlock:^(VKResponse *response) {
 //            NSInteger members = [response.json[@"members_count"] integerValue];
 //            NSDictionary *limitsDict = [[self class] limits];
 //            NSArray *limits = [[limitsDict allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {

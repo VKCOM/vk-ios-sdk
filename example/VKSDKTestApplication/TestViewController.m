@@ -96,7 +96,7 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
         [self callMethod:[[VKApi users] get:@{VK_API_FIELDS : @"first_name, last_name, uid, photo_100", VK_API_USER_IDS : @[@(1), @(2), @(3)]}]];
     }
     else if ([label isEqualToString:USERS_SUBSCRIPTIONS]) {
-        [self callMethod:[VKRequest requestWithMethod:@"users.getFollowers" andParameters:@{VK_API_USER_ID : @"1", VK_API_COUNT : @(1000), VK_API_FIELDS : ALL_USER_FIELDS} modelClass:[VKUsersArray class]]];
+        [self callMethod:[VKRequest requestWithMethod:@"users.getFollowers" parameters:@{VK_API_USER_ID : @"1", VK_API_COUNT : @(1000), VK_API_FIELDS : ALL_USER_FIELDS} modelClass:[VKUsersArray class]]];
     }
     else if ([label isEqualToString:UPLOAD_PHOTO]) {
         [self uploadPhoto];
@@ -118,10 +118,10 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
         [self callMethod:friendsRequest];
     }
     else if ([label isEqualToString:CALL_UNKNOWN_METHOD]) {
-        [self callMethod:[VKRequest requestWithMethod:@"I.am.Lord.Voldemort" andParameters:nil]];
+        [self callMethod:[VKRequest requestWithMethod:@"I.am.Lord.Voldemort" parameters:nil]];
     }
     else if ([label isEqualToString:TEST_VALIDATION]) {
-        [self callMethod:[VKRequest requestWithMethod:@"account.testValidation" andParameters:nil]];
+        [self callMethod:[VKRequest requestWithMethod:@"account.testValidation" parameters:nil]];
     }
     else if ([label isEqualToString:MAKE_SYNCHRONOUS]) {
         VKUsersArray *users = [self loadUsers];
@@ -158,7 +158,7 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
         [self presentViewController:activityViewController animated:YES completion:nil];
     }
     else if ([label isEqualToString:TEST_APPREQUEST]) {
-        [self callMethod:[VKRequest requestWithMethod:@"apps.sendRequest" andParameters:@{@"user_id" : @45898586, @"text" : @"Yo ho ho", @"type" : @"request", @"name" : @"I need more gold", @"key" : @"more_gold"}]];
+        [self callMethod:[VKRequest requestWithMethod:@"apps.sendRequest" parameters:@{@"user_id" : @45898586, @"text" : @"Yo ho ho", @"type" : @"request", @"name" : @"I need more gold", @"key" : @"more_gold"}]];
 
     }
 }

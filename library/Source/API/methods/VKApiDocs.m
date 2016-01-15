@@ -1,7 +1,7 @@
 //
-//  VKApiUsers.h
+//  VKApiDocs.m
 //
-//  Copyright (c) 2014 VK.com
+//  Copyright (c) 2016 VK.com
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -30,92 +30,94 @@
 @implementation VKApiDocs : VKApiBase
 
 - (VKRequest *)get {
-  return [self prepareRequestWithMethodName:@"get" andParameters:nil andHttpMethod:@"GET" andClassOfModel:[VKDocsArray class]];
+  return [self prepareRequestWithMethodName:@"get" parameters:nil modelClass:[VKDocsArray class]];
 }
 
 - (VKRequest *)get:(NSInteger)count {
-  return [self prepareRequestWithMethodName:@"get" andParameters: @{VK_API_COUNT : @(count)} andHttpMethod:@"GET" andClassOfModel:[VKDocsArray class]];
+  return [self prepareRequestWithMethodName:@"get" parameters: @{VK_API_COUNT : @(count)} modelClass:[VKDocsArray class]];
 }
 
 - (VKRequest *)get:(NSInteger)count andOffset:(NSInteger)offset {
-  return [self prepareRequestWithMethodName:@"get" andParameters:
+  return [self prepareRequestWithMethodName:@"get"
+                                 parameters:
         @{
             VK_API_COUNT    : @(count),
             VK_API_OFFSET   : @(offset),
             }
-                              andHttpMethod:@"GET" andClassOfModel:[VKDocsArray class]];
+                              modelClass:[VKDocsArray class]];
 }
 
 - (VKRequest *)get:(NSInteger)count andOffset:(NSInteger)offset andOwnerID:(NSInteger)ownerID {
-  return [self prepareRequestWithMethodName:@"get" andParameters:
+  return [self prepareRequestWithMethodName:@"get"
+                                 parameters:
   @{
     VK_API_COUNT    : @(count),
     VK_API_OFFSET   : @(offset),
     VK_API_OWNER_ID : @(ownerID),
     }
-                              andHttpMethod:@"GET" andClassOfModel:[VKDocsArray class]];
+                              modelClass:[VKDocsArray class]];
 }
 
 - (VKRequest *)getByID:(NSArray *)IDs {
-  return [self prepareRequestWithMethodName:@"getById" andParameters:@{@"docs" : IDs} andHttpMethod:@"GET" andClassOfModel:[VKDocsArray class]];
+  return [self prepareRequestWithMethodName:@"getById" parameters:@{@"docs" : IDs} modelClass:[VKDocsArray class]];
 }
 
 - (VKRequest *)getUploadServer {
-  return [self prepareRequestWithMethodName:@"getUploadServer" andParameters:nil andHttpMethod:@"GET"];
+  return [self prepareRequestWithMethodName:@"getUploadServer" parameters:nil];
 }
 
 - (VKRequest *)getUploadServer:(NSInteger)group_id {
-  return [self prepareRequestWithMethodName:@"getUploadServer" andParameters:@{VK_API_GROUP_ID : [@(group_id) stringValue]} andHttpMethod:@"GET"];
+  return [self prepareRequestWithMethodName:@"getUploadServer" parameters:@{VK_API_GROUP_ID : [@(group_id) stringValue]}];
 }
 
 - (VKRequest *)getWallUploadServer {
-  return [self prepareRequestWithMethodName:@"getWallUploadServer" andParameters:nil andHttpMethod:@"GET"];
+  return [self prepareRequestWithMethodName:@"getWallUploadServer" parameters:nil];
 }
 
 - (VKRequest *)getWallUploadServer:(NSInteger)group_id {
-  return [self prepareRequestWithMethodName:@"getWallUploadServer" andParameters:@{VK_API_GROUP_ID : [@(group_id) stringValue]} andHttpMethod:@"GET"];
+  return [self prepareRequestWithMethodName:@"getWallUploadServer" parameters:@{VK_API_GROUP_ID : [@(group_id) stringValue]}];
 }
 
 - (VKRequest *)save:(NSString *)file {
-  return [self prepareRequestWithMethodName:@"save" andParameters:@{VK_API_FILE : file} andHttpMethod:@"POST" andClassOfModel:[VKDocsArray class]];
+  return [self prepareRequestWithMethodName:@"save" parameters:@{VK_API_FILE : file} modelClass:[VKDocsArray class]];
 }
 
 - (VKRequest *)save:(NSString *)file andTitle:(NSString *)title {
-  return [self prepareRequestWithMethodName:@"save" andParameters:@{
+  return [self prepareRequestWithMethodName:@"save" parameters:@{
                                                                       VK_API_FILE   : file,
                                                                       VK_API_TITLE  : title,
-                                                                      } andHttpMethod:@"POST" andClassOfModel:[VKDocsArray class]];
+                                                                      } modelClass:[VKDocsArray class]];
 }
 
 
 - (VKRequest *)save:(NSString *)file andTitle:(NSString *)title andTags:(NSString *)tags {
-  return [self prepareRequestWithMethodName:@"save" andParameters:@{
+  return [self prepareRequestWithMethodName:@"save" parameters:@{
                                                                       VK_API_FILE   : file,
                                                                       VK_API_TITLE  : title,
                                                                       VK_API_TAGS   : tags
-                                                                      } andHttpMethod:@"POST" andClassOfModel:[VKDocsArray class]];
+                                                                      } modelClass:[VKDocsArray class]];
 }
 
 - (VKRequest *)delete:(NSInteger)ownerID andDocID:(NSInteger)docID {
-  return [self prepareRequestWithMethodName:@"delete" andParameters:@{
+  return [self prepareRequestWithMethodName:@"delete" parameters:@{
                                                                 VK_API_OWNER_ID : [@(ownerID) stringValue],
                                                                 VK_API_DOC_ID   : [@(docID) stringValue],
-                                                                } andHttpMethod:@"POST"];
+                                                                }];
 }
 
 - (VKRequest *)add:(NSInteger)ownerID andDocID:(NSInteger)docID {
-  return [self prepareRequestWithMethodName:@"add" andParameters:@{
+  return [self prepareRequestWithMethodName:@"add" parameters:@{
                                                                    VK_API_OWNER_ID   : [@(ownerID) stringValue],
                                                                    VK_API_DOC_ID     : [@(docID) stringValue]
-                                                                   } andHttpMethod:@"POST"];
+                                                                   }];
 }
 
 - (VKRequest *)add:(NSInteger)ownerID andDocID:(NSInteger)docID andAccessKey:(NSString *)accessKey {
-  return [self prepareRequestWithMethodName:@"add" andParameters:@{
+  return [self prepareRequestWithMethodName:@"add" parameters:@{
                                                                 VK_API_OWNER_ID   : [@(ownerID) stringValue],
                                                                 VK_API_DOC_ID     : [@(docID) stringValue],
                                                                 VK_API_ACCESS_KEY : accessKey
-                                                                } andHttpMethod:@"POST"];
+                                                                }];
 }
 
 @end
