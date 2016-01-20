@@ -1,274 +1,188 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>VKRequest Class Reference</title>
-		<meta id="xcode-display" name="xcode-display" content="render"/>
-		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
-		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.2 (build 963)" />
-	</head>
-	<body>
-		<header id="top_header">
-			<div id="library" class="hideInXcode">
-				<h1><a id="libraryTitle" href="../index.html">VK SDK </a></h1>
-				<a id="developerHome" href="../index.html">VK</a>
-			</div>
+<head>
+	<meta charset="utf-8">
+
+	<title>VKRequest Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1334)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
 			
-			<div id="title" role="banner">
-				<h1 class="hideInXcode">VKRequest Class Reference</h1>
-			</div>
-			<ul id="headerButtons" role="toolbar">
-				<li id="toc_button">
-					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
-				</li>
-				<li id="jumpto_button" role="navigation">
-					<select id="jumpTo">
+			<h1 id="library-title">
+				<a href="../index.html">VK SDK </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">VK</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
 	<option value="top">Jump To&#133;</option>
 	
 	<option value="overview">Overview</option>
 	
-	
+
 	
 	
 	<option value="tasks">Tasks</option>
 	
 	
+
 	
 	
+	<optgroup label="Properties">
+		
+		<option value="//api/name/attempts">attempts</option>
+		
+		<option value="//api/name/attemptsUsed">attemptsUsed</option>
+		
+		<option value="//api/name/completeBlock">completeBlock</option>
+		
+		<option value="//api/name/debugTiming">debugTiming</option>
+		
+		<option value="//api/name/error">error</option>
+		
+		<option value="//api/name/errorBlock">errorBlock</option>
+		
+		<option value="//api/name/executionOperation">executionOperation</option>
+		
+		<option value="//api/name/httpMethod">httpMethod</option>
+		
+		<option value="//api/name/isExecuting">isExecuting</option>
+		
+		<option value="//api/name/methodName">methodName</option>
+		
+		<option value="//api/name/methodParameters">methodParameters</option>
+		
+		<option value="//api/name/modelClass">modelClass</option>
+		
+		<option value="//api/name/parseModel">parseModel</option>
+		
+		<option value="//api/name/photoObjects">photoObjects</option>
+		
+		<option value="//api/name/postRequestsQueue">postRequestsQueue</option>
+		
+		<option value="//api/name/preparedParameters">preparedParameters</option>
+		
+		<option value="//api/name/preventThisErrorsHandling">preventThisErrorsHandling</option>
+		
+		<option value="//api/name/progressBlock">progressBlock</option>
+		
+		<option value="//api/name/requestLang">requestLang</option>
+		
+		<option value="//api/name/requestTimeout">requestTimeout</option>
+		
+		<option value="//api/name/requestTiming">requestTiming</option>
+		
+		<option value="//api/name/response">response</option>
+		
+		<option value="//api/name/responseQueue">responseQueue</option>
+		
+		<option value="//api/name/secure">secure</option>
+		
+		<option value="//api/name/uploadUrl">uploadUrl</option>
+		
+		<option value="//api/name/useSystemLanguage">useSystemLanguage</option>
+		
+		<option value="//api/name/waitUntilDone">waitUntilDone</option>
+		
+	</optgroup>
 	
-	<option value="properties">Properties</option>
+
 	
-	<option value="//api/name/attempts">&nbsp;&nbsp;&nbsp;&nbsp;attempts</option>
+	<optgroup label="Class Methods">
+		
+		<option value="//api/name/photoRequestWithPostUrl:withPhotos:">+ photoRequestWithPostUrl:withPhotos:</option>
+		
+		<option value="//api/name/requestWithMethod:andParameters:">+ requestWithMethod:andParameters:</option>
+		
+		<option value="//api/name/requestWithMethod:andParameters:andHttpMethod:">+ requestWithMethod:andParameters:andHttpMethod:</option>
+		
+		<option value="//api/name/requestWithMethod:andParameters:andHttpMethod:classOfModel:">+ requestWithMethod:andParameters:andHttpMethod:classOfModel:</option>
+		
+		<option value="//api/name/requestWithMethod:andParameters:modelClass:">+ requestWithMethod:andParameters:modelClass:</option>
+		
+		<option value="//api/name/requestWithMethod:parameters:">+ requestWithMethod:parameters:</option>
+		
+		<option value="//api/name/requestWithMethod:parameters:modelClass:">+ requestWithMethod:parameters:modelClass:</option>
+		
+	</optgroup>
 	
-	<option value="//api/name/attemptsUsed">&nbsp;&nbsp;&nbsp;&nbsp;attemptsUsed</option>
+
 	
-	<option value="//api/name/completeBlock">&nbsp;&nbsp;&nbsp;&nbsp;completeBlock</option>
-	
-	<option value="//api/name/debugTiming">&nbsp;&nbsp;&nbsp;&nbsp;debugTiming</option>
-	
-	<option value="//api/name/error">&nbsp;&nbsp;&nbsp;&nbsp;error</option>
-	
-	<option value="//api/name/errorBlock">&nbsp;&nbsp;&nbsp;&nbsp;errorBlock</option>
-	
-	<option value="//api/name/executionOperation">&nbsp;&nbsp;&nbsp;&nbsp;executionOperation</option>
-	
-	<option value="//api/name/httpMethod">&nbsp;&nbsp;&nbsp;&nbsp;httpMethod</option>
-	
-	<option value="//api/name/isExecuting">&nbsp;&nbsp;&nbsp;&nbsp;isExecuting</option>
-	
-	<option value="//api/name/methodName">&nbsp;&nbsp;&nbsp;&nbsp;methodName</option>
-	
-	<option value="//api/name/methodParameters">&nbsp;&nbsp;&nbsp;&nbsp;methodParameters</option>
-	
-	<option value="//api/name/modelClass">&nbsp;&nbsp;&nbsp;&nbsp;modelClass</option>
-	
-	<option value="//api/name/parseModel">&nbsp;&nbsp;&nbsp;&nbsp;parseModel</option>
-	
-	<option value="//api/name/photoObjects">&nbsp;&nbsp;&nbsp;&nbsp;photoObjects</option>
-	
-	<option value="//api/name/postRequestsQueue">&nbsp;&nbsp;&nbsp;&nbsp;postRequestsQueue</option>
-	
-	<option value="//api/name/preferredLang">&nbsp;&nbsp;&nbsp;&nbsp;preferredLang</option>
-	
-	<option value="//api/name/preparedParameters">&nbsp;&nbsp;&nbsp;&nbsp;preparedParameters</option>
-	
-	<option value="//api/name/progressBlock">&nbsp;&nbsp;&nbsp;&nbsp;progressBlock</option>
-	
-	<option value="//api/name/requestTimeout">&nbsp;&nbsp;&nbsp;&nbsp;requestTimeout</option>
-	
-	<option value="//api/name/requestTiming">&nbsp;&nbsp;&nbsp;&nbsp;requestTiming</option>
-	
-	<option value="//api/name/response">&nbsp;&nbsp;&nbsp;&nbsp;response</option>
-	
-	<option value="//api/name/responseQueue">&nbsp;&nbsp;&nbsp;&nbsp;responseQueue</option>
-	
-	<option value="//api/name/secure">&nbsp;&nbsp;&nbsp;&nbsp;secure</option>
-	
-	<option value="//api/name/uploadUrl">&nbsp;&nbsp;&nbsp;&nbsp;uploadUrl</option>
-	
-	<option value="//api/name/useSystemLanguage">&nbsp;&nbsp;&nbsp;&nbsp;useSystemLanguage</option>
-	
-	<option value="//api/name/waitUntilDone">&nbsp;&nbsp;&nbsp;&nbsp;waitUntilDone</option>
-	
-	
-	
-	
-	<option value="class_methods">Class Methods</option>
-	
-	<option value="//api/name/photoRequestWithPostUrl:withPhotos:">&nbsp;&nbsp;&nbsp;&nbsp;+ photoRequestWithPostUrl:withPhotos:</option>
-	
-	<option value="//api/name/requestWithMethod:andParameters:andHttpMethod:">&nbsp;&nbsp;&nbsp;&nbsp;+ requestWithMethod:andParameters:andHttpMethod:</option>
-	
-	<option value="//api/name/requestWithMethod:andParameters:andHttpMethod:classOfModel:">&nbsp;&nbsp;&nbsp;&nbsp;+ requestWithMethod:andParameters:andHttpMethod:classOfModel:</option>
-	
-	
-	
-	
-	<option value="instance_methods">Instance Methods</option>
-	
-	<option value="//api/name/addExtraParameters:">&nbsp;&nbsp;&nbsp;&nbsp;- addExtraParameters:</option>
-	
-	<option value="//api/name/cancel">&nbsp;&nbsp;&nbsp;&nbsp;- cancel</option>
-	
-	<option value="//api/name/executeAfter:withResultBlock:errorBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- executeAfter:withResultBlock:errorBlock:</option>
-	
-	<option value="//api/name/executeWithResultBlock:errorBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- executeWithResultBlock:errorBlock:</option>
-	
-	<option value="//api/name/getPreparedRequest">&nbsp;&nbsp;&nbsp;&nbsp;- getPreparedRequest</option>
-	
-	<option value="//api/name/repeat">&nbsp;&nbsp;&nbsp;&nbsp;- repeat</option>
-	
-	<option value="//api/name/start">&nbsp;&nbsp;&nbsp;&nbsp;- start</option>
-	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/addExtraParameters:">- addExtraParameters:</option>
+		
+		<option value="//api/name/cancel">- cancel</option>
+		
+		<option value="//api/name/createExecutionOperation">- createExecutionOperation</option>
+		
+		<option value="//api/name/executeAfter:withResultBlock:errorBlock:">- executeAfter:withResultBlock:errorBlock:</option>
+		
+		<option value="//api/name/executeWithResultBlock:errorBlock:">- executeWithResultBlock:errorBlock:</option>
+		
+		<option value="//api/name/getPreparedRequest">- getPreparedRequest</option>
+		
+		<option value="//api/name/repeat">- repeat</option>
+		
+		<option value="//api/name/setPreferredLang:">- setPreferredLang:</option>
+		
+		<option value="//api/name/start">- start</option>
+		
+	</optgroup>
 	
 	
 </select>
-				</li>
-			</ul>
-		</header>
-		<nav id="tocContainer" class="isShowingTOC">
-			<ul id="toc" role="tree">
-				
-<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
 
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">VKRequest Class Reference</h1>
 
-
-
-<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Preparing requests">Preparing requests</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Execution">Execution</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Operating with parameters">Operating with parameters</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Extension Methods">Extension Methods</a></span></li>
-	
-</ul></li>
-
-
-
-
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/attempts">attempts</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/attemptsUsed">attemptsUsed</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/completeBlock">completeBlock</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/debugTiming">debugTiming</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/error">error</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/errorBlock">errorBlock</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/executionOperation">executionOperation</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/httpMethod">httpMethod</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isExecuting">isExecuting</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/methodName">methodName</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/methodParameters">methodParameters</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/modelClass">modelClass</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/parseModel">parseModel</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/photoObjects">photoObjects</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/postRequestsQueue">postRequestsQueue</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/preferredLang">preferredLang</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/preparedParameters">preparedParameters</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/progressBlock">progressBlock</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/requestTimeout">requestTimeout</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/requestTiming">requestTiming</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/response">response</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/responseQueue">responseQueue</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/secure">secure</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/uploadUrl">uploadUrl</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/useSystemLanguage">useSystemLanguage</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/waitUntilDone">waitUntilDone</a></span></li>
-	
-</ul></li>
-
-
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/photoRequestWithPostUrl:withPhotos:">photoRequestWithPostUrl:withPhotos:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/requestWithMethod:andParameters:andHttpMethod:">requestWithMethod:andParameters:andHttpMethod:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/requestWithMethod:andParameters:andHttpMethod:classOfModel:">requestWithMethod:andParameters:andHttpMethod:classOfModel:</a></span></li>
-	
-</ul></li>
-
-
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/addExtraParameters:">addExtraParameters:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/cancel">cancel</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/executeAfter:withResultBlock:errorBlock:">executeAfter:withResultBlock:errorBlock:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/executeWithResultBlock:errorBlock:">executeWithResultBlock:errorBlock:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getPreparedRequest">getPreparedRequest</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/repeat">repeat</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/start">start</a></span></li>
-	
-</ul></li>
-
-
-			</ul>
-		</nav>
-		<article>
-			<div id="contents" class="isShowingTOC" role="main">
-				<a title="VKRequest Class Reference" name="top"></a>
-				<div class="main-navigation navigation-top">
-					<ul>
-	<li><a href="../index.html">Index</a></li>
-	<li><a href="../hierarchy.html">Hierarchy</a></li>
-</ul>
-				</div>
-				<div id="header">
-					<div class="section-header">
-						<h1 class="title title-header">VKRequest Class Reference</h1>
-					</div>		
-				</div>
-				<div id="container">	
 					
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
-	<td class="specification-title">Inherits from</td>
-	<td class="specification-value">VKObject : NSObject</td>
+	<th>Inherits from</th>
+	<td>VKObject : NSObject</td>
 </tr><tr>
-	<td class="specification-title">Declared in</td>
-	<td class="specification-value">VKRequest.h<br />VKRequest.m</td>
+	<th>Declared in</th>
+	<td>VKRequest.h<br />VKRequest.m</td>
 </tr>
 						</tbody></table></div>
 					
-                    
+
                     
 					
 					<div class="section section-overview">
@@ -278,1830 +192,2290 @@
 					</div>
 					
 					
-					
+
 					
 					
 					<div class="section section-tasks">
 						<a title="Tasks" name="tasks"></a>
-						<h2 class="subtitle subtitle-tasks">Tasks</h2>
 						
+
 						
-						
-						<h3 class="subsubtitle task-title">Other Methods</h3>
+						<h2 class="task-title">Other Methods</h2>
 
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/preferredLang">&nbsp;&nbsp;preferredLang</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/progressBlock">&nbsp;&nbsp;progressBlock</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/completeBlock">&nbsp;&nbsp;completeBlock</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/errorBlock">&nbsp;&nbsp;errorBlock</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/attempts">&nbsp;&nbsp;attempts</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/secure">&nbsp;&nbsp;secure</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/useSystemLanguage">&nbsp;&nbsp;useSystemLanguage</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/parseModel">&nbsp;&nbsp;parseModel</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/debugTiming">&nbsp;&nbsp;debugTiming</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/requestTimeout">&nbsp;&nbsp;requestTimeout</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/responseQueue">&nbsp;&nbsp;responseQueue</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/waitUntilDone">&nbsp;&nbsp;waitUntilDone</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/methodName">&nbsp;&nbsp;methodName</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/httpMethod">&nbsp;&nbsp;httpMethod</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/methodParameters">&nbsp;&nbsp;methodParameters</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/executionOperation">&nbsp;&nbsp;executionOperation</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/requestTiming">&nbsp;&nbsp;requestTiming</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/isExecuting">&nbsp;&nbsp;isExecuting</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li>
-						</ul>
-						
-						
-						<a title="Preparing requests" name="task_Preparing requests"></a>
-						<h3 class="subsubtitle task-title">Preparing requests</h3>
-
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/requestWithMethod:andParameters:andHttpMethod:">+&nbsp;requestWithMethod:andParameters:andHttpMethod:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/requestWithMethod:andParameters:andHttpMethod:classOfModel:">+&nbsp;requestWithMethod:andParameters:andHttpMethod:classOfModel:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/photoRequestWithPostUrl:withPhotos:">+&nbsp;photoRequestWithPostUrl:withPhotos:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/getPreparedRequest">&ndash;&nbsp;getPreparedRequest</a></code>
-	</span>
-	
-	
-</li>
-						</ul>
-						
-						
-						<a title="Execution" name="task_Execution"></a>
-						<h3 class="subsubtitle task-title">Execution</h3>
-
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/executeWithResultBlock:errorBlock:">&ndash;&nbsp;executeWithResultBlock:errorBlock:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/executeAfter:withResultBlock:errorBlock:">&ndash;&nbsp;executeAfter:withResultBlock:errorBlock:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/start">&ndash;&nbsp;start</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/repeat">&ndash;&nbsp;repeat</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/cancel">&ndash;&nbsp;cancel</a></code>
-	</span>
-	
-	
-</li>
-						</ul>
-						
-						
-						<a title="Operating with parameters" name="task_Operating with parameters"></a>
-						<h3 class="subsubtitle task-title">Operating with parameters</h3>
-
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/addExtraParameters:">&ndash;&nbsp;addExtraParameters:</a></code>
-	</span>
-	
-	
-</li>
-						</ul>
-						
-						
-						<a title="Extension Methods" name="task_Extension Methods"></a>
-						<h3 class="subsubtitle task-title">Extension Methods</h3>
-
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/preparedParameters">&nbsp;&nbsp;preparedParameters</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/uploadUrl">&nbsp;&nbsp;uploadUrl</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/postRequestsQueue">&nbsp;&nbsp;postRequestsQueue</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/modelClass">&nbsp;&nbsp;modelClass</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/photoObjects">&nbsp;&nbsp;photoObjects</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/attemptsUsed">&nbsp;&nbsp;attemptsUsed</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/response">&nbsp;&nbsp;response</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/error">&nbsp;&nbsp;error</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li>
-						</ul>
-						
-					</div>
-					
-					
-					
-					
-					
-					<div class="section section-methods">
-						<a title="Properties" name="properties"></a>
-						<h2 class="subtitle subtitle-methods">Properties</h2>
-						
-						<div class="section-method">
-	<a name="//api/name/attempts" title="attempts"></a>
-	<h3 class="subsubtitle method-title">attempts</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Specify attempts for request loading if caused HTTP<a href="#//api/name/error">error</a>. 0 for infinite</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) int attempts</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/attemptsUsed" title="attemptsUsed"></a>
-	<h3 class="subsubtitle method-title">attemptsUsed</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>How much times request was loaded</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (readwrite, assign) int attemptsUsed</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.m</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/completeBlock" title="completeBlock"></a>
-	<h3 class="subsubtitle method-title">completeBlock</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Specify completion block for request</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( VKResponse *response ) completeBlock</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/debugTiming" title="debugTiming"></a>
-	<h3 class="subsubtitle method-title">debugTiming</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Set to YES if you need info about request timing</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL debugTiming</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/error" title="error"></a>
-	<h3 class="subsubtitle method-title">error</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>This request error</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSError *error</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.m</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/errorBlock" title="errorBlock"></a>
-	<h3 class="subsubtitle method-title">errorBlock</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Specity <a href="#//api/name/error">error</a> (HTTP or API) block for request.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( NSError *error ) errorBlock</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/executionOperation" title="executionOperation"></a>
-	<h3 class="subsubtitle method-title">executionOperation</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Returns http operation that can be enqueued</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSOperation *executionOperation</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/httpMethod" title="httpMethod"></a>
-	<h3 class="subsubtitle method-title">httpMethod</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Returns HTTP-method for current request</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSString *httpMethod</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/isExecuting" title="isExecuting"></a>
-	<h3 class="subsubtitle method-title">isExecuting</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Return YES if current request was started</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) BOOL isExecuting</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/methodName" title="methodName"></a>
-	<h3 class="subsubtitle method-title">methodName</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Returns method for current request, e.g. users.get</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSString *methodName</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/methodParameters" title="methodParameters"></a>
-	<h3 class="subsubtitle method-title">methodParameters</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Returns list of method parameters (without common parameters)</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSDictionary *methodParameters</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/modelClass" title="modelClass"></a>
-	<h3 class="subsubtitle method-title">modelClass</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Class for model parsing</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) Class modelClass</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.m</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/parseModel" title="parseModel"></a>
-	<h3 class="subsubtitle method-title">parseModel</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Set to NO if you don&rsquo;t need automatic model parsing</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL parseModel</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/photoObjects" title="photoObjects"></a>
-	<h3 class="subsubtitle method-title">photoObjects</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Paths to photos</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSArray *photoObjects</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.m</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/postRequestsQueue" title="postRequestsQueue"></a>
-	<h3 class="subsubtitle method-title">postRequestsQueue</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Requests that should be called after current request.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSMutableArray *postRequestsQueue</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.m</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/preferredLang" title="preferredLang"></a>
-	<h3 class="subsubtitle method-title">preferredLang</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Specify language for API request</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSString *preferredLang</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/preparedParameters" title="preparedParameters"></a>
-	<h3 class="subsubtitle method-title">preparedParameters</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Method parametes with common parameters</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) OrderedDictionary *preparedParameters</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.m</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
+						<div class="task-list">
+							<div class="section-method">
 	<a name="//api/name/progressBlock" title="progressBlock"></a>
-	<h3 class="subsubtitle method-title">progressBlock</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Specify progress for uploading or downloading. Useless for text requests (because gzip encoding bytesTotal will always return -1)</p>
-	</div>		
-	
-    
+	<h3 class="method-title"><code><a href="#//api/name/progressBlock">&nbsp;&nbsp;progressBlock</a></code>
+</h3>
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( VKProgressType progressType , long long bytesLoaded , long long bytesTotal ) progressBlock</code></div>
+	<div class="method-info">
+		<div class="pointy-thing"></div>
 
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/requestTimeout" title="requestTimeout"></a>
-	<h3 class="subsubtitle method-title">requestTimeout</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Timeout for this request</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSInteger requestTimeout</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/requestTiming" title="requestTiming"></a>
-	<h3 class="subsubtitle method-title">requestTiming</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Returns info about request timings</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) VKRequestTiming *requestTiming</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/response" title="response"></a>
-	<h3 class="subsubtitle method-title">response</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>This request response</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) VKResponse *response</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.m</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/responseQueue" title="responseQueue"></a>
-	<h3 class="subsubtitle method-title">responseQueue</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Sets dispatch queue for returning result</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) dispatch_queue_t responseQueue</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/secure" title="secure"></a>
-	<h3 class="subsubtitle method-title">secure</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Use HTTPS requests (by default is YES). If http-request is impossible (user denied no https access), SDK will load https version</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL secure</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/uploadUrl" title="uploadUrl"></a>
-	<h3 class="subsubtitle method-title">uploadUrl</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Url for uploading files</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSString *uploadUrl</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.m</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/useSystemLanguage" title="useSystemLanguage"></a>
-	<h3 class="subsubtitle method-title">useSystemLanguage</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Sets current system language as default for API data</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL useSystemLanguage</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/waitUntilDone" title="waitUntilDone"></a>
-	<h3 class="subsubtitle method-title">waitUntilDone</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Set to YES if you need to freeze current thread for <a href="#//api/name/response">response</a></p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL waitUntilDone</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-					</div>
-					
-					
-					
-					<div class="section section-methods">
-						<a title="Class Methods" name="class_methods"></a>
-						<h2 class="subtitle subtitle-methods">Class Methods</h2>
-						
-						<div class="section-method">
-	<a name="//api/name/photoRequestWithPostUrl:withPhotos:" title="photoRequestWithPostUrl:withPhotos:"></a>
-	<h3 class="subsubtitle method-title">photoRequestWithPostUrl:withPhotos:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Creates new request for upload image to url</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (instancetype)photoRequestWithPostUrl:(NSString *)<em>url</em> withPhotos:(NSArray *)<em>photoObjects</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>url</em></dt>
-			<dd><p>url for upload, which was received from special methods</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>photoObjects</em></dt>
-			<dd><p><a href="../Classes/VKPhoto.html">VKPhoto</a> object describes photos</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Complete request object for execute</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/requestWithMethod:andParameters:andHttpMethod:" title="requestWithMethod:andParameters:andHttpMethod:"></a>
-	<h3 class="subsubtitle method-title">requestWithMethod:andParameters:andHttpMethod:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a></p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (instancetype)requestWithMethod:(NSString *)<em>method</em> andParameters:(NSDictionary *)<em>parameters</em> andHttpMethod:(NSString *)<em>httpMethod</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>method</em></dt>
-			<dd><p>API-method name, e.g. audio.get</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>parameters</em></dt>
-			<dd><p>method parameters</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>httpMethod</em></dt>
-			<dd><p>HTTP method for execution, e.g. GET, POST</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Complete request object for execute or configure method</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/requestWithMethod:andParameters:andHttpMethod:classOfModel:" title="requestWithMethod:andParameters:andHttpMethod:classOfModel:"></a>
-	<h3 class="subsubtitle method-title">requestWithMethod:andParameters:andHttpMethod:classOfModel:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a></p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (instancetype)requestWithMethod:(NSString *)<em>method</em> andParameters:(NSDictionary *)<em>parameters</em> andHttpMethod:(NSString *)<em>httpMethod</em> classOfModel:(Class)<em>modelClass</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>method</em></dt>
-			<dd><p>API-method name, e.g. audio.get</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>parameters</em></dt>
-			<dd><p>method parameters</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>httpMethod</em></dt>
-			<dd><p>HTTP method for execution, e.g. GET, POST</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>modelClass</em></dt>
-			<dd><p>class for automatic parse</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Complete request object for execute or configure method</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-					</div>
-					
-					
-					
-					<div class="section section-methods">
-						<a title="Instance Methods" name="instance_methods"></a>
-						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
-						
-						<div class="section-method">
-	<a name="//api/name/addExtraParameters:" title="addExtraParameters:"></a>
-	<h3 class="subsubtitle method-title">addExtraParameters:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Adds additional parameters to that request</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)addExtraParameters:(NSDictionary *)<em>extraParameters</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>extraParameters</em></dt>
-			<dd><p>parameters supposed to be added</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/cancel" title="cancel"></a>
-	<h3 class="subsubtitle method-title">cancel</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Cancel current request. Result will be not passed. <a href="#//api/name/errorBlock">errorBlock</a> will be called with <a href="#//api/name/error">error</a> code</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)cancel</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/executeAfter:withResultBlock:errorBlock:" title="executeAfter:withResultBlock:errorBlock:"></a>
-	<h3 class="subsubtitle method-title">executeAfter:withResultBlock:errorBlock:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Register current request for execute after passed request, if passed request is successful. If it&rsquo;s not, <a href="#//api/name/errorBlock">errorBlock</a> will be called.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)executeAfter:(VKRequest *)<em>request</em> withResultBlock:(void ( ^ ) ( VKResponse *response ))<em>completeBlock</em> errorBlock:(void ( ^ ) ( NSError *error ))<em>errorBlock</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>request</em></dt>
-			<dd><p>after which request must be called that request</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>completeBlock</em></dt>
-			<dd><p>called if there were no HTTP or API errors, returns execution result.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>errorBlock</em></dt>
-			<dd><p>called immediately if there was API <a href="#//api/name/error">error</a>, or after <b>attempts</b> tries if there was an HTTP <a href="#//api/name/error">error</a></p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/executeWithResultBlock:errorBlock:" title="executeWithResultBlock:errorBlock:"></a>
-	<h3 class="subsubtitle method-title">executeWithResultBlock:errorBlock:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Executes that request, and returns result to blocks</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)executeWithResultBlock:(void ( ^ ) ( VKResponse *response ))<em>completeBlock</em> errorBlock:(void ( ^ ) ( NSError *error ))<em>errorBlock</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>completeBlock</em></dt>
-			<dd><p>called if there were no HTTP or API errors, returns execution result.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>errorBlock</em></dt>
-			<dd><p>called immediately if there was API <a href="#//api/name/error">error</a>, or after <b>attempts</b> tries if there was an HTTP <a href="#//api/name/error">error</a></p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/getPreparedRequest" title="getPreparedRequest"></a>
-	<h3 class="subsubtitle method-title">getPreparedRequest</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Prepares NSURLRequest and returns prepared url request for current vkrequest</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (NSURLRequest *)getPreparedRequest</code></div>
-
-    
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Prepared request used for loading</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/repeat" title="repeat"></a>
-	<h3 class="subsubtitle method-title">repeat</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Repeats this request with initial parameters and blocks.
-Used <a href="#//api/name/attempts">attempts</a> will be set to 0.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)repeat</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/start" title="start"></a>
-	<h3 class="subsubtitle method-title">start</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Starts loading of prepared request. You can use it instead of executeWithResultBlock</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)start</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKRequest.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-					</div>
-					
-					
-                    
-                    
-				</div>
-				<div class="main-navigation navigation-bottom">
-					<ul>
-	<li><a href="../index.html">Index</a></li>
-	<li><a href="../hierarchy.html">Hierarchy</a></li>
-</ul>
-				</div>
-				<div id="footer">
-					<hr />
-					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2015 VK. All rights reserved. (Last updated: 2015-02-24)</span><br />
-						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
-						
-					</div>
-				</div>
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Specify progress for uploading or downloading. Useless for text requests (because gzip encoding bytesTotal will always return -1)</p>
 			</div>
-		</article>
-		<script type="text/javascript">
-			function jumpToChange()
-			{
-				window.location.hash = this.options[this.selectedIndex].value;
-			}
 			
-			function toggleTOC()
-			{
-				var contents = document.getElementById('contents');
-				var tocContainer = document.getElementById('tocContainer');
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( VKProgressType progressType , long long bytesLoaded , long long bytesTotal ) progressBlock</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Specify progress for uploading or downloading. Useless for text requests (because gzip encoding bytesTotal will always return -1)</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/completeBlock" title="completeBlock"></a>
+	<h3 class="method-title"><code><a href="#//api/name/completeBlock">&nbsp;&nbsp;completeBlock</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Specify completion block for request</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( VKResponse *response ) completeBlock</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Specify completion block for request</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/errorBlock" title="errorBlock"></a>
+	<h3 class="method-title"><code><a href="#//api/name/errorBlock">&nbsp;&nbsp;errorBlock</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Specity <a href="#//api/name/error">error</a> (HTTP or API) block for request.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( NSError *error ) errorBlock</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Specity <a href="#//api/name/error">error</a> (HTTP or API) block for request.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/attempts" title="attempts"></a>
+	<h3 class="method-title"><code><a href="#//api/name/attempts">&nbsp;&nbsp;attempts</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Specify attempts for request loading if caused HTTP<a href="#//api/name/error">error</a>. 0 for infinite</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) int attempts</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Specify attempts for request loading if caused HTTP<a href="#//api/name/error">error</a>. 0 for infinite</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/secure" title="secure"></a>
+	<h3 class="method-title"><code><a href="#//api/name/secure">&nbsp;&nbsp;secure</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Use HTTPS requests (by default is YES). If http-request is impossible (user denied no https access), SDK will load https version</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL secure</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Use HTTPS requests (by default is YES). If http-request is impossible (user denied no https access), SDK will load https version</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/useSystemLanguage" title="useSystemLanguage"></a>
+	<h3 class="method-title"><code><a href="#//api/name/useSystemLanguage">&nbsp;&nbsp;useSystemLanguage</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Sets current system <a href="#//api/name/language">language</a> as default for API data</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL useSystemLanguage</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Sets current system <a href="#//api/name/language">language</a> as default for API data</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/parseModel" title="parseModel"></a>
+	<h3 class="method-title"><code><a href="#//api/name/parseModel">&nbsp;&nbsp;parseModel</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Set to NO if you don&rsquo;t need automatic model parsing</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL parseModel</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Set to NO if you don&rsquo;t need automatic model parsing</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/debugTiming" title="debugTiming"></a>
+	<h3 class="method-title"><code><a href="#//api/name/debugTiming">&nbsp;&nbsp;debugTiming</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Set to YES if you need info about request timing</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL debugTiming</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Set to YES if you need info about request timing</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/requestTimeout" title="requestTimeout"></a>
+	<h3 class="method-title"><code><a href="#//api/name/requestTimeout">&nbsp;&nbsp;requestTimeout</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Timeout for this request</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSInteger requestTimeout</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Timeout for this request</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/responseQueue" title="responseQueue"></a>
+	<h3 class="method-title"><code><a href="#//api/name/responseQueue">&nbsp;&nbsp;responseQueue</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Sets dispatch queue for returning result</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) dispatch_queue_t responseQueue</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Sets dispatch queue for returning result</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/waitUntilDone" title="waitUntilDone"></a>
+	<h3 class="method-title"><code><a href="#//api/name/waitUntilDone">&nbsp;&nbsp;waitUntilDone</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Set to YES if you need to freeze current thread for <a href="#//api/name/response">response</a></p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL waitUntilDone</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Set to YES if you need to freeze current thread for <a href="#//api/name/response">response</a></p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/methodName" title="methodName"></a>
+	<h3 class="method-title"><code><a href="#//api/name/methodName">&nbsp;&nbsp;methodName</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns method for current request, e.g. users.get</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSString *methodName</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Returns method for current request, e.g. users.get</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/httpMethod" title="httpMethod"></a>
+	<h3 class="method-title"><code><a href="#//api/name/httpMethod">&nbsp;&nbsp;httpMethod</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns HTTP-method for current request</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSString *httpMethod</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Returns HTTP-method for current request</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/methodParameters" title="methodParameters"></a>
+	<h3 class="method-title"><code><a href="#//api/name/methodParameters">&nbsp;&nbsp;methodParameters</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns list of method parameters (without common parameters)</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSDictionary *methodParameters</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Returns list of method parameters (without common parameters)</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/executionOperation" title="executionOperation"></a>
+	<h3 class="method-title"><code><a href="#//api/name/executionOperation">&nbsp;&nbsp;executionOperation</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns http operation that can be enqueued</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSOperation *executionOperation</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Returns http operation that can be enqueued</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/requestTiming" title="requestTiming"></a>
+	<h3 class="method-title"><code><a href="#//api/name/requestTiming">&nbsp;&nbsp;requestTiming</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns info about request timings</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) VKRequestTiming *requestTiming</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Returns info about request timings</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/isExecuting" title="isExecuting"></a>
+	<h3 class="method-title"><code><a href="#//api/name/isExecuting">&nbsp;&nbsp;isExecuting</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Return YES if current request was started</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) BOOL isExecuting</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Return YES if current request was started</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/preventThisErrorsHandling" title="preventThisErrorsHandling"></a>
+	<h3 class="method-title"><code><a href="#//api/name/preventThisErrorsHandling">&nbsp;&nbsp;preventThisErrorsHandling</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Return YES if current request was started</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSArray *preventThisErrorsHandling</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Return YES if current request was started</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Preparing requests" name="task_Preparing requests"></a>
+						<h2 class="task-title">Preparing requests</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/requestWithMethod:andParameters:andHttpMethod:" title="requestWithMethod:andParameters:andHttpMethod:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/requestWithMethod:andParameters:andHttpMethod:">+&nbsp;requestWithMethod:andParameters:andHttpMethod:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a> (<b class="deprecated">Deprecated:</b><span class="deprecated"> Use requestWithMethod:parameters: instead</span>)</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (instancetype)requestWithMethod:(NSString *)<em>method</em> andParameters:(NSDictionary *)<em>parameters</em> andHttpMethod:(NSString *)<em>httpMethod</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
 				
-				if (this.getAttribute('class') == 'open')
-				{
-					this.setAttribute('class', '');
-					contents.setAttribute('class', '');
-					tocContainer.setAttribute('class', '');
+					<tr>
+						<th scope="row" class="argument-name"><code>method</code></th>
+						<td><p>API-method name, e.g. audio.get</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>parameters</code></th>
+						<td><p>method parameters</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>httpMethod</code></th>
+						<td><p>HTTP method for execution, e.g. GET, POST</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Complete request object for execute or configure method</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a></p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/requestWithMethod:andParameters:" title="requestWithMethod:andParameters:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/requestWithMethod:andParameters:">+&nbsp;requestWithMethod:andParameters:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a> (<b class="deprecated">Deprecated:</b><span class="deprecated"> Use requestWithMethod:parameters: instead</span>)</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (instancetype)requestWithMethod:(NSString *)<em>method</em> andParameters:(NSDictionary *)<em>parameters</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>method</code></th>
+						<td><p>API-method name, e.g. audio.get</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>parameters</code></th>
+						<td><p>method parameters</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Complete request object for execute or configure method</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a></p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/requestWithMethod:andParameters:modelClass:" title="requestWithMethod:andParameters:modelClass:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/requestWithMethod:andParameters:modelClass:">+&nbsp;requestWithMethod:andParameters:modelClass:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a></p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (instancetype)requestWithMethod:(NSString *)<em>method</em> andParameters:(NSDictionary *)<em>parameters</em> modelClass:(Class)<em>modelClass</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>method</code></th>
+						<td><p>API-method name, e.g. audio.get</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>parameters</code></th>
+						<td><p>method parameters</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>modelClass</code></th>
+						<td><p>class for automatic parse</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Complete request object for execute or configure method</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a></p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/requestWithMethod:andParameters:andHttpMethod:classOfModel:" title="requestWithMethod:andParameters:andHttpMethod:classOfModel:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/requestWithMethod:andParameters:andHttpMethod:classOfModel:">+&nbsp;requestWithMethod:andParameters:andHttpMethod:classOfModel:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a> (<b class="deprecated">Deprecated:</b><span class="deprecated"> Use requestWithMethod:andParameters:modelClass: instead</span>)</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (instancetype)requestWithMethod:(NSString *)<em>method</em> andParameters:(NSDictionary *)<em>parameters</em> andHttpMethod:(NSString *)<em>httpMethod</em> classOfModel:(Class)<em>modelClass</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>method</code></th>
+						<td><p>API-method name, e.g. audio.get</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>parameters</code></th>
+						<td><p>method parameters</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>httpMethod</code></th>
+						<td><p>HTTP method for execution, e.g. GET, POST</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>modelClass</code></th>
+						<td><p>class for automatic parse</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Complete request object for execute or configure method</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a></p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/requestWithMethod:parameters:" title="requestWithMethod:parameters:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/requestWithMethod:parameters:">+&nbsp;requestWithMethod:parameters:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a></p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (instancetype)requestWithMethod:(NSString *)<em>method</em> parameters:(NSDictionary *)<em>parameters</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>method</code></th>
+						<td><p>API-method name, e.g. audio.get</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>parameters</code></th>
+						<td><p>method parameters</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Complete request object for execute or configure method</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a></p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/requestWithMethod:parameters:modelClass:" title="requestWithMethod:parameters:modelClass:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/requestWithMethod:parameters:modelClass:">+&nbsp;requestWithMethod:parameters:modelClass:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a></p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (instancetype)requestWithMethod:(NSString *)<em>method</em> parameters:(NSDictionary *)<em>parameters</em> modelClass:(Class)<em>modelClass</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>method</code></th>
+						<td><p>API-method name, e.g. audio.get</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>parameters</code></th>
+						<td><p>method parameters</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>modelClass</code></th>
+						<td><p>class for automatic parse</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Complete request object for execute or configure method</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Creates new request with parameters. See documentation for methods here <a href="https://vk.com/dev/methods">https://vk.com/dev/methods</a></p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/photoRequestWithPostUrl:withPhotos:" title="photoRequestWithPostUrl:withPhotos:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/photoRequestWithPostUrl:withPhotos:">+&nbsp;photoRequestWithPostUrl:withPhotos:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Creates new request for upload image to url</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (instancetype)photoRequestWithPostUrl:(NSString *)<em>url</em> withPhotos:(NSArray *)<em>photoObjects</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>url</code></th>
+						<td><p>url for upload, which was received from special methods</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>photoObjects</code></th>
+						<td><p><a href="../Classes/VKPhoto.html">VKPhoto</a> object describes photos</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Complete request object for execute</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Creates new request for upload image to url</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getPreparedRequest" title="getPreparedRequest"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getPreparedRequest">&ndash;&nbsp;getPreparedRequest</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Prepares NSURLRequest and returns prepared url request for current vkrequest</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSURLRequest *)getPreparedRequest</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Prepared request used for loading</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Prepares NSURLRequest and returns prepared url request for current vkrequest</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Execution" name="task_Execution"></a>
+						<h2 class="task-title">Execution</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/executeWithResultBlock:errorBlock:" title="executeWithResultBlock:errorBlock:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/executeWithResultBlock:errorBlock:">&ndash;&nbsp;executeWithResultBlock:errorBlock:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Executes that request, and returns result to blocks</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)executeWithResultBlock:(void ( ^ ) ( VKResponse *response ))<em>completeBlock</em> errorBlock:(void ( ^ ) ( NSError *error ))<em>errorBlock</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>completeBlock</code></th>
+						<td><p>called if there were no HTTP or API errors, returns execution result.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>errorBlock</code></th>
+						<td><p>called immediately if there was API <a href="#//api/name/error">error</a>, or after <b>attempts</b> tries if there was an HTTP <a href="#//api/name/error">error</a></p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Executes that request, and returns result to blocks</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/executeAfter:withResultBlock:errorBlock:" title="executeAfter:withResultBlock:errorBlock:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/executeAfter:withResultBlock:errorBlock:">&ndash;&nbsp;executeAfter:withResultBlock:errorBlock:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Register current request for execute after passed request, if passed request is successful. If it&rsquo;s not, <a href="#//api/name/errorBlock">errorBlock</a> will be called.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)executeAfter:(VKRequest *)<em>request</em> withResultBlock:(void ( ^ ) ( VKResponse *response ))<em>completeBlock</em> errorBlock:(void ( ^ ) ( NSError *error ))<em>errorBlock</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>request</code></th>
+						<td><p>after which request must be called that request</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>completeBlock</code></th>
+						<td><p>called if there were no HTTP or API errors, returns execution result.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>errorBlock</code></th>
+						<td><p>called immediately if there was API <a href="#//api/name/error">error</a>, or after <b>attempts</b> tries if there was an HTTP <a href="#//api/name/error">error</a></p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Register current request for execute after passed request, if passed request is successful. If it&rsquo;s not, <a href="#//api/name/errorBlock">errorBlock</a> will be called.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/start" title="start"></a>
+	<h3 class="method-title"><code><a href="#//api/name/start">&ndash;&nbsp;start</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Starts loading of prepared request. You can use it instead of executeWithResultBlock</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)start</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Starts loading of prepared request. You can use it instead of executeWithResultBlock</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/createExecutionOperation" title="createExecutionOperation"></a>
+	<h3 class="method-title"><code><a href="#//api/name/createExecutionOperation">&ndash;&nbsp;createExecutionOperation</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Creates loading operation for this request</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSOperation *)createExecutionOperation</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Creates loading operation for this request</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/repeat" title="repeat"></a>
+	<h3 class="method-title"><code><a href="#//api/name/repeat">&ndash;&nbsp;repeat</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Repeats this request with initial parameters and blocks.
+Used <a href="#//api/name/attempts">attempts</a> will be set to 0.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)repeat</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Repeats this request with initial parameters and blocks.
+Used <a href="#//api/name/attempts">attempts</a> will be set to 0.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/cancel" title="cancel"></a>
+	<h3 class="method-title"><code><a href="#//api/name/cancel">&ndash;&nbsp;cancel</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Cancel current request. Result will be not passed. <a href="#//api/name/errorBlock">errorBlock</a> will be called with <a href="#//api/name/error">error</a> code</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)cancel</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Cancel current request. Result will be not passed. <a href="#//api/name/errorBlock">errorBlock</a> will be called with <a href="#//api/name/error">error</a> code</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Operating with parameters" name="task_Operating with parameters"></a>
+						<h2 class="task-title">Operating with parameters</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/addExtraParameters:" title="addExtraParameters:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addExtraParameters:">&ndash;&nbsp;addExtraParameters:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Adds additional parameters to that request</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)addExtraParameters:(NSDictionary *)<em>extraParameters</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>extraParameters</code></th>
+						<td><p>parameters supposed to be added</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Adds additional parameters to that request</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/setPreferredLang:" title="setPreferredLang:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setPreferredLang:">&ndash;&nbsp;setPreferredLang:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Specify <a href="#//api/name/language">language</a> for API request</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setPreferredLang:(NSString *)<em>lang</em></code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Specify <a href="#//api/name/language">language</a> for API request</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Extension Methods" name="task_Extension Methods"></a>
+						<h2 class="task-title">Extension Methods</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/preparedParameters" title="preparedParameters"></a>
+	<h3 class="method-title"><code><a href="#//api/name/preparedParameters">&nbsp;&nbsp;preparedParameters</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Method parametes with common parameters</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) OrderedDictionary *preparedParameters</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Method parametes with common parameters</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/uploadUrl" title="uploadUrl"></a>
+	<h3 class="method-title"><code><a href="#//api/name/uploadUrl">&nbsp;&nbsp;uploadUrl</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Url for uploading files</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSString *uploadUrl</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Url for uploading files</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/postRequestsQueue" title="postRequestsQueue"></a>
+	<h3 class="method-title"><code><a href="#//api/name/postRequestsQueue">&nbsp;&nbsp;postRequestsQueue</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Requests that should be called after current request.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSMutableArray *postRequestsQueue</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Requests that should be called after current request.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/modelClass" title="modelClass"></a>
+	<h3 class="method-title"><code><a href="#//api/name/modelClass">&nbsp;&nbsp;modelClass</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Class for model parsing</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) Class modelClass</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Class for model parsing</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/photoObjects" title="photoObjects"></a>
+	<h3 class="method-title"><code><a href="#//api/name/photoObjects">&nbsp;&nbsp;photoObjects</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Paths to photos</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSArray *photoObjects</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Paths to photos</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/attemptsUsed" title="attemptsUsed"></a>
+	<h3 class="method-title"><code><a href="#//api/name/attemptsUsed">&nbsp;&nbsp;attemptsUsed</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>How much times request was loaded</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (readwrite, assign) int attemptsUsed</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>How much times request was loaded</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/response" title="response"></a>
+	<h3 class="method-title"><code><a href="#//api/name/response">&nbsp;&nbsp;response</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>This request response</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) VKResponse *response</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This request response</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/error" title="error"></a>
+	<h3 class="method-title"><code><a href="#//api/name/error">&nbsp;&nbsp;error</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>This request error</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSError *error</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This request error</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/requestLang" title="requestLang"></a>
+	<h3 class="method-title"><code><a href="#//api/name/requestLang">&nbsp;&nbsp;requestLang</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Language specified by user</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSString *requestLang</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Language specified by user</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKRequest.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
 					
-					window.name = "hideTOC";
-				}
-				else
-				{
-					this.setAttribute('class', 'open');
-					contents.setAttribute('class', 'isShowingTOC');
-					tocContainer.setAttribute('class', 'isShowingTOC');
 					
-					window.name = "";
-				}
-				return false;
-			}
-			
-			function toggleTOCEntryChildren(e)
-			{
-				e.stopPropagation();
-				var currentClass = this.getAttribute('class');
-				if (currentClass == 'children') {
-					this.setAttribute('class', 'children open');
-				}
-				else if (currentClass == 'children open') {
-					this.setAttribute('class', 'children');
-				}
-				return false;
-			}
-			
-			function tocEntryClick(e)
-			{
-				e.stopPropagation();
-				return true;
-			}
-			
-			function init()
-			{
-				var selectElement = document.getElementById('jumpTo');
-				selectElement.addEventListener('change', jumpToChange, false);
-				
-				var tocButton = document.getElementById('table_of_contents');
-				tocButton.addEventListener('click', toggleTOC, false);
-				
-				var taskTreeItem = document.getElementById('task_treeitem');
-				if (taskTreeItem.getElementsByTagName('li').length > 0)
-				{
-					taskTreeItem.setAttribute('class', 'children');
-					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
-				}
-				
-				var tocList = document.getElementById('toc');
-				
-				var tocEntries = tocList.getElementsByTagName('li');
-				for (var i = 0; i < tocEntries.length; i++) {
-					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
-				}
-				
-				var tocLinks = tocList.getElementsByTagName('a');
-				for (var i = 0; i < tocLinks.length; i++) {
-					tocLinks[i].addEventListener('click', tocEntryClick, false);
-				}
-				
-				if (window.name == "hideTOC") {
-					toggleTOC.call(tocButton);
-				}
-			}
-			
-			window.onload = init;
-			
-			// If showing in Xcode, hide the TOC and Header
-			if (navigator.userAgent.match(/xcode/i)) {
-				document.getElementById("contents").className = "hideInXcode"
-				document.getElementById("tocContainer").className = "hideInXcode"
-				document.getElementById("top_header").className = "hideInXcode"
-			}
-			
-		</script>
-	</body>
+
+                    
+                    
+          
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2016 VK. All rights reserved. Updated: 2016-01-20</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1334)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
 </html>

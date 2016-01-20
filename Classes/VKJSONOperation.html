@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>VKJSONOperation Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1334)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
+			
+			<h1 id="library-title">
+				<a href="../index.html">VK SDK </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">VK</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+
+	
+
+	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/setCompletionBlockWithSuccess:failure:">- setCompletionBlockWithSuccess:failure:</option>
+		
+	</optgroup>
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">VKJSONOperation Class Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td><a href="../Classes/VKHTTPOperation.html">VKHTTPOperation</a> : <a href="../Classes/VKOperation.html">VKOperation</a> : NSOperation</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>VKJSONOperation.h<br />VKJSONOperation.m</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						
+						
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/setCompletionBlockWithSuccess:failure:" title="setCompletionBlockWithSuccess:failure:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setCompletionBlockWithSuccess:failure:">&ndash;&nbsp;setCompletionBlockWithSuccess:failure:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Sets the <code>completionB</code>lock<code></code> property with a b<a href="#//api/name/lock">lock</a> that executes either the specified success or failure b<a href="#//api/name/lock">lock</a>, depending on the state of the <a href="#//api/name/request">request</a> on completion. If <a href="#//api/name/error"><code>error</code></a> returns a value, which can be caused by an unacceptable status code or content type, then <code>failure</code> is executed. Otherwise, <code>success</code> is executed.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setCompletionBlockWithSuccess:(void ( ^ ) ( VKHTTPOperation *operation , id responseObject ))<em>success</em> failure:(void ( ^ ) ( VKHTTPOperation *operation , NSError *error ))<em>failure</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>success</code></th>
+						<td><p>The b<a href="#//api/name/lock">lock</a> to be executed on the completion of a successful <a href="#//api/name/request">request</a>. This b<a href="#//api/name/lock">lock</a> has no return value and takes two arguments: the receiver operation and the object constructed from the <a href="#//api/name/response">response</a> data of the <a href="#//api/name/request">request</a>.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>failure</code></th>
+						<td><p>The b<a href="#//api/name/lock">lock</a> to be executed on the completion of an unsuccessful <a href="#//api/name/request">request</a>. This b<a href="#//api/name/lock">lock</a> has no return value and takes two arguments: the receiver operation and the <a href="#//api/name/error">error</a> that occurred during the <a href="#//api/name/request">request</a>.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Sets the <code>completionB</code>lock<code></code> property with a b<a href="#//api/name/lock">lock</a> that executes either the specified success or failure b<a href="#//api/name/lock">lock</a>, depending on the state of the <a href="#//api/name/request">request</a> on completion. If <a href="#//api/name/error"><code>error</code></a> returns a value, which can be caused by an unacceptable status code or content type, then <code>failure</code> is executed. Otherwise, <code>success</code> is executed.</p>
+
+<p>This method should be overridden in subclasses in order to specify the <a href="#//api/name/response">response</a> object passed into the success b<a href="#//api/name/lock">lock</a>.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKHTTPOperation.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+                    
+          
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2016 VK. All rights reserved. Updated: 2016-01-20</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1334)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>

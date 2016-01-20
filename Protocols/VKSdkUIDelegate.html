@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>VKSdkUIDelegate Protocol Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1334)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
+			
+			<h1 id="library-title">
+				<a href="../index.html">VK SDK </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">VK</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+
+	
+
+	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/vkSdkDidDismissViewController:">- vkSdkDidDismissViewController:</option>
+		
+		<option value="//api/name/vkSdkNeedCaptchaEnter:">- vkSdkNeedCaptchaEnter:</option>
+		
+		<option value="//api/name/vkSdkShouldPresentViewController:">- vkSdkShouldPresentViewController:</option>
+		
+		<option value="//api/name/vkSdkWillDismissViewController:">- vkSdkWillDismissViewController:</option>
+		
+	</optgroup>
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">VKSdkUIDelegate Protocol Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Conforms to</th>
+	<td>NSObject</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>VKSdk.h</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						
+						
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/vkSdkShouldPresentViewController:" title="vkSdkShouldPresentViewController:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/vkSdkShouldPresentViewController:">&ndash;&nbsp;vkSdkShouldPresentViewController:</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Pass view controller that should be presented to user. Usually, it&rsquo;s an authorization window</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)vkSdkShouldPresentViewController:(UIViewController *)<em>controller</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>controller</code></th>
+						<td><p>view controller that must be shown to user</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Pass view controller that should be presented to user. Usually, it&rsquo;s an authorization window</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/vkSdkNeedCaptchaEnter:" title="vkSdkNeedCaptchaEnter:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/vkSdkNeedCaptchaEnter:">&ndash;&nbsp;vkSdkNeedCaptchaEnter:</a></code>
+<span class="task-item-suffix">required method</span></h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Calls when user must perform captcha-check</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)vkSdkNeedCaptchaEnter:(VKError *)<em>captchaError</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>captchaError</code></th>
+						<td><p>error returned from API. You can load captcha image from <b>captchaImg</b> property.
+After user answered current captcha, call answerCaptcha: method with user entered answer.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Calls when user must perform captcha-check</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/vkSdkWillDismissViewController:" title="vkSdkWillDismissViewController:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/vkSdkWillDismissViewController:">&ndash;&nbsp;vkSdkWillDismissViewController:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Called when a controller presented by SDK will be dismissed</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)vkSdkWillDismissViewController:(UIViewController *)<em>controller</em></code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Called when a controller presented by SDK will be dismissed</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/vkSdkDidDismissViewController:" title="vkSdkDidDismissViewController:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/vkSdkDidDismissViewController:">&ndash;&nbsp;vkSdkDidDismissViewController:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Called when a controller presented by SDK did dismiss</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)vkSdkDidDismissViewController:(UIViewController *)<em>controller</em></code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Called when a controller presented by SDK did dismiss</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+                    
+          
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2016 VK. All rights reserved. Updated: 2016-01-20</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1334)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>

@@ -1,165 +1,121 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>VKHTTPClient Class Reference</title>
-		<meta id="xcode-display" name="xcode-display" content="render"/>
-		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
-		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.2 (build 963)" />
-	</head>
-	<body>
-		<header id="top_header">
-			<div id="library" class="hideInXcode">
-				<h1><a id="libraryTitle" href="../index.html">VK SDK </a></h1>
-				<a id="developerHome" href="../index.html">VK</a>
-			</div>
+<head>
+	<meta charset="utf-8">
+
+	<title>VKHTTPClient Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1334)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
 			
-			<div id="title" role="banner">
-				<h1 class="hideInXcode">VKHTTPClient Class Reference</h1>
-			</div>
-			<ul id="headerButtons" role="toolbar">
-				<li id="toc_button">
-					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
-				</li>
-				<li id="jumpto_button" role="navigation">
-					<select id="jumpTo">
+			<h1 id="library-title">
+				<a href="../index.html">VK SDK </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">VK</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
 	<option value="top">Jump To&#133;</option>
 	
 	<option value="overview">Overview</option>
 	
-	
+
 	
 	
 	<option value="tasks">Tasks</option>
 	
 	
+
 	
 	
+	<optgroup label="Properties">
+		
+		<option value="//api/name/operationQueue">operationQueue</option>
+		
+	</optgroup>
 	
-	<option value="properties">Properties</option>
+
 	
-	<option value="//api/name/operationQueue">&nbsp;&nbsp;&nbsp;&nbsp;operationQueue</option>
+	<optgroup label="Class Methods">
+		
+		<option value="//api/name/getClient">+ getClient</option>
+		
+	</optgroup>
 	
+
 	
-	
-	
-	<option value="class_methods">Class Methods</option>
-	
-	<option value="//api/name/getClient">&nbsp;&nbsp;&nbsp;&nbsp;+ getClient</option>
-	
-	
-	
-	
-	<option value="instance_methods">Instance Methods</option>
-	
-	<option value="//api/name/defaultValueForHeader:">&nbsp;&nbsp;&nbsp;&nbsp;- defaultValueForHeader:</option>
-	
-	<option value="//api/name/enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:</option>
-	
-	<option value="//api/name/enqueueOperation:">&nbsp;&nbsp;&nbsp;&nbsp;- enqueueOperation:</option>
-	
-	<option value="//api/name/multipartFormRequestWithMethod:path:images:">&nbsp;&nbsp;&nbsp;&nbsp;- multipartFormRequestWithMethod:path:images:</option>
-	
-	<option value="//api/name/requestWithMethod:path:parameters:secure:">&nbsp;&nbsp;&nbsp;&nbsp;- requestWithMethod:path:parameters:secure:</option>
-	
-	<option value="//api/name/setDefaultHeader:value:">&nbsp;&nbsp;&nbsp;&nbsp;- setDefaultHeader:value:</option>
-	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/defaultValueForHeader:">- defaultValueForHeader:</option>
+		
+		<option value="//api/name/enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:">- enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:</option>
+		
+		<option value="//api/name/enqueueOperation:">- enqueueOperation:</option>
+		
+		<option value="//api/name/multipartFormRequestWithMethod:path:images:">- multipartFormRequestWithMethod:path:images:</option>
+		
+		<option value="//api/name/requestWithMethod:path:parameters:secure:">- requestWithMethod:path:parameters:secure:</option>
+		
+		<option value="//api/name/setDefaultHeader:value:">- setDefaultHeader:value:</option>
+		
+	</optgroup>
 	
 	
 </select>
-				</li>
-			</ul>
-		</header>
-		<nav id="tocContainer" class="isShowingTOC">
-			<ul id="toc" role="tree">
-				
-<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
 
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">VKHTTPClient Class Reference</h1>
 
-
-
-<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Initialization">Initialization</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Operations with default headers">Operations with default headers</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Preparing requests">Preparing requests</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Enqueuing operations">Enqueuing operations</a></span></li>
-	
-</ul></li>
-
-
-
-
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/operationQueue">operationQueue</a></span></li>
-	
-</ul></li>
-
-
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getClient">getClient</a></span></li>
-	
-</ul></li>
-
-
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/defaultValueForHeader:">defaultValueForHeader:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:">enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/enqueueOperation:">enqueueOperation:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/multipartFormRequestWithMethod:path:images:">multipartFormRequestWithMethod:path:images:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/requestWithMethod:path:parameters:secure:">requestWithMethod:path:parameters:secure:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setDefaultHeader:value:">setDefaultHeader:value:</a></span></li>
-	
-</ul></li>
-
-
-			</ul>
-		</nav>
-		<article>
-			<div id="contents" class="isShowingTOC" role="main">
-				<a title="VKHTTPClient Class Reference" name="top"></a>
-				<div class="main-navigation navigation-top">
-					<ul>
-	<li><a href="../index.html">Index</a></li>
-	<li><a href="../hierarchy.html">Hierarchy</a></li>
-</ul>
-				</div>
-				<div id="header">
-					<div class="section-header">
-						<h1 class="title title-header">VKHTTPClient Class Reference</h1>
-					</div>		
-				</div>
-				<div id="container">	
 					
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
-	<td class="specification-title">Inherits from</td>
-	<td class="specification-value">VKObject : NSObject</td>
+	<th>Inherits from</th>
+	<td>VKObject : NSObject</td>
 </tr><tr>
-	<td class="specification-title">Conforms to</td>
-	<td class="specification-value">NSCoding</td>
+	<th>Conforms to</th>
+	<td>NSCoding</td>
 </tr><tr>
-	<td class="specification-title">Declared in</td>
-	<td class="specification-value">VKHTTPClient.h<br />VKHTTPClient.m</td>
+	<th>Declared in</th>
+	<td>VKHTTPClient.h<br />VKHTTPClient.m</td>
 </tr>
 						</tbody></table></div>
 					
-                    
+
                     
 					
 					<div class="section section-overview">
@@ -170,650 +126,571 @@ Based on AFNetworking library ( <a href="https://github.com/AFNetworking/AFNetwo
 					</div>
 					
 					
-					
+
 					
 					
 					<div class="section section-tasks">
 						<a title="Tasks" name="tasks"></a>
-						<h2 class="subtitle subtitle-tasks">Tasks</h2>
 						
-						
+
 						<a title="Initialization" name="task_Initialization"></a>
-						<h3 class="subsubtitle task-title">Initialization</h3>
+						<h2 class="task-title">Initialization</h2>
 
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/getClient">+&nbsp;getClient</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/operationQueue">&nbsp;&nbsp;operationQueue</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li>
-						</ul>
-						
-						
-						<a title="Operations with default headers" name="task_Operations with default headers"></a>
-						<h3 class="subsubtitle task-title">Operations with default headers</h3>
-
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/defaultValueForHeader:">&ndash;&nbsp;defaultValueForHeader:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/setDefaultHeader:value:">&ndash;&nbsp;setDefaultHeader:value:</a></code>
-	</span>
-	
-	
-</li>
-						</ul>
-						
-						
-						<a title="Preparing requests" name="task_Preparing requests"></a>
-						<h3 class="subsubtitle task-title">Preparing requests</h3>
-
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/requestWithMethod:path:parameters:secure:">&ndash;&nbsp;requestWithMethod:path:parameters:secure:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/multipartFormRequestWithMethod:path:images:">&ndash;&nbsp;multipartFormRequestWithMethod:path:images:</a></code>
-	</span>
-	
-	
-</li>
-						</ul>
-						
-						
-						<a title="Enqueuing operations" name="task_Enqueuing operations"></a>
-						<h3 class="subsubtitle task-title">Enqueuing operations</h3>
-
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/enqueueOperation:">&ndash;&nbsp;enqueueOperation:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:">&ndash;&nbsp;enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:</a></code>
-	</span>
-	
-	
-</li>
-						</ul>
-						
-					</div>
-					
-					
-					
-					
-					
-					<div class="section section-methods">
-						<a title="Properties" name="properties"></a>
-						<h2 class="subtitle subtitle-methods">Properties</h2>
-						
-						<div class="section-method">
-	<a name="//api/name/operationQueue" title="operationQueue"></a>
-	<h3 class="subsubtitle method-title">operationQueue</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>The operation queue which manages operations enqueued by the HTTP client.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (readonly, nonatomic, strong) NSOperationQueue *operationQueue</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKHTTPClient.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-					</div>
-					
-					
-					
-					<div class="section section-methods">
-						<a title="Class Methods" name="class_methods"></a>
-						<h2 class="subtitle subtitle-methods">Class Methods</h2>
-						
-						<div class="section-method">
+						<div class="task-list">
+							<div class="section-method">
 	<a name="//api/name/getClient" title="getClient"></a>
-	<h3 class="subsubtitle method-title">getClient</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Creates and initializes an <code>VKHTTPClient</code> object with the specified base URL.</p>
-	</div>		
-	
-    
+	<h3 class="method-title"><code><a href="#//api/name/getClient">+&nbsp;getClient</a></code>
+</h3>
 
-	<div class="method-subsection method-declaration"><code>+ (instancetype)getClient</code></div>
+	<div class="method-info">
+		<div class="pointy-thing"></div>
 
-    
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>The newly-initialized HTTP client</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKHTTPClient.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-					</div>
-					
-					
-					
-					<div class="section section-methods">
-						<a title="Instance Methods" name="instance_methods"></a>
-						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
-						
-						<div class="section-method">
-	<a name="//api/name/defaultValueForHeader:" title="defaultValueForHeader:"></a>
-	<h3 class="subsubtitle method-title">defaultValueForHeader:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Returns the value for the HTTP headers set in request objects created by the HTTP client.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (NSString *)defaultValueForHeader:(NSString *)<em>header</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>header</em></dt>
-			<dd><p>The HTTP header to return the default value for</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>The default value for the HTTP header, or <code>nil</code> if unspecified</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKHTTPClient.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:" title="enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:"></a>
-	<h3 class="subsubtitle method-title">enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Enqueues the specified request operations into a batch. When each request operation finishes, the specified progress block is executed, until all of the request operations have finished, at which point the completion block also executes.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)enqueueBatchOfHTTPRequestOperations:(NSArray *)<em>operations</em> progressBlock:(void ( ^ ) ( NSUInteger numberOfFinishedOperations , NSUInteger totalNumberOfOperations ))<em>progressBlock</em> completionBlock:(void ( ^ ) ( NSArray *operations ))<em>completionBlock</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>operations</em></dt>
-			<dd><p>The request operations used to be batched and enqueued.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>progressBlock</em></dt>
-			<dd><p>A block object to be executed upon the completion of each request operation in the batch. This block has no return value and takes two arguments: the number of operations that have already finished execution, and the total number of operations.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>completionBlock</em></dt>
-			<dd><p>A block object to be executed upon the completion of all of the request operations in the batch. This block has no return value and takes a single argument: the batched request operations.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKHTTPClient.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/enqueueOperation:" title="enqueueOperation:"></a>
-	<h3 class="subsubtitle method-title">enqueueOperation:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Enqueues an <code>AFHTTPRequestOperation</code> to the HTTP client&rsquo;s operation queue.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)enqueueOperation:(NSOperation *)<em>operation</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>operation</em></dt>
-			<dd><p>The HTTP request operation to be enqueued.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKHTTPClient.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/multipartFormRequestWithMethod:path:images:" title="multipartFormRequestWithMethod:path:images:"></a>
-	<h3 class="subsubtitle method-title">multipartFormRequestWithMethod:path:images:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Creates an <code>NSMutableURLRequest</code> object with the specified HTTP method and path, and constructs a <code>multipart/form-data</code> HTTP body, using the specified parameters and multipart form data block. See <a href="http://www.w3.org/TR/html4/interact/forms.html">http://www.w3.org/TR/html4/interact/forms.html</a>#h-17.13.4.2</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (NSMutableURLRequest *)multipartFormRequestWithMethod:(NSString *)<em>method</em> path:(NSString *)<em>path</em> images:(NSArray *)<em>images</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>method</em></dt>
-			<dd><p>The HTTP method for the request. This parameter must not be <code>GET</code> or <code>HEAD</code>, or <code>nil</code>.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>path</em></dt>
-			<dd><p>The path to be appended to the HTTP client&rsquo;s base URL and used as the request URL.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>images</em></dt>
-			<dd><p>Upload images objects to append</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>An <code>NSMutableURLRequest</code> object</p>
-	</div>
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Multipart form requests are automatically streamed, reading files directly from disk along with in-memory data in a single HTTP body. The resulting <code>NSMutableURLRequest</code> object has an <code>HTTPBodyStream</code> property, so refrain from setting <code>HTTPBodyStream</code> or <code>HTTPBody</code> on this request object, as it will clear out the multipart form body stream.</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKHTTPClient.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/requestWithMethod:path:parameters:secure:" title="requestWithMethod:path:parameters:secure:"></a>
-	<h3 class="subsubtitle method-title">requestWithMethod:path:parameters:secure:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Creates an <code>NSMutableURLRequest</code> object with the specified HTTP method and path.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (NSMutableURLRequest *)requestWithMethod:(NSString *)<em>method</em> path:(NSString *)<em>path</em> parameters:(NSDictionary *)<em>parameters</em> secure:(BOOL)<em>secure</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>method</em></dt>
-			<dd><p>The HTTP method for the request, such as <code>GET</code>, <code>POST</code>, <code>PUT</code>, or <code>DELETE</code>. This parameter must not be <code>nil</code>.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>path</em></dt>
-			<dd><p>The path to be appended to the HTTP client&rsquo;s base URL and used as the request URL. If <code>nil</code>, no path will be appended to the base URL.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>parameters</em></dt>
-			<dd><p>The parameters to be either set as a query string for <code>GET</code> requests, or the request HTTP body.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>secure</em></dt>
-			<dd><p>Use HTTPS or not</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>An <code>NSMutableURLRequest</code> object</p>
-	</div>
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>If the HTTP method is <code>GET</code>, <code>HEAD</code>, or <code>DELETE</code>, the parameters will be used to construct a url-encoded query string that is appended to the request&rsquo;s URL. Otherwise, the parameters will be encoded according to the value of the <code>parameterEncoding</code> property, and set as the request body.</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKHTTPClient.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/setDefaultHeader:value:" title="setDefaultHeader:value:"></a>
-	<h3 class="subsubtitle method-title">setDefaultHeader:value:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Sets the value for the HTTP headers set in request objects made by the HTTP client. If <code>nil</code>, removes the existing value for that header.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)setDefaultHeader:(NSString *)<em>header</em> value:(NSString *)<em>value</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>header</em></dt>
-			<dd><p>The HTTP header to set a default value for</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>value</em></dt>
-			<dd><p>The value set as default for the specified header, or `nil</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKHTTPClient.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-					</div>
-					
-					
-                    
-                    
-				</div>
-				<div class="main-navigation navigation-bottom">
-					<ul>
-	<li><a href="../index.html">Index</a></li>
-	<li><a href="../hierarchy.html">Hierarchy</a></li>
-</ul>
-				</div>
-				<div id="footer">
-					<hr />
-					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2015 VK. All rights reserved. (Last updated: 2015-02-24)</span><br />
-						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
-						
-					</div>
-				</div>
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Creates and initializes an <code>VKHTTPClient</code> object with the specified base URL.</p>
 			</div>
-		</article>
-		<script type="text/javascript">
-			function jumpToChange()
-			{
-				window.location.hash = this.options[this.selectedIndex].value;
-			}
 			
-			function toggleTOC()
-			{
-				var contents = document.getElementById('contents');
-				var tocContainer = document.getElementById('tocContainer');
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (instancetype)getClient</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The newly-initialized HTTP client</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Creates and initializes an <code>VKHTTPClient</code> object with the specified base URL.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKHTTPClient.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/operationQueue" title="operationQueue"></a>
+	<h3 class="method-title"><code><a href="#//api/name/operationQueue">&nbsp;&nbsp;operationQueue</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The operation queue which manages operations enqueued by the HTTP client.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (readonly, nonatomic, strong) NSOperationQueue *operationQueue</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>The operation queue which manages operations enqueued by the HTTP client.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKHTTPClient.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Operations with default headers" name="task_Operations with default headers"></a>
+						<h2 class="task-title">Operations with default headers</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/defaultValueForHeader:" title="defaultValueForHeader:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/defaultValueForHeader:">&ndash;&nbsp;defaultValueForHeader:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns the value for the HTTP headers set in request objects created by the HTTP client.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSString *)defaultValueForHeader:(NSString *)<em>header</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
 				
-				if (this.getAttribute('class') == 'open')
-				{
-					this.setAttribute('class', '');
-					contents.setAttribute('class', '');
-					tocContainer.setAttribute('class', '');
+					<tr>
+						<th scope="row" class="argument-name"><code>header</code></th>
+						<td><p>The HTTP header to return the default value for</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The default value for the HTTP header, or <code>nil</code> if unspecified</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Returns the value for the HTTP headers set in request objects created by the HTTP client.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKHTTPClient.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/setDefaultHeader:value:" title="setDefaultHeader:value:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setDefaultHeader:value:">&ndash;&nbsp;setDefaultHeader:value:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Sets the value for the HTTP headers set in request objects made by the HTTP client. If <code>nil</code>, removes the existing value for that header.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setDefaultHeader:(NSString *)<em>header</em> value:(NSString *)<em>value</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>header</code></th>
+						<td><p>The HTTP header to set a default value for</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>value</code></th>
+						<td><p>The value set as default for the specified header, or `nil</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Sets the value for the HTTP headers set in request objects made by the HTTP client. If <code>nil</code>, removes the existing value for that header.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKHTTPClient.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Preparing requests" name="task_Preparing requests"></a>
+						<h2 class="task-title">Preparing requests</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/requestWithMethod:path:parameters:secure:" title="requestWithMethod:path:parameters:secure:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/requestWithMethod:path:parameters:secure:">&ndash;&nbsp;requestWithMethod:path:parameters:secure:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Creates an <code>NSMutableURLRequest</code> object with the specified HTTP method and path.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSMutableURLRequest *)requestWithMethod:(NSString *)<em>method</em> path:(NSString *)<em>path</em> parameters:(NSDictionary *)<em>parameters</em> secure:(BOOL)<em>secure</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>method</code></th>
+						<td><p>The HTTP method for the request, such as <code>GET</code>, <code>POST</code>, <code>PUT</code>, or <code>DELETE</code>. This parameter must not be <code>nil</code>.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>path</code></th>
+						<td><p>The path to be appended to the HTTP client&rsquo;s base URL and used as the request URL. If <code>nil</code>, no path will be appended to the base URL.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>parameters</code></th>
+						<td><p>The parameters to be either set as a query string for <code>GET</code> requests, or the request HTTP body.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>secure</code></th>
+						<td><p>Use HTTPS or not</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>An <code>NSMutableURLRequest</code> object</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Creates an <code>NSMutableURLRequest</code> object with the specified HTTP method and path.</p>
+
+<p>If the HTTP method is <code>GET</code>, <code>HEAD</code>, or <code>DELETE</code>, the parameters will be used to construct a url-encoded query string that is appended to the request&rsquo;s URL. Otherwise, the parameters will be encoded according to the value of the <code>parameterEncoding</code> property, and set as the request body.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKHTTPClient.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/multipartFormRequestWithMethod:path:images:" title="multipartFormRequestWithMethod:path:images:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/multipartFormRequestWithMethod:path:images:">&ndash;&nbsp;multipartFormRequestWithMethod:path:images:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Creates an <code>NSMutableURLRequest</code> object with the specified HTTP method and path, and constructs a <code>multipart/form-data</code> HTTP body, using the specified parameters and multipart form data block. See <a href="http://www.w3.org/TR/html4/interact/forms.html">http://www.w3.org/TR/html4/interact/forms.html</a>#h-17.13.4.2</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSMutableURLRequest *)multipartFormRequestWithMethod:(NSString *)<em>method</em> path:(NSString *)<em>path</em> images:(NSArray *)<em>images</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>method</code></th>
+						<td><p>The HTTP method for the request. This parameter must not be <code>GET</code> or <code>HEAD</code>, or <code>nil</code>.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>path</code></th>
+						<td><p>The path to be appended to the HTTP client&rsquo;s base URL and used as the request URL.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>images</code></th>
+						<td><p>Upload images objects to append</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>An <code>NSMutableURLRequest</code> object</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Creates an <code>NSMutableURLRequest</code> object with the specified HTTP method and path, and constructs a <code>multipart/form-data</code> HTTP body, using the specified parameters and multipart form data block. See <a href="http://www.w3.org/TR/html4/interact/forms.html">http://www.w3.org/TR/html4/interact/forms.html</a>#h-17.13.4.2</p>
+
+<p>Multipart form requests are automatically streamed, reading files directly from disk along with in-memory data in a single HTTP body. The resulting <code>NSMutableURLRequest</code> object has an <code>HTTPBodyStream</code> property, so refrain from setting <code>HTTPBodyStream</code> or <code>HTTPBody</code> on this request object, as it will clear out the multipart form body stream.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKHTTPClient.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Enqueuing operations" name="task_Enqueuing operations"></a>
+						<h2 class="task-title">Enqueuing operations</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/enqueueOperation:" title="enqueueOperation:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/enqueueOperation:">&ndash;&nbsp;enqueueOperation:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Enqueues an <code>AFHTTPRequestOperation</code> to the HTTP client&rsquo;s operation queue.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)enqueueOperation:(NSOperation *)<em>operation</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>operation</code></th>
+						<td><p>The HTTP request operation to be enqueued.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Enqueues an <code>AFHTTPRequestOperation</code> to the HTTP client&rsquo;s operation queue.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKHTTPClient.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:" title="enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:">&ndash;&nbsp;enqueueBatchOfHTTPRequestOperations:progressBlock:completionBlock:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Enqueues the specified request operations into a batch. When each request operation finishes, the specified progress block is executed, until all of the request operations have finished, at which point the completion block also executes.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)enqueueBatchOfHTTPRequestOperations:(NSArray *)<em>operations</em> progressBlock:(void ( ^ ) ( NSUInteger numberOfFinishedOperations , NSUInteger totalNumberOfOperations ))<em>progressBlock</em> completionBlock:(void ( ^ ) ( NSArray *operations ))<em>completionBlock</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>operations</code></th>
+						<td><p>The request operations used to be batched and enqueued.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>progressBlock</code></th>
+						<td><p>A block object to be executed upon the completion of each request operation in the batch. This block has no return value and takes two arguments: the number of operations that have already finished execution, and the total number of operations.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>completionBlock</code></th>
+						<td><p>A block object to be executed upon the completion of all of the request operations in the batch. This block has no return value and takes a single argument: the batched request operations.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Enqueues the specified request operations into a batch. When each request operation finishes, the specified progress block is executed, until all of the request operations have finished, at which point the completion block also executes.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKHTTPClient.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
 					
-					window.name = "hideTOC";
-				}
-				else
-				{
-					this.setAttribute('class', 'open');
-					contents.setAttribute('class', 'isShowingTOC');
-					tocContainer.setAttribute('class', 'isShowingTOC');
 					
-					window.name = "";
-				}
-				return false;
-			}
-			
-			function toggleTOCEntryChildren(e)
-			{
-				e.stopPropagation();
-				var currentClass = this.getAttribute('class');
-				if (currentClass == 'children') {
-					this.setAttribute('class', 'children open');
-				}
-				else if (currentClass == 'children open') {
-					this.setAttribute('class', 'children');
-				}
-				return false;
-			}
-			
-			function tocEntryClick(e)
-			{
-				e.stopPropagation();
-				return true;
-			}
-			
-			function init()
-			{
-				var selectElement = document.getElementById('jumpTo');
-				selectElement.addEventListener('change', jumpToChange, false);
-				
-				var tocButton = document.getElementById('table_of_contents');
-				tocButton.addEventListener('click', toggleTOC, false);
-				
-				var taskTreeItem = document.getElementById('task_treeitem');
-				if (taskTreeItem.getElementsByTagName('li').length > 0)
-				{
-					taskTreeItem.setAttribute('class', 'children');
-					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
-				}
-				
-				var tocList = document.getElementById('toc');
-				
-				var tocEntries = tocList.getElementsByTagName('li');
-				for (var i = 0; i < tocEntries.length; i++) {
-					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
-				}
-				
-				var tocLinks = tocList.getElementsByTagName('a');
-				for (var i = 0; i < tocLinks.length; i++) {
-					tocLinks[i].addEventListener('click', tocEntryClick, false);
-				}
-				
-				if (window.name == "hideTOC") {
-					toggleTOC.call(tocButton);
-				}
-			}
-			
-			window.onload = init;
-			
-			// If showing in Xcode, hide the TOC and Header
-			if (navigator.userAgent.match(/xcode/i)) {
-				document.getElementById("contents").className = "hideInXcode"
-				document.getElementById("tocContainer").className = "hideInXcode"
-				document.getElementById("top_header").className = "hideInXcode"
-			}
-			
-		</script>
-	</body>
+
+                    
+                    
+          
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2016 VK. All rights reserved. Updated: 2016-01-20</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1334)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
 </html>

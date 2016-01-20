@@ -1,197 +1,136 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>VKSdk Class Reference</title>
-		<meta id="xcode-display" name="xcode-display" content="render"/>
-		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
-		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.2 (build 963)" />
-	</head>
-	<body>
-		<header id="top_header">
-			<div id="library" class="hideInXcode">
-				<h1><a id="libraryTitle" href="../index.html">VK SDK </a></h1>
-				<a id="developerHome" href="../index.html">VK</a>
-			</div>
+<head>
+	<meta charset="utf-8">
+
+	<title>VKSdk Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1334)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
 			
-			<div id="title" role="banner">
-				<h1 class="hideInXcode">VKSdk Class Reference</h1>
-			</div>
-			<ul id="headerButtons" role="toolbar">
-				<li id="toc_button">
-					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
-				</li>
-				<li id="jumpto_button" role="navigation">
-					<select id="jumpTo">
+			<h1 id="library-title">
+				<a href="../index.html">VK SDK </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">VK</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
 	<option value="top">Jump To&#133;</option>
 	
 	<option value="overview">Overview</option>
 	
-	
+
 	
 	
 	<option value="tasks">Tasks</option>
 	
 	
+
 	
 	
+	<optgroup label="Properties">
+		
+		<option value="//api/name/apiVersion">apiVersion</option>
+		
+		<option value="//api/name/currentAppId">currentAppId</option>
+		
+	</optgroup>
 	
-	<option value="properties">Properties</option>
+
 	
-	<option value="//api/name/delegate">&nbsp;&nbsp;&nbsp;&nbsp;delegate</option>
+	<optgroup label="Class Methods">
+		
+		<option value="//api/name/accessToken">+ accessToken</option>
+		
+		<option value="//api/name/authorize:">+ authorize:</option>
+		
+		<option value="//api/name/authorize:withOptions:">+ authorize:withOptions:</option>
+		
+		<option value="//api/name/forceLogout">+ forceLogout</option>
+		
+		<option value="//api/name/initializeWithAppId:">+ initializeWithAppId:</option>
+		
+		<option value="//api/name/initializeWithAppId:apiVersion:">+ initializeWithAppId:apiVersion:</option>
+		
+		<option value="//api/name/instance">+ instance</option>
+		
+		<option value="//api/name/isLoggedIn">+ isLoggedIn</option>
+		
+		<option value="//api/name/processOpenURL:fromApplication:">+ processOpenURL:fromApplication:</option>
+		
+		<option value="//api/name/setSchedulerEnabled:">+ setSchedulerEnabled:</option>
+		
+		<option value="//api/name/vkAppMayExists">+ vkAppMayExists</option>
+		
+		<option value="//api/name/wakeUpSession:completeBlock:">+ wakeUpSession:completeBlock:</option>
+		
+	</optgroup>
 	
+
 	
-	
-	
-	<option value="class_methods">Class Methods</option>
-	
-	<option value="//api/name/authorize:">&nbsp;&nbsp;&nbsp;&nbsp;+ authorize:</option>
-	
-	<option value="//api/name/authorize:revokeAccess:">&nbsp;&nbsp;&nbsp;&nbsp;+ authorize:revokeAccess:</option>
-	
-	<option value="//api/name/authorize:revokeAccess:forceOAuth:">&nbsp;&nbsp;&nbsp;&nbsp;+ authorize:revokeAccess:forceOAuth:</option>
-	
-	<option value="//api/name/authorize:revokeAccess:forceOAuth:inApp:">&nbsp;&nbsp;&nbsp;&nbsp;+ authorize:revokeAccess:forceOAuth:inApp:</option>
-	
-	<option value="//api/name/authorize:revokeAccess:forceOAuth:inApp:display:">&nbsp;&nbsp;&nbsp;&nbsp;+ authorize:revokeAccess:forceOAuth:inApp:display:</option>
-	
-	<option value="//api/name/forceLogout">&nbsp;&nbsp;&nbsp;&nbsp;+ forceLogout</option>
-	
-	<option value="//api/name/getAccessToken">&nbsp;&nbsp;&nbsp;&nbsp;+ getAccessToken</option>
-	
-	<option value="//api/name/hasPermissions:">&nbsp;&nbsp;&nbsp;&nbsp;+ hasPermissions:</option>
-	
-	<option value="//api/name/initializeWithDelegate:andAppId:">&nbsp;&nbsp;&nbsp;&nbsp;+ initializeWithDelegate:andAppId:</option>
-	
-	<option value="//api/name/initializeWithDelegate:andAppId:andCustomToken:">&nbsp;&nbsp;&nbsp;&nbsp;+ initializeWithDelegate:andAppId:andCustomToken:</option>
-	
-	<option value="//api/name/instance">&nbsp;&nbsp;&nbsp;&nbsp;+ instance</option>
-	
-	<option value="//api/name/isLoggedIn">&nbsp;&nbsp;&nbsp;&nbsp;+ isLoggedIn</option>
-	
-	<option value="//api/name/processOpenURL:fromApplication:">&nbsp;&nbsp;&nbsp;&nbsp;+ processOpenURL:fromApplication:</option>
-	
-	<option value="//api/name/setAccessToken:">&nbsp;&nbsp;&nbsp;&nbsp;+ setAccessToken:</option>
-	
-	<option value="//api/name/setAccessTokenError:">&nbsp;&nbsp;&nbsp;&nbsp;+ setAccessTokenError:</option>
-	
-	<option value="//api/name/vkAppMayExists">&nbsp;&nbsp;&nbsp;&nbsp;+ vkAppMayExists</option>
-	
-	<option value="//api/name/wakeUpSession">&nbsp;&nbsp;&nbsp;&nbsp;+ wakeUpSession</option>
-	
-	
-	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/hasPermissions:">- hasPermissions:</option>
+		
+		<option value="//api/name/registerDelegate:">- registerDelegate:</option>
+		
+		<option value="//api/name/unregisterDelegate:">- unregisterDelegate:</option>
+		
+	</optgroup>
 	
 	
 </select>
-				</li>
-			</ul>
-		</header>
-		<nav id="tocContainer" class="isShowingTOC">
-			<ul id="toc" role="tree">
-				
-<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
 
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">VKSdk Class Reference</h1>
 
-
-
-<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Delegate">Delegate</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Initialization">Initialization</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Authentication in VK">Authentication in VK</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Access token methods">Access token methods</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Other methods">Other methods</a></span></li>
-	
-</ul></li>
-
-
-
-
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/delegate">delegate</a></span></li>
-	
-</ul></li>
-
-
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/authorize:">authorize:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/authorize:revokeAccess:">authorize:revokeAccess:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/authorize:revokeAccess:forceOAuth:">authorize:revokeAccess:forceOAuth:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/authorize:revokeAccess:forceOAuth:inApp:">authorize:revokeAccess:forceOAuth:inApp:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/authorize:revokeAccess:forceOAuth:inApp:display:">authorize:revokeAccess:forceOAuth:inApp:display:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/forceLogout">forceLogout</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getAccessToken">getAccessToken</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/hasPermissions:">hasPermissions:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initializeWithDelegate:andAppId:">initializeWithDelegate:andAppId:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initializeWithDelegate:andAppId:andCustomToken:">initializeWithDelegate:andAppId:andCustomToken:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/instance">instance</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isLoggedIn">isLoggedIn</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/processOpenURL:fromApplication:">processOpenURL:fromApplication:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setAccessToken:">setAccessToken:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setAccessTokenError:">setAccessTokenError:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/vkAppMayExists">vkAppMayExists</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/wakeUpSession">wakeUpSession</a></span></li>
-	
-</ul></li>
-
-
-
-
-			</ul>
-		</nav>
-		<article>
-			<div id="contents" class="isShowingTOC" role="main">
-				<a title="VKSdk Class Reference" name="top"></a>
-				<div class="main-navigation navigation-top">
-					<ul>
-	<li><a href="../index.html">Index</a></li>
-	<li><a href="../hierarchy.html">Hierarchy</a></li>
-</ul>
-				</div>
-				<div id="header">
-					<div class="section-header">
-						<h1 class="title title-header">VKSdk Class Reference</h1>
-					</div>		
-				</div>
-				<div id="container">	
 					
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
-	<td class="specification-title">Inherits from</td>
-	<td class="specification-value">NSObject</td>
+	<th>Inherits from</th>
+	<td>NSObject</td>
 </tr><tr>
-	<td class="specification-title">Declared in</td>
-	<td class="specification-value">VKSdk.h<br />VKSdk.m</td>
+	<th>Declared in</th>
+	<td>VKSdk.h<br />VKSdk.m</td>
 </tr>
 						</tbody></table></div>
 					
-                    
+
                     
 					
 					<div class="section section-overview">
@@ -201,1136 +140,960 @@
 					</div>
 					
 					
-					
+
 					
 					
 					<div class="section section-tasks">
 						<a title="Tasks" name="tasks"></a>
-						<h2 class="subtitle subtitle-tasks">Tasks</h2>
 						
-						
+
 						<a title="Delegate" name="task_Delegate"></a>
-						<h3 class="subsubtitle task-title">Delegate</h3>
+						<h2 class="task-title">Delegate</h2>
 
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/delegate">&nbsp;&nbsp;delegate</a></code>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li>
-						</ul>
-						
-						
-						<a title="Initialization" name="task_Initialization"></a>
-						<h3 class="subsubtitle task-title">Initialization</h3>
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/currentAppId" title="currentAppId"></a>
+	<h3 class="method-title"><code><a href="#//api/name/currentAppId">&nbsp;&nbsp;currentAppId</a></code>
+</h3>
 
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/instance">+&nbsp;instance</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/initializeWithDelegate:andAppId:">+&nbsp;initializeWithDelegate:andAppId:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/initializeWithDelegate:andAppId:andCustomToken:">+&nbsp;initializeWithDelegate:andAppId:andCustomToken:</a></code>
-	</span>
-	
-	
-</li>
-						</ul>
-						
-						
-						<a title="Authentication in VK" name="task_Authentication in VK"></a>
-						<h3 class="subsubtitle task-title">Authentication in VK</h3>
+	<div class="method-info">
+		<div class="pointy-thing"></div>
 
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/authorize:">+&nbsp;authorize:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/authorize:revokeAccess:">+&nbsp;authorize:revokeAccess:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/authorize:revokeAccess:forceOAuth:">+&nbsp;authorize:revokeAccess:forceOAuth:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/authorize:revokeAccess:forceOAuth:inApp:">+&nbsp;authorize:revokeAccess:forceOAuth:inApp:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/authorize:revokeAccess:forceOAuth:inApp:display:">+&nbsp;authorize:revokeAccess:forceOAuth:inApp:display:</a></code>
-	</span>
-	
-	
-</li>
-						</ul>
-						
-						
-						<a title="Access token methods" name="task_Access token methods"></a>
-						<h3 class="subsubtitle task-title">Access token methods</h3>
-
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/setAccessToken:">+&nbsp;setAccessToken:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/setAccessTokenError:">+&nbsp;setAccessTokenError:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/getAccessToken">+&nbsp;getAccessToken</a></code>
-	</span>
-	
-	
-</li>
-						</ul>
-						
-						
-						<a title="Other methods" name="task_Other methods"></a>
-						<h3 class="subsubtitle task-title">Other methods</h3>
-
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/processOpenURL:fromApplication:">+&nbsp;processOpenURL:fromApplication:</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/isLoggedIn">+&nbsp;isLoggedIn</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/wakeUpSession">+&nbsp;wakeUpSession</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/forceLogout">+&nbsp;forceLogout</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/vkAppMayExists">+&nbsp;vkAppMayExists</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/hasPermissions:">+&nbsp;hasPermissions:</a></code>
-	</span>
-	
-	
-</li>
-						</ul>
-						
-					</div>
-					
-					
-					
-					
-					
-					<div class="section section-methods">
-						<a title="Properties" name="properties"></a>
-						<h2 class="subtitle subtitle-methods">Properties</h2>
-						
-						<div class="section-method">
-	<a name="//api/name/delegate" title="delegate"></a>
-	<h3 class="subsubtitle method-title">delegate</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Responder for global SDK events</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, weak) id&lt;VKSdkDelegate&gt; delegate</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-					</div>
-					
-					
-					
-					<div class="section section-methods">
-						<a title="Class Methods" name="class_methods"></a>
-						<h2 class="subtitle subtitle-methods">Class Methods</h2>
-						
-						<div class="section-method">
-	<a name="//api/name/authorize:" title="authorize:"></a>
-	<h3 class="subsubtitle method-title">authorize:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Starts authorization process. If VKapp is available in system, it will opens and requests access from user.
-Otherwise Mobile Safari will be opened for access request.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (void)authorize:(NSArray *)<em>permissions</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>permissions</em></dt>
-			<dd><p>array of <a href="#//api/name/permissions">permissions</a> for your applications. All <a href="#//api/name/permissions">permissions</a> you can</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/authorize:revokeAccess:" title="authorize:revokeAccess:"></a>
-	<h3 class="subsubtitle method-title">authorize:revokeAccess:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Starts authorization process. If VKapp is available in system, it will opens and requests access from user.
-Otherwise Mobile Safari will be opened for access request.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (void)authorize:(NSArray *)<em>permissions</em> revokeAccess:(BOOL)<em>revokeAccess</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>permissions</em></dt>
-			<dd><p>Array of <a href="#//api/name/permissions">permissions</a> for your applications. All <a href="#//api/name/permissions">permissions</a> you can</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>revokeAccess</em></dt>
-			<dd><p>If YES, user will allow logout (to change user)</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/authorize:revokeAccess:forceOAuth:" title="authorize:revokeAccess:forceOAuth:"></a>
-	<h3 class="subsubtitle method-title">authorize:revokeAccess:forceOAuth:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Starts authorization process.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (void)authorize:(NSArray *)<em>permissions</em> revokeAccess:(BOOL)<em>revokeAccess</em> forceOAuth:(BOOL)<em>forceOAuth</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>permissions</em></dt>
-			<dd><p>Array of <a href="#//api/name/permissions">permissions</a> for your applications. All <a href="#//api/name/permissions">permissions</a> you can</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>revokeAccess</em></dt>
-			<dd><p>If YES, user will allow logout (to change user)</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>forceOAuth</em></dt>
-			<dd><p>If YES, SDK will use only oauth authorization through mobile safari. Otherwise, it will try to authorize through VK application</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/authorize:revokeAccess:forceOAuth:inApp:" title="authorize:revokeAccess:forceOAuth:inApp:"></a>
-	<h3 class="subsubtitle method-title">authorize:revokeAccess:forceOAuth:inApp:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Starts authorization process.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (void)authorize:(NSArray *)<em>permissions</em> revokeAccess:(BOOL)<em>revokeAccess</em> forceOAuth:(BOOL)<em>forceOAuth</em> inApp:(BOOL)<em>inApp</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>permissions</em></dt>
-			<dd><p>Array of <a href="#//api/name/permissions">permissions</a> for your applications. All <a href="#//api/name/permissions">permissions</a> you can</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>revokeAccess</em></dt>
-			<dd><p>If YES, user will allow logout (to change user)</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>forceOAuth</em></dt>
-			<dd><p>If YES, SDK will use only oauth authorization through mobile safari. Otherwise, it will try to authorize through VK application</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>inApp</em></dt>
-			<dd><p>If YES, SDK will try to open modal window with webview to authorize. This method strongly not recommended as user should enter his account data in your application. For use modal view add VKSdkResources.bundle to your project.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/authorize:revokeAccess:forceOAuth:inApp:display:" title="authorize:revokeAccess:forceOAuth:inApp:display:"></a>
-	<h3 class="subsubtitle method-title">authorize:revokeAccess:forceOAuth:inApp:display:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Starts authorization process.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (void)authorize:(NSArray *)<em>permissions</em> revokeAccess:(BOOL)<em>revokeAccess</em> forceOAuth:(BOOL)<em>forceOAuth</em> inApp:(BOOL)<em>inApp</em> display:(VKDisplayType)<em>displayType</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>permissions</em></dt>
-			<dd><p>Array of <a href="#//api/name/permissions">permissions</a> for your applications. All <a href="#//api/name/permissions">permissions</a> you can</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>revokeAccess</em></dt>
-			<dd><p>If YES, user will allow logout (to change user)</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>forceOAuth</em></dt>
-			<dd><p>If YES, SDK will use only oauth authorization through mobile safari. Otherwise, it will try to authorize through VK application</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>inApp</em></dt>
-			<dd><p>If YES, SDK will try to open modal window with webview to authorize. This method strongly not recommended as user should enter his account data in your application. For use modal view add VKSdkResources.bundle to your project.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>displayType</em></dt>
-			<dd><p>Defines view of authorization screen</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/forceLogout" title="forceLogout"></a>
-	<h3 class="subsubtitle method-title">forceLogout</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Forces logout using OAuth (with <a href="../Classes/VKAuthorizeController.html">VKAuthorizeController</a>). Removes all cookies for *.vk.com.
-Has no effect for logout in VK app</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (void)forceLogout</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/getAccessToken" title="getAccessToken"></a>
-	<h3 class="subsubtitle method-title">getAccessToken</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Returns token for API requests</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (VKAccessToken *)getAccessToken</code></div>
-
-    
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Received access token or nil, if user not yet authorized</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/hasPermissions:" title="hasPermissions:"></a>
-	<h3 class="subsubtitle method-title">hasPermissions:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Check existing <a href="#//api/name/permissions">permissions</a></p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (BOOL)hasPermissions:(NSArray *)<em>permissions</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>permissions</em></dt>
-			<dd><p>array of <a href="#//api/name/permissions">permissions</a> you want to check</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/initializeWithDelegate:andAppId:" title="initializeWithDelegate:andAppId:"></a>
-	<h3 class="subsubtitle method-title">initializeWithDelegate:andAppId:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Initialize SDK with responder for global SDK events</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (void)initializeWithDelegate:(id&lt;VKSdkDelegate&gt;)<em>delegate</em> andAppId:(NSString *)<em>appId</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>delegate</em></dt>
-			<dd><p>responder for global SDK events</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>appId</em></dt>
-			<dd><p>your application id (if you haven&rsquo;t, you can create standalone application here <a href="https://vk.com/editapp?act=create">https://vk.com/editapp?act=create</a> )</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/initializeWithDelegate:andAppId:andCustomToken:" title="initializeWithDelegate:andAppId:andCustomToken:"></a>
-	<h3 class="subsubtitle method-title">initializeWithDelegate:andAppId:andCustomToken:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Initialize SDK with responder for global SDK events and custom token key
-(e.g., saved from other source or for some test reasons)</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (void)initializeWithDelegate:(id&lt;VKSdkDelegate&gt;)<em>delegate</em> andAppId:(NSString *)<em>appId</em> andCustomToken:(VKAccessToken *)<em>token</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>delegate</em></dt>
-			<dd><p>responder for global SDK events</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>appId</em></dt>
-			<dd><p>your application id (if you haven&rsquo;t, you can create standalone application here <a href="https://vk.com/editapp?act=create">https://vk.com/editapp?act=create</a> )</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>token</em></dt>
-			<dd><p>custom-created access token</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/instance" title="instance"></a>
-	<h3 class="subsubtitle method-title">instance</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Returns instance of VK sdk. You should never use that directly</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (instancetype)instance</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/isLoggedIn" title="isLoggedIn"></a>
-	<h3 class="subsubtitle method-title">isLoggedIn</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Checks if somebody logged in with SDK</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (BOOL)isLoggedIn</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/processOpenURL:fromApplication:" title="processOpenURL:fromApplication:"></a>
-	<h3 class="subsubtitle method-title">processOpenURL:fromApplication:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Checks passed URL for access token</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (BOOL)processOpenURL:(NSURL *)<em>passedUrl</em> fromApplication:(NSString *)<em>sourceApplication</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>passedUrl</em></dt>
-			<dd><p>url from external application</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>sourceApplication</em></dt>
-			<dd><p>source application</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>YES if parsed successfully</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/setAccessToken:" title="setAccessToken:"></a>
-	<h3 class="subsubtitle method-title">setAccessToken:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Set API token to passed</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (void)setAccessToken:(VKAccessToken *)<em>token</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>token</em></dt>
-			<dd><p>token must be used for API requests</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/setAccessTokenError:" title="setAccessTokenError:"></a>
-	<h3 class="subsubtitle method-title">setAccessTokenError:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Notify SDK that user denied login</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (void)setAccessTokenError:(VKError *)<em>error</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>error</em></dt>
-			<dd><p>Descripbes error which was happends while trying to recieve token</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/vkAppMayExists" title="vkAppMayExists"></a>
-	<h3 class="subsubtitle method-title">vkAppMayExists</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Checks if there is some application, which may process authorize url</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (BOOL)vkAppMayExists</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/wakeUpSession" title="wakeUpSession"></a>
-	<h3 class="subsubtitle method-title">wakeUpSession</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Make try to read token from defaults and start session again.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (BOOL)wakeUpSession</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">VKSdk.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-					</div>
-					
-					
-					
-					
-                    
-                    
-				</div>
-				<div class="main-navigation navigation-bottom">
-					<ul>
-	<li><a href="../index.html">Index</a></li>
-	<li><a href="../hierarchy.html">Hierarchy</a></li>
-</ul>
-				</div>
-				<div id="footer">
-					<hr />
-					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2015 VK. All rights reserved. (Last updated: 2015-02-24)</span><br />
-						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
-						
-					</div>
-				</div>
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns a last app_id used for initializing the SDK</p>
 			</div>
-		</article>
-		<script type="text/javascript">
-			function jumpToChange()
-			{
-				window.location.hash = this.options[this.selectedIndex].value;
-			}
 			
-			function toggleTOC()
-			{
-				var contents = document.getElementById('contents');
-				var tocContainer = document.getElementById('tocContainer');
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly, copy) NSString *currentAppId</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Returns a last app_id used for initializing the SDK</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/apiVersion" title="apiVersion"></a>
+	<h3 class="method-title"><code><a href="#//api/name/apiVersion">&nbsp;&nbsp;apiVersion</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>API version for making requests</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly, copy) NSString *apiVersion</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>API version for making requests</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Initialization" name="task_Initialization"></a>
+						<h2 class="task-title">Initialization</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/instance" title="instance"></a>
+	<h3 class="method-title"><code><a href="#//api/name/instance">+&nbsp;instance</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns instance of VK sdk. You should never use that directly</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (instancetype)instance</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Returns instance of VK sdk. You should never use that directly</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/initializeWithAppId:" title="initializeWithAppId:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/initializeWithAppId:">+&nbsp;initializeWithAppId:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Initialize SDK with responder for global SDK events with default api version from VK_SDK_API_VERSION</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (instancetype)initializeWithAppId:(NSString *)<em>appId</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
 				
-				if (this.getAttribute('class') == 'open')
-				{
-					this.setAttribute('class', '');
-					contents.setAttribute('class', '');
-					tocContainer.setAttribute('class', '');
+					<tr>
+						<th scope="row" class="argument-name"><code>appId</code></th>
+						<td><p>your application id (if you haven&rsquo;t, you can create standalone application here <a href="https://vk.com/editapp?act=create">https://vk.com/editapp?act=create</a> )</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Initialize SDK with responder for global SDK events with default api version from VK_SDK_API_VERSION</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/initializeWithAppId:apiVersion:" title="initializeWithAppId:apiVersion:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/initializeWithAppId:apiVersion:">+&nbsp;initializeWithAppId:apiVersion:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Initialize SDK with responder for global SDK events</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (instancetype)initializeWithAppId:(NSString *)<em>appId</em> apiVersion:(NSString *)<em>version</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>appId</code></th>
+						<td><p>your application id (if you haven&rsquo;t, you can create standalone application here <a href="https://vk.com/editapp?act=create">https://vk.com/editapp?act=create</a> )</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>apiVersion</code></th>
+						<td><p>if you want to use latest API version, pass required version here</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Initialize SDK with responder for global SDK events</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/registerDelegate:" title="registerDelegate:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/registerDelegate:">&ndash;&nbsp;registerDelegate:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Adds a weak object reference to an object implementing the <a href="../Protocols/VKSdkDelegate.html">VKSdkDelegate</a> protocol</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)registerDelegate:(id&lt;VKSdkDelegate&gt;)<em>delegate</em></code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Adds a weak object reference to an object implementing the <a href="../Protocols/VKSdkDelegate.html">VKSdkDelegate</a> protocol</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/unregisterDelegate:" title="unregisterDelegate:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/unregisterDelegate:">&ndash;&nbsp;unregisterDelegate:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Removes an object reference SDK delegate</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)unregisterDelegate:(id&lt;VKSdkDelegate&gt;)<em>delegate</em></code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Removes an object reference SDK delegate</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Authentication in VK" name="task_Authentication in VK"></a>
+						<h2 class="task-title">Authentication in VK</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/authorize:" title="authorize:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/authorize:">+&nbsp;authorize:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Starts authorization process to retrieve unlimited token. If VKapp is available in system, it will opens and requests access from user.
+Otherwise Mobile Safari will be opened for access request.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (void)authorize:(NSArray *)<em>permissions</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>permissions</code></th>
+						<td><p>array of <a href="#//api/name/permissions">permissions</a> for your applications. All <a href="#//api/name/permissions">permissions</a> you can</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Starts authorization process to retrieve unlimited token. If VKapp is available in system, it will opens and requests access from user.
+Otherwise Mobile Safari will be opened for access request.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/authorize:withOptions:" title="authorize:withOptions:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/authorize:withOptions:">+&nbsp;authorize:withOptions:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Starts authorization process. If VKapp is available in system, it will opens and requests access from user.
+Otherwise Mobile Safari will be opened for access request.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (void)authorize:(NSArray *)<em>permissions</em> withOptions:(VKAuthorizationOptions)<em>options</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>permissions</code></th>
+						<td><p>array of <a href="#//api/name/permissions">permissions</a> for your applications. All <a href="#//api/name/permissions">permissions</a> you can</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>options</code></th>
+						<td><p>special options</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Starts authorization process. If VKapp is available in system, it will opens and requests access from user.
+Otherwise Mobile Safari will be opened for access request.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Access token methods" name="task_Access token methods"></a>
+						<h2 class="task-title">Access token methods</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/accessToken" title="accessToken"></a>
+	<h3 class="method-title"><code><a href="#//api/name/accessToken">+&nbsp;accessToken</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns token for API requests</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (VKAccessToken *)accessToken</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>Received access token or nil, if user not yet authorized</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Returns token for API requests</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Other methods" name="task_Other methods"></a>
+						<h2 class="task-title">Other methods</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/processOpenURL:fromApplication:" title="processOpenURL:fromApplication:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/processOpenURL:fromApplication:">+&nbsp;processOpenURL:fromApplication:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Checks passed URL for access token</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (BOOL)processOpenURL:(NSURL *)<em>passedUrl</em> fromApplication:(NSString *)<em>sourceApplication</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>passedUrl</code></th>
+						<td><p>url from external application</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>sourceApplication</code></th>
+						<td><p>source application</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>YES if parsed successfully</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Checks passed URL for access token</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/isLoggedIn" title="isLoggedIn"></a>
+	<h3 class="method-title"><code><a href="#//api/name/isLoggedIn">+&nbsp;isLoggedIn</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Checks if somebody logged in with SDK (call after wakeUpSession)</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (BOOL)isLoggedIn</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Checks if somebody logged in with SDK (call after wakeUpSession)</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/wakeUpSession:completeBlock:" title="wakeUpSession:completeBlock:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/wakeUpSession:completeBlock:">+&nbsp;wakeUpSession:completeBlock:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>This method is trying to retrieve token from storage, and check application still permitted to use user access token</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (void)wakeUpSession:(NSArray *)<em>permissions</em> completeBlock:(void ( ^ ) ( VKAuthorizationState , NSError *))<em>wakeUpBlock</em></code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This method is trying to retrieve token from storage, and check application still permitted to use user access token</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/forceLogout" title="forceLogout"></a>
+	<h3 class="method-title"><code><a href="#//api/name/forceLogout">+&nbsp;forceLogout</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Forces logout using OAuth (with <a href="../Classes/VKAuthorizeController.html">VKAuthorizeController</a>). Removes all cookies for *.vk.com.
+Has no effect for logout in VK app</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (void)forceLogout</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Forces logout using OAuth (with <a href="../Classes/VKAuthorizeController.html">VKAuthorizeController</a>). Removes all cookies for *.vk.com.
+Has no effect for logout in VK app</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/vkAppMayExists" title="vkAppMayExists"></a>
+	<h3 class="method-title"><code><a href="#//api/name/vkAppMayExists">+&nbsp;vkAppMayExists</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Checks if there is some application, which may process authorize url</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (BOOL)vkAppMayExists</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Checks if there is some application, which may process authorize url</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/hasPermissions:" title="hasPermissions:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hasPermissions:">&ndash;&nbsp;hasPermissions:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Check existing <a href="#//api/name/permissions">permissions</a></p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)hasPermissions:(NSArray *)<em>permissions</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>permissions</code></th>
+						<td><p>array of <a href="#//api/name/permissions">permissions</a> you want to check</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Check existing <a href="#//api/name/permissions">permissions</a></p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/setSchedulerEnabled:" title="setSchedulerEnabled:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setSchedulerEnabled:">+&nbsp;setSchedulerEnabled:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Enables or disables scheduling for requests</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (void)setSchedulerEnabled:(BOOL)<em>enabled</em></code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Enables or disables scheduling for requests</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">VKSdk.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
 					
-					window.name = "hideTOC";
-				}
-				else
-				{
-					this.setAttribute('class', 'open');
-					contents.setAttribute('class', 'isShowingTOC');
-					tocContainer.setAttribute('class', 'isShowingTOC');
 					
-					window.name = "";
-				}
-				return false;
-			}
-			
-			function toggleTOCEntryChildren(e)
-			{
-				e.stopPropagation();
-				var currentClass = this.getAttribute('class');
-				if (currentClass == 'children') {
-					this.setAttribute('class', 'children open');
-				}
-				else if (currentClass == 'children open') {
-					this.setAttribute('class', 'children');
-				}
-				return false;
-			}
-			
-			function tocEntryClick(e)
-			{
-				e.stopPropagation();
-				return true;
-			}
-			
-			function init()
-			{
-				var selectElement = document.getElementById('jumpTo');
-				selectElement.addEventListener('change', jumpToChange, false);
-				
-				var tocButton = document.getElementById('table_of_contents');
-				tocButton.addEventListener('click', toggleTOC, false);
-				
-				var taskTreeItem = document.getElementById('task_treeitem');
-				if (taskTreeItem.getElementsByTagName('li').length > 0)
-				{
-					taskTreeItem.setAttribute('class', 'children');
-					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
-				}
-				
-				var tocList = document.getElementById('toc');
-				
-				var tocEntries = tocList.getElementsByTagName('li');
-				for (var i = 0; i < tocEntries.length; i++) {
-					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
-				}
-				
-				var tocLinks = tocList.getElementsByTagName('a');
-				for (var i = 0; i < tocLinks.length; i++) {
-					tocLinks[i].addEventListener('click', tocEntryClick, false);
-				}
-				
-				if (window.name == "hideTOC") {
-					toggleTOC.call(tocButton);
-				}
-			}
-			
-			window.onload = init;
-			
-			// If showing in Xcode, hide the TOC and Header
-			if (navigator.userAgent.match(/xcode/i)) {
-				document.getElementById("contents").className = "hideInXcode"
-				document.getElementById("tocContainer").className = "hideInXcode"
-				document.getElementById("top_header").className = "hideInXcode"
-			}
-			
-		</script>
-	</body>
+
+                    
+                    
+          
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2016 VK. All rights reserved. Updated: 2016-01-20</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1334)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
 </html>
