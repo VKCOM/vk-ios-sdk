@@ -1071,6 +1071,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
             attach.attachmentString = photo.attachmentString;
             attach.uploadingRequest = nil;
             [self.attachmentsScrollView reloadData];
+            [shareDialogView setNeedsLayout];
         }];
         [uploadRequest setErrorBlock:^(NSError *error) {
             NSLog(@"Error: %@", error.vkError);
@@ -1150,6 +1151,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         [req start];
     }
     [self.attachmentsScrollView reloadData];
+    [shareDialogView setNeedsLayout];
 
     if (self.parent.shareLink) {
         [shareDialogView setShareLink:self.parent.shareLink];
