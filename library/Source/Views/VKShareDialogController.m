@@ -728,7 +728,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     if (self.notAuthorizedView.superview) {
         self.notAuthorizedView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
         CGSize notAuthorizedTextBoundingSize = CGSizeMake(CGRectGetWidth(self.notAuthorizedView.frame) - 20, CGFLOAT_MAX);
-        CGSize notAuthorizedTextSize;
+        CGSize notAuthorizedTextSize = CGSizeMake(0,0);
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "UnavailableInDeploymentTarget"
         if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
