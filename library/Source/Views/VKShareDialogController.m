@@ -1098,7 +1098,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         }
 
         VKRequest *req = [VKRequest requestWithMethod:@"photos.getById" parameters:@{@"photos" : [self.parent.vkImages componentsJoinedByString:@","], @"photo_sizes" : @1} modelClass:[VKPhotoArray class]];
-        [req setCompleteBlock:^(VKResponse *res) {
+        [req executeWithResultBlock:^(VKResponse *res) {
             VKPhotoArray *photos = res.parsedModel;
             NSArray *requiredSizes = @[@"p", @"q", @"m"];
             for (VKPhoto *photo in photos) {
@@ -1110,12 +1110,12 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
                 if (!photoSrc) {
                     continue;
                 }
-
+                
                 NSString *photoId = [NSString stringWithFormat:@"%@_%@", photo.owner_id, photo.id];
                 VKUploadingAttachment *attach = attachById[photoId];
-
+                
                 [attachById removeObjectForKey:photoId];
-
+                
                 VKHTTPOperation *imageLoad = [[VKHTTPOperation alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:photoSrc]]];
                 [imageLoad setCompletionBlockWithSuccess:^(VKHTTPOperation *operation, id responseObject) {
                     UIImage *result = [UIImage imageWithData:operation.responseData];
@@ -1127,9 +1127,9 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
                         [self.attachmentsScrollView performBatchUpdates:^{
                             [self.attachmentsScrollView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
                         }                                    completion:nil];
-
+                        
                     });
-
+                    
                 }                                failure:^(VKHTTPOperation *operation, NSError *error) {
                     [self removeAttachIfExists:attach];
                     [self.attachmentsScrollView reloadData];
@@ -1147,8 +1147,9 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
                 }
             }                                    completion:nil];
             [self.attachmentsScrollView reloadData];
+        } errorBlock:^(NSError *error) {
+            NSLog(@"%@", error);
         }];
-        [req start];
     }
     [self.attachmentsScrollView reloadData];
     [shareDialogView setNeedsLayout];
