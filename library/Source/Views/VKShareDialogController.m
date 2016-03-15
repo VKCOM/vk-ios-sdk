@@ -821,7 +821,6 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 
 - (void)dealloc {
     [[VKSdk instance] unregisterDelegate:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma clang diagnostic push
@@ -880,31 +879,29 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     view.textView.hidden = YES;
     [view.activityIndicator startAnimating];
     [VKSdk wakeUpSession:self.parent.requestedScope completeBlock:^(VKAuthorizationState state, NSError *error) {
-        [view.activityIndicator stopAnimating];
-        if (state == VKAuthorizationAuthorized) {
-            [view.notAuthorizedView removeFromSuperview];
-            view.textView.hidden = NO;
-            view.textView.text = self.parent.text;
-            [self prepare];
-            [view textViewDidChange:view.textView];
-        } else {
-            [self setNotAuthorized];
-        }
+        [self setAuthorizationState:state];
     }];
 }
 
-- (void)setNotAuthorized {
+- (void)setAuthorizationState:(VKAuthorizationState) state {
     VKShareDialogView *view = (VKShareDialogView *) self.view;
-    [view addSubview:view.notAuthorizedView];
-    if ([VKSdk accessToken]) {
-        view.notAuthorizedLabel.text = VKLocalizedString(@"UserHasNoRequiredPermissions");
-        view.textView.hidden = YES;
+    
+    [view.activityIndicator stopAnimating];
+    if (state == VKAuthorizationAuthorized) {
+        [view.notAuthorizedView removeFromSuperview];
+        view.textView.hidden = NO;
+        view.textView.text = self.parent.text;
+        [self prepare];
+        [view textViewDidChange:view.textView];
+    } else {
+        VKShareDialogView *view = (VKShareDialogView *) self.view;
+        [view addSubview:view.notAuthorizedView];
+        if ([VKSdk accessToken]) {
+            view.notAuthorizedLabel.text = VKLocalizedString(@"UserHasNoRequiredPermissions");
+            view.textView.hidden = YES;
+        }
+        [view layoutSubviews];
     }
-    [view layoutSubviews];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(viewWillAppear:)
-                                                 name:UIApplicationDidBecomeActiveNotification
-                                               object:nil];
 }
 
 #pragma clang diagnostic push
@@ -1038,12 +1035,14 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 
 - (void)vkSdkAccessAuthorizationFinishedWithResult:(VKAuthorizationResult *)result {
     if (result.error) {
-        [self setNotAuthorized];
+        [self setAuthorizationState:VKAuthorizationError];
+    } else if (result.token) {
+        [self setAuthorizationState:VKAuthorizationAuthorized];
     }
 }
 
 - (void)vkSdkUserAuthorizationFailed {
-    [self setNotAuthorized];
+    [self setAuthorizationState:VKAuthorizationError];
 }
 
 #pragma mark -Attachments
