@@ -162,7 +162,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
     VKAuthorizationContext *authContext =
     [VKAuthorizationContext contextWithAuthType:vkApp ? VKAuthorizationTypeApp : VKAuthorizationTypeSafari
                                        clientId:clientId
-                                    displayType:VK_DISPLAY_IOS
+                                    displayType:VK_DISPLAY_MOBILE
                                           scope:permissions
                                          revoke:YES];
     NSURL *urlToOpen = [VKAuthorizeController buildAuthorizationURLWithContext:authContext];
