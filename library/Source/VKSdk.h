@@ -142,9 +142,14 @@ Entry point for using VK sdk. Should be initialized at application start
 /// @name Initialization
 ///-------------------------------
 /**
-Returns instance of VK sdk. You should never use that directly
-*/
+ Returns instance of VK sdk. You should never use that directly
+ */
 + (instancetype)instance;
+
+/**
+ Returns YES if SDK was previously initialized with initializeWithAppId: method
+ */
++ (BOOL)initialized;
 
 /**
 Initialize SDK with responder for global SDK events with default api version from VK_SDK_API_VERSION

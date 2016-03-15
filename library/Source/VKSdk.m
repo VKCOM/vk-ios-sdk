@@ -88,6 +88,10 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
     return vkSdkInstance;
 }
 
++ (BOOL)initialized {
+    return vkSdkInstance != nil;
+}
+
 + (instancetype)initializeWithAppId:(NSString *)appId {
     return [self initializeWithAppId:appId apiVersion:VK_SDK_API_VERSION];
 }
