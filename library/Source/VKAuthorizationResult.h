@@ -23,8 +23,31 @@
 #import "VKAccessToken.h"
 #import "VKError.h"
 
+typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
+    VKAuthorizationUnknown, // Authorization state unknown, probably something went wrong
+    VKAuthorizationInitialized, // SDK initialized and ready to authorize
+    VKAuthorizationPending, // Authorization state pending, probably we're trying to load auth information
+    VKAuthorizationExternal, // Started external authorization process
+    VKAuthorizationSafariInApp, // Started in app authorization process, using SafariViewController
+    VKAuthorizationWebview, // Started in app authorization process, using webview
+    VKAuthorizationAuthorized, // User authorized
+    VKAuthorizationError, // An error occured, try to wake up session later
+};
+
+/**
+ 
+ */
 @interface VKAuthorizationResult : VKObject
-@property(nonatomic, strong) VKAccessToken *token;
-@property(nonatomic, strong) VKUser *user;
-@property(nonatomic, strong) NSError *error;
+@property(nonatomic, readonly, strong) VKAccessToken *token;
+@property(nonatomic, readonly, strong) VKUser *user;
+@property(nonatomic, readonly, strong) NSError *error;
+@property(nonatomic, readonly, assign) VKAuthorizationState state;
+@end
+
+@interface VKMutableAuthorizationResult : VKAuthorizationResult
+@property(nonatomic, readwrite, strong) VKAccessToken *token;
+@property(nonatomic, readwrite, strong) VKUser *user;
+@property(nonatomic, readwrite, strong) NSError *error;
+@property(nonatomic, readwrite, assign) VKAuthorizationState state;
+
 @end

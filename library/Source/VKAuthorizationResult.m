@@ -22,6 +22,18 @@
 
 #import "VKAuthorizationResult.h"
 
+@interface VKAuthorizationResult ()
+@property(nonatomic, readwrite, strong) VKAccessToken *token;
+@property(nonatomic, readwrite, strong) VKUser *user;
+@property(nonatomic, readwrite, strong) NSError *error;
+@property(nonatomic, readwrite, assign) VKAuthorizationState state;
+@end
+
 @implementation VKAuthorizationResult
+
+@end
+
+@implementation VKMutableAuthorizationResult
+@dynamic token, user, error, state;
 
 @end

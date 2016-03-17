@@ -887,20 +887,32 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     VKShareDialogView *view = (VKShareDialogView *) self.view;
     
     [view.activityIndicator stopAnimating];
-    if (state == VKAuthorizationAuthorized) {
-        [view.notAuthorizedView removeFromSuperview];
-        view.textView.hidden = NO;
-        view.textView.text = self.parent.text;
-        [self prepare];
-        [view textViewDidChange:view.textView];
-    } else {
-        VKShareDialogView *view = (VKShareDialogView *) self.view;
-        [view addSubview:view.notAuthorizedView];
-        if ([VKSdk accessToken]) {
-            view.notAuthorizedLabel.text = VKLocalizedString(@"UserHasNoRequiredPermissions");
-            view.textView.hidden = YES;
+    switch (state) {
+        case VKAuthorizationAuthorized: {
+            [self prepare];
+            
+            [view.notAuthorizedView removeFromSuperview];
+            view.textView.hidden = NO;
+            view.textView.text = self.parent.text;
+            [view textViewDidChange:view.textView];
+            break;
         }
-        [view layoutSubviews];
+        case VKAuthorizationPending: {
+            [view.notAuthorizedView removeFromSuperview];
+            [view.activityIndicator startAnimating];
+            view.textView.hidden = YES;
+            break;
+        }
+        default: {
+            VKShareDialogView *view = (VKShareDialogView *) self.view;
+            [view addSubview:view.notAuthorizedView];
+            if ([VKSdk accessToken]) {
+                view.notAuthorizedLabel.text = VKLocalizedString(@"UserHasNoRequiredPermissions");
+                view.textView.hidden = YES;
+            }
+            [view setNeedsDisplay];
+            break;
+        }
     }
 }
 
@@ -1034,11 +1046,11 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 }
 
 - (void)vkSdkAccessAuthorizationFinishedWithResult:(VKAuthorizationResult *)result {
-    if (result.error) {
-        [self setAuthorizationState:VKAuthorizationError];
-    } else if (result.token) {
-        [self setAuthorizationState:VKAuthorizationAuthorized];
-    }
+    [self setAuthorizationState:result.state];
+}
+
+- (void)vkSdkAuthorizationStateUpdatedWithResult:(VKAuthorizationResult *)result {
+    [self setAuthorizationState:result.state];
 }
 
 - (void)vkSdkUserAuthorizationFailed {

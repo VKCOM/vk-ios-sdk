@@ -46,17 +46,6 @@ typedef NS_OPTIONS(NSUInteger, VKAuthorizationOptions) {
     VKAuthorizationOptionsDisableSafariController = 1 << 1,
 };
 
-typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
-    VKAuthorizationUnknown, // Authorization state unknown, probably something went wrong
-    VKAuthorizationInitialized, // SDK initialized and ready to authorize
-    VKAuthorizationPending, // Authorization state pending, probably we're trying to load auth information
-    VKAuthorizationExternal, // Started external authorization process
-    VKAuthorizationSafariInApp, // Started in app authorization process, using SafariViewController
-    VKAuthorizationWebview, // Started in app authorization process, using webview
-    VKAuthorizationAuthorized, // User authorized
-    VKAuthorizationError, // An error occured, try to wake up session later
-};
-
 /**
  SDK events delegate protocol.
  You should implement it, typically as main view controller or as application delegate.
@@ -65,7 +54,7 @@ typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
 @required
 
 /**
- Notifies delegate about authorization was completed, and returns authorization result which presents new token or error.
+ Notifies delegate about authorization was completed, and returns authorization result with new token or error.
  @param result contains new token or error, retrieved after VK authorization
  */
 - (void)vkSdkAccessAuthorizationFinishedWithResult:(VKAuthorizationResult *)result;
@@ -76,6 +65,13 @@ typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
 - (void)vkSdkUserAuthorizationFailed;
 
 @optional
+
+/**
+ Notifies delegate about authorization state was changed, and returns authorization result with new token or error.
+ If authorization was successfull, also contains user info
+ @param result contains new token or error, retrieved after VK authorization
+ */
+- (void)vkSdkAuthorizationStateUpdatedWithResult:(VKAuthorizationResult *)result;
 
 /**
  Notifies delegate about access token changed

@@ -230,13 +230,17 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
     };
     
     void (^notifyAuthorization)(VKAccessToken *, VKError *) = ^(VKAccessToken *token, VKError *error) {
-        VKAuthorizationResult *res = [VKAuthorizationResult new];
+        [self setAccessToken:token];
+        
+        VKAuthorizationState prevState = vkSdkInstance.authState;
+        
+        VKMutableAuthorizationResult *res = [VKMutableAuthorizationResult new];
         res.error = error ? [NSError errorWithVkError:error] : nil;
         res.token = token;
+        res.state = vkSdkInstance.authState = VKAuthorizationPending;
         if (token) {
             [instance requestSdkState:^(VKUser *visitor, NSInteger per, NSError *err) {
                 if (visitor) {
-
                     VKAccessTokenMutable *mToken = (VKAccessTokenMutable *) [token mutableCopy];
                     mToken.permissions = [instance updatePermissions:per];
                     instance.permissions = [NSSet setWithArray:mToken.permissions ?: @[]];
@@ -245,17 +249,20 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
                     [self setAccessToken:mToken];
                     res.user = visitor;
                     res.token = mToken;
+                    res.state = vkSdkInstance.authState = VKAuthorizationAuthorized;
                 } else if (err) {
                     res.error = err;
+                    res.state = VKAuthorizationError;
+                    vkSdkInstance.authState = prevState;
                 }
-                [instance notifyDelegate:@selector(vkSdkAccessAuthorizationFinishedWithResult:) obj:res];
+                [instance notifyDelegate:@selector(vkSdkAuthorizationStateUpdatedWithResult:) obj:res];
                 hideViews();
             }            trackVisitor:YES token:token];
-            
         } else {
-            [instance notifyDelegate:@selector(vkSdkAccessAuthorizationFinishedWithResult:) obj:res];
             hideViews();
         }
+        
+        [instance notifyDelegate:@selector(vkSdkAccessAuthorizationFinishedWithResult:) obj:res];
 
     };
 
