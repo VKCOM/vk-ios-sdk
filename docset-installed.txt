@@ -1,0 +1,4 @@
+Documentation set was installed to Xcode!
+
+Path: /Users/romantruba/Library/Developer/Shared/Documentation/DocSets/com.vk.vksdk.VK-SDK.docset
+Time: 2016-03-17 13:53:59 +0000
