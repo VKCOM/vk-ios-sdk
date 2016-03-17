@@ -69,11 +69,12 @@ Returns object for preparing requests to groups part of API
 + (VKApiGroups *)groups;
 
 /**
-Create new request with parameters. See documentation for methods here https://vk.com/dev/methods
-@param method API-method name, e.g. audio.get
-@param parameters method parameters
-@param httpMethod HTTP method for execution, e.g. GET, POST
-@return Complete request class for execute or configure method
+ Create new request with parameters. See documentation for methods here https://vk.com/dev/methods
+
+ @param method API-method name, e.g. audio.get
+ @param parameters method parameters
+ @param httpMethod HTTP method for execution, e.g. GET, POST
+ @return Complete request class for execute or configure method
 */
 + (VKRequest *)requestWithMethod:(NSString *)method
                    andParameters:(NSDictionary *)parameters
@@ -81,6 +82,7 @@ Create new request with parameters. See documentation for methods here https://v
 
 /**
  Create new request with parameters. See documentation for methods here https://vk.com/dev/methods
+ 
  @param method API-method name, e.g. audio.get
  @param parameters method parameters
  @return Complete request class for execute or configure method
@@ -89,11 +91,12 @@ Create new request with parameters. See documentation for methods here https://v
                    andParameters:(NSDictionary *)parameters;
 
 /**
-Uploads photo for wall post
-@param image image used for saving to post
-@param parameters parameters for image to be uploaded
-@param userId ID of user on which wall image should be posted (or nil)
-@param groupId ID of group (without minus sign) on which wall image should be posted (or nil)
+ Uploads photo for wall post
+ 
+ @param image image used for saving to post
+ @param parameters parameters for image to be uploaded
+ @param userId ID of user on which wall image should be posted (or 0)
+ @param groupId ID of group (without minus sign) on which wall image should be posted (or 0)
 */
 + (VKRequest *)uploadWallPhotoRequest:(UIImage *)image
                            parameters:(VKImageParameters *)parameters
@@ -101,11 +104,12 @@ Uploads photo for wall post
                               groupId:(NSInteger)groupId;
 
 /**
-Uploads photo in user or group album
-@param image image used for saving to post
-@param parameters parameters for image to be uploaded
-@param albumId target album ID. Required
-@param groupId target group ID (positive). May be nil
+ Uploads photo in user or group album
+ 
+ @param image image used for saving to post
+ @param parameters parameters for image to be uploaded
+ @param albumId target album ID. Required
+ @param groupId target group ID (positive). May be 0
 */
 + (VKRequest *)uploadAlbumPhotoRequest:(UIImage *)image
                             parameters:(VKImageParameters *)parameters
@@ -113,11 +117,10 @@ Uploads photo in user or group album
                                groupId:(NSInteger)groupId;
 
 /**
-Uploads photo for messaging
-@param image image used for saving to post
-@param parameters parameters for image to be uploaded
-@param albumId target album ID. Required
-@param groupId target group ID (positive). May be nil
+ Uploads photo for messaging
+ 
+ @param image image used for saving to post
+ @param parameters parameters for image to be uploaded
 */
 + (VKRequest *)uploadMessagePhotoRequest:(UIImage *)image
                               parameters:(VKImageParameters *)parameters;

@@ -8,6 +8,9 @@
 
 #import "VKHTTPOperation.h"
 
+/**
+ Operation for parsing response string to JSON object, and returning JSON result
+ */
 @interface VKJSONOperation : VKHTTPOperation
 
 @end

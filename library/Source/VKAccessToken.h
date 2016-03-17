@@ -29,8 +29,8 @@
 #import "VKUser.h"
 
 /**
-Presents VK API access token that used for loading API methods and other stuff.
-*/
+ * Represents VK API access token that used for loading API methods and other stuff.
+ */
 @interface VKAccessToken : VKObject <NSCoding>
 
 /// String token for use in request parameters
@@ -94,11 +94,16 @@ Save token into user defaults by specified key
 
 /**
  Remove token from storage
+ 
+ @param service Access token storage key name
  */
 + (void)delete:(NSString *)service;
 
 @end
 
+/**
+ * This is mutable version of VKAccessToken. You should never use this class directly
+ */
 @interface VKAccessTokenMutable : VKAccessToken
 @property(nonatomic, readwrite, copy) NSString *accessToken;
 @property(nonatomic, readwrite, copy) NSString *userId;

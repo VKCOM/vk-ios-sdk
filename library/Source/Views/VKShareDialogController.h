@@ -50,7 +50,7 @@ typedef NS_ENUM(NSInteger, VKShareDialogControllerResult) {
 /// Array of prepared VKUploadImage objects for upload and share. User can remove any attachment
 @property(nonatomic, strong) NSArray *uploadImages;
 
-/// Photos already uploaded to VK. That is array of photos ids: @[ownerid_photoid, ...];
+/// Photos already uploaded to VK. That is array of photos ids: @["ownerid_photoid", ...];
 @property(nonatomic, strong) NSArray *vkImages;
 
 /// Links attachment for new post

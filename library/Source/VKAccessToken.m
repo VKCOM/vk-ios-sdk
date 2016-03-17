@@ -48,6 +48,8 @@ static NSString *const PERMISSIONS = @"permissions";
 
 }
 @property(nonatomic, readwrite, copy) NSString *accessToken;
+
+- (void)notifyTokenExpired;
 @end
 
 @implementation VKAccessToken
@@ -214,12 +216,12 @@ static NSString *const PERMISSIONS = @"permissions";
     return [[VKAccessTokenMutable alloc] initWithVKAccessToken:self];
 }
 
-/**
- Simple keychain requests
- Source: http://stackoverflow.com/a/5251820/1271424
- */
-
 + (NSMutableDictionary *)getKeychainQuery:(NSString *)service {
+    /**
+     Simple keychain requests
+     Source: http://stackoverflow.com/a/5251820/1271424
+     */
+    
     return [@{(__bridge id) kSecClass : (__bridge id) kSecClassGenericPassword,
             (__bridge id) kSecAttrService : service,
             (__bridge id) kSecAttrAccount : service,

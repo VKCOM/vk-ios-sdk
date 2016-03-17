@@ -22,12 +22,16 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum {
+typedef NS_ENUM(NSInteger, VKOperationState) {
+    /// Operation paused
     VKOperationPausedState = -1,
+    /// Operation ready, and will be executed
     VKOperationReadyState = 1,
+    /// Operation executing just in time
     VKOperationExecutingState = 2,
+    /// Operation finished or canceled
     VKOperationFinishedState = 3,
-} VKOperationState;
+};
 
 /**
 Basic class for operations

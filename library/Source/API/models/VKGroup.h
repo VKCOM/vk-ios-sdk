@@ -9,6 +9,9 @@
 #import "VKApiObjectArray.h"
 #import "VKUser.h"
 
+/**
+ Geo-object type
+ */
 @interface VKGeoPlace : VKApiObject
 
 @property(nonatomic, strong) NSNumber *id;
@@ -28,6 +31,9 @@
 @property(nonatomic, strong) NSNumber *showmap;
 @end
 
+/**
+ Object representing contact in group
+ */
 @interface VKGroupContact : VKApiObject
 
 @property(nonatomic, strong) NSNumber *user_id;
@@ -36,10 +42,16 @@
 
 @end
 
+/**
+ Array of VKGroupContact objects
+ */
 @interface VKGroupContacts : VKApiObjectArray
 
 @end
 
+/**
+ Object representing link in group
+ */
 @interface VKGroupLink : VKApiObject
 
 @property(nonatomic, strong) NSString *url;
@@ -50,35 +62,22 @@
 
 @end
 
+/**
+ Array of VKGroupLink objects
+ */
 @interface VKGroupLinks : VKApiObjectArray
-
 @end
 
+/**
+ Group type of VK API. See descriptions here https://vk.com/dev/fields_groups
+ */
 @interface VKGroup : VKApiObject
 @property(nonatomic, strong) NSNumber *id;
 @property(nonatomic, strong) NSString *name;
 @property(nonatomic, strong) NSString *screen_name;
-/**
-* является ли сообщество закрытым. Возможные значения:
-* 0 — открытое;
-* 1 — закрытое;
-* 2 — частное.
-*/
 @property(nonatomic, strong) NSNumber *is_closed;
-/**
-* тип сообщества:
-* group — группа;
-* page — публичная страница;
-* event — мероприятие.
-*/
 @property(nonatomic, strong) NSString *type;
 @property(nonatomic, strong) NSNumber *is_admin;
-/**
-* полномочия текущего пользователя (если is_admin=1):
-* 1 — модератор;
-* 2 — редактор;
-* 3 — администратор.
-*/
 @property(nonatomic, strong) NSNumber *admin_level;
 @property(nonatomic, strong) NSNumber *is_member;
 @property(nonatomic, strong) VKCity *city;

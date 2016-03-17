@@ -589,7 +589,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
     [[VKSdk instance].uiDelegate vkSdkNeedCaptchaEnter:self];
 }
 
-- (void)notiftAuthorizationFailed {
+- (void)notifyAuthorizationFailed {
     [[VKSdk instance] notifyUserAuthorizationFailed:self];
 }
 

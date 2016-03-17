@@ -47,6 +47,12 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
 }
 @end
 
+@interface VKError (CaptchaRequest)
+- (void)notifyCaptchaRequired;
+
+- (void)notifyAuthorizationFailed;
+@end
+
 @implementation VKRequestTiming
 
 - (NSString *)description {
@@ -77,6 +83,10 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
 - (NSTimeInterval)totalTime {
     return [_finishTime timeIntervalSinceDate:_startTime];
 }
+@end
+
+@interface VKAccessToken (HttpsRequired)
+- (void)setAccessTokenRequiredHTTPS;
 @end
 
 @interface VKRequest () {
@@ -497,7 +507,7 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
         }
         if (error.apiError.errorCode == 5) {
             vksdk_dispatch_on_main_queue_now(^{
-                [error.apiError notiftAuthorizationFailed];
+                [error.apiError notifyAuthorizationFailed];
             });
             return NO;
         }

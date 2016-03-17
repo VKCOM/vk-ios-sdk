@@ -24,30 +24,54 @@
 #import "VKError.h"
 
 typedef NS_ENUM(NSUInteger, VKAuthorizationState) {
-    VKAuthorizationUnknown, // Authorization state unknown, probably something went wrong
-    VKAuthorizationInitialized, // SDK initialized and ready to authorize
-    VKAuthorizationPending, // Authorization state pending, probably we're trying to load auth information
-    VKAuthorizationExternal, // Started external authorization process
-    VKAuthorizationSafariInApp, // Started in app authorization process, using SafariViewController
-    VKAuthorizationWebview, // Started in app authorization process, using webview
-    VKAuthorizationAuthorized, // User authorized
-    VKAuthorizationError, // An error occured, try to wake up session later
+    /// Authorization state unknown, probably ready to work or something went wrong
+    VKAuthorizationUnknown,
+    /// SDK initialized and ready to authorize
+    VKAuthorizationInitialized,
+    /// Authorization state pending, probably we're trying to load auth information
+    VKAuthorizationPending,
+    /// Started external authorization process
+    VKAuthorizationExternal,
+    /// Started in app authorization process, using SafariViewController
+    VKAuthorizationSafariInApp,
+    /// Started in app authorization process, using webview
+    VKAuthorizationWebview,
+    /// User authorized
+    VKAuthorizationAuthorized,
+    /// An error occured, try to wake up session later
+    VKAuthorizationError,
 };
 
 /**
- 
+ When authorization is completed or failed with error, object of this class will be send in vkSdkAccessAuthorizationFinishedWithResult: method.
  */
 @interface VKAuthorizationResult : VKObject
+
+/// Access token recieved after successfull authorization
 @property(nonatomic, readonly, strong) VKAccessToken *token;
+
+/// Available information about current user of SDK. Notice that info is available in SDK-delegate vkSdkAuthorizationStateUpdatedWithResult: method.
 @property(nonatomic, readonly, strong) VKUser *user;
+
+/// If some error or authorization cancelation happened, this field contains basic error information
 @property(nonatomic, readonly, strong) NSError *error;
+
+/// Current state of authorization
 @property(nonatomic, readonly, assign) VKAuthorizationState state;
+
 @end
 
+/**
+ * This is mutable version of VKAuthorizationResult class
+ */
 @interface VKMutableAuthorizationResult : VKAuthorizationResult
+
 @property(nonatomic, readwrite, strong) VKAccessToken *token;
+
 @property(nonatomic, readwrite, strong) VKUser *user;
+
 @property(nonatomic, readwrite, strong) NSError *error;
+
 @property(nonatomic, readwrite, assign) VKAuthorizationState state;
 
 @end

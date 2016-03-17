@@ -22,9 +22,6 @@
 
 #import "VKUser.h"
 
-@implementation VKBanInfo
-@end
-
 @implementation VKLastSeen
 @end
 
