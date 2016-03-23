@@ -66,7 +66,7 @@ CocoaPods is a dependency manager for Objective-C, which automates and simplifie
 
 Then import the main header.
 
-    #import <VKSdk/VKSdk.h>
+    #import <VKSdk.h>
 
 Installation with [Carthage](https://github.com/Carthage/Carthage)
 ----------
