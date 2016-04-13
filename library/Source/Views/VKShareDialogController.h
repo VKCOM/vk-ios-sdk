@@ -64,7 +64,6 @@ typedef NS_ENUM(NSInteger, VKShareDialogControllerResult) {
 
 /// You can receive information about sharing state
 @property(nonatomic, copy) void (^completionHandler)(VKShareDialogController *dialog, VKShareDialogControllerResult result);
-- (void)setCompletionHandler:(void (^)(VKShareDialogController *dialog, VKShareDialogControllerResult result))completionHandler;
 
 /// Flag meaning the share viewcontroller manage it's presentation state by itself
 @property(nonatomic, assign) BOOL dismissAutomatically;

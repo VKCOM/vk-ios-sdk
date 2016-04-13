@@ -35,10 +35,8 @@ Used for execution bunch of methods at time, and receive results of that methods
 }
 /// Specify completion block for request
 @property(nonatomic, copy) void (^completeBlock)(NSArray *responses);
-- (void)setCompleteBlock:(void (^)(NSArray *responses))completeBlock;
 /// Specity error (HTTP or API) block for request.
 @property(nonatomic, copy) void (^errorBlock)(NSError *error);
-- (void)setErrorBlock:(void (^)(NSError *error))errorBlock;
 
 /**
 Initializes batch processing with requests

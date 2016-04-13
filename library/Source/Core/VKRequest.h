@@ -49,13 +49,10 @@ Class for execution API-requests
 /// Specify progress for uploading or downloading. Useless for text requests (because gzip encoding bytesTotal will always return -1)
 
 @property(nonatomic, copy) void (^progressBlock)(VKProgressType progressType, long long bytesLoaded, long long bytesTotal);
-- (void)setProgressBlock:(void (^)(VKProgressType progressType, long long bytesLoaded, long long bytesTotal))progressBlock;
 /// Specify completion block for request
 @property(nonatomic, copy) void (^completeBlock)(VKResponse *response);
-- (void)setCompleteBlock:(void (^)(VKResponse *response))completeBlock;
 /// Specity error (HTTP or API) block for request.
 @property(nonatomic, copy) void (^errorBlock)(NSError *error);
-- (void)setErrorBlock:(void (^)(NSError *error))errorBlock;
 /// Specify attempts for request loading if caused HTTP-error. 0 for infinite
 @property(nonatomic, assign) int attempts;
 /// Use HTTPS requests (by default is YES). If http-request is impossible (user denied no https access), SDK will load https version
