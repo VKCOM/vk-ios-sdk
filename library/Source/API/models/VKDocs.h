@@ -39,6 +39,7 @@
 @property(nonatomic, copy) NSString *photo_100;
 @property(nonatomic, copy) NSString *photo_130;
 @property(nonatomic, strong) NSNumber *date;
+@property(nonatomic, strong) NSNumber *type;
 @end
 
 /**

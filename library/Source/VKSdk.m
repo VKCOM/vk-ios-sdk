@@ -139,13 +139,13 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 + (void)authorize:(NSArray *)permissions withOptions:(VKAuthorizationOptions)options {
     permissions = permissions ?: @[];
     NSMutableSet *permissionsSet = [NSMutableSet setWithArray:permissions ?: @[]];
-
+    
     if (options & VKAuthorizationOptionsUnlimitedToken) {
         [permissionsSet addObject:VK_PER_OFFLINE];
     }
     VKSdk *instance = [VKSdk instance];
     instance.lastKnownOptions = options;
-
+    
     if ([self accessToken] && [instance.permissions isEqualToSet:permissionsSet]) {
         instance.accessToken = [self accessToken];
         return;
@@ -156,12 +156,12 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
     
     instance.permissions = [permissionsSet copy];
     permissions = [permissionsSet allObjects];
-
+    
     BOOL vkApp = [self vkAppMayExists]
-            && instance.authState == VKAuthorizationInitialized;
-
+    && instance.authState == VKAuthorizationInitialized;
+    
     BOOL safariEnabled = !(options & VKAuthorizationOptionsDisableSafariController);
-
+    
     NSString *clientId = instance.currentAppId;
     VKAuthorizationContext *authContext =
     [VKAuthorizationContext contextWithAuthType:vkApp ? VKAuthorizationTypeApp : VKAuthorizationTypeSafari
@@ -170,7 +170,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
                                           scope:permissions
                                          revoke:YES];
     NSURL *urlToOpen = [VKAuthorizeController buildAuthorizationURLWithContext:authContext];
-
+    
     if (vkApp) {
         [[UIApplication sharedApplication] openURL:urlToOpen];
         instance.authState = VKAuthorizationExternal;
@@ -179,7 +179,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
         viewController.delegate = instance;
         [viewController vks_presentViewControllerThroughDelegate];
         instance.presentedSafariViewController = viewController;
-
+        
         instance.authState = VKAuthorizationSafariInApp;
     } else {
         //Authorization through popup webview
@@ -369,15 +369,29 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 }
 
 + (void)wakeUpSession:(NSArray *)permissions completeBlock:(void (^)(VKAuthorizationState, NSError *error))wakeUpBlock {
+    [VKSdk wakeUpSession:permissions useInternetToUpdateSession:true completeBlock:wakeUpBlock];
+}
+
++ (void)wakeUpSession:(NSArray *)permissions useInternetToUpdateSession: (BOOL) useInternet completeBlock:(void (^)(VKAuthorizationState, NSError *error))wakeUpBlock {
     VKAccessToken *token = [self accessToken] ?: [VKAccessToken savedToken:VK_ACCESS_TOKEN_DEFAULTS_KEY];
     VKSdk *instance = [self instance];
     if (!token || token.isExpired) {
         [instance resetSdkState];
         wakeUpBlock(instance.authState, nil);
     } else {
-
+        
+    
+        
         BOOL firstCall = instance.accessToken == nil;
+        
         instance.accessToken = token;
+        
+        if (!useInternet && [instance hasPermissions:permissions]) {
+            instance.authState = VKAuthorizationAuthorized;
+            wakeUpBlock(instance.authState, nil);
+            return;
+        }
+        
         instance.authState = VKAuthorizationPending;
 
         [[VKSdk instance] requestSdkState:^(VKUser *visitor, NSInteger per, NSError *error) {

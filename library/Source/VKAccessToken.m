@@ -35,6 +35,7 @@ static NSString *const EMAIL = @"email";
 static NSString *const HTTPS_REQUIRED = @"https_required";
 static NSString *const CREATED = @"created";
 static NSString *const PERMISSIONS = @"permissions";
+static NSString *const LOCAL_USER = @"local_user";
 
 @interface VKAccessToken () {
 @protected
@@ -88,6 +89,7 @@ static NSString *const PERMISSIONS = @"permissions";
         _httpsRequired = [aDecoder decodeBoolForKey:HTTPS_REQUIRED];
         _expiresIn = [aDecoder decodeIntegerForKey:EXPIRES_IN];
         _created = [aDecoder decodeDoubleForKey:CREATED];
+        _localUser = [aDecoder decodeObjectForKey:LOCAL_USER];
     }
     return self;
 }
@@ -114,6 +116,7 @@ static NSString *const PERMISSIONS = @"permissions";
     [aCoder encodeBool:self.httpsRequired forKey:HTTPS_REQUIRED];
     [aCoder encodeInteger:self.expiresIn forKey:EXPIRES_IN];
     [aCoder encodeDouble:self.created forKey:CREATED];
+    [aCoder encodeObject:self.localUser forKey: LOCAL_USER];
 }
 
 - (NSArray *)restorePermissions:(NSString *)permissionsString {

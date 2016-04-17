@@ -46,7 +46,7 @@ Helps in objects parsing
 /**
 Basic class for API objects
 */
-@interface VKApiObject : VKObject <VKApiObject>
+@interface VKApiObject : VKObject <VKApiObject, NSCoding>
 /// If it possible, contains object fields from JSON as it is
 @property(nonatomic, strong) NSDictionary *fields;
 

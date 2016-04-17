@@ -200,6 +200,10 @@ Returns token for API requests
 */
 + (VKAccessToken *)accessToken;
 
+/**
+ Sets token for API requests
+ */
++ (void) setAccessToken: (VKAccessToken*) token;
 ///-------------------------------
 /// @name Other methods
 ///-------------------------------
@@ -222,6 +226,7 @@ Checks passed URL for access token
  This method is trying to retrieve token from storage, and check application still permitted to use user access token
  */
 + (void)wakeUpSession:(NSArray *)permissions completeBlock:(void (^)(VKAuthorizationState, NSError *))wakeUpBlock;
++ (void)wakeUpSession:(NSArray *)permissions useInternetToUpdateSession: (BOOL) useInternet completeBlock:(void (^)(VKAuthorizationState, NSError *))wakeUpBlock;
 
 /**
 Forces logout using OAuth (with VKAuthorizeController). Removes all cookies for *.vk.com.
