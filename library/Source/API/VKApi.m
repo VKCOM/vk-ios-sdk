@@ -46,6 +46,10 @@
     return [VKApiGroups new];
 }
 
++ (VKApiDocs *) docs {
+    return [VKApiDocs new];
+}
+
 + (VKRequest *)requestWithMethod:(NSString *)method
                    andParameters:(NSDictionary *)parameters {
     return [VKRequest requestWithMethod:method parameters:parameters];
