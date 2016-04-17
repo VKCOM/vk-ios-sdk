@@ -139,13 +139,13 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 + (void)authorize:(NSArray *)permissions withOptions:(VKAuthorizationOptions)options {
     permissions = permissions ?: @[];
     NSMutableSet *permissionsSet = [NSMutableSet setWithArray:permissions ?: @[]];
-
+    
     if (options & VKAuthorizationOptionsUnlimitedToken) {
         [permissionsSet addObject:VK_PER_OFFLINE];
     }
     VKSdk *instance = [VKSdk instance];
     instance.lastKnownOptions = options;
-
+    
     if ([self accessToken] && [instance.permissions isEqualToSet:permissionsSet]) {
         instance.accessToken = [self accessToken];
         return;
@@ -156,31 +156,30 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
     
     instance.permissions = [permissionsSet copy];
     permissions = [permissionsSet allObjects];
-
-    BOOL canAuthorizeViaApp = [self vkAppMayExists]
-        && instance.authState == VKAuthorizationInitialized;
-
-    BOOL safariAllowed = !(options & VKAuthorizationOptionsDisableSafariController);
-    BOOL appAllowed = !(options & VKAuthorizationOptionsDisableApp);
+    
+    BOOL vkApp = [self vkAppMayExists]
+    && instance.authState == VKAuthorizationInitialized;
+    
+    BOOL safariEnabled = !(options & VKAuthorizationOptionsDisableSafariController);
     
     NSString *clientId = instance.currentAppId;
     VKAuthorizationContext *authContext =
-    [VKAuthorizationContext contextWithAuthType:canAuthorizeViaApp ? VKAuthorizationTypeApp : VKAuthorizationTypeSafari
+    [VKAuthorizationContext contextWithAuthType:vkApp ? VKAuthorizationTypeApp : VKAuthorizationTypeSafari
                                        clientId:clientId
                                     displayType:VK_DISPLAY_MOBILE
                                           scope:permissions
                                          revoke:YES];
     NSURL *urlToOpen = [VKAuthorizeController buildAuthorizationURLWithContext:authContext];
-
-    if (canAuthorizeViaApp && appAllowed) {
+    
+    if (vkApp) {
         [[UIApplication sharedApplication] openURL:urlToOpen];
         instance.authState = VKAuthorizationExternal;
-    } else if (safariAllowed && [SFSafariViewController class] && instance.authState < VKAuthorizationSafariInApp) {
+    } else if (safariEnabled && [SFSafariViewController class] && instance.authState < VKAuthorizationSafariInApp) {
         SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL:urlToOpen];
         viewController.delegate = instance;
         [viewController vks_presentViewControllerThroughDelegate];
         instance.presentedSafariViewController = viewController;
-
+        
         instance.authState = VKAuthorizationSafariInApp;
     } else {
         //Authorization through popup webview

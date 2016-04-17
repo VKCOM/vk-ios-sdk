@@ -44,7 +44,6 @@
 typedef NS_OPTIONS(NSUInteger, VKAuthorizationOptions) {
     VKAuthorizationOptionsUnlimitedToken = 1 << 0,
     VKAuthorizationOptionsDisableSafariController = 1 << 1,
-    VKAuthorizationOptionsDisableApp = 1 << 2,
 };
 
 /**
