@@ -390,6 +390,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
         if (!useInternet && [instance hasPermissions:permissions]) {
             instance.authState = VKAuthorizationAuthorized;
             wakeUpBlock(instance.authState, nil);
+            return;
         }
         
         instance.authState = VKAuthorizationPending;
