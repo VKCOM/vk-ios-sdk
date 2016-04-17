@@ -36,6 +36,9 @@ static NSString *const DOUBLE_NAME = @"double";
 static NSString *const BOOL_NAME = @"bool";
 static NSString *const ID_NAME = @"id";
 
+
+static NSString *const FIELDS = @"fields";
+
 static NSMutableDictionary *classesProperties = nil;
 
 static NSString *getPropertyType(objc_property_t property) {
@@ -272,6 +275,26 @@ static NSString *getPropertyName(objc_property_t prop) {
     if (PRINT_PARSE_DEBUG_INFO) {
         NSLog(@"Parser tried to set value (%@) for undefined key (%@)", value, key);
     }
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self.fields forKey:FIELDS];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    NSDictionary* fields = [coder decodeObjectForKey:FIELDS];
+    
+    if (!fields) {
+        return nil;
+    }
+    
+    if (self = [super init]) {
+        [self parse:fields];
+        self.fields = fields;
+    }
+    return self;
 }
 
 @end
