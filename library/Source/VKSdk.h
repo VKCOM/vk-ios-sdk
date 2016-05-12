@@ -221,7 +221,7 @@ Checks passed URL for access token
 /**
  This method is trying to retrieve token from storage, and check application still permitted to use user access token
  */
-+ (void)wakeUpSession:(NSArray *)permissions completeBlock:(void (^)(VKAuthorizationState, NSError *))wakeUpBlock;
++ (void)wakeUpSession:(NSArray *)permissions completeBlock:(void (^)(VKAuthorizationState state, NSError *error))wakeUpBlock;
 
 /**
 Forces logout using OAuth (with VKAuthorizeController). Removes all cookies for *.vk.com.

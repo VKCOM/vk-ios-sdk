@@ -57,7 +57,7 @@ Executes batch request
 @param completeBlock will receive result of passed requests
 @param errorBlock called if any request did fail
 */
-- (void)executeWithResultBlock:(void (^)(NSArray *responses))completeBlock errorBlock:(void (^)(NSError *))errorBlock;
+- (void)executeWithResultBlock:(void (^)(NSArray *responses))completeBlock errorBlock:(void (^)(NSError *error))errorBlock;
 
 /**
 Cancel current batch operation
