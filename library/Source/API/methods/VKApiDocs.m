@@ -120,4 +120,56 @@
                                                                 }];
 }
 
+- (VKRequest *)search:(NSString *)query {
+  return [self prepareRequestWithMethodName:@"search" parameters:@{VK_API_Q : query} modelClass:[VKDocsArray class]];
+}
+
+- (VKRequest *)search:(NSString *)query count:(NSInteger)count {
+  return [self prepareRequestWithMethodName:@"search" parameters:@{
+                                                                   VK_API_Q     : query,
+                                                                   VK_API_COUNT : [@(count) stringValue]
+                                                                   } modelClass:[VKDocsArray class]];
+}
+
+- (VKRequest *)search:(NSString *)query count:(NSInteger)count andOffset:(NSInteger)offset {
+  return [self prepareRequestWithMethodName:@"search" parameters:@{
+                                                                   VK_API_Q      :  query,
+                                                                   VK_API_COUNT  : [@(count) stringValue],
+                                                                   VK_API_OFFSET : [@(offset) stringValue]
+                                                                   } modelClass:[VKDocsArray class]];
+}
+
+- (VKRequest *)edit:(NSInteger)docID title:(NSString *)title {
+  return [self prepareRequestWithMethodName:@"edit" parameters:@{
+                                                                 VK_API_DOC_ID : [@(docID) stringValue],
+                                                                 VK_API_TITLE  : title
+                                                                 }];
+}
+
+- (VKRequest *)edit:(NSInteger)docID title:(NSString *)title tags:(NSString *)tags {
+  return [self prepareRequestWithMethodName:@"edit" parameters:@{
+                                                                 VK_API_DOC_ID : [@(docID) stringValue],
+                                                                 VK_API_TITLE  : title,
+                                                                 VK_API_TAGS   : tags
+                                                                 }];
+}
+
+- (VKRequest *)edit:(NSInteger)ownerID docID:(NSInteger)docID title:(NSString *)title {
+  return [self prepareRequestWithMethodName:@"edit" parameters:@{
+                                                                 VK_API_OWNER_ID : [@(ownerID) stringValue],
+                                                                 VK_API_DOC_ID   : [@(docID) stringValue],
+                                                                 VK_API_TITLE    : title
+                                                                 }];
+}
+
+- (VKRequest *)edit:(NSInteger)ownerID docID:(NSInteger)docID title:(NSString *)title tags:(NSString *)tags {
+  return [self prepareRequestWithMethodName:@"edit" parameters:@{
+                                                                 VK_API_OWNER_ID : [@(ownerID) stringValue],
+                                                                 VK_API_DOC_ID : [@(docID) stringValue],
+                                                                 VK_API_TITLE  : title,
+                                                                 VK_API_TAGS   : tags
+                                                                 }];
+}
+
+
 @end

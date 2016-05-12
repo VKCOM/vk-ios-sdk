@@ -180,4 +180,87 @@
  */
 - (VKRequest *)add:(NSInteger)ownerID andDocID:(NSInteger)docID andAccessKey:(NSString *)accessKey;
 
+/**
+ *  Returns results of search
+ *  https://vk.com/dev/docs.search
+ *
+ *  @param query  Search query
+ *
+ *  @return Request to load
+ */
+- (VKRequest *)search:(NSString *)query;
+
+/**
+ *  Returns results of search
+ *  https://vk.com/dev/docs.search
+ *
+ *  @param query  Search query
+ *  @param count  Number of documents to return.
+ *
+ *  @return Request to load
+ */
+- (VKRequest *)search:(NSString *)query count:(NSInteger)count;
+
+/**
+ *  Returns results of search
+ *  https://vk.com/dev/docs.search
+ *
+ *  @param query  Search query
+ *  @param count  Number of documents to return.
+ *  @param offset Offset needed to return a specific subset of documents.
+ *
+ *  @return Request to load
+ */
+- (VKRequest *)search:(NSString *)query count:(NSInteger)count andOffset:(NSInteger)offset;
+
+/**
+ *  Edits a current user's document.
+ *  https://vk.com/dev/docs.edit
+ *
+ *  @param docID  Document ID.
+ *  @param title  New document title
+ *
+ *  @return Request to load
+ */
+- (VKRequest *)edit:(NSInteger)docID title:(NSString *)title;
+
+/**
+ *  Edits a current user's document.
+ *  https://vk.com/dev/docs.edit
+ *
+ *  @param docID  Document ID.
+ *  @param title  New document title
+ *  @param tags   New document tags
+ *
+ *  @return Request to load
+ */
+- (VKRequest *)edit:(NSInteger)docID title:(NSString *)title tags:(NSString *)tags;
+
+/**
+ *  Edits a user's or community's document.
+ *  https://vk.com/dev/docs.edit
+ *
+ *  @param ownerID  ID of the user or community that owns the document. Use a negative value to designate a community ID.
+ *  @param docID    Document ID.
+ *  @param title    New document title
+ *
+ *  @return Request to load
+ */
+- (VKRequest *)edit:(NSInteger)ownerID docID:(NSInteger)docID title:(NSString *)title;
+
+/**
+ *  Edits a user's or community's document.
+ *  https://vk.com/dev/docs.edit
+ *
+ *  @param ownerID  ID of the user or community that owns the document. Use a negative value to designate a community ID.
+ *  @param docID    Document ID.
+ *  @param title    New document title
+ *  @param tags     New document tags
+ *
+ *  @return Request to load
+ */
+- (VKRequest *)edit:(NSInteger)ownerID docID:(NSInteger)docID title:(NSString *)title tags:(NSString *)tags;
+
+
+
 @end
