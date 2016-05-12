@@ -225,7 +225,7 @@ typedef NS_OPTIONS(NSUInteger, VKAuthorizationOptions) {
 Initialize SDK with responder for global SDK events.
  
 @param appId your application id (if you haven't, you can create standalone application here https://vk.com/editapp?act=create )
-@param apiVersion if you want to use latest API version, pass required version here
+@param version if you want to use latest API version, pass required version here
 */
 + (instancetype)initializeWithAppId:(NSString *)appId
                          apiVersion:(NSString *)version;
@@ -339,5 +339,11 @@ Enables or disables scheduling for requests
 - (void)vks_viewControllerWillDismiss;
 
 - (void)vks_viewControllerDidDismiss;
+
+@end
+
+@interface VKAccessToken (Private)
+
+- (void)notifyTokenExpired;
 
 @end

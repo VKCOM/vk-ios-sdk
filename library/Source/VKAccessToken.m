@@ -49,7 +49,6 @@ static NSString *const PERMISSIONS = @"permissions";
 }
 @property(nonatomic, readwrite, copy) NSString *accessToken;
 
-- (void)notifyTokenExpired;
 @end
 
 @implementation VKAccessToken

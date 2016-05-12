@@ -568,7 +568,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 @end
 
 
-@implementation VKAccessToken (HttpsRequired)
+@implementation VKAccessToken (Private)
 
 - (void)setAccessTokenRequiredHTTPS {
     VKAccessTokenMutable *token = (VKAccessTokenMutable *) [[VKSdk accessToken] mutableCopy];
