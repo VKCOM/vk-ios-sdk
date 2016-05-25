@@ -172,12 +172,12 @@ User Authorization
 ----------
 
 If you don't have a session yet, you have to authorize user with a next method:
-You have to conform to both `VKSdkDelegate` and `VKSdkUIDelegate` to get methods called.
 ```
 [VKSdk authorize:scope];
 ```
+You have to conform to both `VKSdkDelegate` and `VKSdkUIDelegate` protocols to get appropriate methods called.
 
-After authorization, all common delegates will be called with a next method:
+After the authorization, all common delegates will be called with a next method:
 ```
 - (void)vkSdkAccessAuthorizationFinishedWithResult:(VKAuthorizationResult *)result;
 ```
