@@ -27,7 +27,8 @@
 
 @implementation VKUniversities
 
-- (instancetype)initWithDictionary:(NSDictionary *)dict {
-    return [super initWithDictionary:dict objectClass:[VKUniversity class]];
+-(Class)objectClass {
+    return [VKUniversity class];
 }
+
 @end

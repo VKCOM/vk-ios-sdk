@@ -15,18 +15,22 @@
 @end
 
 @implementation VKGroupContacts
-- (instancetype)initWithDictionary:(NSDictionary *)dict {
-    return [super initWithDictionary:dict objectClass:[VKGroupContact class]];
+
+-(Class)objectClass {
+    return [VKGroupContact class];
 }
+
 @end
 
 @implementation VKGroupLink
 @end
 
 @implementation VKGroupLinks
-- (instancetype)initWithDictionary:(NSDictionary *)dict {
-    return [super initWithDictionary:dict objectClass:[VKGroupLink class]];
+
+-(Class)objectClass {
+    return [VKGroupLink class];
 }
+
 @end
 
 @implementation VKGroup
@@ -36,7 +40,9 @@
 @end
 
 @implementation VKGroups
-- (instancetype)initWithDictionary:(NSDictionary *)dict {
-    return [super initWithDictionary:dict objectClass:[VKGroup class]];
+
+-(Class)objectClass {
+    return [VKGroup class];
 }
+
 @end

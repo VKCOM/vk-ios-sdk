@@ -38,7 +38,8 @@
 @end
 
 @implementation VKSchools
-- (instancetype)initWithDictionary:(NSDictionary *)dict {
-    return [super initWithDictionary:dict objectClass:[VKSchool class]];
+
+- (Class)objectClass {
+    return [VKSchool class];
 }
 @end
