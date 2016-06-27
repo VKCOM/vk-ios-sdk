@@ -21,6 +21,7 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKBundle.h"
+#import "VKUtil.h"
 
 @implementation VKBundle
 + (NSBundle *)vkLibraryResourcesBundle {
@@ -51,7 +52,14 @@
         }
 
         UIImage *imageFromMyLibraryBundle = [UIImage imageWithContentsOfFile:[[self vkLibraryResourcesBundle] pathForResource:name ofType:@"png"]];
-        return imageFromMyLibraryBundle;
+        if (imageFromMyLibraryBundle) {
+            return imageFromMyLibraryBundle;
+        }
+        
+        if ([VKUtil isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){8,0,0}]) {
+            return [UIImage imageNamed:name inBundle:[self vkLibraryResourcesBundle] compatibleWithTraitCollection:nil];
+        }
+        return nil;
     }
 }
 
