@@ -233,13 +233,13 @@
 		F390A00B1A9C7B25006540A6 /* VKUploadImage.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1ACA68CDC5C08713A61C5AD1 /* VKUploadImage.h */; };
 		F390A00C1A9C7B25006540A6 /* VKImageParameters.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1ACA62D0E659DB7778EF2633 /* VKImageParameters.h */; };
 		F3C58CD01D213B2C005E94B5 /* VKSdkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C58CCF1D213B2C005E94B5 /* VKSdkTests.m */; };
-		F3C58CF61D2140F4005E94B5 /* libVKSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C7542D182133CC00964716 /* libVKSdk.a */; };
 		F3C68F151C0C7E6600E1EB5E /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3769E701BE8E41C00AEC4AF /* SafariServices.framework */; };
 		F3C68F171C0C855C00E1EB5E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C68F161C0C855C00E1EB5E /* Security.framework */; };
 		F3C68F181C0C857F00E1EB5E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3769E6E1BE8E41800AEC4AF /* CoreGraphics.framework */; };
 		F3C68F191C0C858300E1EB5E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C68F161C0C855C00E1EB5E /* Security.framework */; };
 		F3C75431182133CC00964716 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C75430182133CC00964716 /* Foundation.framework */; };
 		F3DA65B11B3DA34600E64A30 /* VKJSONOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DA65B01B3DA34600E64A30 /* VKJSONOperation.m */; };
+		F3DD81301D21966F001E7E63 /* VKSdkFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F34670311B8B7C5A003EF74B /* VKSdkFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F3EEFFA91827BB18000BB525 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFFA81827BB18000BB525 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -251,7 +251,7 @@
 			remoteGlobalIDString = F3BACC3F1865905B003158DA;
 			remoteInfo = VKSdkResources;
 		};
-		F3C58CF41D2140D2005E94B5 /* PBXContainerItemProxy */ = {
+		F3DD81311D2198C8001E7E63 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F3C75425182133CB00964716 /* Project object */;
 			proxyType = 1;
@@ -318,6 +318,16 @@
 				132CF80A19D2B3360084884D /* VKSdkVersion.h in Copy Files */,
 			);
 			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3DD812F1D219660001E7E63 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F3DD81301D21966F001E7E63 /* VKSdkFramework.framework in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -480,7 +490,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F34074F61D214AAC00F65798 /* SafariServices.framework in Frameworks */,
-				F3C58CF61D2140F4005E94B5 /* libVKSdk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -875,6 +884,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F3C58CD41D213B2C005E94B5 /* Build configuration list for PBXNativeTarget "VKSdkTests" */;
 			buildPhases = (
+				F3DD812F1D219660001E7E63 /* CopyFiles */,
 				F3C58CC91D213B2C005E94B5 /* Sources */,
 				F3C58CCA1D213B2C005E94B5 /* Frameworks */,
 				F3C58CCB1D213B2C005E94B5 /* Resources */,
@@ -882,7 +892,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				F3C58CF51D2140D2005E94B5 /* PBXTargetDependency */,
+				F3DD81321D2198C8001E7E63 /* PBXTargetDependency */,
 			);
 			name = VKSdkTests;
 			productName = VKSdkTests;
@@ -1144,10 +1154,10 @@
 			target = F3BACC3F1865905B003158DA /* VKSdkResources */;
 			targetProxy = F34670261B8B7A59003EF74B /* PBXContainerItemProxy */;
 		};
-		F3C58CF51D2140D2005E94B5 /* PBXTargetDependency */ = {
+		F3DD81321D2198C8001E7E63 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F3C7542C182133CC00964716 /* VKSdk */;
-			targetProxy = F3C58CF41D2140D2005E94B5 /* PBXContainerItemProxy */;
+			targetProxy = F3DD81311D2198C8001E7E63 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1283,7 +1293,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = VKSdkTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -1306,7 +1316,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = VKSdkTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";

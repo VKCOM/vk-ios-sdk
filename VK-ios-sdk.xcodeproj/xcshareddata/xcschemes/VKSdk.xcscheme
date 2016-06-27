@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F3C58CCC1D213B2C005E94B5"
+               BuildableName = "VKSdkTests.xctest"
+               BlueprintName = "VKSdkTests"
+               ReferencedContainer = "container:VK-ios-sdk.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F3C7542C182133CC00964716"
+            BuildableName = "libVKSdk.a"
+            BlueprintName = "VKSdk"
+            ReferencedContainer = "container:VK-ios-sdk.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
