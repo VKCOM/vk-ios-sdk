@@ -23,6 +23,12 @@
     self.continueAfterFailure = NO;
     
     [VKSdk initializeWithAppId:@"3974615" apiVersion:@"5.50"];
+    
+    NSURL *URL = [NSURL URLWithString:@"https://api.vk.com"];
+    
+    [NSURLRequest.class performSelector:NSSelectorFromString(@"setAllowsAnyHTTPSCertificate:forHost:")
+                             withObject:NSNull.null  // Just need to pass non-nil here to appear as a BOOL YES, using the NSNull.null singleton is pretty safe
+                             withObject:[URL host]];
 }
 
 - (void)tearDown {
