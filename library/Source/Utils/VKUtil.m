@@ -61,7 +61,16 @@
 static NSString *const kCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()',*";
 
 + (NSString *)escapeString:(NSString *)value {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0
     return (__bridge_transfer NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef) value, NULL, (__bridge CFStringRef) kCharactersToBeEscapedInQueryString, CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+#else 
+    static NSCharacterSet *charset = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        charset = [NSCharacterSet URLHostAllowedCharacterSet];
+    });
+    return [value stringByAddingPercentEncodingWithAllowedCharacters:charset];
+#endif
 }
 
 + (NSString *)queryStringFromParams:(NSDictionary *)params {

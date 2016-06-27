@@ -1005,7 +1005,13 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         self.navigationItem.rightBarButtonItems = [self rightBarButtonItems];
         textView.editable = YES;
         [textView becomeFirstResponder];
+        
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0
         [[[UIAlertView alloc] initWithTitle:nil message:VKLocalizedString(@"ErrorWhilePosting") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+#else
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:VKLocalizedString(@"ErrorWhilePosting") preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:alert animated:YES completion:nil];
+#endif
     }];
 }
 

@@ -133,7 +133,7 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     if ([VKUtil isOperatingSystemAtLeastIOS7]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     view.backgroundColor = [UIColor colorWithRed:240.0f / 255 green:242.0f / 255 blue:245.0f / 255 alpha:1.0f];
     self.view = view;
     _activityMark = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
