@@ -15,6 +15,6 @@
 @property(nonatomic, readwrite, copy) NSString *type;
 @end
 
-@interface VKPhotoSizes : VKApiObjectArray
+@interface VKPhotoSizes : VKApiObjectArray<VKPhotoSize*>
 - (VKPhotoSize *)photoSizeWithType:(NSString *)type;
 @end

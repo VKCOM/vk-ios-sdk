@@ -162,5 +162,5 @@
 /**
 Array of API users
 */
-@interface VKUsersArray : VKApiObjectArray
+@interface VKUsersArray : VKApiObjectArray<VKUser*>
 @end

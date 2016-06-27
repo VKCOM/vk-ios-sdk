@@ -38,5 +38,5 @@
 
 @end
 
-@interface VKUniversities : VKApiObjectArray
+@interface VKUniversities : VKApiObjectArray<VKUniversity*>
 @end

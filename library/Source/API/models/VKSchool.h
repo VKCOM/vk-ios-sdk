@@ -38,6 +38,6 @@
 
 @end
 
-@interface VKSchools : VKApiObjectArray
+@interface VKSchools : VKApiObjectArray<VKSchool*>
 
 @end

@@ -45,5 +45,5 @@
 /**
  Array of API docs objects
  */
-@interface VKDocsArray : VKApiObjectArray
+@interface VKDocsArray : VKApiObjectArray<VKDocs*>
 @end

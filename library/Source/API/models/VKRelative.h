@@ -29,6 +29,6 @@
 
 @end
 
-@interface VKRelativities : VKApiObjectArray
+@interface VKRelativities : VKApiObjectArray<VKRelative*>
 
 @end

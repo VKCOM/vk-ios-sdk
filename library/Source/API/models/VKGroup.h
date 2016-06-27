@@ -45,7 +45,7 @@
 /**
  Array of VKGroupContact objects
  */
-@interface VKGroupContacts : VKApiObjectArray
+@interface VKGroupContacts : VKApiObjectArray<VKGroupContact*>
 
 @end
 
@@ -65,7 +65,7 @@
 /**
  Array of VKGroupLink objects
  */
-@interface VKGroupLinks : VKApiObjectArray
+@interface VKGroupLinks : VKApiObjectArray<VKGroupLink*>
 @end
 
 /**
@@ -117,6 +117,6 @@
 
 @end
 
-@interface VKGroups : VKApiObjectArray
+@interface VKGroups : VKApiObjectArray<VKGroup*>
 
 @end

@@ -51,5 +51,5 @@ Photo type of VK API. See descriptions here https://vk.com/dev/photo
 /**
 Array of API photos objects
 */
-@interface VKPhotoArray : VKApiObjectArray
+@interface VKPhotoArray : VKApiObjectArray<VKPhoto*>
 @end
