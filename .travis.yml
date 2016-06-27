@@ -1,0 +1,3 @@
+language: objective-c
+xcode_project: VK-ios-sdk.xcodeproj
+xcode_scheme: VKSdkTests
