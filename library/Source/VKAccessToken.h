@@ -22,7 +22,6 @@
 //
 //  --------------------------------------------------------------------------------
 //
-//  Modified by Ruslan Kavetsky
 
 #import <Foundation/Foundation.h>
 #import "VKObject.h"
@@ -57,7 +56,7 @@
 /// Indicates time of token creation
 @property(nonatomic, readonly, assign) NSTimeInterval created;
 
-/// Indicates time of token creation
+/// Contains basic current user information. Available after delegate method -[VKSdkDelegate vkSdkAuthorizationStateUpdatedWithResult:] called
 @property(nonatomic, readonly, strong) VKUser *localUser;
 
 /**
