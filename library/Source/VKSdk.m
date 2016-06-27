@@ -22,7 +22,6 @@
 //
 //  --------------------------------------------------------------------------------
 //
-//  Modified by Ruslan Kavetsky
 
 #ifdef DEBUG
 
@@ -224,7 +223,11 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 
     void (^hideViews)() = ^{
         if (instance.presentedSafariViewController) {
-            [instance.presentedSafariViewController dismissViewControllerAnimated:YES completion:nil];
+            SFSafariViewController *safariVC = instance.presentedSafariViewController;
+            [safariVC vks_viewControllerWillDismiss];
+            [safariVC.presentingViewController dismissViewControllerAnimated:YES completion:^{
+                [safariVC vks_viewControllerDidDismiss];
+            }];
             instance.presentedSafariViewController = nil;
         }
     };

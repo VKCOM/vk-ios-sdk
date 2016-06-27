@@ -22,7 +22,6 @@
 //
 //  --------------------------------------------------------------------------------
 //
-//  Modified by Ruslan Kavetsky
 
 #import <Foundation/Foundation.h>
 #import "VKAccessToken.h"
