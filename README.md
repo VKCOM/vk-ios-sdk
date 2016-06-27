@@ -66,9 +66,13 @@ CocoaPods is a dependency manager for Objective-C, which automates and simplifie
       pod 'VK-ios-sdk'
     end
 
-Then import project as module:
+Then import the project as module if your podfile contains `use_frameworks!` directive:
 
     @import VK_ios_sdk;
+    
+Or import the main project header, if you're installing pods without `use_frameworks!` directive:
+
+    #import <VK-ios-sdk/VKSdk.h>
 
 Installation with [Carthage](https://github.com/Carthage/Carthage)
 ----------
