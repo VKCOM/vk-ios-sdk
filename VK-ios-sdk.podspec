@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "VK-ios-sdk"
-  s.version      = "1.3.17"
+  s.version      = "1.4"
   s.summary      = "Library for working with VK."
   s.homepage     = "https://github.com/VKCOM/vk-ios-sdk"
   s.license      = 'MIT'
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/VKCOM/vk-ios-sdk.git", :tag => s.version.to_s }
   s.source_files = 'library/source/**/*.{h,m}'
   s.public_header_files = 'library/source/**/*.h'
-  s.resources     = "VKSdkResources.bundle"
+  s.resources = ['library/Resources/SdkAssetCatalog.xcassets','library/Resources/*.lproj']
   s.frameworks    = 'Foundation','UIKit','SafariServices','CoreGraphics','Security'
   s.requires_arc = true
 end

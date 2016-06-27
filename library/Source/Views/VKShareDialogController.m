@@ -856,11 +856,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     [super viewDidLoad];
     UIImage *image = [VKBundle vkLibraryImageNamed:@"ic_vk_logo_nb"];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
-#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Cancel") style:UIBarButtonItemStylePlain target:self action:@selector(close:)];
-#else
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:VKLocalizedString(@"Cancel") style:UIBarButtonItemStyleBordered target:self action:@selector(close:)];
-#endif
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(close:)];
     [[VKSdk instance] registerDelegate:self];
 }
 

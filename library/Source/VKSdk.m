@@ -223,7 +223,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 
     void (^hideViews)() = ^{
         if (instance.presentedSafariViewController) {
-            SFSafariViewController *safariVC = instance.presentedSafariViewController;
+            UIViewController *safariVC = instance.presentedSafariViewController;
             [safariVC vks_viewControllerWillDismiss];
             [safariVC.presentingViewController dismissViewControllerAnimated:YES completion:^{
                 [safariVC vks_viewControllerDidDismiss];

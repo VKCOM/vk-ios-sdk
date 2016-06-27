@@ -33,8 +33,11 @@
         if (!url) {
             url = [[NSBundle bundleForClass:[self class]] URLForResource:fileName withExtension:ext];
         }
+        
         if (url) {
             myLibraryResourcesBundle = [NSBundle bundleWithURL:url];
+        } else {
+            myLibraryResourcesBundle = [NSBundle bundleForClass:self];
         }
     });
     return myLibraryResourcesBundle;

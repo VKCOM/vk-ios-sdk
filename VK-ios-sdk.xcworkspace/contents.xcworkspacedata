@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:VK-ios-sdk.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:example/VKSDKTestApplication.xcodeproj">
    </FileRef>
 </Workspace>
