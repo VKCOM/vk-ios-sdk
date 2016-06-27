@@ -150,7 +150,7 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
 #else
         [activityViewController setCompletionHandler:nil];
 #endif
-        if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        if ([VKUtil isOperatingSystemAtLeastIOS8]) {
             UIPopoverPresentationController *popover = activityViewController.popoverPresentationController;
             popover.sourceView = self.view;
             popover.sourceRect = [tableView rectForRowAtIndexPath:indexPath];

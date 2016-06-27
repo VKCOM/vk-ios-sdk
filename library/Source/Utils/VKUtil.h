@@ -20,11 +20,6 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#define VK_SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
-#define VK_SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
-#define VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-#define VK_SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
-#define VK_SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 #define VK_COLOR                                       [UIColor colorWithRed:85.0f / 255 green:133.0f / 255 blue:188.0f / 255 alpha:1.0f]
 #define VK_IS_DEVICE_IPAD                               (UIUserInterfaceIdiomPad == [[UIDevice currentDevice] userInterfaceIdiom])
 
@@ -48,6 +43,21 @@ Breaks key=value string to dictionary
 + (UIColor *)colorWithRGB:(NSInteger)rgb;
 
 + (NSString *)queryStringFromParams:(NSDictionary *)params;
+
+/**
+ * Indicates that the current device system version at least conforms the argument version
+ */
++ (BOOL) isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion) version;
+
+/**
+ * Returns true if the current device uses iOS 7 or greater
+ */
++ (BOOL) isOperatingSystemAtLeastIOS7;
+
+/**
+ * Returns true if the current device uses iOS 8 or greater
+ */
++ (BOOL) isOperatingSystemAtLeastIOS8;
 @end
 
 

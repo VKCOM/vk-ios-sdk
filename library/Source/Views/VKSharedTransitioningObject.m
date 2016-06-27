@@ -13,14 +13,14 @@
 
 @implementation VKSharedTransitioningObject
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") || VK_IS_DEVICE_IPAD) return nil;
+    if ([VKUtil isOperatingSystemAtLeastIOS8] || VK_IS_DEVICE_IPAD) return nil;
     AnimatedTransitioning *controller = [[AnimatedTransitioning alloc] init];
     controller.isPresenting = YES;
     return controller;
 }
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") || VK_IS_DEVICE_IPAD) return nil;
+    if ([VKUtil isOperatingSystemAtLeastIOS8] || VK_IS_DEVICE_IPAD) return nil;
     AnimatedTransitioning *controller = [[AnimatedTransitioning alloc] init];
     return controller;
 }

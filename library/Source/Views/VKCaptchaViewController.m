@@ -92,7 +92,7 @@
     UIModalPresentationStyle oldStyle = controller.navigationController ? controller.navigationController.modalPresentationStyle : controller.modalPresentationStyle;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         self.modalPresentationStyle = UIModalPresentationFormSheet;
-    } else if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+    } else if ([VKUtil isOperatingSystemAtLeastIOS7]) {
         _transitionDelegate = [VKSharedTransitioningObject new];
         self.transitioningDelegate = _transitionDelegate;
         self.modalPresentationStyle = UIModalPresentationCustom;

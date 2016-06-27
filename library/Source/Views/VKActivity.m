@@ -37,7 +37,7 @@ NSString *const VKActivityTypePost = @"VKActivityTypePost";
 }
 
 + (BOOL)vkShareExtensionEnabled {
-    return NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1 && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"vk-share://extension"]];
+    return [VKUtil isOperatingSystemAtLeastIOS8] && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"vk-share://extension"]];
 }
 
 - (NSString *)activityType {
@@ -45,7 +45,7 @@ NSString *const VKActivityTypePost = @"VKActivityTypePost";
 }
 
 - (UIImage *)activityImage {
-    if (VK_SYSTEM_VERSION_LESS_THAN(@"8.0"))
+    if (![VKUtil isOperatingSystemAtLeastIOS8])
         return VKImageNamed(@"ic_vk_ios7_activity_logo");
 
     return VKImageNamed(@"ic_vk_activity_logo");

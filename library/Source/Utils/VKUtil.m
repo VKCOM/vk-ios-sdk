@@ -74,6 +74,25 @@ static NSString *const kCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()',*"
     }
     return [array componentsJoinedByString:@"&"];
 }
+
++ (BOOL) isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion) version {
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
+        return [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:version];
+    } else {
+        return (version.majorVersion == 7 && NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) ||
+               (version.majorVersion == 6 && NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_5_1);
+        
+    }
+}
+
++ (BOOL) isOperatingSystemAtLeastIOS7 {
+    return [VKUtil isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){7,0,0}];
+}
+
++ (BOOL) isOperatingSystemAtLeastIOS8 {
+    return [VKUtil isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){8,0,0}];
+}
+
 @end
 
 ///----------------------------

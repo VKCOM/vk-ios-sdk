@@ -84,7 +84,7 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 + (void)presentThisController:(VKAuthorizeController *)controller {
     UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:controller];
 
-    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+    if ([VKUtil isOperatingSystemAtLeastIOS7]) {
         navigation.navigationBar.barTintColor = VK_COLOR;
         navigation.navigationBar.tintColor = [UIColor whiteColor];
         navigation.navigationBar.translucent = YES;
@@ -130,7 +130,7 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 - (void)loadView {
     [super loadView];
-    if (VK_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+    if ([VKUtil isOperatingSystemAtLeastIOS7]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
@@ -166,11 +166,7 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     _webView.scrollView.clipsToBounds = NO;
     [view addSubview:_webView];
     if (self.internalNavigationController) {
-#if  __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[VKBundle localizedString:@"Cancel"] style:UIBarButtonItemStylePlain target:self action:@selector(cancelAuthorization:)];
-#else
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[VKBundle localizedString:@"Cancel"] style:UIBarButtonItemStyleBordered target:self action:@selector(cancelAuthorization:)];
-#endif
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAuthorization:)];
     }
 }
 
