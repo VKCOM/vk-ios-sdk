@@ -80,6 +80,7 @@
 		F32ADDCF1A417CE9009A9FD6 /* ic_vk_activity_logo@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F32ADDCA1A417C4C009A9FD6 /* ic_vk_activity_logo@2x~ipad.png */; };
 		F32ADDD01A417CE9009A9FD6 /* ic_vk_activity_logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F32ADDCB1A417C4C009A9FD6 /* ic_vk_activity_logo@3x.png */; };
 		F32ADDD11A417CE9009A9FD6 /* ic_vk_activity_logo~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F32ADDCC1A417C4C009A9FD6 /* ic_vk_activity_logo~ipad.png */; };
+		F34074F61D214AAC00F65798 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3769E701BE8E41C00AEC4AF /* SafariServices.framework */; };
 		F3454FD01ABB1D1A00B15E85 /* VKRequestsScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = F3454FCF1ABB1D1A00B15E85 /* VKRequestsScheduler.m */; };
 		F34670201B8B6BF3003EF74B /* VKSdk.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F34670171B8B50E0003EF74B /* VKSdk.h */; };
 		F34670361B8B7C5A003EF74B /* VKSdkFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = F34670351B8B7C5A003EF74B /* VKSdkFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -290,6 +291,8 @@
 		F3BACC481865905B003158DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3BACC461865905B003158DA /* InfoPlist.strings */; };
 		F3BACC61186883E8003158DA /* ic_vk_logo_nb.png in Resources */ = {isa = PBXBuildFile; fileRef = F3BACC5F186883E8003158DA /* ic_vk_logo_nb.png */; };
 		F3BACC62186883E8003158DA /* ic_vk_logo_nb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3BACC60186883E8003158DA /* ic_vk_logo_nb@2x.png */; };
+		F3C58CD01D213B2C005E94B5 /* VKSdkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C58CCF1D213B2C005E94B5 /* VKSdkTests.m */; };
+		F3C58CF61D2140F4005E94B5 /* libVKSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C7542D182133CC00964716 /* libVKSdk.a */; };
 		F3C68F151C0C7E6600E1EB5E /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3769E701BE8E41C00AEC4AF /* SafariServices.framework */; };
 		F3C68F171C0C855C00E1EB5E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C68F161C0C855C00E1EB5E /* Security.framework */; };
 		F3C68F181C0C857F00E1EB5E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3769E6E1BE8E41800AEC4AF /* CoreGraphics.framework */; };
@@ -306,6 +309,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = F3BACC3F1865905B003158DA;
 			remoteInfo = VKSdkResources;
+		};
+		F3C58CF41D2140D2005E94B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3C75425182133CB00964716 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F3C7542C182133CC00964716;
+			remoteInfo = VKSdk;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -515,6 +525,9 @@
 		F3BACC5718659493003158DA /* VKBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKBundle.m; sourceTree = "<group>"; };
 		F3BACC5F186883E8003158DA /* ic_vk_logo_nb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_vk_logo_nb.png; sourceTree = "<group>"; };
 		F3BACC60186883E8003158DA /* ic_vk_logo_nb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_vk_logo_nb@2x.png"; sourceTree = "<group>"; };
+		F3C58CCD1D213B2C005E94B5 /* VKSdkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VKSdkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3C58CCF1D213B2C005E94B5 /* VKSdkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKSdkTests.m; sourceTree = "<group>"; };
+		F3C58CD11D213B2C005E94B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3C68F161C0C855C00E1EB5E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F3C7542D182133CC00964716 /* libVKSdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVKSdk.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3C75430182133CC00964716 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -548,6 +561,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3C58CCA1D213B2C005E94B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F34074F61D214AAC00F65798 /* SafariServices.framework in Frameworks */,
+				F3C58CF61D2140F4005E94B5 /* libVKSdk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -791,12 +813,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F3C58CCE1D213B2C005E94B5 /* VKSdkTests */ = {
+			isa = PBXGroup;
+			children = (
+				F3C58CCF1D213B2C005E94B5 /* VKSdkTests.m */,
+				F3C58CD11D213B2C005E94B5 /* Info.plist */,
+			);
+			path = VKSdkTests;
+			sourceTree = "<group>";
+		};
 		F3C75424182133CB00964716 = {
 			isa = PBXGroup;
 			children = (
 				F3C75432182133CC00964716 /* VKSdk */,
 				F3BACC431865905B003158DA /* Resources */,
 				F34670321B8B7C5A003EF74B /* DynamicFramework */,
+				F3C58CCE1D213B2C005E94B5 /* VKSdkTests */,
 				F3C7542F182133CC00964716 /* Frameworks */,
 				F3C7542E182133CC00964716 /* Products */,
 			);
@@ -808,6 +840,7 @@
 				F3C7542D182133CC00964716 /* libVKSdk.a */,
 				F3BACC401865905B003158DA /* VKSdkResources.bundle */,
 				F34670311B8B7C5A003EF74B /* VKSdkFramework.framework */,
+				F3C58CCD1D213B2C005E94B5 /* VKSdkTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -965,6 +998,24 @@
 			productReference = F3BACC401865905B003158DA /* VKSdkResources.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
+		F3C58CCC1D213B2C005E94B5 /* VKSdkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3C58CD41D213B2C005E94B5 /* Build configuration list for PBXNativeTarget "VKSdkTests" */;
+			buildPhases = (
+				F3C58CC91D213B2C005E94B5 /* Sources */,
+				F3C58CCA1D213B2C005E94B5 /* Frameworks */,
+				F3C58CCB1D213B2C005E94B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F3C58CF51D2140D2005E94B5 /* PBXTargetDependency */,
+			);
+			name = VKSdkTests;
+			productName = VKSdkTests;
+			productReference = F3C58CCD1D213B2C005E94B5 /* VKSdkTests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		F3C7542C182133CC00964716 /* VKSdk */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F3C75450182133CC00964716 /* Build configuration list for PBXNativeTarget "VKSdk" */;
@@ -997,6 +1048,12 @@
 					F34670301B8B7C5A003EF74B = {
 						CreatedOnToolsVersion = 6.4;
 					};
+					F3C58CCC1D213B2C005E94B5 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = R26JY69RPL;
+						DevelopmentTeamName = VKontakte;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = F3C75428182133CB00964716 /* Build configuration list for PBXProject "VK-ios-sdk" */;
@@ -1016,6 +1073,7 @@
 				F3C7542C182133CC00964716 /* VKSdk */,
 				F3BACC3F1865905B003158DA /* VKSdkResources */,
 				F34670301B8B7C5A003EF74B /* VKSdkFramework */,
+				F3C58CCC1D213B2C005E94B5 /* VKSdkTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1095,6 +1153,13 @@
 				F36114C81977DC2D0085898F /* ic_deleteattach@2x.png in Resources */,
 				F32ADDD11A417CE9009A9FD6 /* ic_vk_activity_logo~ipad.png in Resources */,
 				F3062B871A418A0E006B57F9 /* ic_vk_ios7_activity_logo@2x~ipad.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3C58CCB1D213B2C005E94B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1187,6 +1252,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F3C58CC91D213B2C005E94B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3C58CD01D213B2C005E94B5 /* VKSdkTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F3C75429182133CC00964716 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1256,6 +1329,11 @@
 			isa = PBXTargetDependency;
 			target = F3BACC3F1865905B003158DA /* VKSdkResources */;
 			targetProxy = F34670261B8B7A59003EF74B /* PBXContainerItemProxy */;
+		};
+		F3C58CF51D2140D2005E94B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F3C7542C182133CC00964716 /* VKSdk */;
+			targetProxy = F3C58CF41D2140D2005E94B5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1384,6 +1462,51 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		F3C58CD21D213B2C005E94B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = VKSdkTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.truba.VKSdkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		F3C58CD31D213B2C005E94B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = VKSdkTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.truba.VKSdkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -1518,6 +1641,15 @@
 			buildConfigurations = (
 				F3BACC4B1865905B003158DA /* Debug */,
 				F3BACC4C1865905B003158DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F3C58CD41D213B2C005E94B5 /* Build configuration list for PBXNativeTarget "VKSdkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3C58CD21D213B2C005E94B5 /* Debug */,
+				F3C58CD31D213B2C005E94B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
