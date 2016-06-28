@@ -26,6 +26,7 @@
 #import <Foundation/Foundation.h>
 #import "VKAccessToken.h"
 #import "VKAuthorizationResult.h"
+#import "VKRequest.h"
 
 /**
  Options used for authorization.

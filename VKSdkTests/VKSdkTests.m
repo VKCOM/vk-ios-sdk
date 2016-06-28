@@ -11,6 +11,7 @@
 #import "VKUtil.h"
 #import "VKSdk.h"
 
+
 @interface VKSdkTests : XCTestCase
 
 @end
