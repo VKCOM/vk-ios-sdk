@@ -30,6 +30,8 @@
 #import "VKHTTPClient.h"
 #import "VKHTTPOperation.h"
 #import "VKSharedTransitioningObject.h"
+#import "VKPermissions.h"
+#import "NSError+VKError.h"
 
 
 ///----------------------------
@@ -116,7 +118,7 @@
 - (instancetype)initWithPostSettings:(VKPostSettings *)settings;
 @end
 
-@interface VKShareDialogControllerInternal : UIViewController <UITextViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, VKSdkDelegate, VKSdkUIDelegate>
+@interface VKShareDialogControllerInternal : UIViewController <UITextViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, VKSdkDelegate>
 @property(nonatomic, weak) VKShareDialogController *parent;
 @property(nonatomic, readonly) UICollectionView *attachmentsScrollView;
 @property(nonatomic, strong) UIBarButtonItem *sendButton;
@@ -124,7 +126,6 @@
 @property(nonatomic, strong) VKPostSettings *postSettings;
 @property(nonatomic, assign) BOOL prepared;
 
-@property(nonatomic, weak) id <VKSdkUIDelegate> oldDelegate;
 @end
 
 @interface VKHelperNavigationController : UINavigationController
@@ -860,14 +861,6 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     [[VKSdk instance] registerDelegate:self];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-
-    if (self.oldDelegate) {
-        [VKSdk instance].uiDelegate = self.oldDelegate;
-    }
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (self.prepared) return;
@@ -1021,17 +1014,13 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 }
 
 - (void)authorize:(id)sender {
-    self.oldDelegate = [VKSdk instance].uiDelegate;
-
-    [VKSdk instance].uiDelegate = self;
     [VKSdk authorize:self.parent.requestedScope];
 }
 
 #pragma mark - VK SDK Delegate
 
-- (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {
-    VKCaptchaViewController *captcha = [VKCaptchaViewController captchaControllerWithError:captchaError];
-    [self.navigationController presentViewController:captcha animated:YES completion:nil];
+-(BOOL)vkSdkShouldDisplayCaptchaDialog:(VKError *)captchaError {
+    return YES;
 }
 
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller {
@@ -1039,7 +1028,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         [self.navigationController presentViewController:controller animated:YES completion:nil];
     } else if ([controller isKindOfClass:[UINavigationController class]]) {
         UINavigationController *nav = (UINavigationController *) controller;
-        UIViewController *target = nav.viewControllers[0];
+        UIViewController *target = nav.topViewController;
         nav.viewControllers = @[];
         [self.navigationController pushViewController:target animated:YES];
     } else {
@@ -1058,6 +1047,8 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 - (void)vkSdkUserAuthorizationFailed {
     [self setAuthorizationState:VKAuthorizationError];
 }
+
+
 
 #pragma mark -Attachments
 

@@ -33,15 +33,12 @@ FOUNDATION_EXPORT const unsigned char VKSdkFrameworkVersionString[];
 #import <VKSdkFramework/VKSdk.h>
 #import <VKSdkFramework/VKAccessToken.h>
 #import <VKSdkFramework/VKPermissions.h>
-#import <VKSdkFramework/VKUtil.h>
 #import <VKSdkFramework/VKApi.h>
 #import <VKSdkFramework/VKApiConst.h>
 #import <VKSdkFramework/VKSdkVersion.h>
 #import <VKSdkFramework/VKCaptchaViewController.h>
-#import <VKSdkFramework/VKRequest.h>
 #import <VKSdkFramework/VKBatchRequest.h>
 #import <VKSdkFramework/NSError+VKError.h>
-#import <VKSdkFramework/VKApiModels.h>
 #import <VKSdkFramework/VKUploadImage.h>
 #import <VKSdkFramework/VKShareDialogController.h>
 #import <VKSdkFramework/VKActivity.h>
@@ -57,6 +54,3 @@ FOUNDATION_EXPORT const unsigned char VKSdkFrameworkVersionString[];
 #import <VKSdkFramework/VKHTTPOperation.h>
 #import <VKSdkFramework/VKJSONOperation.h>
 #import <VKSdkFramework/VKRequestsScheduler.h>
-#import <VKSdkFramework/VKSharedTransitioningObject.h>
-#import <VKSdkFramework/NSString+MD5.h>
-#import <VKSdkFramework/NSData+MD5.h>

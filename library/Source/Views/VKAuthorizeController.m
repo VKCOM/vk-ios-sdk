@@ -22,6 +22,11 @@
 
 #import "VKAuthorizeController.h"
 #import "VKBundle.h"
+#import "UIViewController+VKSDK.h"
+#import "VKUtil.h"
+#import "VKSdkVersion.h"
+#import "NSError+VKError.h"
+#import "VKRequest.h"
 
 NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 

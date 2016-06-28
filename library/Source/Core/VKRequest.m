@@ -21,13 +21,14 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <NSString+MD5.h>
-
+#import "VKRequest.h"
 #import "VKSdk.h"
 #import "OrderedDictionary.h"
 #import "VKAuthorizeController.h"
 #import "VKHTTPClient.h"
 #import "VKJSONOperation.h"
 #import "VKRequestsScheduler.h"
+#import "NSError+VKError.h"
 
 #define SUPPORTED_LANGS_ARRAY @[@"ru", @"en", @"uk", @"es", @"fi", @"de", @"it"]
 
@@ -496,7 +497,7 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
     //Then we generate "request string" /method/{METHOD_NAME}?{GET_PARAMS}{POST_PARAMS}
     NSString *requestString = [NSString stringWithFormat:@"/method/%@?%@", _methodName, [paramsArray componentsJoinedByString:@"&"]];
     requestString = [requestString stringByAppendingString:token.secret];
-    return [requestString MD5];
+    return [requestString vks_md5];
 }
 
 - (BOOL)processCommonError:(VKError *)error {

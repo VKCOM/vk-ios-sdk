@@ -24,7 +24,8 @@
 //
 
 #import "VKAccessToken.h"
-#import "VKSdk.h"
+#import "VKAccessToken+Private.h"
+#import "VKUtil.h"
 
 static NSString *const ACCESS_TOKEN = @"access_token";
 static NSString *const EXPIRES_IN = @"expires_in";

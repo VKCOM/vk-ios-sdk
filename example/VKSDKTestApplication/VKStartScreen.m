@@ -26,7 +26,7 @@ static NSString *const TOKEN_KEY = @"my_application_access_token";
 static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
 static NSArray *SCOPE = nil;
 
-@interface VKStartScreen () <UIAlertViewDelegate, VKSdkUIDelegate>
+@interface VKStartScreen () <UIAlertViewDelegate>
 
 @end
 
@@ -36,7 +36,7 @@ static NSArray *SCOPE = nil;
     SCOPE = @[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_EMAIL, VK_PER_MESSAGES];
     [super viewDidLoad];
     [[VKSdk initializeWithAppId:@"3974615"] registerDelegate:self];
-    [[VKSdk instance] setUiDelegate:self];
+
     [VKSdk wakeUpSession:SCOPE completeBlock:^(VKAuthorizationState state, NSError *error) {
         if (state == VKAuthorizationAuthorized) {
             [self startWorking];
@@ -70,9 +70,8 @@ static NSArray *SCOPE = nil;
 }
 
 
-- (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {
-    VKCaptchaViewController *vc = [VKCaptchaViewController captchaControllerWithError:captchaError];
-    [vc presentIn:self.navigationController.topViewController];
+- (BOOL)vkSdkShouldDisplayCaptchaDialog:(VKError *)captchaError{
+    return YES;
 }
 
 - (void)vkSdkTokenHasExpired:(VKAccessToken *)expiredToken {

@@ -24,6 +24,6 @@
 
 @interface NSString (MD5)
 
-- (NSString *)MD5;
+- (NSString *)vks_md5;
 
 @end

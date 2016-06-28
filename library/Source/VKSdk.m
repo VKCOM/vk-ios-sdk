@@ -39,6 +39,21 @@
 #import "VKSdk.h"
 #import "VKAuthorizeController.h"
 #import "VKRequestsScheduler.h"
+#import "UIViewController+VKSDK.h"
+#import "VKAccessToken+Private.h"
+#import "VKUtil.h"
+#import "VKRequest.h"
+#import "VKSdkVersion.h"
+#import "VKPermissions.h"
+#import "NSError+VKError.h"
+#import "VKCaptchaViewController.h"
+//#import "VKApi.h"
+//#import "VKApiConst.h"
+//#import "VKBatchRequest.h"
+//#import "VKApiModels.h"
+//#import "VKUploadImage.h"
+//#import "VKShareDialogController.h"
+//#import "VKActivity.h"
 
 @interface VKWeakDelegate : NSProxy <VKSdkDelegate>
 @property(nonatomic, weak) id <VKSdkDelegate> weakTarget;
@@ -51,7 +66,7 @@
 
 @interface VKSdk () <SFSafariViewControllerDelegate>
 
-@property(nonatomic, readonly, strong) NSMutableArray *sdkDelegates;
+@property(nonatomic, readonly, strong) NSMutableArray<VKWeakDelegate*> *sdkDelegates;
 
 @property(nonatomic, assign) VKAuthorizationState authState;
 @property(nonatomic, assign) VKAuthorizationOptions lastKnownOptions;
@@ -60,6 +75,8 @@
 @property(nonatomic, readwrite, copy) NSString *apiVersion;
 @property(nonatomic, readwrite, strong) VKAccessToken *accessToken;
 @property(nonatomic, weak) UIViewController *presentedSafariViewController;
+@property(nonatomic, strong) UIWindow *sdkWindow;
+@property(nonatomic, strong) UIWindow *keyWindow;
 
 @property(nonatomic, strong) NSSet *permissions;
 @end
@@ -225,9 +242,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
         if (instance.presentedSafariViewController) {
             UIViewController *safariVC = instance.presentedSafariViewController;
             [safariVC vks_viewControllerWillDismiss];
-            [safariVC.presentingViewController dismissViewControllerAnimated:YES completion:^{
-                [safariVC vks_viewControllerDidDismiss];
-            }];
+            [safariVC.presentingViewController dismissViewControllerAnimated:YES completion:nil];
             instance.presentedSafariViewController = nil;
         }
     };
@@ -589,7 +604,13 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 @implementation VKError (CaptchaRequest)
 
 - (void)notifyCaptchaRequired {
-    [[VKSdk instance].uiDelegate vkSdkNeedCaptchaEnter:self];
+    VKSdk *instance = [VKSdk instance];
+    VKWeakDelegate *delegate = instance.sdkDelegates.lastObject;
+    if (delegate == nil || [delegate vkSdkShouldDisplayCaptchaDialog:self]) {
+        VKCaptchaViewController *captcha = [VKCaptchaViewController captchaControllerWithError:self];
+        [captcha vks_presentViewControllerThroughDelegate];
+        
+    }
 }
 
 - (void)notifyAuthorizationFailed {
@@ -601,20 +622,39 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 
 @implementation UIViewController (VKController)
 
+static void vks_dispatch_after(NSTimeInterval seconds, void (^block)(void)) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
+}
+
 - (void)vks_presentViewControllerThroughDelegate {
-    [[VKSdk instance].uiDelegate vkSdkShouldPresentViewController:self];
+    VKSdk *instance = [VKSdk instance];
+    if (instance.sdkWindow == nil) {
+        instance.keyWindow = [UIApplication sharedApplication].keyWindow;
+        UIWindow *newWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        newWindow.rootViewController = [[UIViewController alloc] initWithNibName:nil bundle:nil];
+        instance.sdkWindow = newWindow;
+    }
+    [instance.sdkWindow makeKeyAndVisible];
+    //Avoid unbalanced calls
+    vks_dispatch_after(0.1, ^{
+        [instance.sdkWindow.rootViewController presentViewController:self animated:YES completion:nil];
+    });
 }
 
 - (void)vks_viewControllerWillDismiss {
-    if ([[VKSdk instance].uiDelegate respondsToSelector:@selector(vkSdkWillDismissViewController:)]) {
-        [[VKSdk instance].uiDelegate vkSdkWillDismissViewController:self];
+    if ([self isKindOfClass:[SFSafariViewController class]]) {
+        vks_dispatch_after(0.3, ^{
+            [self vks_viewControllerDidDismiss];
+        });
     }
 }
 
 - (void)vks_viewControllerDidDismiss {
-    if ([[VKSdk instance].uiDelegate respondsToSelector:@selector(vkSdkDidDismissViewController:)]) {
-        [[VKSdk instance].uiDelegate vkSdkDidDismissViewController:self];
-    }
+    VKSdk *instance = [VKSdk instance];
+    [instance.keyWindow makeKeyWindow];
+    instance.sdkWindow.hidden = YES;
+    instance.sdkWindow = nil;
+    instance.keyWindow = nil;
 }
 
 @end

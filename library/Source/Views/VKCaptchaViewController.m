@@ -24,6 +24,7 @@
 #import "VKCaptchaView.h"
 #import "VKUtil.h"
 #import "VKSharedTransitioningObject.h"
+#import "UIViewController+VKSDK.h"
 
 @interface VKCaptchaViewController ()
 @property(nonatomic, strong) VKCaptchaView *captchaView;
@@ -57,7 +58,10 @@
 }
 
 - (void)captchaDidAnswered {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [self vks_viewControllerWillDismiss];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+        [self vks_viewControllerDidDismiss];
+    }];
 }
 
 - (CGRect)captchaFrameForScreenSize:(CGSize)screenSize {

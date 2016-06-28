@@ -25,19 +25,6 @@
 
 #import <Foundation/Foundation.h>
 #import "VKAccessToken.h"
-#import "VKPermissions.h"
-#import "VKUtil.h"
-#import "VKApi.h"
-#import "VKApiConst.h"
-#import "VKSdkVersion.h"
-#import "VKCaptchaViewController.h"
-#import "VKRequest.h"
-#import "VKBatchRequest.h"
-#import "NSError+VKError.h"
-#import "VKApiModels.h"
-#import "VKUploadImage.h"
-#import "VKShareDialogController.h"
-#import "VKActivity.h"
 #import "VKAuthorizationResult.h"
 
 /**
@@ -70,6 +57,13 @@ typedef NS_OPTIONS(NSUInteger, VKAuthorizationOptions) {
  */
 - (void)vkSdkUserAuthorizationFailed;
 
+/**
+ Calls when user must perform captcha-check.
+ 
+ @param captchaError error returned from API. You can load captcha image from <b>captchaImg</b> property.
+ */
+- (BOOL)vkSdkShouldDisplayCaptchaDialog:(VKError *)captchaError;
+
 @optional
 
 /**
@@ -95,40 +89,6 @@ typedef NS_OPTIONS(NSUInteger, VKAuthorizationOptions) {
  @param expiredToken old token that has expired.
  */
 - (void)vkSdkTokenHasExpired:(VKAccessToken *)expiredToken;
-
-@end
-
-/**
- SDK UI delegate protocol.
- 
- This delegate used for managing UI events, when SDK required user action.
- */
-@protocol VKSdkUIDelegate <NSObject>
-/**
- Pass view controller that should be presented to user. Usually, it's an authorization window.
- 
- @param controller view controller that must be shown to user
- */
-- (void)vkSdkShouldPresentViewController:(UIViewController *)controller;
-
-/**
- Calls when user must perform captcha-check.
- If you implementing this method by yourself, call -[VKError answerCaptcha:] method for captchaError with user entered answer.
- 
- @param captchaError error returned from API. You can load captcha image from <b>captchaImg</b> property.
- */
-- (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError;
-
-@optional
-/**
- * Called when a controller presented by SDK will be dismissed.
- */
-- (void)vkSdkWillDismissViewController:(UIViewController *)controller;
-
-/**
- * Called when a controller presented by SDK did dismiss.
- */
-- (void)vkSdkDidDismissViewController:(UIViewController *)controller;
 
 @end
 
@@ -189,9 +149,6 @@ typedef NS_OPTIONS(NSUInteger, VKAuthorizationOptions) {
 ///-------------------------------
 /// @name Delegate
 ///-------------------------------
-
-/// Delegate for managing user interaction, when SDK required
-@property(nonatomic, readwrite, weak) id <VKSdkUIDelegate> uiDelegate;
 
 /// Returns a last app_id used for initializing the SDK
 @property(nonatomic, readonly, copy) NSString *currentAppId;
@@ -327,22 +284,5 @@ Enables or disables scheduling for requests
 - (instancetype)init NS_UNAVAILABLE;
 
 + (instancetype)new NS_UNAVAILABLE;
-
-@end
-
-
-@interface UIViewController (VKController)
-
-- (void)vks_presentViewControllerThroughDelegate;
-
-- (void)vks_viewControllerWillDismiss;
-
-- (void)vks_viewControllerDidDismiss;
-
-@end
-
-@interface VKAccessToken (Private)
-
-- (void)notifyTokenExpired;
 
 @end

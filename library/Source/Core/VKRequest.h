@@ -23,7 +23,6 @@
 #import <Foundation/Foundation.h>
 #import "VKResponse.h"
 #import "VKApiConst.h"
-#import "VKObject.h"
 
 
 /**
