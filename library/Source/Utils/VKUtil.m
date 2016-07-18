@@ -47,11 +47,16 @@
     if ([number isKindOfClass:[NSNumber class]])
         return (NSNumber *) number;
     static dispatch_once_t onceToken;
+    static dispatch_semaphore_t semaphore;
     static NSNumberFormatter *formatter;
     dispatch_once(&onceToken, ^{
         formatter = [[NSNumberFormatter alloc] init];
+        semaphore = dispatch_semaphore_create(1);
     });
-    return [formatter numberFromString:number];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    NSNumber *value = [formatter numberFromString:number];
+    dispatch_semaphore_signal(semaphore);
+    return value;
 }
 
 + (UIColor *)colorWithRGB:(NSInteger)rgb {
@@ -61,13 +66,13 @@
 static NSString *const kCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()',*";
 
 + (NSString *)escapeString:(NSString *)value {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_9_0
     return (__bridge_transfer NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef) value, NULL, (__bridge CFStringRef) kCharactersToBeEscapedInQueryString, CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
 #else 
     static NSCharacterSet *charset = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        charset = [NSCharacterSet URLHostAllowedCharacterSet];
+        charset = [[NSCharacterSet characterSetWithCharactersInString:kCharactersToBeEscapedInQueryString] invertedSet];
     });
     return [value stringByAddingPercentEncodingWithAllowedCharacters:charset];
 #endif
