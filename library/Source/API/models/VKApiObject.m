@@ -36,8 +36,6 @@ static NSString *const DOUBLE_NAME = @"double";
 static NSString *const BOOL_NAME = @"bool";
 static NSString *const ID_NAME = @"id";
 
-static NSMutableDictionary *classesProperties = nil;
-
 static NSString *getPropertyType(objc_property_t property) {
     const char *type = property_getAttributes(property);
     NSString *typeString = [NSString stringWithUTF8String:type];
@@ -135,15 +133,18 @@ static NSString *getPropertyName(objc_property_t prop) {
 }
 
 - (void)parse:(NSDictionary *)dict {
+    static NSMutableDictionary *classesProperties = nil;
+    static dispatch_semaphore_t classSemaphore = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         classesProperties = [NSMutableDictionary dictionary];
+        classSemaphore = dispatch_semaphore_create(1);
     });
     NSString *className = NSStringFromClass(self.class);
     __block NSMutableDictionary *propDict = nil;
-    @synchronized (classesProperties) {
-        propDict = [classesProperties objectForKey:className];
-    }
+    
+    dispatch_semaphore_wait(classSemaphore, DISPATCH_TIME_FOREVER);
+    propDict = [classesProperties objectForKey:className];
     if (!propDict) {
         [self enumPropertiesWithBlock:^(VKPropertyHelper *helper, int totalProps) {
             if (!propDict)
@@ -153,10 +154,9 @@ static NSString *getPropertyName(objc_property_t prop) {
         if (!propDict) {
             propDict = [NSMutableDictionary new];
         }
-        @synchronized (classesProperties) {
-            classesProperties[className] = propDict;
-        }
+        classesProperties[className] = propDict;
     }
+    dispatch_semaphore_signal(classSemaphore);
     NSMutableArray *warnings = PRINT_PARSE_DEBUG_INFO ? [NSMutableArray new] : nil;
     for (NSString *key in dict) {
         VKPropertyHelper *propHelper = propDict[key];
