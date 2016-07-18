@@ -55,7 +55,7 @@
     VKError *error = [VKError new];
     error.errorCode = VK_API_ERROR;
     error.errorReason = queryParams[@"error_reason"];
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_8_0
     error.errorMessage = [queryParams[@"error_description"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 #else 
     error.errorMessage = [queryParams[@"error_description"] stringByRemovingPercentEncoding];
