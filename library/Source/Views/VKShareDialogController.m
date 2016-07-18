@@ -944,10 +944,11 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
 }
 
 - (void)close:(id)sender {
-    if (self.parent.completionHandler != NULL) {
-        self.parent.completionHandler(self.parent, VKShareDialogControllerResultCancelled);
+    __strong typeof(self.parent) parent = self.parent;
+    if (parent.completionHandler != NULL) {
+        parent.completionHandler(parent, VKShareDialogControllerResultCancelled);
     }
-    if (self.parent.dismissAutomatically) {
+    if (parent.dismissAutomatically) {
         [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     }
 }
@@ -969,8 +970,9 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         }
         [attachStrings addObject:attach.attachmentString];
     }
-    if (self.parent.shareLink) {
-        [attachStrings addObject:[self.parent.shareLink.link absoluteString]];
+    __strong typeof(self.parent) parent = self.parent;
+    if (parent.shareLink) {
+        [attachStrings addObject:[parent.shareLink.link absoluteString]];
     }
 
     VKRequest *post = [[VKApi wall] post:@{VK_API_MESSAGE : textView.text ?: @"",
@@ -985,12 +987,12 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     [post executeWithResultBlock:^(VKResponse *response) {
         NSNumber *post_id = VK_ENSURE_NUM(response.json[@"post_id"]);
         if (post_id) {
-            self.parent.postId = [NSString stringWithFormat:@"%@_%@", [VKSdk accessToken].userId, post_id];
+            parent.postId = [NSString stringWithFormat:@"%@_%@", [VKSdk accessToken].userId, post_id];
         }
-        if (self.parent.completionHandler != NULL) {
-            self.parent.completionHandler(self.parent, VKShareDialogControllerResultDone);
+        if (parent.completionHandler != NULL) {
+            parent.completionHandler(parent, VKShareDialogControllerResultDone);
         }
-        if (self.parent.dismissAutomatically) {
+        if (parent.dismissAutomatically) {
             [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
         }
     }                 errorBlock:^(NSError *error) {
@@ -999,7 +1001,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         textView.editable = YES;
         [textView becomeFirstResponder];
         
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_8_0
         [[[UIAlertView alloc] initWithTitle:nil message:VKLocalizedString(@"ErrorWhilePosting") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 #else
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:VKLocalizedString(@"ErrorWhilePosting") preferredStyle:UIAlertControllerStyleAlert];
@@ -1059,7 +1061,8 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     self.attachmentsArray = [NSMutableArray new];
     VKShareDialogView *shareDialogView = (VKShareDialogView *) self.view;
     //Attach and upload images
-    for (VKUploadImage *img in self.parent.uploadImages) {
+    __strong typeof(self.parent) parent = self.parent;
+    for (VKUploadImage *img in parent.uploadImages) {
         if (!(img.imageData || img.sourceImage)) continue;
         CGSize size = img.sourceImage.size;
         size = CGSizeMake(MAX(floorf(size.width * maxHeight / size.height), 50.f), maxHeight);
@@ -1088,9 +1091,9 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         attach.uploadingRequest = uploadRequest;
     }
 
-    if (self.parent.vkImages.count) {
+    if (parent.vkImages.count) {
         NSMutableDictionary *attachById = [NSMutableDictionary new];
-        for (NSString *photo in self.parent.vkImages) {
+        for (NSString *photo in parent.vkImages) {
             NSAssert([photo isKindOfClass:[NSString class]], @"vkImages must contains only string photo ids");
             if (attachById[photo]) continue;
             VKUploadingAttachment *attach = [VKUploadingAttachment new];
@@ -1101,7 +1104,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
             attachById[photo] = attach;
         }
 
-        VKRequest *req = [VKRequest requestWithMethod:@"photos.getById" parameters:@{@"photos" : [self.parent.vkImages componentsJoinedByString:@","], @"photo_sizes" : @1} modelClass:[VKPhotoArray class]];
+        VKRequest *req = [VKRequest requestWithMethod:@"photos.getById" parameters:@{@"photos" : [parent.vkImages componentsJoinedByString:@","], @"photo_sizes" : @1} modelClass:[VKPhotoArray class]];
         [req executeWithResultBlock:^(VKResponse *res) {
             VKPhotoArray *photos = res.parsedModel;
             NSArray *requiredSizes = @[@"p", @"q", @"m"];
@@ -1158,8 +1161,8 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     [self.attachmentsScrollView reloadData];
     [shareDialogView setNeedsLayout];
 
-    if (self.parent.shareLink) {
-        [shareDialogView setShareLink:self.parent.shareLink];
+    if (parent.shareLink) {
+        [shareDialogView setShareLink:parent.shareLink];
     }
 }
 
