@@ -496,7 +496,7 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
     //Then we generate "request string" /method/{METHOD_NAME}?{GET_PARAMS}{POST_PARAMS}
     NSString *requestString = [NSString stringWithFormat:@"/method/%@?%@", _methodName, [paramsArray componentsJoinedByString:@"&"]];
     requestString = [requestString stringByAppendingString:token.secret];
-    return [requestString MD5];
+    return [requestString vks_md5];
 }
 
 - (BOOL)processCommonError:(VKError *)error {
