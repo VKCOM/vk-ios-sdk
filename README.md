@@ -200,7 +200,7 @@ Below we have listed some examples for several request types.
 
 1) Plain request
 ```
-VKRequest *audioReq = [[VKApi users] get];
+VKRequest *usersReq = [[VKApi users] get];
 ```
 
 2) Request with parameters
