@@ -230,7 +230,7 @@
 				ORGANIZATIONNAME = VK;
 				TargetAttributes = {
 					F3EEFF651827B1DD000BB525 = {
-						DevelopmentTeam = D4KTSC4PP8;
+						DevelopmentTeam = R26JY69RPL;
 					};
 				};
 			};
