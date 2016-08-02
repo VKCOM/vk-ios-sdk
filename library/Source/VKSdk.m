@@ -225,9 +225,14 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
         if (instance.presentedSafariViewController) {
             UIViewController *safariVC = instance.presentedSafariViewController;
             [safariVC vks_viewControllerWillDismiss];
-            [safariVC.presentingViewController dismissViewControllerAnimated:YES completion:^{
+            void (^dismissBlock)() = ^{
                 [safariVC vks_viewControllerDidDismiss];
-            }];
+            };
+            if (safariVC.isBeingDismissed) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), dismissBlock);
+            } else {
+                [safariVC.presentingViewController dismissViewControllerAnimated:YES completion:dismissBlock];
+            }
             instance.presentedSafariViewController = nil;
         }
     };
