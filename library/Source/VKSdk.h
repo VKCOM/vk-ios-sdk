@@ -275,6 +275,11 @@ Initialize SDK with responder for global SDK events.
 */
 + (VKAccessToken *)accessToken;
 
+/*
+ Settings access token
+*/
++ (void)setAccessToken:(VKAccessToken *)token;
+
 ///-------------------------------
 /// @name Other methods
 ///-------------------------------
