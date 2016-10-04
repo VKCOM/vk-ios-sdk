@@ -70,11 +70,11 @@ static inline NSNumber *VK_ENSURE_NUM(id obj) {
 }
 
 static inline NSDictionary *VK_ENSURE_DICT(id data) {
-    return [data isKindOfClass:NSDictionary.class] ? data : nil;
+    return [data isKindOfClass:[NSDictionary class]] ? data : nil;
 }
 
 static inline NSArray *VK_ENSURE_ARRAY(id data) {
-    return [data isKindOfClass:NSArray.class] ? data : nil;
+    return [data isKindOfClass:[NSArray class]] ? data : nil;
 }
 
 static inline id VK_ENSURE(id data, Class class) {
