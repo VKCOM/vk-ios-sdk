@@ -137,7 +137,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 
 + (void)authorize:(NSArray *)permissions withOptions:(VKAuthorizationOptions)options {
     permissions = permissions ?: @[];
-    NSMutableSet *permissionsSet = [NSMutableSet setWithArray:permissions ?: @[]];
+    NSMutableSet *permissionsSet = [NSMutableSet setWithArray:permissions];
 
     if (options & VKAuthorizationOptionsUnlimitedToken) {
         [permissionsSet addObject:VK_PER_OFFLINE];
