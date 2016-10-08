@@ -60,6 +60,7 @@
 static NSArray *labels = nil;
 static NSString *const USERS_GET = @"users.get";
 static NSString *const FRIENDS_GET = @"friends.get";
+static NSString *const AUDIO_GET = @"audio.get";
 static NSString *const FRIENDS_GET_FULL = @"friends.get with fields";
 static NSString *const USERS_SUBSCRIPTIONS = @"Pavel Durov subscribers";
 static NSString *const UPLOAD_PHOTO = @"Upload photo to wall";
@@ -78,7 +79,7 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (!labels)
-        labels = @[USERS_GET, USERS_SUBSCRIPTIONS, FRIENDS_GET, FRIENDS_GET_FULL, UPLOAD_PHOTO, UPLOAD_PHOTO_ALBUM, UPLOAD_PHOTOS, TEST_CAPTCHA, CALL_UNKNOWN_METHOD, TEST_VALIDATION, MAKE_SYNCHRONOUS, SHARE_DIALOG, TEST_ACTIVITY, TEST_APPREQUEST];
+        labels = @[USERS_GET, USERS_SUBSCRIPTIONS, AUDIO_GET, FRIENDS_GET, FRIENDS_GET_FULL, UPLOAD_PHOTO, UPLOAD_PHOTO_ALBUM, UPLOAD_PHOTOS, TEST_CAPTCHA, CALL_UNKNOWN_METHOD, TEST_VALIDATION, MAKE_SYNCHRONOUS, SHARE_DIALOG, TEST_ACTIVITY, TEST_APPREQUEST];
     return labels.count;
 }
 
@@ -126,6 +127,9 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
     else if ([label isEqualToString:MAKE_SYNCHRONOUS]) {
         VKUsersArray *users = [self loadUsers];
         NSLog(@"users %@", users);
+    }
+    else if ([label isEqualToString:AUDIO_GET]) {
+        [self callMethod:[VKRequest requestWithMethod:@"audio.get" parameters:nil modelClass:[VKAudios class]]];
     }
     else if ([label isEqualToString:SHARE_DIALOG]) {
 
