@@ -27,3 +27,15 @@
 @synthesize description = _description;
 
 @end
+
+@implementation VKVideos
+
+- (instancetype)initWithArray:(NSArray *)array {
+  return [super initWithArray:array objectClass:[VKVideo class]];
+}
+
+-(Class)objectClass {
+  return [VKVideo class];
+}
+
+@end

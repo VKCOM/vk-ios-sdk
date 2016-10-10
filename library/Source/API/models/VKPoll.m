@@ -28,7 +28,11 @@
 @implementation VKPollAnswers
 
 - (instancetype)initWithArray:(NSArray *)array {
-    return [super initWithArray:array objectClass:[VKPollAnswer class]];
+  return [super initWithArray:array objectClass:[VKPollAnswer class]];
+
+  -(Class)objectClass {
+    return [VKPollAnswer class];
+  }
 }
 
 @end

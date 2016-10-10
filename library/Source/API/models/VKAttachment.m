@@ -60,4 +60,8 @@
     return [super initWithArray:array objectClass:[VKAttachment class]];
 }
 
+-(Class)objectClass {
+  return [VKAttachment class];
+}
+
 @end

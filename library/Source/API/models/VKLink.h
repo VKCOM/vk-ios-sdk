@@ -37,3 +37,9 @@
 @property(nonatomic, strong) NSString *preview_url;
 
 @end
+
+/**
+ Array of Links
+ */
+@interface VKLinks : VKApiObjectArray
+@end

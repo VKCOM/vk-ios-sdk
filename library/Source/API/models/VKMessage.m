@@ -35,6 +35,10 @@
     return [super initWithArray:array objectClass:[VKFWDMessage class]];
 }
 
+-(Class)objectClass {
+  return [VKFWDMessage class];
+}
+
 @end
 
 @implementation VKPushSettings
@@ -56,6 +60,10 @@
 
 - (instancetype)initWithArray:(NSArray *)array {
     return [super initWithArray:array objectClass:[VKMessage class]];
+}
+
+-(Class)objectClass {
+  return [VKMessage class];
 }
 
 @end

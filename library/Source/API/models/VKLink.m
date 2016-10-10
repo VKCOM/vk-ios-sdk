@@ -27,3 +27,15 @@
 @synthesize description = _description;
 
 @end
+
+@implementation VKLinks
+
+- (instancetype)initWithArray:(NSArray *)array {
+  return [super initWithArray:array objectClass:[VKLink class]];
+}
+
+-(Class)objectClass {
+  return [VKLink class];
+}
+
+@end
