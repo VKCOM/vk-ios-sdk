@@ -178,6 +178,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
         // to open another app via URL. If user rejects, then no VK SDK callbacks are called.
         // Fixing this using new -[UIApplication openURL:options:completionHandler:] method (iOS 10+).
         
+#ifdef __IPHONE_10_0
         if ([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
             
             NSDictionary *options = @{ UIApplicationOpenURLOptionUniversalLinksOnly: @NO };
@@ -196,6 +197,9 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
         } else {
             [application openURL:urlToOpen];
         }
+#else
+        [application openURL:urlToOpen];
+#endif
     
         instance.authState = VKAuthorizationExternal;
     
