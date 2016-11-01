@@ -174,9 +174,10 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
         
         UIApplication *application = [UIApplication sharedApplication];
         
-        // Since iOS 10 there is a dialog asking user if he wants to allow the running app
+        // Since iOS 9 there is a dialog asking user if he wants to allow the running app
         // to open another app via URL. If user rejects, then no VK SDK callbacks are called.
-        // Fixing this using new -[UIApplication openURL:options:completionHandler:] method.
+        // Fixing this using new -[UIApplication openURL:options:completionHandler:] method (iOS 10+).
+        
         if ([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
             
             NSDictionary *options = @{ UIApplicationOpenURLOptionUniversalLinksOnly: @NO };
