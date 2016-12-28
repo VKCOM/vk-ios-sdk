@@ -121,3 +121,7 @@ typedef NS_ENUM(NSInteger, VKProgressType) {
     VKProgressTypeDownload
 };
 
+extern NSString *const VK_API_DOMAIN;
+extern NSString *const VK_API_FILTER;
+extern NSString *const VK_API_RANDOM_ID;
+
