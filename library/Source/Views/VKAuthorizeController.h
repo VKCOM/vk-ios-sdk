@@ -30,6 +30,10 @@ typedef NS_ENUM(NSInteger, VKAuthorizationType) {
     VKAuthorizationTypeApp
 };
 
+@interface VKNavigationController : UINavigationController
+
+@end
+
 @interface VKAuthorizationContext : VKObject
 @property (nonatomic, readonly, strong) NSString *clientId;
 @property (nonatomic, readonly, strong) NSString *displayType;

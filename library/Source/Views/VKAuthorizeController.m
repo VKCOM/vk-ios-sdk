@@ -37,7 +37,7 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 @property (nonatomic, assign) BOOL usingVkApp;
 @end
 
-@implementation UINavigationController (LastControllerBar)
+@implementation VKNavigationController
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     if (self.viewControllers.count)
@@ -60,7 +60,7 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 @property(nonatomic, strong) UILabel *statusBar;
 @property(nonatomic, strong) VKError *validationError;
 @property(nonatomic, strong) NSURLRequest *lastRequest;
-@property(nonatomic, weak) UINavigationController *internalNavigationController;
+@property(nonatomic, weak) VKNavigationController *internalNavigationController;
 @property(nonatomic, assign) BOOL finished;
 
 @end
@@ -82,7 +82,7 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 }
 
 + (void)presentThisController:(VKAuthorizeController *)controller {
-    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:controller];
+    VKNavigationController *navigation = [[VKNavigationController alloc] initWithRootViewController:controller];
 
     if ([VKUtil isOperatingSystemAtLeastIOS7]) {
         navigation.navigationBar.barTintColor = VK_COLOR;
