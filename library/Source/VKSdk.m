@@ -540,7 +540,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 }
 
 - (void)notifyDelegate:(SEL)sel obj:(id)obj {
-    for (VKWeakDelegate *del in self.sdkDelegates) {
+    for (VKWeakDelegate *del in [self.sdkDelegates copy]) {
         if ([del respondsToSelector:sel]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -554,7 +554,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
     VKAccessToken *old = _accessToken;
     _accessToken = accessToken;
 
-    for (VKWeakDelegate *del in self.sdkDelegates) {
+    for (VKWeakDelegate *del in [self.sdkDelegates copy]) {
         if ([del respondsToSelector:@selector(vkSdkAccessTokenUpdated:oldToken:)]) {
             [del performSelector:@selector(vkSdkAccessTokenUpdated:oldToken:) withObject:self.accessToken withObject:old];
         }
