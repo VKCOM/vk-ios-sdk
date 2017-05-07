@@ -600,6 +600,10 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
     }];
 }
 
++ (void)setOnline {
+    isOfflineMode = NO;
+}
+
 - (void)setCompleteBlock:(void (^)(VKResponse *))complete {
     _completeBlock = ^(VKResponse *response){
         
