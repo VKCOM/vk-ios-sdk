@@ -29,6 +29,8 @@
 #import "VKJSONOperation.h"
 #import "VKRequestsScheduler.h"
 
+static BOOL isOfflineMode = NO;
+
 #define SUPPORTED_LANGS_ARRAY @[@"ru", @"en", @"uk", @"es", @"fi", @"de", @"it"]
 
 void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
@@ -582,6 +584,8 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
 
 + (void) executeSetOfflineFunctionWithCompletion:(void (^)(NSError *error))errorBlock {
     
+    isOfflineMode = YES;
+    
     VKRequest *request = [VKRequest requestWithMethod:@"account.setOffline" parameters:nil];
     request.attempts = 3 ;
     
@@ -599,20 +603,30 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
 - (void)setCompleteBlock:(void (^)(VKResponse *))complete {
     _completeBlock = ^(VKResponse *response){
         
-        [VKRequest executeSetOfflineFunctionWithCompletion:^(NSError *error) {
+        if ([response.request.methodName isEqualToString:@"account.setOffline"] || !isOfflineMode) {
             complete (response);
-        }];
-        
+        } else {
+            
+            [VKRequest executeSetOfflineFunctionWithCompletion:^(NSError *error) {
+                complete (response);
+            }];
+            
+        }
     };
 }
 
-- (void) setErrorBlock:(void (^)(NSError *))errorBlock {
+/*- (void) setErrorBlock:(void (^)(NSError *))errorBlock {
     _errorBlock = ^(NSError *error) {
+        
+        if ([response.request.methodName isEqualToString:@"account.setOffline"]) {
+            complete (response);
+        } else {
+        
         [VKRequest executeSetOfflineFunctionWithCompletion:^(NSError *erroron) {
             errorBlock(error);
         }];
     };
 }
-
+*/
 
 @end
