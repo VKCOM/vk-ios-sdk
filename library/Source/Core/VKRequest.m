@@ -605,9 +605,9 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
 }
 
 - (void)setCompleteBlock:(void (^)(VKResponse *))complete {
-    _completeBlock = ^(VKResponse *response){
+    _completeBlock = ^(VKResponse *response) {
         
-        if ([response.request.methodName isEqualToString:@"account.setOffline"] || !isOfflineMode) {
+        if ([response.request.methodName isEqualToString:@"account.setOffline"] || !response.request || !isOfflineMode) {
             complete (response);
         } else {
             
