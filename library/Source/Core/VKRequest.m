@@ -578,5 +578,41 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
     return _executionOperation.isExecuting;
 }
 
+#pragma mark - Extra functions
+
++ (void) executeSetOfflineFunctionWithCompletion:(void (^)(NSError *error))errorBlock {
+    
+    VKRequest *request = [VKRequest requestWithMethod:@"account.setOffline" parameters:nil];
+    request.attempts = 3 ;
+    
+    [request executeWithResultBlock:^(VKResponse * response) {
+        
+        errorBlock(nil);
+        
+    } errorBlock:^(NSError * error) {
+        
+        errorBlock(error);
+        
+    }];
+}
+
+- (void)setCompleteBlock:(void (^)(VKResponse *))complete {
+    _completeBlock = ^(VKResponse *response){
+        
+        [VKRequest executeSetOfflineFunctionWithCompletion:^(NSError *error) {
+            complete (response);
+        }];
+        
+    };
+}
+
+- (void) setErrorBlock:(void (^)(NSError *))errorBlock {
+    _errorBlock = ^(NSError *error) {
+        [VKRequest executeSetOfflineFunctionWithCompletion:^(NSError *erroron) {
+            errorBlock(error);
+        }];
+    };
+}
+
 
 @end
