@@ -191,7 +191,7 @@ typedef NS_OPTIONS(NSUInteger, VKAuthorizationOptions) {
 ///-------------------------------
 
 /// Delegate for managing user interaction, when SDK required
-@property(nonatomic, readwrite, weak) id <VKSdkUIDelegate> uiDelegate;
+@property(nonatomic, readwrite) id <VKSdkUIDelegate> uiDelegate;
 
 /// Returns a last app_id used for initializing the SDK
 @property(nonatomic, readonly, copy) NSString *currentAppId;
