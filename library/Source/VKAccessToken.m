@@ -170,7 +170,7 @@ static NSString *const PERMISSIONS = @"permissions";
 + (instancetype)savedToken:(NSString *)defaultsKey {
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:defaultsKey];
     if (data) {
-        VKAccessToken *token = [self tokenFromUrlString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+        VKAccessToken *token = [NSKeyedUnarchiver unarchiveObjectWithData: data];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:defaultsKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self save:defaultsKey data:token];
@@ -227,6 +227,7 @@ static NSString *const PERMISSIONS = @"permissions";
 }
 
 + (void)save:(NSString *)service data:(VKAccessToken *)token {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:token] forKey:service];
     NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
     SecItemDelete((__bridge CFDictionaryRef) keychainQuery);
     keychainQuery[(__bridge id) kSecValueData] = [NSKeyedArchiver archivedDataWithRootObject:token];
