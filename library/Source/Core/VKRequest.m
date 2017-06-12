@@ -612,9 +612,9 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
         } else {
             
             [VKRequest executeSetOfflineFunctionWithCompletion:^(NSError *error) {
-                complete (response);
+                
             }];
-            
+            complete (response);
         }
     };
 }
