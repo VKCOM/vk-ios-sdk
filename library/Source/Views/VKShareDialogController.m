@@ -331,18 +331,24 @@ static const CGFloat ipadHeight = 500.f;
 }
 
 - (BOOL)shouldAutorotate {
-    return YES;
+    return self.parentViewController.shouldAutorotate;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-    return YES;
+    return [self.parentViewController shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
+    if (self.parentViewController) {
+        return [self.parentViewController preferredStatusBarStyle];
+    }
     return UIStatusBarStyleDefault;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    if (self.parentViewController) {
+        return [self.parentViewController supportedInterfaceOrientations]
+    }
     return UIInterfaceOrientationMaskAll;
 }
 
