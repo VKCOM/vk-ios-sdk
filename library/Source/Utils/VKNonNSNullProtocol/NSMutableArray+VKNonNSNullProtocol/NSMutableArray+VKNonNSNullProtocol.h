@@ -10,4 +10,6 @@
 
 @interface NSMutableArray (VKNonNSNullProtocol)
 
+- (void)removeNSNullObjects;
+
 @end

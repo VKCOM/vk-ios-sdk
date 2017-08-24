@@ -10,4 +10,6 @@
 
 @interface NSArray (VKNonNSNullProtocol)
 
+- (nonnull instancetype)withoutNSNullObjects;
+
 @end

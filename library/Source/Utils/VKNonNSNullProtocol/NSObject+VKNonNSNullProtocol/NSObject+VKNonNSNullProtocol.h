@@ -11,4 +11,7 @@
 
 @interface NSObject (VKNonNSNullProtocol) <VKNonNSNullProtocol>
 
+- (void)removeNSNullObjects;
+- (nonnull instancetype)withoutNSNullObjects;
+
 @end

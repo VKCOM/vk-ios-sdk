@@ -10,4 +10,6 @@
 
 @interface NSMutableDictionary (VKNonNSNullProtocol)
 
+- (void)removeNSNullObjects;
+
 @end

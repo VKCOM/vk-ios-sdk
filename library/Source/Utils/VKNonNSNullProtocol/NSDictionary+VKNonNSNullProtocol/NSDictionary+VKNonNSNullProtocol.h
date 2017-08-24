@@ -10,4 +10,6 @@
 
 @interface NSDictionary (VKNonNSNullProtocol)
 
+- (nonnull instancetype)withoutNSNullObjects;
+
 @end
