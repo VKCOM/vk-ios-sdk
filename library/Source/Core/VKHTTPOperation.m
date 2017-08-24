@@ -26,6 +26,7 @@
 #import "VKHTTPOperation.h"
 #import "VKRequest.h"
 #import "NSError+VKError.h"
+#import "NSObject+VKNonNSNullProtocol.h"
 
 NSString *const VKNetworkingOperationFailingURLRequestErrorKey = @"VKNetworkingOperationFailingURLRequestErrorKey";
 NSString *const VKNetworkingOperationFailingURLResponseErrorKey = @"VKNetworkingOperationFailingURLResponseErrorKey";
@@ -217,6 +218,7 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 
             if (data) {
                 self.responseJson = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                [self.responseJson removeNSNullObjects];
             }
             else {
                 NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
