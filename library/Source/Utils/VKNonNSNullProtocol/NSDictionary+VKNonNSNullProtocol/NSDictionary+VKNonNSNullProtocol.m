@@ -11,14 +11,12 @@
 @implementation NSDictionary (VKNonNSNullProtocol)
 
 - (nonnull instancetype)withoutNSNullObjects {
-    NSMutableDictionary *returned = self.mutableCopy;
+    NSMutableDictionary *returned = [NSMutableDictionary dictionary];
     NSNull *null = NSNull.null;
-    for (NSObject *key in returned.allKeys) {
-        NSObject *value = returned[key];
-        if (value == null) {
-            [returned removeObjectForKey:key];
-        } else {
-            [value removeNSNullObjects];
+    for (NSObject<NSCopying> *key in self.allKeys) {
+        NSObject *value = self[key];
+        if (value != null) {
+            returned[key] = [value withoutNSNullObjects];
         }
     }
     return returned.copy;

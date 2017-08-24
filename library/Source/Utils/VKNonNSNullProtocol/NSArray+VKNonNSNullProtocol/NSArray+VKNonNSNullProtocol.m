@@ -11,11 +11,11 @@
 @implementation NSArray (VKNonNSNullProtocol)
 
 - (nonnull instancetype)withoutNSNullObjects {
-    NSMutableArray *returned = self.mutableCopy;
-    [returned removeObject:NSNull.null];
+    NSMutableArray *returned = [NSMutableArray array];
     for (NSObject *child in self) {
-        [child removeNSNullObjects];
+        [returned addObject:[child withoutNSNullObjects]];
     }
+    [returned removeObject:NSNull.null];
     return returned.copy;
 }
 
