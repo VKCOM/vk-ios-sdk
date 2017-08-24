@@ -11,4 +11,5 @@
 @protocol VKNonNSNullProtocol <NSObject>
 @required
 - (void)removeNSNullObjects;
+- (nonnull instancetype)withoutNSNullObjects;
 @end

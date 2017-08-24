@@ -67,6 +67,12 @@
 		7619F6981F4F3C9700C4B55C /* NSMutableArray+VKNonNSNullProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7619F6961F4F3C9700C4B55C /* NSMutableArray+VKNonNSNullProtocol.m */; };
 		7619F69B1F4F3CA100C4B55C /* NSMutableDictionary+VKNonNSNullProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 7619F6991F4F3CA100C4B55C /* NSMutableDictionary+VKNonNSNullProtocol.h */; };
 		7619F69C1F4F3CA100C4B55C /* NSMutableDictionary+VKNonNSNullProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7619F69A1F4F3CA100C4B55C /* NSMutableDictionary+VKNonNSNullProtocol.m */; };
+		7619F6A11F4F935700C4B55C /* NSArray+VKNonNSNullProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 7619F69F1F4F935700C4B55C /* NSArray+VKNonNSNullProtocol.h */; };
+		7619F6A21F4F935700C4B55C /* NSArray+VKNonNSNullProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7619F6A01F4F935700C4B55C /* NSArray+VKNonNSNullProtocol.m */; };
+		7619F6A31F4F935700C4B55C /* NSArray+VKNonNSNullProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7619F6A01F4F935700C4B55C /* NSArray+VKNonNSNullProtocol.m */; };
+		7619F6A61F4F936600C4B55C /* NSDictionary+VKNonNSNullProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 7619F6A41F4F936600C4B55C /* NSDictionary+VKNonNSNullProtocol.h */; };
+		7619F6A71F4F936600C4B55C /* NSDictionary+VKNonNSNullProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7619F6A51F4F936600C4B55C /* NSDictionary+VKNonNSNullProtocol.m */; };
+		7619F6A81F4F936600C4B55C /* NSDictionary+VKNonNSNullProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7619F6A51F4F936600C4B55C /* NSDictionary+VKNonNSNullProtocol.m */; };
 		8F99D6351C42C6010006DB03 /* VKApiDocs.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F99D6331C42C6010006DB03 /* VKApiDocs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F99D6361C42C6010006DB03 /* VKApiDocs.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F99D6341C42C6010006DB03 /* VKApiDocs.m */; };
 		8F99D6371C42C6010006DB03 /* VKApiDocs.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F99D6341C42C6010006DB03 /* VKApiDocs.m */; };
@@ -432,6 +438,10 @@
 		7619F6961F4F3C9700C4B55C /* NSMutableArray+VKNonNSNullProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+VKNonNSNullProtocol.m"; sourceTree = "<group>"; };
 		7619F6991F4F3CA100C4B55C /* NSMutableDictionary+VKNonNSNullProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+VKNonNSNullProtocol.h"; sourceTree = "<group>"; };
 		7619F69A1F4F3CA100C4B55C /* NSMutableDictionary+VKNonNSNullProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+VKNonNSNullProtocol.m"; sourceTree = "<group>"; };
+		7619F69F1F4F935700C4B55C /* NSArray+VKNonNSNullProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+VKNonNSNullProtocol.h"; sourceTree = "<group>"; };
+		7619F6A01F4F935700C4B55C /* NSArray+VKNonNSNullProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+VKNonNSNullProtocol.m"; sourceTree = "<group>"; };
+		7619F6A41F4F936600C4B55C /* NSDictionary+VKNonNSNullProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+VKNonNSNullProtocol.h"; sourceTree = "<group>"; };
+		7619F6A51F4F936600C4B55C /* NSDictionary+VKNonNSNullProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+VKNonNSNullProtocol.m"; sourceTree = "<group>"; };
 		8F99D6331C42C6010006DB03 /* VKApiDocs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKApiDocs.h; path = library/Source/API/methods/VKApiDocs.h; sourceTree = SOURCE_ROOT; };
 		8F99D6341C42C6010006DB03 /* VKApiDocs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKApiDocs.m; path = library/Source/API/methods/VKApiDocs.m; sourceTree = SOURCE_ROOT; };
 		8F99D6381C42C61A0006DB03 /* VKDocs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKDocs.h; sourceTree = "<group>"; };
@@ -677,6 +687,8 @@
 		7619F6811F4F3AE600C4B55C /* VKNonNSNullProtocol */ = {
 			isa = PBXGroup;
 			children = (
+				7619F69D1F4F934800C4B55C /* NSArray+VKNonNSNullProtocol */,
+				7619F69E1F4F934800C4B55C /* NSDictionary+VKNonNSNullProtocol */,
 				7619F6931F4F3C8D00C4B55C /* NSMutableArray+VKNonNSNullProtocol */,
 				7619F6941F4F3C8D00C4B55C /* NSMutableDictionary+VKNonNSNullProtocol */,
 				7619F6841F4F3B2400C4B55C /* NSObject+VKNonNSNullProtocol */,
@@ -710,6 +722,24 @@
 				7619F69A1F4F3CA100C4B55C /* NSMutableDictionary+VKNonNSNullProtocol.m */,
 			);
 			path = "NSMutableDictionary+VKNonNSNullProtocol";
+			sourceTree = "<group>";
+		};
+		7619F69D1F4F934800C4B55C /* NSArray+VKNonNSNullProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				7619F69F1F4F935700C4B55C /* NSArray+VKNonNSNullProtocol.h */,
+				7619F6A01F4F935700C4B55C /* NSArray+VKNonNSNullProtocol.m */,
+			);
+			path = "NSArray+VKNonNSNullProtocol";
+			sourceTree = "<group>";
+		};
+		7619F69E1F4F934800C4B55C /* NSDictionary+VKNonNSNullProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				7619F6A41F4F936600C4B55C /* NSDictionary+VKNonNSNullProtocol.h */,
+				7619F6A51F4F936600C4B55C /* NSDictionary+VKNonNSNullProtocol.m */,
+			);
+			path = "NSDictionary+VKNonNSNullProtocol";
 			sourceTree = "<group>";
 		};
 		F34670321B8B7C5A003EF74B /* DynamicFramework */ = {
@@ -863,6 +893,7 @@
 				F34670EF1B8B7CE4003EF74B /* VKApiUsers.h in Headers */,
 				F34671231B8B7D07003EF74B /* VKApiObject.h in Headers */,
 				7619F6871F4F3B3E00C4B55C /* NSObject+VKNonNSNullProtocol.h in Headers */,
+				7619F6A11F4F935700C4B55C /* NSArray+VKNonNSNullProtocol.h in Headers */,
 				F34671131B8B7D07003EF74B /* VKUser.h in Headers */,
 				F34670F11B8B7CE4003EF74B /* VKApiWall.h in Headers */,
 				F346712B1B8B7D07003EF74B /* VKUploadPhotoBase.h in Headers */,
@@ -882,6 +913,7 @@
 				F34671191B8B7D07003EF74B /* VKLikes.h in Headers */,
 				F34671021B8B7D07003EF74B /* VKHTTPClient.h in Headers */,
 				F346713C1B8B7D07003EF74B /* NSString+MD5.h in Headers */,
+				7619F6A61F4F936600C4B55C /* NSDictionary+VKNonNSNullProtocol.h in Headers */,
 				F34671041B8B7D07003EF74B /* VKHTTPOperation.h in Headers */,
 				F346710E1B8B7D07003EF74B /* VKRequestsScheduler.h in Headers */,
 				F346710A1B8B7D07003EF74B /* VKOperation.h in Headers */,
@@ -1067,6 +1099,7 @@
 				F34671161B8B7D07003EF74B /* VKAudio.m in Sources */,
 				F346711E1B8B7D07003EF74B /* VKSchool.m in Sources */,
 				F34671111B8B7D07003EF74B /* VKResponse.m in Sources */,
+				7619F6A81F4F936600C4B55C /* NSDictionary+VKNonNSNullProtocol.m in Sources */,
 				F34671071B8B7D07003EF74B /* VKJSONOperation.m in Sources */,
 				F34671301B8B7D07003EF74B /* VKUploadWallPhotoRequest.m in Sources */,
 				F34670E31B8B7CE4003EF74B /* VKApiBase.m in Sources */,
@@ -1113,6 +1146,7 @@
 				F346710B1B8B7D07003EF74B /* VKOperation.m in Sources */,
 				F34670D71B8B7CD2003EF74B /* VKUtil.m in Sources */,
 				F346710F1B8B7D07003EF74B /* VKRequestsScheduler.m in Sources */,
+				7619F6A31F4F935700C4B55C /* NSArray+VKNonNSNullProtocol.m in Sources */,
 				F34670F41B8B7D07003EF74B /* VKSdk.m in Sources */,
 				F34671091B8B7D07003EF74B /* VKObject.m in Sources */,
 				F346712A1B8B7D07003EF74B /* VKApiObjectArray.m in Sources */,
@@ -1153,6 +1187,7 @@
 				1ACA61E9A3EB0BD49B9EFAB8 /* VKError.m in Sources */,
 				1ACA6DF69C81F31A23FFAD31 /* VKResponse.m in Sources */,
 				F3769D421BDFDC6F00AEC4AF /* VKAuthorizationResult.m in Sources */,
+				7619F6A21F4F935700C4B55C /* NSArray+VKNonNSNullProtocol.m in Sources */,
 				1ACA6AD5392AA08C69341D2B /* VKOperation.m in Sources */,
 				1ACA6E680DE6950E435D84D6 /* VKObject.m in Sources */,
 				1ACA696D77203A8BB76E975F /* VKApi.m in Sources */,
@@ -1191,6 +1226,7 @@
 				1ACA6846480F59C3AF41B4AE /* VKUploadWallPhotoRequest.m in Sources */,
 				1ACA68336BEF00F13DEDA870 /* VKUploadMessagesPhotoRequest.m in Sources */,
 				1ACA695AB1344826A2F18CE3 /* VKUploadImage.m in Sources */,
+				7619F6A71F4F936600C4B55C /* NSDictionary+VKNonNSNullProtocol.m in Sources */,
 				1ACA69BE9C47B55CA23C6B8A /* VKImageParameters.m in Sources */,
 				1ACA61AF9F91E61D27B5DC81 /* VKSharedTransitioningObject.m in Sources */,
 			);

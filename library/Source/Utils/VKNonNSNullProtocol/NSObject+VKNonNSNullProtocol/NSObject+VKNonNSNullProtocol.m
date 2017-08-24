@@ -14,4 +14,8 @@
     // nothing to do
 }
 
+- (nonnull instancetype)withoutNSNullObjects {
+    return self;
+}
+
 @end
