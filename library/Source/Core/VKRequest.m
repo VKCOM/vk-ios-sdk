@@ -604,6 +604,10 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
     isOfflineMode = NO;
 }
 
++ (void)setOffline {
+    isOfflineMode = YES;
+}
+
 - (void)setCompleteBlock:(void (^)(VKResponse *))complete {
     _completeBlock = ^(VKResponse *response) {
         
