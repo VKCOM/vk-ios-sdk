@@ -217,8 +217,8 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
             NSData *data = [self.responseString dataUsingEncoding:NSUTF8StringEncoding];
 
             if (data) {
-                self.responseJson = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                self.responseJson = [self.responseJson withoutNSNullObjects];
+                id responseJson = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                self.responseJson = [responseJson withoutNSNullObjects];
             }
             else {
                 NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
