@@ -76,17 +76,34 @@ Create token with existing properties
 + (instancetype)tokenWithToken:(NSString *)accessToken secret:(NSString *)secret userId:(NSString *)userId;
 
 /**
-Retrieve token from user defaults. Token must be saved to defaults with saveTokenToDefaults method
-@param defaultsKey path to file with saved token
-@return parsed token
-*/
+ Retrieve token from user defaults. Token must be saved to defaults with saveTokenToDefaults method
+ 
+ @param defaultsKey path to file with saved token
+ @return parsed token
+ */
 + (instancetype)savedToken:(NSString *)defaultsKey;
+/**
+ Retrieve token from user defaults. Token must be saved to defaults with saveTokenToDefaults method
+ 
+ @param defaultsKey path to file with saved token
+ @param sharedGroupName keychain sharing group name
+ @return parsed token
+*/
++ (instancetype)savedToken:(NSString *)defaultsKey sharedGroupName:(NSString *)sharedGroupName;
 
 /**
-Save token into user defaults by specified key
-@param defaultsKey key for defaults
-*/
+ Save token into user defaults by specified key
+ 
+ @param defaultsKey key for defaults
+ */
 - (void)saveTokenToDefaults:(NSString *)defaultsKey;
+/**
+ Save token into user defaults by specified key
+ 
+ @param defaultsKey key for defaults
+ @param sharedGroupName keychain sharing group name
+*/
+- (void)saveTokenToDefaults:(NSString *)defaultsKey sharedGroupName:(NSString *)sharedGroupName;
 
 /// Return YES if token has expired
 - (BOOL)isExpired;
@@ -97,6 +114,13 @@ Save token into user defaults by specified key
  @param service Access token storage key name
  */
 + (void)delete:(NSString *)service;
+/**
+ Remove token from storage
+ 
+ @param service Access token storage key name
+ @param sharedGroupName keychain sharing group name
+ */
++ (void)delete:(NSString *)service sharedGroupName:(NSString *)sharedGroupName;
 
 @end
 

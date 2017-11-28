@@ -168,15 +168,19 @@ static NSString *const PERMISSIONS = @"permissions";
 }
 
 + (instancetype)savedToken:(NSString *)defaultsKey {
+    return [self savedToken:defaultsKey sharedGroupName:nil];
+}
+
++ (instancetype)savedToken:(NSString *)defaultsKey sharedGroupName:(NSString *)sharedGroupName {
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:defaultsKey];
     if (data) {
         VKAccessToken *token = [self tokenFromUrlString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:defaultsKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        [self save:defaultsKey data:token];
+        [self save:defaultsKey data:token sharedGroupName:sharedGroupName];
         return token;
     }
-    return [self load:defaultsKey];
+    return [self load:defaultsKey sharedGroupName:sharedGroupName];
 }
 
 #pragma mark - Expire
@@ -203,7 +207,11 @@ static NSString *const PERMISSIONS = @"permissions";
 #pragma mark - Save / Load
 
 - (void)saveTokenToDefaults:(NSString *)defaultsKey {
-    [[self class] save:defaultsKey data:[self copy]];
+    [self saveTokenToDefaults:defaultsKey sharedGroupName:nil];
+}
+
+- (void)saveTokenToDefaults:(NSString *)defaultsKey sharedGroupName:(NSString *)sharedGroupName{
+    [[self class] save:defaultsKey data:[self copy] sharedGroupName:sharedGroupName];
 }
 
 - (id)copy {
@@ -214,29 +222,35 @@ static NSString *const PERMISSIONS = @"permissions";
     return [[VKAccessTokenMutable alloc] initWithVKAccessToken:self];
 }
 
-+ (NSMutableDictionary *)getKeychainQuery:(NSString *)service {
++ (NSMutableDictionary *)getKeychainQuery:(NSString *)service sharedGroupName:(NSString *)sharedGroupName {
     /**
      Simple keychain requests
      Source: http://stackoverflow.com/a/5251820/1271424
      */
     
-    return [@{(__bridge id) kSecClass : (__bridge id) kSecClassGenericPassword,
-            (__bridge id) kSecAttrService : service,
-            (__bridge id) kSecAttrAccount : service,
-            (__bridge id) kSecAttrAccessible : (__bridge id) kSecAttrAccessibleAfterFirstUnlock} mutableCopy];
+    NSMutableDictionary *queryDictionary = [NSMutableDictionary new];
+    [queryDictionary setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
+    [queryDictionary setObject:(__bridge id)kSecAttrAccessibleAfterFirstUnlock forKey:(__bridge id)kSecAttrAccessible];
+    [queryDictionary setObject:service forKey:(__bridge id)kSecAttrService];
+    [queryDictionary setObject:service forKey:(__bridge id)kSecAttrAccount];
+    if (sharedGroupName) {
+        [queryDictionary setObject:sharedGroupName forKey:(__bridge id)kSecAttrAccessGroup];
+    }
+    
+    return queryDictionary;
 }
 
-+ (void)save:(NSString *)service data:(VKAccessToken *)token {
-    NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
++ (void)save:(NSString *)service data:(VKAccessToken *)token sharedGroupName:(NSString *)sharedGroupName {
+    NSMutableDictionary *keychainQuery = [self getKeychainQuery:service sharedGroupName:sharedGroupName];
     SecItemDelete((__bridge CFDictionaryRef) keychainQuery);
     keychainQuery[(__bridge id) kSecValueData] = [NSKeyedArchiver archivedDataWithRootObject:token];
     OSStatus status = SecItemAdd((__bridge CFDictionaryRef) keychainQuery, NULL);
     NSAssert(status == errSecSuccess, @"Unable to store VKAccessToken in keychain. OSStatus: %i. Error Description: https://www.osstatus.com/search/results?platform=all&framework=all&search=%i or https://developer.apple.com/reference/security/1658642-keychain_services", status, status);
 }
 
-+ (VKAccessToken *)load:(NSString *)service {
++ (VKAccessToken *)load:(NSString *)service sharedGroupName:(NSString *)sharedGroupName {
     id ret = nil;
-    NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
+    NSMutableDictionary *keychainQuery = [self getKeychainQuery:service sharedGroupName:sharedGroupName];
     keychainQuery[(__bridge id) kSecReturnData] = (id) kCFBooleanTrue;
     keychainQuery[(__bridge id) kSecMatchLimit] = (__bridge id) kSecMatchLimitOne;
     CFDataRef keyData = NULL;
@@ -256,7 +270,11 @@ static NSString *const PERMISSIONS = @"permissions";
 }
 
 + (void)delete:(NSString *)service {
-    NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
+    [self delete:service sharedGroupName:nil];
+}
+
++ (void)delete:(NSString *)service sharedGroupName:(NSString *)sharedGroupName {
+    NSMutableDictionary *keychainQuery = [self getKeychainQuery:service sharedGroupName:sharedGroupName];
     SecItemDelete((__bridge CFDictionaryRef) keychainQuery);
 }
 
