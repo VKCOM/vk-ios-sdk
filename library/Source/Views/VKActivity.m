@@ -37,7 +37,8 @@ NSString *const VKActivityTypePost = @"VKActivityTypePost";
 }
 
 + (BOOL)vkShareExtensionEnabled {
-    return [VKUtil isOperatingSystemAtLeastIOS8] && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"vk-share://extension"]];
+    
+    return [VKUtil isOperatingSystemAtLeastIOS8] && [[VKUtil systemApplication] canOpenURL:[NSURL URLWithString:@"vk-share://extension"]];
 }
 
 - (NSString *)activityType {

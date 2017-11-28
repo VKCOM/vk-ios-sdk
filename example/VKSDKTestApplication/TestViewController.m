@@ -209,7 +209,7 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
         [post executeWithResultBlock:^(VKResponse *postResponse) {
             NSLog(@"Result: %@", postResponse);
             NSNumber *postId = postResponse.json[@"post_id"];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/wall-60479154_%@", postId]]];
+            [[VKUtil systemApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/wall-60479154_%@", postId]]];
         }                 errorBlock:^(NSError *error) {
             NSLog(@"Error: %@", error);
         }];
@@ -235,7 +235,7 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
         [post executeWithResultBlock:^(VKResponse *response) {
             NSLog(@"Result: %@", response);
             NSNumber *postId = response.json[@"post_id"];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/wall-60479154_%@", postId]]];
+            [[VKUtil systemApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/wall-60479154_%@", postId]]];
         }                 errorBlock:^(NSError *error) {
             NSLog(@"Error: %@", error);
         }];
@@ -249,7 +249,7 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
     [request executeWithResultBlock:^(VKResponse *response) {
         NSLog(@"Result: %@", response);
         VKPhoto *photo = [(VKPhotoArray *) response.parsedModel objectAtIndex:0];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/photo-60479154_%@", photo.id]]];
+        [[VKUtil systemApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/photo-60479154_%@", photo.id]]];
     }                    errorBlock:^(NSError *error) {
         NSLog(@"Error: %@", error);
     }];

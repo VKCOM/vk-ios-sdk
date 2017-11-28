@@ -173,19 +173,18 @@ static NSString *_vkSDKSharedGroupName = nil;
 
     if (vkApp) {
         
-        UIApplication *application = [UIApplication sharedApplication];
+        UIApplication *application = [VKUtil systemApplication];
         
         // Since iOS 9 there is a dialog asking user if he wants to allow the running app
         // to open another app via URL. If user rejects, then no VK SDK callbacks are called.
         // Fixing this using new -[UIApplication openURL:options:completionHandler:] method (iOS 10+).
         
 #ifdef __AVAILABILITY_INTERNAL__IPHONE_10_0_DEP__IPHONE_10_0
-        if ([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+        SEL openURLOptionsCompletion = @selector(openURL:options:completionHandler:);
+        if ([application respondsToSelector:openURLOptionsCompletion]) {
             
             NSDictionary *options = @{ UIApplicationOpenURLOptionUniversalLinksOnly: @NO };
-            
-            [application openURL:urlToOpen options:options completionHandler:^(BOOL success) {
-                
+            void(^completionHandler)(BOOL) = ^(BOOL success) {
                 if (!success) {
                     
                     VKMutableAuthorizationResult *result = [VKMutableAuthorizationResult new];
@@ -194,12 +193,19 @@ static NSString *_vkSDKSharedGroupName = nil;
                     
                     [[VKSdk instance] notifyDelegate:@selector(vkSdkAccessAuthorizationFinishedWithResult:) obj:result];
                 }
-            }];
+            };
+            
+            // Workaround for AppExtensions and compiler :)
+            IMP imp = [application methodForSelector:openURLOptionsCompletion];
+            void (*function)(id, SEL, NSURL *, NSDictionary *, void(^)(BOOL)) = (void *)imp;
+            function(application, openURLOptionsCompletion, urlToOpen, options, completionHandler);
         } else {
-            [application openURL:urlToOpen];
+            // Workaround for AppExtensions and compiler :)
+            [application performSelector:@selector(openURL:) withObject:urlToOpen];
         }
 #else
-        [application openURL:urlToOpen];
+        // Workaround for AppExtensions and compiler :)
+        [application performSelector:@selector(openURL:) withObject:urlToOpen];
 #endif
     
         instance.authState = VKAuthorizationExternal;
@@ -222,7 +228,7 @@ static NSString *_vkSDKSharedGroupName = nil;
 }
 
 + (BOOL)vkAppMayExists {
-    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:VK_AUTHORIZE_URL_STRING]];
+    return [[VKUtil systemApplication] canOpenURL:[NSURL URLWithString:VK_AUTHORIZE_URL_STRING]];
 }
 
 #pragma mark Access token

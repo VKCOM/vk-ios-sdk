@@ -59,6 +59,10 @@
     return value;
 }
 
++ (UIApplication *)systemApplication {
+    return [UIApplication performSelector:@selector(sharedApplication)];
+}
+
 + (UIColor *)colorWithRGB:(NSInteger)rgb {
     return [UIColor colorWithRed:((CGFloat) ((rgb & 0xFF0000) >> 16)) / 255.f green:((CGFloat) ((rgb & 0xFF00) >> 8)) / 255.f blue:((CGFloat) (rgb & 0xFF)) / 255.f alpha:1.0f];
 }
