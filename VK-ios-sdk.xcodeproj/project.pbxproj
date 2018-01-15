@@ -60,6 +60,7 @@
 		1ACA6F1A8CF8466F058EE7BC /* VKGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA6C700C815D16F08DD4CD /* VKGroup.m */; };
 		1ACA6F8C335233B3D05A0F49 /* VKActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA6F9E65F7742733AB46DF /* VKActivity.m */; };
 		1ACA6FE428FEE2FCF7316DBB /* VKShareDialogController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA6536B0B95A5ADF4F4D7A /* VKShareDialogController.m */; };
+		7618C9C1200D2FD000DF7F09 /* VKHTTPClientProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 7618C9BF200D2D1600DF7F09 /* VKHTTPClientProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7619F6831F4F3AF300C4B55C /* VKNonNSNullProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 7619F6821F4F3AF300C4B55C /* VKNonNSNullProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7619F6871F4F3B3E00C4B55C /* NSObject+VKNonNSNullProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 7619F6851F4F3B3E00C4B55C /* NSObject+VKNonNSNullProtocol.h */; };
 		7619F6881F4F3B3E00C4B55C /* NSObject+VKNonNSNullProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7619F6861F4F3B3E00C4B55C /* NSObject+VKNonNSNullProtocol.m */; };
@@ -431,6 +432,7 @@
 		1ACA6FA4664723004E33ADE4 /* VKUploadImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUploadImage.m; sourceTree = "<group>"; };
 		1ACA6FE235BA094D8E3A0189 /* VKOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKOperation.m; sourceTree = "<group>"; };
 		1ACA6FEB2DD3739A1AFB8403 /* VKHTTPOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKHTTPOperation.m; sourceTree = "<group>"; };
+		7618C9BF200D2D1600DF7F09 /* VKHTTPClientProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKHTTPClientProtocol.h; sourceTree = "<group>"; };
 		7619F6821F4F3AF300C4B55C /* VKNonNSNullProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKNonNSNullProtocol.h; sourceTree = "<group>"; };
 		7619F6851F4F3B3E00C4B55C /* NSObject+VKNonNSNullProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+VKNonNSNullProtocol.h"; sourceTree = "<group>"; };
 		7619F6861F4F3B3E00C4B55C /* NSObject+VKNonNSNullProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+VKNonNSNullProtocol.m"; sourceTree = "<group>"; };
@@ -620,6 +622,7 @@
 		1ACA69600BD1D2F505FEA3CC /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				7618C9BE200D2CFA00DF7F09 /* VKHTTPClientProtocol */,
 				1ACA6A36848AD5D36847B463 /* NSError+VKError.h */,
 				1ACA6F49F30F872C5BD2281A /* NSError+VKError.m */,
 				1ACA6DAE30C094CEFFDC106A /* VKError.h */,
@@ -682,6 +685,14 @@
 				1ACA6F8866BE96889BB9DA68 /* VKUtil.m */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		7618C9BE200D2CFA00DF7F09 /* VKHTTPClientProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				7618C9BF200D2D1600DF7F09 /* VKHTTPClientProtocol.h */,
+			);
+			path = VKHTTPClientProtocol;
 			sourceTree = "<group>";
 		};
 		7619F6811F4F3AE600C4B55C /* VKNonNSNullProtocol */ = {
@@ -919,6 +930,7 @@
 				F346710A1B8B7D07003EF74B /* VKOperation.h in Headers */,
 				8F99D6351C42C6010006DB03 /* VKApiDocs.h in Headers */,
 				F34671381B8B7D07003EF74B /* VKSharedTransitioningObject.h in Headers */,
+				7618C9C1200D2FD000DF7F09 /* VKHTTPClientProtocol.h in Headers */,
 				F34671061B8B7D07003EF74B /* VKJSONOperation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -69,7 +69,7 @@
 
         [batchOperations addObject:[request createExecutionOperation]];
     }
-    [[VKHTTPClient getClient] enqueueBatchOfHTTPRequestOperations:batchOperations
+    [[VKHTTPClient client] enqueueBatchOfHTTPRequestOperations:batchOperations
                                                     progressBlock:nil
                                                   completionBlock:nil];
 }

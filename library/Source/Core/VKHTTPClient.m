@@ -30,17 +30,30 @@
 #import "VKUtil.h"
 
 static VKHTTPClient *__clientInstance = nil;
-static NSString const *VK_API_URI = @"api.vk.com/method/";
+static NSString const *VK_API_URI_METHOD = @"/method/";
 static NSString const *kVKMultipartFormBoundaryPrefix = @"VK_SDK";
 
-
 @interface VKHTTPClient ()
+
 @property(readwrite, nonatomic, strong) NSMutableDictionary *defaultHeaders;
 @property(readwrite, nonatomic, strong) NSOperationQueue *operationQueue;
+
 @end
 
 @implementation VKHTTPClient
-+ (instancetype)getClient {
+@synthesize basePath = _basePath;
+
+#pragma mark - Properties
+
+- (nonnull NSString *)basePath {
+    if (_basePath != nil) { return _basePath; }
+    _basePath = @"api.vk.com";
+    return _basePath;
+}
+
+#pragma mark - Others
+
++ (instancetype)client {
     if (!__clientInstance)
         __clientInstance = [[VKHTTPClient alloc] init];
     return __clientInstance;
@@ -99,7 +112,7 @@ static NSString const *kVKMultipartFormBoundaryPrefix = @"VK_SDK";
     if (!path) {
         path = @"";
     }
-    NSURL *apiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http%@://%@", secure ? @"s" : @"", VK_API_URI]];
+    NSURL *apiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http%@://%@%@", secure ? @"s" : @"", self.basePath, VK_API_URI_METHOD]];
     NSURL *url = nil;
     if ([path hasPrefix:@"http"])
         url = [NSURL URLWithString:path];

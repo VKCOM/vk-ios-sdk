@@ -24,14 +24,14 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKObject.h"
+#import "VKHTTPClientProtocol.h"
 
 @class VKHTTPOperation;
-
 /**
 Class for NSURLRequests generation, made for VK API.
 Based on AFNetworking library ( https://github.com/AFNetworking/AFNetworking )
 */
-@interface VKHTTPClient : VKObject <NSCoding>
+@interface VKHTTPClient : VKObject <NSCoding, VKHTTPClientProtocol>
 
 ///-------------------------------
 /// @name Initialization
@@ -42,7 +42,7 @@ Creates and initializes an `VKHTTPClient` object with the specified base URL.
 
 @return The newly-initialized HTTP client
 */
-+ (instancetype)getClient;
++ (instancetype)client;
 
 /**
 The operation queue which manages operations enqueued by the HTTP client.

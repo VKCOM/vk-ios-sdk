@@ -39,6 +39,7 @@
 #import "VKShareDialogController.h"
 #import "VKActivity.h"
 #import "VKAuthorizationResult.h"
+#import "VKHTTPClientProtocol.h"
 
 /**
  Options used for authorization.
@@ -185,6 +186,8 @@ typedef NS_OPTIONS(NSUInteger, VKAuthorizationOptions) {
  
 */
 @interface VKSdk : NSObject
+
+@property (nonatomic, readonly) id <VKHTTPClientProtocol> client;
 
 ///-------------------------------
 /// @name Delegate

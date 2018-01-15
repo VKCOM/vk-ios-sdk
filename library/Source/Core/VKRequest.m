@@ -280,10 +280,10 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
 
     NSMutableURLRequest *request = nil;
     if (!_uploadUrl) {
-        request = [[VKHTTPClient getClient] requestWithMethod:self.httpMethod path:self.methodName parameters:_preparedParameters secure:self.secure];
+        request = [[VKHTTPClient client] requestWithMethod:self.httpMethod path:self.methodName parameters:_preparedParameters secure:self.secure];
     }
     else {
-        request = [[VKHTTPClient getClient] multipartFormRequestWithMethod:@"POST" path:_uploadUrl images:_photoObjects];
+        request = [[VKHTTPClient client] multipartFormRequestWithMethod:@"POST" path:_uploadUrl images:_photoObjects];
     }
     [request setTimeoutInterval:self.requestTimeout];
     [request setValue:_preparedParameters[VK_API_LANG] forHTTPHeaderField:@"Accept-Language"];
@@ -351,11 +351,11 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(operationDidStart:) name:VKNetworkingOperationDidStart object:nil];
     }
     if (!self.waitUntilDone) {
-        [[VKHTTPClient getClient] enqueueOperation:_executionOperation];
+        [[VKHTTPClient client] enqueueOperation:_executionOperation];
     } else {
         VKHTTPOperation *op = (VKHTTPOperation *) _executionOperation;
         op.successCallbackQueue = op.failureCallbackQueue = [VKRequest processingQueue];
-        [[VKHTTPClient getClient] enqueueOperation:_executionOperation];
+        [[VKHTTPClient client] enqueueOperation:_executionOperation];
         if (!_waitUntilDoneSemaphore) {
             _waitUntilDoneSemaphore = dispatch_semaphore_create(0);
             dispatch_semaphore_wait(_waitUntilDoneSemaphore, DISPATCH_TIME_FOREVER);

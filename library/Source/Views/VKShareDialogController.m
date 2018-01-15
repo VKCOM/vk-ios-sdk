@@ -1151,7 +1151,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
                     [self.attachmentsScrollView reloadData];
                 }];
                 imageLoad.successCallbackQueue = imageProcessingQueue;
-                [[VKHTTPClient getClient] enqueueOperation:imageLoad];
+                [[VKHTTPClient client] enqueueOperation:imageLoad];
             }
             [self.attachmentsScrollView performBatchUpdates:^{
                 for (VKUploadingAttachment *attach in attachById.allValues) {

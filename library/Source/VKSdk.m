@@ -39,6 +39,7 @@
 #import "VKSdk.h"
 #import "VKAuthorizeController.h"
 #import "VKRequestsScheduler.h"
+#import "VKHTTPClient.h"
 
 @interface VKWeakDelegate : NSProxy <VKSdkDelegate>
 @property(nonatomic, weak) id <VKSdkDelegate> weakTarget;
@@ -75,6 +76,9 @@ static VKSdk *vkSdkInstance = nil;
 static NSArray *kSpecialPermissions = nil;
 static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_DONT_TOUCH_THIS_PLEASE";
 
+- (id<VKHTTPClientProtocol>)client {
+    return VKHTTPClient.client;
+}
 
 #pragma mark Initialization
 
