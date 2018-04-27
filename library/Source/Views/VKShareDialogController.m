@@ -793,6 +793,13 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
             [self positionSubviews];
         }];
     }
+
+    UITextPosition *caretPosition = self.textView.selectedTextRange.end;
+    if (caretPosition) {
+        CGRect caretRect = [self.textView caretRectForPosition:caretPosition];
+        CGRect caretRectInScrollView = [self.contentScrollView convertRect:caretRect fromView:self.textView];
+        [self.contentScrollView scrollRectToVisible:caretRectInScrollView animated:NO];
+    }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
