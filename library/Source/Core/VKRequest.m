@@ -428,8 +428,8 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
                     postRequest.errorBlock(self.error);
                 }
             }
+            self.error = nil;
         };
-        self.error = nil;
     } else {
         block = ^{
             if (self.completeBlock) {
