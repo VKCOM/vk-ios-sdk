@@ -105,3 +105,4 @@ NSString *const VKCaptchaAnsweredEvent = @"VKCaptchaAnsweredEvent";
 NSString *const VK_API_DOMAIN = @"domain";
 NSString *const VK_API_FILTER = @"filter";
 NSString *const VK_API_RANDOM_ID = @"random_id";
+
