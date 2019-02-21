@@ -41,6 +41,7 @@ NSString *const VK_PER_OFFLINE = @"offline";
 NSString *const VK_PER_NOHTTPS = @"nohttps";
 NSString *const VK_PER_EMAIL = @"email";
 NSString *const VK_PER_MARKET = @"market";
+NSString *const VK_PER_PHONE = @"phone";
 
 NSArray *VKParseVkPermissionsFromInteger(NSInteger permissionsValue) {
     NSMutableArray *res = [NSMutableArray new];
@@ -61,5 +62,7 @@ NSArray *VKParseVkPermissionsFromInteger(NSInteger permissionsValue) {
     if (permissionsValue & 524288) [res addObject:VK_PER_NOTIFICATIONS];
     if (permissionsValue & 1048576) [res addObject:VK_PER_STATS];
     if (permissionsValue & 134217728) [res addObject:VK_PER_MARKET];
+    if (permissionsValue & 536870912) [res addObject:VK_PER_PHONE];
+    
     return res;
 }

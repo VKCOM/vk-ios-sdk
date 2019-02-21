@@ -31,6 +31,7 @@ static NSString *const EXPIRES_IN = @"expires_in";
 static NSString *const USER_ID = @"user_id";
 static NSString *const SECRET = @"secret";
 static NSString *const EMAIL = @"email";
+static NSString *const PHONE = @"phone";
 static NSString *const HTTPS_REQUIRED = @"https_required";
 static NSString *const CREATED = @"created";
 static NSString *const PERMISSIONS = @"permissions";
@@ -83,6 +84,7 @@ static NSString *const PERMISSIONS = @"permissions";
         _userId = [aDecoder decodeObjectForKey:USER_ID];
         _secret = [aDecoder decodeObjectForKey:SECRET];
         _email = [aDecoder decodeObjectForKey:EMAIL];
+        _phoneNumber = [aDecoder decodeObjectForKey:PHONE];
         _permissions = [self restorePermissions:[aDecoder decodeObjectForKey:PERMISSIONS]];
 
         _httpsRequired = [aDecoder decodeBoolForKey:HTTPS_REQUIRED];
@@ -104,6 +106,9 @@ static NSString *const PERMISSIONS = @"permissions";
     }
     if (self.email) {
         [aCoder encodeObject:self.email forKey:EMAIL];
+    }
+    if (self.phoneNumber) {
+        [aCoder encodeObject:self.phoneNumber forKey:PHONE];
     }
 
     NSString *permissions = [self.permissions componentsJoinedByString:@","];
@@ -137,6 +142,7 @@ static NSString *const PERMISSIONS = @"permissions";
         _userId = [parameters[USER_ID] copy];
         _secret = [parameters[SECRET] copy];
         _email = [parameters[EMAIL] copy];
+        _phoneNumber = [parameters[PHONE] copy];
         _httpsRequired = NO;
 
         _permissions = [self restorePermissions:parameters[PERMISSIONS]];
@@ -162,6 +168,7 @@ static NSString *const PERMISSIONS = @"permissions";
         _created = token.created;
         _permissions = [token.permissions copy];
         _email = [token.email copy];
+        _phoneNumber = [token.phoneNumber copy];
         _localUser = token.localUser;
     }
     return self;
