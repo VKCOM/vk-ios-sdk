@@ -267,10 +267,4 @@ Cancel current request. Result will be not passed. errorBlock will be called wit
  */
 - (void)setPreferredLang:(NSString *)lang;
 
-//Extra-functions
-
-+ (void)executeSetOfflineFunctionWithCompletion:(void (^)(NSError *error))errorBlock;
-+ (void)setOnline;
-+ (void)setOffline;
-
 @end
