@@ -203,6 +203,10 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     [_webView loadRequest:request];
 }
 
+- (void)dealloc {
+    self.webView.delegate = nil;
+}
+
 #pragma mark Web view work
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
