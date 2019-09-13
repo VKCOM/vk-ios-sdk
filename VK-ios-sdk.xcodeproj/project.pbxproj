@@ -12,6 +12,7 @@
 		132CF80019D2B3360084884D /* VKBundle.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3BACC5618659493003158DA /* VKBundle.h */; };
 		132CF80719D2B3360084884D /* VKPermissions.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3EEFFA41827B726000BB525 /* VKPermissions.h */; };
 		132CF80A19D2B3360084884D /* VKSdkVersion.h in Copy Files */ = {isa = PBXBuildFile; fileRef = F3EEFFBC1827C582000BB525 /* VKSdkVersion.h */; };
+		15DF536B232BBBE600593625 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15DF536A232BBBE600593625 /* WebKit.framework */; };
 		183C475918B2F1ED00F978DB /* VKAccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C7549A18226ABB00964716 /* VKAccessToken.m */; };
 		183C475A18B2F1ED00F978DB /* VKBatchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D38E7E183F7B4800D05079 /* VKBatchRequest.m */; };
 		183C475B18B2F1ED00F978DB /* VKBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BACC5718659493003158DA /* VKBundle.m */; };
@@ -330,6 +331,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		15DF536A232BBBE600593625 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		1ACA602BF516D3FC45609A2B /* VKAuthorizeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKAuthorizeController.m; sourceTree = "<group>"; };
 		1ACA6041B183FB7781AC6F07 /* VKUploadMessagesPhotoRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKUploadMessagesPhotoRequest.h; sourceTree = "<group>"; };
 		1ACA60549B5805BC010388F6 /* VKCaptchaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKCaptchaViewController.h; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 			files = (
 				F3C68F171C0C855C00E1EB5E /* Security.framework in Frameworks */,
 				F3769E711BE8E41C00AEC4AF /* SafariServices.framework in Frameworks */,
+				15DF536B232BBBE600593625 /* WebKit.framework in Frameworks */,
 				F3769E6F1BE8E41800AEC4AF /* CoreGraphics.framework in Frameworks */,
 				F346704B1B8B7C70003EF74B /* Foundation.framework in Frameworks */,
 				F346704A1B8B7C6B003EF74B /* UIKit.framework in Frameworks */,
@@ -723,6 +726,7 @@
 		F3C7542F182133CC00964716 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15DF536A232BBBE600593625 /* WebKit.framework */,
 				F3C68F161C0C855C00E1EB5E /* Security.framework */,
 				F3769E701BE8E41C00AEC4AF /* SafariServices.framework */,
 				F3769E6E1BE8E41800AEC4AF /* CoreGraphics.framework */,
@@ -936,6 +940,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				ru,
@@ -1349,7 +1354,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -1381,7 +1386,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
