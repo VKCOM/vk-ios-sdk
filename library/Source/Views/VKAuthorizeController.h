@@ -60,10 +60,10 @@ typedef NS_ENUM(NSInteger, VKAuthorizationType) {
 /**
 Controller for authorization through webview (if VK app not available)
 */
-@interface VKAuthorizeController : UIViewController <UIWebViewDelegate>
+@interface VKAuthorizeController : UIViewController
 
 /**
-Causes UIWebView in standard UINavigationController be presented in SDK delegate
+Causes web view in standard UINavigationController be presented in SDK delegate
 @param appId Identifier of VK application
 @param permissions Permissions that user specified for application
 @param revoke If YES, user will see permissions list and allow to logout (if logged in already)
@@ -75,7 +75,7 @@ Causes UIWebView in standard UINavigationController be presented in SDK delegate
                          displayType:(VKDisplayType)displayType;
 
 /**
-Causes UIWebView in standard UINavigationController be presented for user validation
+Causes web view in standard UINavigationController be presented for user validation
 @param validationError validation error returned by API
 */
 + (void)presentForValidation:(VKError *)validationError;
