@@ -223,8 +223,9 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
             }
         }];
         decisionHandler(WKNavigationActionPolicyCancel);
+    } else {
+        decisionHandler(WKNavigationActionPolicyAllow);
     }
-    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
