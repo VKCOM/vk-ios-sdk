@@ -283,7 +283,7 @@ Initialize SDK with responder for global SDK events.
  Checks passed URL for access token.
  
  @param passedUrl url from external application
- @param sourceApplication source application
+ @param sourceApplication source application (it is an optional param, because the check is performed not only by this parameter, but also by the URL scheme)
  @return YES if parsed successfully
 */
 + (BOOL)processOpenURL:(NSURL *)passedUrl fromApplication:(NSString *)sourceApplication;
