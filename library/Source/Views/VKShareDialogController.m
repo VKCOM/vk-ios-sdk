@@ -691,6 +691,7 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
     _textView = [[VKPlaceholderTextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 36)];
 
     _textView.backgroundColor = [UIColor clearColor];
+    _textView.textColor = [UIColor blackColor];
     _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "UnavailableInDeploymentTarget"
