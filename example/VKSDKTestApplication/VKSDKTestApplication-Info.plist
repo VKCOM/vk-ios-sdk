@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>VK SDK Test</string>
+	<string>vkcup1</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
@@ -26,10 +26,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>vk3974615</string>
+			<string>vk7321157</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>vk3974615</string>
+				<string>vk7321157</string>
 			</array>
 		</dict>
 	</array>
