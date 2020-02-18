@@ -249,7 +249,7 @@ static const CGFloat ipadHeight = 500.f;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    UIInterfaceOrientation orientation = [[VKUtil systemApplication] statusBarOrientation];
     [self rotateToInterfaceOrientation:orientation appear:YES];
 }
 
@@ -1010,7 +1010,19 @@ static const CGFloat kAttachmentsViewSize = 100.0f;
         [textView becomeFirstResponder];
         
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_8_0
-        [[[UIAlertView alloc] initWithTitle:nil message:VKLocalizedString(@"ErrorWhilePosting") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        
+        SEL initSelector = @selector(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:);
+        UIAlertView *alertView = [UIAlertView alloc];
+        
+        NSString *title = VKLocalizedString(@"ErrorWhilePosting");
+        NSString *cancel = @"OK";
+        
+        // Workaround for AppExtensions and compiler :)
+        IMP imp = [alertView methodForSelector:initSelector];
+        void (*function)(id, SEL, NSString *, NSString *, id, NSString *, id) = (void *)imp;
+        function(alertView, initSelector, nil, title, nil, cancel, nil);
+        
+        [alertView show];
 #else
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:VKLocalizedString(@"ErrorWhilePosting") preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];

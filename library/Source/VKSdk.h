@@ -229,6 +229,14 @@ Initialize SDK with responder for global SDK events.
 + (instancetype)initializeWithAppId:(NSString *)appId
                          apiVersion:(NSString *)version;
 
+
+/**
+ Enable sharing authorize data with keychain sharing
+ 
+ @param sharedGroupName your keychain sharing group name
+ */
++ (void)enableKeychainSharingWithGroupName:(NSString *)sharedGroupName;
+
 /**
  Adds a weak object reference to an object implementing the VKSdkDelegate protocol.
  

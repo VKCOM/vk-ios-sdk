@@ -74,6 +74,7 @@
 static VKSdk *vkSdkInstance = nil;
 static NSArray *kSpecialPermissions = nil;
 static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_DONT_TOUCH_THIS_PLEASE";
+static NSString *_vkSDKSharedGroupName = nil;
 
 
 #pragma mark Initialization
@@ -172,19 +173,18 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 
     if (vkApp) {
         
-        UIApplication *application = [UIApplication sharedApplication];
+        UIApplication *application = [VKUtil systemApplication];
         
         // Since iOS 9 there is a dialog asking user if he wants to allow the running app
         // to open another app via URL. If user rejects, then no VK SDK callbacks are called.
         // Fixing this using new -[UIApplication openURL:options:completionHandler:] method (iOS 10+).
         
 #ifdef __AVAILABILITY_INTERNAL__IPHONE_10_0_DEP__IPHONE_10_0
-        if ([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+        SEL openURLOptionsCompletion = @selector(openURL:options:completionHandler:);
+        if ([application respondsToSelector:openURLOptionsCompletion]) {
             
             NSDictionary *options = @{ UIApplicationOpenURLOptionUniversalLinksOnly: @NO };
-            
-            [application openURL:urlToOpen options:options completionHandler:^(BOOL success) {
-                
+            void(^completionHandler)(BOOL) = ^(BOOL success) {
                 if (!success) {
                     
                     VKMutableAuthorizationResult *result = [VKMutableAuthorizationResult new];
@@ -193,12 +193,19 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
                     
                     [[VKSdk instance] notifyDelegate:@selector(vkSdkAccessAuthorizationFinishedWithResult:) obj:result];
                 }
-            }];
+            };
+            
+            // Workaround for AppExtensions and compiler :)
+            IMP imp = [application methodForSelector:openURLOptionsCompletion];
+            void (*function)(id, SEL, NSURL *, NSDictionary *, void(^)(BOOL)) = (void *)imp;
+            function(application, openURLOptionsCompletion, urlToOpen, options, completionHandler);
         } else {
-            [application openURL:urlToOpen];
+            // Workaround for AppExtensions and compiler :)
+            [application performSelector:@selector(openURL:) withObject:urlToOpen];
         }
 #else
-        [application openURL:urlToOpen];
+        // Workaround for AppExtensions and compiler :)
+        [application performSelector:@selector(openURL:) withObject:urlToOpen];
 #endif
     
         instance.authState = VKAuthorizationExternal;
@@ -221,17 +228,21 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 }
 
 + (BOOL)vkAppMayExists {
-    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:VK_AUTHORIZE_URL_STRING]];
+    return [[VKUtil systemApplication] canOpenURL:[NSURL URLWithString:VK_AUTHORIZE_URL_STRING]];
 }
 
 #pragma mark Access token
 
++ (void)enableKeychainSharingWithGroupName:(NSString *)sharedGroupName {
+    _vkSDKSharedGroupName = sharedGroupName;
+}
+
 + (void)setAccessToken:(VKAccessToken *)token {
-    [token saveTokenToDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY];
+    [token saveTokenToDefaults:VK_ACCESS_TOKEN_DEFAULTS_KEY sharedGroupName:_vkSDKSharedGroupName];
 
     id oldToken = vkSdkInstance.accessToken;
     if (!token && oldToken) {
-        [VKAccessToken delete:VK_ACCESS_TOKEN_DEFAULTS_KEY];
+        [VKAccessToken delete:VK_ACCESS_TOKEN_DEFAULTS_KEY sharedGroupName:_vkSDKSharedGroupName];
     }
 
     vkSdkInstance.authState = token ? VKAuthorizationAuthorized : VKAuthorizationInitialized;
@@ -392,7 +403,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
             [[NSHTTPCookieStorage sharedHTTPCookieStorage]
                     deleteCookie:cookie];
         }
-    [VKAccessToken delete:VK_ACCESS_TOKEN_DEFAULTS_KEY];
+    [VKAccessToken delete:VK_ACCESS_TOKEN_DEFAULTS_KEY sharedGroupName:_vkSDKSharedGroupName];
 
     if (vkSdkInstance) {
         vkSdkInstance.accessToken = nil;
@@ -407,7 +418,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 }
 
 + (void)wakeUpSession:(NSArray *)permissions completeBlock:(void (^)(VKAuthorizationState, NSError *error))wakeUpBlock {
-    VKAccessToken *token = [self accessToken] ?: [VKAccessToken savedToken:VK_ACCESS_TOKEN_DEFAULTS_KEY];
+    VKAccessToken *token = [self accessToken] ?: [VKAccessToken savedToken:VK_ACCESS_TOKEN_DEFAULTS_KEY sharedGroupName:_vkSDKSharedGroupName];
     VKSdk *instance = [self instance];
     if (!token || token.isExpired) {
         [instance resetSdkState];

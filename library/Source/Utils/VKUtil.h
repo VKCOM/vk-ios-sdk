@@ -45,6 +45,11 @@ Breaks key=value string to dictionary
 + (NSString *)queryStringFromParams:(NSDictionary *)params;
 
 /**
+ * Workaround to make 'sharedApplication' still be called if compiling for AppExtensions
+ */
++ (UIApplication *)systemApplication;
+
+/**
  * Indicates that the current device system version at least conforms the argument version
  */
 + (BOOL) isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion) version;

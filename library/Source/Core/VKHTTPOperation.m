@@ -26,6 +26,7 @@
 #import "VKHTTPOperation.h"
 #import "VKRequest.h"
 #import "NSError+VKError.h"
+#import "VKUtil.h"
 
 NSString *const VKNetworkingOperationFailingURLRequestErrorKey = @"VKNetworkingOperationFailingURLRequestErrorKey";
 NSString *const VKNetworkingOperationFailingURLResponseErrorKey = @"VKNetworkingOperationFailingURLResponseErrorKey";
@@ -122,7 +123,7 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 
 - (void)dealloc {
     if (_backgroundTaskIdentifier) {
-        [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
+        [[VKUtil systemApplication] endBackgroundTask:_backgroundTaskIdentifier];
         _backgroundTaskIdentifier = UIBackgroundTaskInvalid;
     }
     if (_successCallbackQueue) {
@@ -156,7 +157,7 @@ static void VKGetMediaTypeAndSubtypeWithString(NSString *string, NSString **type
 - (void)setShouldExecuteAsBackgroundTaskWithExpirationHandler:(void (^)(void))handler {
     [self.lock lock];
     if (!self.backgroundTaskIdentifier) {
-        UIApplication *application = [UIApplication sharedApplication];
+        UIApplication *application = [VKUtil systemApplication];
         __weak __typeof(&*self) weakSelf = self;
 
         self.backgroundTaskIdentifier = [application beginBackgroundTaskWithExpirationHandler:^{
