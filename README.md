@@ -1,7 +1,7 @@
 vk-ios-sdk
 ==========
 
-Library for working with VK API, authorizing through VK app, using VK API methods. Supported iOS from 6.0
+Library for working with VK API, authorizing through VK app, using VK API methods. Supported iOS from 8.0
 Prepare for Using VK SDK
 ----------
 
@@ -61,7 +61,7 @@ CocoaPods is a dependency manager for Objective-C, which automates and simplifie
 
 `Podfile`
 
-    platform :ios, '6.0'
+    platform :ios, '8.0'
     target 'YourProjectName' do
       pod 'VK-ios-sdk'
     end
@@ -154,7 +154,7 @@ NSArray *SCOPE = @[@"friends", @"email"];
     if (state == VKAuthorizationAuthorized) {
         // Authorized and ready to go
     } else if (error) {
-        // Some error happend, but you may try later
+        // Some error happened, but you may try later
     }
 }];
 ```

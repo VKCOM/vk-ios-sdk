@@ -22,6 +22,7 @@
 
 #import "VKAuthorizeController.h"
 #import "VKBundle.h"
+#import <WebKit/WebKit.h>
 
 NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
@@ -37,7 +38,7 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 @property (nonatomic, assign) BOOL usingVkApp;
 @end
 
-@implementation UINavigationController (LastControllerBar)
+@implementation VKNavigationController
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     if (self.viewControllers.count)
@@ -50,8 +51,8 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 + (BOOL)processOpenInternalURL:(NSURL *)passedUrl validation:(BOOL)validation;
 @end
 
-@interface VKAuthorizeController ()
-@property(nonatomic, strong) UIWebView *webView;
+@interface VKAuthorizeController () <WKUIDelegate, WKNavigationDelegate>
+@property(nonatomic, strong) WKWebView *webView;
 @property(nonatomic, strong) NSString *appId;
 @property(nonatomic, strong) NSString *scope;
 @property(nonatomic, strong) NSURL *redirectUri;
@@ -60,7 +61,7 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 @property(nonatomic, strong) UILabel *statusBar;
 @property(nonatomic, strong) VKError *validationError;
 @property(nonatomic, strong) NSURLRequest *lastRequest;
-@property(nonatomic, weak) UINavigationController *internalNavigationController;
+@property(nonatomic, weak) VKNavigationController *internalNavigationController;
 @property(nonatomic, assign) BOOL finished;
 
 @end
@@ -82,7 +83,7 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 }
 
 + (void)presentThisController:(VKAuthorizeController *)controller {
-    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:controller];
+    VKNavigationController *navigation = [[VKNavigationController alloc] initWithRootViewController:controller];
 
     if ([VKUtil isOperatingSystemAtLeastIOS7]) {
         navigation.navigationBar.barTintColor = VK_COLOR;
@@ -157,11 +158,11 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     _warningLabel.text = VKLocalizedString(@"Please check your internet connection");
     [view addSubview:_warningLabel];
 
-    _webView = [[UIWebView alloc] initWithFrame:view.bounds];
-    _webView.delegate = self;
+    _webView = [[WKWebView alloc] initWithFrame:view.bounds];
+    _webView.UIDelegate = self;
+    _webView.navigationDelegate = self;
     _webView.hidden = YES;
     _webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    _webView.scalesPageToFit = YES;
     _webView.scrollView.bounces = NO;
     _webView.scrollView.clipsToBounds = NO;
     [view addSubview:_webView];
@@ -205,7 +206,8 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 #pragma mark Web view work
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSURLRequest *request = navigationAction.request;
     self.lastRequest = request;
     NSString *urlString = [[request URL] absoluteString];
     self.statusBar.text = urlString;
@@ -220,12 +222,13 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
                 [self.validationError.request cancel];
             }
         }];
-        return NO;
+        decisionHandler(WKNavigationActionPolicyCancel);
+    } else {
+        decisionHandler(WKNavigationActionPolicyAllow);
     }
-    return YES;
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     if (self.finished) return;
     if ([error code] != NSURLErrorCancelled) {
         self.warningLabel.hidden = NO;
@@ -245,7 +248,7 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:activityView] animated:YES];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self makeViewport];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (300 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^(void) {
         _warningLabel.hidden = YES;
@@ -256,7 +259,7 @@ NSString *VK_AUTHORIZE_URL_STRING = @"vkauthorize://authorize";
 
 - (void)makeViewport {
     NSString *javaScript = [NSString stringWithFormat:@"viewport = document.querySelector('meta[name=viewport]'); viewport.setAttribute('content', 'width = %d, height = %d, initial-scale = 1.0, maximum-scale = 1.0, minimum-scale = 1.0, user-scalable=yes');", (int) self.webView.frame.size.width, (int) self.webView.frame.size.height];
-    [_webView stringByEvaluatingJavaScriptFromString:javaScript];
+    [_webView evaluateJavaScript:javaScript completionHandler:nil];
 }
 
 #pragma mark Cancelation and dismiss

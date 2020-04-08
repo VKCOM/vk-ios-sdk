@@ -141,7 +141,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 
 + (void)authorize:(NSArray *)permissions withOptions:(VKAuthorizationOptions)options {
     permissions = permissions ?: @[];
-    NSMutableSet *permissionsSet = [NSMutableSet setWithArray:permissions ?: @[]];
+    NSMutableSet *permissionsSet = [NSMutableSet setWithArray:permissions];
 
     if (options & VKAuthorizationOptionsUnlimitedToken) {
         [permissionsSet addObject:VK_PER_OFFLINE];
@@ -175,8 +175,38 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
     NSURL *urlToOpen = [VKAuthorizeController buildAuthorizationURLWithContext:authContext];
 
     if (vkApp) {
-        [[UIApplication sharedApplication] openURL:urlToOpen];
+        
+        UIApplication *application = [UIApplication sharedApplication];
+        
+        // Since iOS 9 there is a dialog asking user if he wants to allow the running app
+        // to open another app via URL. If user rejects, then no VK SDK callbacks are called.
+        // Fixing this using new -[UIApplication openURL:options:completionHandler:] method (iOS 10+).
+        
+#ifdef __AVAILABILITY_INTERNAL__IPHONE_10_0_DEP__IPHONE_10_0
+        if ([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+            
+            NSDictionary *options = @{ UIApplicationOpenURLOptionUniversalLinksOnly: @NO };
+            
+            [application openURL:urlToOpen options:options completionHandler:^(BOOL success) {
+                
+                if (!success) {
+                    
+                    VKMutableAuthorizationResult *result = [VKMutableAuthorizationResult new];
+                    result.state = VKAuthorizationError;
+                    result.error = [NSError errorWithVkError:[VKError errorWithCode:VK_API_CANCELED]];
+                    
+                    [[VKSdk instance] notifyDelegate:@selector(vkSdkAccessAuthorizationFinishedWithResult:) obj:result];
+                }
+            }];
+        } else {
+            [application openURL:urlToOpen];
+        }
+#else
+        [application openURL:urlToOpen];
+#endif
+    
         instance.authState = VKAuthorizationExternal;
+    
     } else if (safariEnabled && [SFSafariViewController class] && instance.authState < VKAuthorizationSafariInApp) {
         SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL:urlToOpen];
         viewController.delegate = instance;
@@ -514,7 +544,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
 }
 
 - (void)notifyDelegate:(SEL)sel obj:(id)obj {
-    for (VKWeakDelegate *del in self.sdkDelegates) {
+    for (VKWeakDelegate *del in [self.sdkDelegates copy]) {
         if ([del respondsToSelector:sel]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -528,7 +558,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
     VKAccessToken *old = _accessToken;
     _accessToken = accessToken;
 
-    for (VKWeakDelegate *del in self.sdkDelegates) {
+    for (VKWeakDelegate *del in [self.sdkDelegates copy]) {
         if ([del respondsToSelector:@selector(vkSdkAccessTokenUpdated:oldToken:)]) {
             [del performSelector:@selector(vkSdkAccessTokenUpdated:oldToken:) withObject:self.accessToken withObject:old];
         }
