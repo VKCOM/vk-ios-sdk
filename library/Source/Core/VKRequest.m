@@ -429,7 +429,6 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
                 }
             }
         };
-        self.error = nil;
     } else {
         block = ^{
             if (self.completeBlock) {
