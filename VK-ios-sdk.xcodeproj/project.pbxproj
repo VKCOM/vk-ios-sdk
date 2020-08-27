@@ -47,7 +47,6 @@
 		1ACA6A08792E4AD2B10F1624 /* VKApiFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA662E0B2D50702F4A11AD /* VKApiFriends.m */; };
 		1ACA6A173F4BAA7E9AB43206 /* VKApiCaptcha.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA65061D1745F64BC42C75 /* VKApiCaptcha.m */; };
 		1ACA6A898C8C008BCA5FDB67 /* VKSchool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA66DA84E4941873ADCB4B /* VKSchool.m */; };
-		1ACA6AC9C143AC442155AD90 /* VKAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA673394DB0E515CBA9EFE /* VKAudio.m */; };
 		1ACA6AD5392AA08C69341D2B /* VKOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA6FE235BA094D8E3A0189 /* VKOperation.m */; };
 		1ACA6AEDDDC5D844B9FE115E /* VKApiObjectArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA68DAFB5BBB634DB0A73B /* VKApiObjectArray.m */; };
 		1ACA6B4A1DE944C3C9860528 /* VKApiObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA689B3E716E1BC2A6EBEC /* VKApiObject.m */; };
@@ -140,8 +139,6 @@
 		F34671121B8B7D07003EF74B /* VKApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA6D831AF8E35C6322AB4A /* VKApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F34671131B8B7D07003EF74B /* VKUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA6BF00807A26E3B00BD65 /* VKUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F34671141B8B7D07003EF74B /* VKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA664E5CDF97EB2648B660 /* VKUser.m */; };
-		F34671151B8B7D07003EF74B /* VKAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA60E2C646C4C6615170CD /* VKAudio.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F34671161B8B7D07003EF74B /* VKAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA673394DB0E515CBA9EFE /* VKAudio.m */; };
 		F34671171B8B7D07003EF74B /* VKGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA696193D3326E5462985A /* VKGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F34671181B8B7D07003EF74B /* VKGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA6C700C815D16F08DD4CD /* VKGroup.m */; };
 		F34671191B8B7D07003EF74B /* VKLikes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ACA630809E85C01C606C974 /* VKLikes.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -207,7 +204,6 @@
 		F3909FF31A9C7B24006540A6 /* VKApiCaptcha.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1ACA68234EC488521F154B60 /* VKApiCaptcha.h */; };
 		F3909FF41A9C7B24006540A6 /* VKApiFriends.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1ACA6C753D37B145C7D5B400 /* VKApiFriends.h */; };
 		F3909FF51A9C7B24006540A6 /* VKUser.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1ACA6BF00807A26E3B00BD65 /* VKUser.h */; };
-		F3909FF61A9C7B24006540A6 /* VKAudio.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1ACA60E2C646C4C6615170CD /* VKAudio.h */; };
 		F3909FF71A9C7B24006540A6 /* VKGroup.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1ACA696193D3326E5462985A /* VKGroup.h */; };
 		F3909FF81A9C7B24006540A6 /* VKLikes.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1ACA630809E85C01C606C974 /* VKLikes.h */; };
 		F3909FF91A9C7B24006540A6 /* VKPhoto.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 1ACA6493701E3B36434F3F3A /* VKPhoto.h */; };
@@ -286,7 +282,6 @@
 				F3909FF31A9C7B24006540A6 /* VKApiCaptcha.h in Copy Files */,
 				F3909FF41A9C7B24006540A6 /* VKApiFriends.h in Copy Files */,
 				F3909FF51A9C7B24006540A6 /* VKUser.h in Copy Files */,
-				F3909FF61A9C7B24006540A6 /* VKAudio.h in Copy Files */,
 				F3909FF71A9C7B24006540A6 /* VKGroup.h in Copy Files */,
 				F3909FF81A9C7B24006540A6 /* VKLikes.h in Copy Files */,
 				F3909FF91A9C7B24006540A6 /* VKPhoto.h in Copy Files */,
@@ -339,7 +334,6 @@
 		1ACA608862B093D6D0F46BC4 /* VKCaptchaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKCaptchaViewController.m; sourceTree = "<group>"; };
 		1ACA60B4EF1757B412FE808D /* VKLikes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKLikes.m; sourceTree = "<group>"; };
 		1ACA60D48A519E201D9A80E9 /* VKRelative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKRelative.m; sourceTree = "<group>"; };
-		1ACA60E2C646C4C6615170CD /* VKAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKAudio.h; sourceTree = "<group>"; };
 		1ACA60EB8A19FBF44B2A0769 /* VKUploadMessagesPhotoRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKUploadMessagesPhotoRequest.m; sourceTree = "<group>"; };
 		1ACA6108D9F4E0C7644BAC52 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		1ACA6120C7B75C0CBB10FDA0 /* VKApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKApi.m; sourceTree = "<group>"; };
@@ -374,7 +368,6 @@
 		1ACA66DA84E4941873ADCB4B /* VKSchool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKSchool.m; sourceTree = "<group>"; };
 		1ACA671427725230741603BC /* VKUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKUtil.h; sourceTree = "<group>"; };
 		1ACA671DB7C59D529BB25E7E /* VKApiWall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKApiWall.h; sourceTree = "<group>"; };
-		1ACA673394DB0E515CBA9EFE /* VKAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKAudio.m; sourceTree = "<group>"; };
 		1ACA677A8949D12D3EBD61A0 /* VKApiConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKApiConst.h; sourceTree = "<group>"; };
 		1ACA67F7D247AC33989F7034 /* VKAuthorizeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKAuthorizeController.h; sourceTree = "<group>"; };
 		1ACA68234EC488521F154B60 /* VKApiCaptcha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKApiCaptcha.h; sourceTree = "<group>"; };
@@ -558,8 +551,6 @@
 				8F99D6391C42C61A0006DB03 /* VKDocs.m */,
 				1ACA6BF00807A26E3B00BD65 /* VKUser.h */,
 				1ACA664E5CDF97EB2648B660 /* VKUser.m */,
-				1ACA60E2C646C4C6615170CD /* VKAudio.h */,
-				1ACA673394DB0E515CBA9EFE /* VKAudio.m */,
 				1ACA696193D3326E5462985A /* VKGroup.h */,
 				1ACA6C700C815D16F08DD4CD /* VKGroup.m */,
 				1ACA630809E85C01C606C974 /* VKLikes.h */,
@@ -797,7 +788,6 @@
 				F34671341B8B7D07003EF74B /* VKAuthorizeController.h in Headers */,
 				F346711B1B8B7D07003EF74B /* VKPhoto.h in Headers */,
 				8F99D63A1C42C61A0006DB03 /* VKDocs.h in Headers */,
-				F34671151B8B7D07003EF74B /* VKAudio.h in Headers */,
 				F34671351B8B7D07003EF74B /* VKCaptchaView.h in Headers */,
 				F346712F1B8B7D07003EF74B /* VKUploadWallPhotoRequest.h in Headers */,
 				F34670F81B8B7D07003EF74B /* VKPermissions.h in Headers */,
@@ -921,7 +911,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = VK;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = VK;
 				TargetAttributes = {
 					F34670301B8B7C5A003EF74B = {
@@ -937,10 +927,9 @@
 			};
 			buildConfigurationList = F3C75428182133CB00964716 /* Build configuration list for PBXProject "VK-ios-sdk" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 				ru,
@@ -1012,7 +1001,6 @@
 				F34671051B8B7D07003EF74B /* VKHTTPOperation.m in Sources */,
 				F34670E01B8B7CD9003EF74B /* VKSharedTransitioningObject.m in Sources */,
 				F34670D51B8B7CC7003EF74B /* VKImageParameters.m in Sources */,
-				F34671161B8B7D07003EF74B /* VKAudio.m in Sources */,
 				F346711E1B8B7D07003EF74B /* VKSchool.m in Sources */,
 				F34671111B8B7D07003EF74B /* VKResponse.m in Sources */,
 				F34671071B8B7D07003EF74B /* VKJSONOperation.m in Sources */,
@@ -1119,7 +1107,6 @@
 				1ACA6A08792E4AD2B10F1624 /* VKApiFriends.m in Sources */,
 				F3454FD01ABB1D1A00B15E85 /* VKRequestsScheduler.m in Sources */,
 				1ACA61EE5B7171D4F5726D08 /* VKUser.m in Sources */,
-				1ACA6AC9C143AC442155AD90 /* VKAudio.m in Sources */,
 				1ACA6F1A8CF8466F058EE7BC /* VKGroup.m in Sources */,
 				1ACA618960A488A476167F98 /* VKLikes.m in Sources */,
 				1ACA614F27B7C856D2BB49DD /* VKPhoto.m in Sources */,
@@ -1174,7 +1161,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1207,7 +1194,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1246,7 +1233,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "library/Resources/Resources-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1266,7 +1253,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "SDK resources/SDK resources-Prefix.pch";
 				INFOPLIST_FILE = "library/Resources/Resources-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1325,22 +1312,36 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1364,21 +1365,35 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1403,7 +1418,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INSTALL_PATH = /;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRIVATE_HEADERS_FOLDER_PATH = "$(PUBLIC_HEADERS_FOLDER_PATH)/Private";
@@ -1425,7 +1440,7 @@
 				DSTROOT = /tmp/sdk.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INSTALL_PATH = /;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRIVATE_HEADERS_FOLDER_PATH = "$(PUBLIC_HEADERS_FOLDER_PATH)/Private";

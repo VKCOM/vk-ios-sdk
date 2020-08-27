@@ -60,15 +60,14 @@
 static NSArray *labels = nil;
 static NSString *const USERS_GET = @"users.get";
 static NSString *const FRIENDS_GET = @"friends.get";
-static NSString *const AUDIO_GET = @"audio.get";
 static NSString *const FRIENDS_GET_FULL = @"friends.get with fields";
+static NSString *const DOCS_GET = @"docs.get";
 static NSString *const USERS_SUBSCRIPTIONS = @"Pavel Durov subscribers";
 static NSString *const UPLOAD_PHOTO = @"Upload photo to wall";
 static NSString *const UPLOAD_PHOTO_ALBUM = @"Upload photo to album";
 static NSString *const UPLOAD_PHOTOS = @"Upload several photos to wall";
 static NSString *const TEST_CAPTCHA = @"Test captcha";
 static NSString *const CALL_UNKNOWN_METHOD = @"Call unknown method";
-static NSString *const TEST_VALIDATION = @"Test validation";
 static NSString *const MAKE_SYNCHRONOUS = @"Make synchronous request";
 static NSString *const SHARE_DIALOG = @"Test share dialog";
 static NSString *const TEST_ACTIVITY = @"Test VKActivity";
@@ -79,7 +78,7 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (!labels)
-        labels = @[USERS_GET, USERS_SUBSCRIPTIONS, AUDIO_GET, FRIENDS_GET, FRIENDS_GET_FULL, UPLOAD_PHOTO, UPLOAD_PHOTO_ALBUM, UPLOAD_PHOTOS, TEST_CAPTCHA, CALL_UNKNOWN_METHOD, TEST_VALIDATION, MAKE_SYNCHRONOUS, SHARE_DIALOG, TEST_ACTIVITY, TEST_APPREQUEST];
+        labels = @[USERS_GET, USERS_SUBSCRIPTIONS, FRIENDS_GET, FRIENDS_GET_FULL, DOCS_GET, UPLOAD_PHOTO, UPLOAD_PHOTO_ALBUM, UPLOAD_PHOTOS, TEST_CAPTCHA, CALL_UNKNOWN_METHOD, MAKE_SYNCHRONOUS, SHARE_DIALOG, TEST_ACTIVITY, TEST_APPREQUEST];
     return labels.count;
 }
 
@@ -118,18 +117,15 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
         VKRequest *friendsRequest = [[VKApi friends] get:@{VK_API_FIELDS : ALL_USER_FIELDS}];
         [self callMethod:friendsRequest];
     }
+    else if ([label isEqualToString:DOCS_GET]) {
+        [self callMethod:[[VKApi docs] get]];
+    }
     else if ([label isEqualToString:CALL_UNKNOWN_METHOD]) {
         [self callMethod:[VKRequest requestWithMethod:@"I.am.Lord.Voldemort" parameters:nil]];
-    }
-    else if ([label isEqualToString:TEST_VALIDATION]) {
-        [self callMethod:[VKRequest requestWithMethod:@"account.testValidation" parameters:nil]];
     }
     else if ([label isEqualToString:MAKE_SYNCHRONOUS]) {
         VKUsersArray *users = [self loadUsers];
         NSLog(@"users %@", users);
-    }
-    else if ([label isEqualToString:AUDIO_GET]) {
-        [self callMethod:[VKRequest requestWithMethod:@"audio.get" parameters:nil modelClass:[VKAudios class]]];
     }
     else if ([label isEqualToString:SHARE_DIALOG]) {
 
@@ -194,7 +190,7 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
     VKRequest *request = [[VKApiCaptcha new] force];
     [request executeWithResultBlock:^(VKResponse *response) {
         NSLog(@"Result: %@", response);
-    }                    errorBlock:^(NSError *error) {
+    } errorBlock:^(NSError *error) {
         NSLog(@"Error: %@", error);
     }];
 }
@@ -210,10 +206,10 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
             NSLog(@"Result: %@", postResponse);
             NSNumber *postId = postResponse.json[@"post_id"];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/wall-60479154_%@", postId]]];
-        }                 errorBlock:^(NSError *error) {
+        } errorBlock:^(NSError *error) {
             NSLog(@"Error: %@", error);
         }];
-    }                    errorBlock:^(NSError *error) {
+    } errorBlock:^(NSError *error) {
         NSLog(@"Error: %@", error);
     }];
 }
@@ -236,10 +232,10 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
             NSLog(@"Result: %@", response);
             NSNumber *postId = response.json[@"post_id"];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/wall-60479154_%@", postId]]];
-        }                 errorBlock:^(NSError *error) {
+        } errorBlock:^(NSError *error) {
             NSLog(@"Error: %@", error);
         }];
-    }                  errorBlock:^(NSError *error) {
+    } errorBlock:^(NSError *error) {
         NSLog(@"Error: %@", error);
     }];
 }
@@ -250,7 +246,7 @@ static NSString *const ALL_USER_FIELDS = @"id,first_name,last_name,sex,bdate,cit
         NSLog(@"Result: %@", response);
         VKPhoto *photo = [(VKPhotoArray *) response.parsedModel objectAtIndex:0];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/photo-60479154_%@", photo.id]]];
-    }                    errorBlock:^(NSError *error) {
+    } errorBlock:^(NSError *error) {
         NSLog(@"Error: %@", error);
     }];
 }
