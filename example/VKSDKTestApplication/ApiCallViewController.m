@@ -43,7 +43,7 @@
         welf.callResult.text = [NSString stringWithFormat:@"Result: %@", response];
         welf.callingRequest = nil;
         NSLog(@"%@", response.request.requestTiming);
-    }                                errorBlock:^(NSError *error) {
+    } errorBlock:^(NSError *error) {
         welf.callResult.text = [NSString stringWithFormat:@"Error: %@", error];
         welf.callingRequest = nil;
     }];
