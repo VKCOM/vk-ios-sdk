@@ -34,6 +34,7 @@ extern NSString *const VK_API_SORT;
 extern NSString *const VK_API_OFFSET;
 extern NSString *const VK_API_COUNT;
 extern NSString *const VK_API_OWNER_ID;
+extern NSString *const VK_API_ID;
 
 //auth
 extern NSString *const VK_API_LANG;
@@ -74,6 +75,7 @@ extern NSString *const VK_API_COMPANY;
 extern NSString *const VK_API_POSITION;
 extern NSString *const VK_API_GROUP_ID;
 extern NSString *const VK_API_GROUP_IDS;
+extern NSString *const VK_API_DOCS_TAGS;
 
 extern NSString *const VK_API_FRIENDS_ONLY;
 extern NSString *const VK_API_FROM_GROUP;
@@ -114,6 +116,11 @@ extern NSString *const VK_API_ALBUM_ID;
 
 //Events
 extern NSString *const VKCaptchaAnsweredEvent;
+
+//Groups
+extern NSString *const VK_API_MARKET;
+extern NSString *const VK_API_GROUP_TYPE;
+extern NSString *const VK_API_GROUP_FUTURE;
 
 //Enums
 typedef NS_ENUM(NSInteger, VKProgressType) {

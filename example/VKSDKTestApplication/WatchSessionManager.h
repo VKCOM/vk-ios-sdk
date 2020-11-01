@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+@import WatchConnectivity;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WatchSessionManager : NSObject
+@interface WatchSessionManager : NSObject <WCSessionDelegate>
+
++ (WatchSessionManager *)shared;
 
 @end
 

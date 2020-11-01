@@ -8,17 +8,26 @@
 
 #import "VKGroupTableViewCell.h"
 
+@interface VKGroupTableViewCell ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *subtitleLabel;
+
+@end
+
 @implementation VKGroupTableViewCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
+- (void)setTitle:(NSString *)title {
+    self.titleLabel.text = title;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+- (void)setSubtitle:(NSString *)subtitle {
+    self.subtitleLabel.text = subtitle;
+}
 
-    // Configure the view for the selected state
+- (void)setIcon:(UIImage *)icon {
+    self.iconImageView.image = icon;
 }
 
 @end

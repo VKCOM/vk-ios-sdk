@@ -51,3 +51,10 @@
     return [VKUser class];
 }
 @end
+
+@implementation VKCitiesArray
+
+-(Class)objectClass {
+    return [VKCity class];
+}
+@end

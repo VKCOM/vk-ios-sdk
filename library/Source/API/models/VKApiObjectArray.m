@@ -141,4 +141,24 @@
 + (instancetype)createWithArray:(NSArray *)array {
     return [[self alloc] initWithArray:array];
 }
+
+- (id)objectForObjectId:(NSInteger)objectId {
+    if (self.items == nil) {
+        return nil;
+    }
+
+    if (![[self.items.firstObject performSelector:@selector(id)] isKindOfClass:[NSNumber class]]) {
+        return nil;
+    }
+
+    for (NSInteger n = 0; n < self.items.count; n++) {
+        NSNumber *Id = [self.items[n] performSelector:@selector(id)];
+        if (Id.integerValue == objectId) {
+            return self.items[n];
+        }
+    }
+
+    return nil;
+}
+
 @end

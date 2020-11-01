@@ -22,7 +22,7 @@
 
 #import "VKStartScreen.h"
 
-static NSString *const TOKEN_KEY = @"my_application_access_token";
+static NSString *const TOKEN_KEY = @"7321157";
 static NSString *const NEXT_CONTROLLER_SEGUE_ID = @"START_WORK";
 static NSArray *SCOPE = nil;
 
@@ -33,7 +33,7 @@ static NSArray *SCOPE = nil;
 @implementation VKStartScreen
 
 - (void)viewDidLoad {
-    SCOPE = @[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_EMAIL];
+    SCOPE = @[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_EMAIL, VK_PER_DOCS, VK_PER_MARKET, VK_PER_GROUPS];
     [super viewDidLoad];
     [[VKSdk initializeWithAppId:TOKEN_KEY] registerDelegate:self];
     [[VKSdk instance] setUiDelegate:self];
@@ -41,9 +41,10 @@ static NSArray *SCOPE = nil;
         if (state == VKAuthorizationAuthorized) {
             [self startWorking];
         } else if (error) {
-            [[[UIAlertView alloc] initWithTitle:nil message:[error description] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+            [self showAlertWithMessage:[error description]];
         }
     }];
+    self.title = @"VK watch";
 }
 
 - (void)startWorking {
@@ -59,17 +60,6 @@ static NSArray *SCOPE = nil;
     [VKSdk authorize:SCOPE];
 }
 
-- (IBAction)openShareDialog:(id)sender {
-    VKShareDialogController *shareDialog = [VKShareDialogController new];
-    shareDialog.text = @"This post created created created created and made and post and delivered using #vksdk #ios";
-    shareDialog.uploadImages = @[ [VKUploadImage uploadImageWithImage:[UIImage imageNamed:@"apple"] andParams:[VKImageParameters jpegImageWithQuality:1.0] ] ];
-    [shareDialog setCompletionHandler:^(VKShareDialogController *dialog, VKShareDialogControllerResult result) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }];
-    [self presentViewController:shareDialog animated:YES completion:nil];
-}
-
-
 - (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {
     VKCaptchaViewController *vc = [VKCaptchaViewController captchaControllerWithError:captchaError];
     [vc presentIn:self.navigationController.topViewController];
@@ -83,17 +73,30 @@ static NSArray *SCOPE = nil;
     if (result.token) {
         [self startWorking];
     } else if (result.error) {
-        [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"Access denied\n%@", result.error] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+        [self showAlertWithMessage:[NSString stringWithFormat:@"Access denied\n%@", result.error]];
     }
 }
 
 - (void)vkSdkUserAuthorizationFailed {
-    [[[UIAlertView alloc] initWithTitle:nil message:@"Access denied" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+    [self showAlertWithMessage:@"Access denied"];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller {
     [self.navigationController.topViewController presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)showAlertWithMessage:(NSString *)message {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                   message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil];
+    [alert addAction:okAction];
+
+    [self presentViewController:alert animated:true completion:nil];
 }
 
 @end

@@ -46,6 +46,16 @@
 - (VKRequest *)get:(NSInteger)count;
 
 /**
+*   Returns detailed information with document tags about user or community documents.
+*   https://vk.com/dev/docs.get
+*
+*  @param count Number of documents to return.
+*
+*  @return Request to load
+*/
+- (VKRequest *)getWithTags:(NSInteger)count;
+
+/**
  *  Returns detailed information about user or community documents.
  *  https://vk.com/dev/docs.get
  *

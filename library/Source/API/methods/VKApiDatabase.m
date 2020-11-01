@@ -7,7 +7,14 @@
 //
 
 #import "VKApiDatabase.h"
+#import "VKUser.h"
 
 @implementation VKApiDatabase
+
+- (VKRequest *)getCitiesForCountry:(NSInteger)countryId {
+    return [self prepareRequestWithMethodName:@"getCities"
+                                   parameters:@{VK_API_COUNTRY : @(countryId)}
+                                   modelClass:[VKCitiesArray class]];
+}
 
 @end

@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VKTableViewCityCell : UITableViewCell
 
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, assign) BOOL isSelectedCity;
+
 @end
 
 NS_ASSUME_NONNULL_END

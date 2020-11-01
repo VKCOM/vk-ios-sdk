@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+struct PostModel {
+    let id: Int
+    let postAuhtor: String
+    let forrmatedDate: String
+}

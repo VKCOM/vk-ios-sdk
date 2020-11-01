@@ -37,25 +37,35 @@
   return [self prepareRequestWithMethodName:@"get" parameters: @{VK_API_COUNT : @(count)} modelClass:[VKDocsArray class]];
 }
 
-- (VKRequest *)get:(NSInteger)count andOffset:(NSInteger)offset {
-  return [self prepareRequestWithMethodName:@"get"
-                                 parameters:
-        @{
-            VK_API_COUNT    : @(count),
-            VK_API_OFFSET   : @(offset),
+- (VKRequest *)getWithTags:(NSInteger)count {
+    return [self prepareRequestWithMethodName:@"get"
+                                   parameters:
+            @{
+                VK_API_COUNT     : @(count),
+                VK_API_DOCS_TAGS : @(1)
             }
-                              modelClass:[VKDocsArray class]];
+                                   modelClass:[VKDocsArray class]];
+}
+
+- (VKRequest *)get:(NSInteger)count andOffset:(NSInteger)offset {
+    return [self prepareRequestWithMethodName:@"get"
+                                   parameters:
+            @{
+                VK_API_COUNT    : @(count),
+                VK_API_OFFSET   : @(offset),
+            }
+                                   modelClass:[VKDocsArray class]];
 }
 
 - (VKRequest *)get:(NSInteger)count andOffset:(NSInteger)offset andOwnerID:(NSInteger)ownerID {
-  return [self prepareRequestWithMethodName:@"get"
-                                 parameters:
-  @{
-    VK_API_COUNT    : @(count),
-    VK_API_OFFSET   : @(offset),
-    VK_API_OWNER_ID : @(ownerID),
-    }
-                              modelClass:[VKDocsArray class]];
+    return [self prepareRequestWithMethodName:@"get"
+                                   parameters:
+            @{
+                VK_API_COUNT    : @(count),
+                VK_API_OFFSET   : @(offset),
+                VK_API_OWNER_ID : @(ownerID),
+            }
+                                   modelClass:[VKDocsArray class]];
 }
 
 - (VKRequest *)getByID:(NSArray *)IDs {

@@ -168,3 +168,6 @@ Array of API users
 */
 @interface VKUsersArray : VKApiObjectArray<VKUser*>
 @end
+
+@interface VKCitiesArray : VKApiObjectArray<VKCity*>
+@end

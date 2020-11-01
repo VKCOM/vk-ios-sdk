@@ -7,87 +7,105 @@
 //
 
 #import "VKProductsCollectionViewController.h"
+#import "VKProductCollectionViewCell.h"
+#import "VKProductViewController.h"
 
 @interface VKProductsCollectionViewController ()
+
+@property (nonatomic, strong) VKMarkets *markets;
 
 @end
 
 @implementation VKProductsCollectionViewController
 
-static NSString * const reuseIdentifier = @"Cell";
+static NSString * const reuseIdentifier = @"VKProductCollectionViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    
-    // Do any additional setup after loading the view.
+    self.navigationItem.title = [NSString stringWithFormat:@"Товары сообщества %@", self.group.name];
+    [self.navigationController.navigationBar setValue:@(true) forKey:@"hidesShadow"];
+
+    [self loadData];
 }
 
-/*
-#pragma mark - Navigation
+- (void)loadData {
+    VKRequest *marketRequest = [[VKApi market] marketProductsForCommunityWithId:-self.group.id.integerValue];
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [marketRequest executeWithResultBlock:^(VKResponse *response) {
+        self.markets = (VKMarkets *)response.parsedModel;
+        [self.collectionView reloadData];
+        [self loadIcons];
+    } errorBlock:^(NSError *error) {
+        [self showAlertWithMessage:[error description]];
+    }];
 }
-*/
+
+- (void)loadIcons {
+    for (VKMarket *market in self.markets.items) {
+        if (market.thumb_photo != nil) {
+            NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:[NSURL URLWithString:market.thumb_photo]
+                                                                 completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                if (data) {
+                    market.preview = [UIImage imageWithData:data];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSIndexPath *cellRow = [NSIndexPath indexPathForRow:[self.markets.items indexOfObject:market] inSection:0];
+                        if ([[self.collectionView indexPathsForVisibleItems] containsObject:cellRow]) {
+                            VKProductCollectionViewCell *cell = (VKProductCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:cellRow];
+                            if (cell)
+                                cell.image = market.preview;
+                        }
+                    });
+                }
+            }];
+            [task resume];
+        }
+    }
+}
+
+- (void)showAlertWithMessage:(NSString *)message {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                   message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil];
+    [alert addAction:okAction];
+
+    [self presentViewController:alert animated:true completion:nil];
+}
 
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of items
-    return 0;
+    return self.markets.items.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    VKProductCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    // Configure the cell
+    VKMarket *item = self.markets.items[indexPath.row];
+
+    cell.title = item.title;
+    cell.image = item.preview;
+    cell.price = [item.price.text stringByReplacingOccurrencesOfString:@"rub." withString:@"₽"];
     
     return cell;
 }
 
 #pragma mark <UICollectionViewDelegate>
 
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
+    VKProductViewController *vc = [sb instantiateViewControllerWithIdentifier:@"VKProductViewController"];
+    vc.item = self.markets.items[indexPath.row];
+    [self.navigationController pushViewController:vc animated:true];
 }
-*/
-
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
 
 @end

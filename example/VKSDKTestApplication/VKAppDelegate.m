@@ -21,10 +21,20 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "VKAppDelegate.h"
+#import "WatchSessionManager.h"
+@import WatchConnectivity;
+
+@interface VKAppDelegate()
+
+@property (nonatomic, strong) WatchSessionManager *watchManager;
+
+@end
 
 @implementation VKAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+    self.watchManager = [WatchSessionManager shared];
     return YES;
 }
 

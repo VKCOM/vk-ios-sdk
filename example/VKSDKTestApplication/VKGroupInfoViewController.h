@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VKGroupInfoViewController : UIViewController
 
+@property (nonatomic, strong) VKGroup *group;
+
 @end
 
 NS_ASSUME_NONNULL_END

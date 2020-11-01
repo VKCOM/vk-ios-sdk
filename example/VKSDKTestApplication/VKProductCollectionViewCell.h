@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VKProductCollectionViewCell : UICollectionViewCell
 
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) NSString *price;
+
 @end
 
 NS_ASSUME_NONNULL_END

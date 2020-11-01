@@ -6,11 +6,18 @@
 //  Copyright © 2020 VK. All rights reserved.
 //
 
-#import <VKSdkFramework/VKSdkFramework.h>
+#import "VKApiBase.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VKApiFeed : VKApiBase
+
+/**
+ Return array of the posts
+ https://vk.com/dev/newsfeed.get
+@return Request for execution
+*/
+- (VKRequest *)get;
 
 @end
 

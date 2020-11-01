@@ -46,6 +46,26 @@
     return [VKApiGroups new];
 }
 
++ (VKApiDocs *)docs {
+    return [VKApiDocs new];
+}
+
++ (VKApiDatabase *)database {
+    return [VKApiDatabase new];
+}
+
++ (VKApiMarket *)market {
+    return [VKApiMarket new];
+}
+
++ (VKApiFave *)favourite {
+    return [VKApiFave new];
+}
+
++ (VKApiFeed *)feed {
+    return [VKApiFeed new];
+}
+
 + (VKRequest *)requestWithMethod:(NSString *)method
                    andParameters:(NSDictionary *)parameters {
     return [VKRequest requestWithMethod:method parameters:parameters];

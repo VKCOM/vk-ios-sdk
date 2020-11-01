@@ -7,8 +7,14 @@
 //
 
 #import "VKTaskFiveViewController.h"
+#import "VKTaskFiveContentPickerViewController.h"
+#import "VKModalCardTransitionDelegate.h"
 
-@interface VKTaskFiveViewController ()
+@interface VKTaskFiveViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+
+@property (nonatomic, strong) UIImage *pickedImage;
+
+@property (weak, nonatomic) IBOutlet UIView *internalFadeView;
 
 @end
 
@@ -16,17 +22,54 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+
+    }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (UIView *)fadeView {
+    return self.internalFadeView;
 }
-*/
+
+- (IBAction)choosePhotoButtonTapped:(UIButton *)sender {
+    UIImagePickerController *controller = UIImagePickerController.new;
+    controller.delegate = self;
+    controller.mediaTypes = @[@"public.image"];
+    controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+
+    [self presentViewController:controller animated:true completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> *)info {
+    self.pickedImage = [info valueForKey:UIImagePickerControllerOriginalImage];
+
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
+    VKTaskFiveContentPickerViewController *vc = [sb instantiateViewControllerWithIdentifier:@"VKTaskFiveContentPickerViewController"];
+    vc.modalPresentationStyle = UIModalPresentationCustom;
+    vc.image = self.pickedImage;
+    vc.completionBlock = ^{
+        [self.navigationController setNavigationBarHidden:false animated:true];
+        [UIView animateWithDuration:0.3
+                         animations:^{
+            self.fadeView.alpha = 0.0;
+        }
+                         completion:^(BOOL finished) {
+            self.fadeView.hidden = true;
+        }];
+    };
+
+    [picker dismissViewControllerAnimated:true completion:^{
+        [self.navigationController setNavigationBarHidden:true animated:true];
+        self.fadeView.alpha = 0.0;
+        self.fadeView.hidden = false;
+        [UIView animateWithDuration:0.3 animations:^{
+            self.fadeView.alpha = 0.4;
+        }];
+
+        [self presentViewController:vc animated:true completion:nil];
+    }];
+}
 
 @end

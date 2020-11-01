@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VKTaskFiveViewController : UIViewController
 
+@property (nonatomic, weak, readonly) UIView *fadeView;
+
 @end
 
 NS_ASSUME_NONNULL_END

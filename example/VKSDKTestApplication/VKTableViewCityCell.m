@@ -8,17 +8,34 @@
 
 #import "VKTableViewCityCell.h"
 
+@interface VKTableViewCityCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *selectedImageView;
+
+@end
+
 @implementation VKTableViewCityCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
+- (void)setTitle:(NSString *)title {
+    self.titleLabel.text = title;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+- (void)setIsSelectedCity:(BOOL)isSelectedCity {
+    self.selectedImageView.hidden = !isSelectedCity;
 
-    // Configure the view for the selected state
+    if (isSelectedCity) {
+        self.selectedImageView.layer.affineTransform = CGAffineTransformMakeScale(1.2, 1.2);
+        [UIView animateWithDuration:0.3 animations:^{
+            self.selectedImageView.layer.affineTransform = CGAffineTransformIdentity;
+        }];
+    }
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+
+    self.selectedImageView.hidden = true;
 }
 
 @end

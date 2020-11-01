@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VKProductsCollectionViewController : UICollectionViewController
 
+@property (nonatomic, strong) VKGroup *group;
+
 @end
 
 NS_ASSUME_NONNULL_END

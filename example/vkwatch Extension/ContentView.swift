@@ -10,8 +10,29 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
-            .padding()
+        VStack {
+            Gauge(value: /*@START_MENU_TOKEN@*/0.5/*@END_MENU_TOKEN@*/, in: /*@START_MENU_TOKEN@*/0...1/*@END_MENU_TOKEN@*/) {
+                Text("Label")
+                Text("asdas")
+            }
+            CircleImage()
+                .offset(y: -13)
+                .padding(.bottom, -13)
+                .edgesIgnoringSafeArea(.top)
+            VStack(alignment: .leading) {
+                Text("Tortle Rock")
+                    .font(.title)
+                HStack {
+                    Text("National park")
+                        .font(.subheadline)
+                    Spacer()
+                    Text("California")
+                        .font(.subheadline)
+                }
+            }
+            .padding(4)
+            Spacer()
+        }
     }
 }
 

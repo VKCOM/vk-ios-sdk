@@ -10,4 +10,13 @@
 
 @implementation VKApiFeed
 
+- (VKRequest *)get {
+    return [self prepareRequestWithMethodName:@"get"
+                                   parameters:
+            @{
+                VK_API_OWNER_ID : @"post,photo,photo_tag,wall_photo"
+            }];
+
+}
+
 @end

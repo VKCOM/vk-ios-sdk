@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VKTaskSevenTableViewController : UITableViewController
 
+@property (nonatomic, strong) VKCity *selectedCity;
+
 @end
 
 NS_ASSUME_NONNULL_END

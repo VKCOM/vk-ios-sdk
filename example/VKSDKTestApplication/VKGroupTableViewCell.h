@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VKGroupTableViewCell : UITableViewCell
 
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *subtitle;
+@property (nonatomic, strong) UIImage *icon;
+
 @end
 
 NS_ASSUME_NONNULL_END

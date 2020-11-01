@@ -10,7 +10,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol VKChooseCityTableViewControllerDelegate
+
+- (void)chooseCityControllerDidChooseCity:(VKCity *)city;
+
+@end
+
 @interface VKChooseCityTableViewController : UITableViewController
+
+@property (nonatomic, strong) VKCitiesArray *cities;
+@property (nonatomic, strong) VKCity *selectedCity;
+
+@property (nonatomic, weak) id <VKChooseCityTableViewControllerDelegate> delegate;
 
 @end
 

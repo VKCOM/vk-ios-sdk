@@ -7,7 +7,17 @@
 //
 
 #import "VKApiMarket.h"
+#import "VKGroup.h"
 
 @implementation VKApiMarket
+
+- (VKRequest *)marketProductsForCommunityWithId:(NSInteger)communityId {
+    return [self prepareRequestWithMethodName:@"get"
+                                   parameters:
+            @{
+                VK_API_OWNER_ID    : @(communityId),
+            }
+                                   modelClass:[VKMarkets class]];
+}
 
 @end

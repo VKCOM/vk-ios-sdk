@@ -7,8 +7,15 @@
 //
 
 #import "VKGroupInfoViewController.h"
+@import SafariServices;
 
 @interface VKGroupInfoViewController ()
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *followersLabel;
+@property (nonatomic, weak) IBOutlet UILabel *descriptionLabel;
+@property (nonatomic, weak) IBOutlet UILabel *lastDateLabel;
+
+
 
 @end
 
@@ -16,17 +23,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    self.titleLabel.text = self.group.name;
+
+    self.descriptionLabel.text = self.group.description;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)openButtonTapped:(UIButton *)sender {
+    SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/club%@", @(self.group.id.integerValue)]]];
+    [self presentViewController:vc animated:true completion:nil];
 }
-*/
+
+- (IBAction)dissmisButtonTapped:(UIButton *)sender {
+    [self dismissViewControllerAnimated:true completion:nil];
+}
 
 @end

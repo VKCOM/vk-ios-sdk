@@ -7,10 +7,14 @@
 //
 
 #import "VKTaskSevenTableViewController.h"
+#import "VKChooseCityTableViewController.h"
+#import "VKProductsCollectionViewController.h"
+#import "VKGroupTableViewCell.h"
 
-@interface VKTaskSevenTableViewController ()
+@interface VKTaskSevenTableViewController () <VKChooseCityTableViewControllerDelegate>
 
 @property (nonatomic, strong) VKCitiesArray *cities;
+@property (nonatomic, strong) VKGroups *groups;
 
 @end
 
@@ -20,86 +24,133 @@
     [super viewDidLoad];
     
     [self loadDate];
+
+    self.navigationItem.title = @"Магазины";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"dropdown_flipped_16"] style:UIBarButtonItemStyleDone target:self action:@selector(chooseCity:)];
+}
+
+- (void)setSelectedCity:(VKCity *)selectedCity {
+    _selectedCity = selectedCity;
+    self.navigationItem.title = [NSString stringWithFormat:@"Магазины в %@", self.selectedCity.title];
+}
+
+- (void)chooseCity:(id)sender {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
+    VKChooseCityTableViewController *vc = [sb instantiateViewControllerWithIdentifier:@"VKChooseCityTableViewController"];
+    vc.cities = self.cities;
+    vc.selectedCity = self.selectedCity;
+    vc.delegate = self;
+    [self presentViewController:vc animated:true completion:nil];
 }
 
 - (void)loadDate {
-    VKRequest *citiesRequest = [[VKApi database] getCities];
+    VKRequest *citiesRequest = [[VKApi database] getCitiesForCountry:1];
 
     [citiesRequest executeWithResultBlock:^(VKResponse *response) {
         self.cities = (VKCitiesArray *)response.parsedModel;
-//        [self.activity stopAnimating];
-//        self.activity.hidden = true;
-//        [self reloadData];
-//        [self loadIcons];
+        self.selectedCity = self.cities.items.firstObject;
+        [self loadGroups];
     } errorBlock:^(NSError *error) {
-        // show error
+        [self showAlertWithMessage:[error description]];
     }];
+}
+
+- (void)loadGroups {
+    VKRequest *groupsRequest = [[VKApi groups] searchGroupsWithMarketInCityWithId:self.selectedCity.id.integerValue count:20];
+
+    [groupsRequest executeWithResultBlock:^(VKResponse *response) {
+        self.groups = (VKGroups *)response.parsedModel;
+        [self.tableView reloadData];
+        [self loadIcons];
+    } errorBlock:^(NSError *error) {
+        [self showAlertWithMessage:[error description]];
+    }];
+}
+
+- (void)loadIcons {
+    for (VKGroup *group in self.groups.items) {
+        if (group.photo_100 != nil) {
+            NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:[NSURL URLWithString:group.photo_100]
+                                                                 completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                if (data) {
+                    group.image_100 = [UIImage imageWithData:data];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSIndexPath *cellRow = [NSIndexPath indexPathForRow:[self.groups.items indexOfObject:group] inSection:0];
+                        if ([[self.tableView indexPathsForVisibleRows] containsObject:cellRow]) {
+                            VKGroupTableViewCell *cell = [self.tableView cellForRowAtIndexPath:cellRow];
+                            if (cell)
+                                cell.icon = group.image_100;
+                        }
+                    });
+                }
+            }];
+            [task resume];
+        }
+    }
+}
+
+- (void)showAlertWithMessage:(NSString *)message {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                   message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil];
+    [alert addAction:okAction];
+
+    [self presentViewController:alert animated:true completion:nil];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return self.groups.items.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
+    VKGroupTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"groupCell" forIndexPath:indexPath];
+
+    VKGroup *group = self.groups.items[indexPath.row];
+    cell.title = group.name;
+
+
+    if (group.is_closed.integerValue == 0) {
+        cell.subtitle = @"Открытая группа";
+    } else if (group.is_closed.integerValue == 1) {
+        cell.subtitle = @"Закрытая группа";
+    } else if (group.is_closed.integerValue == 2) {
+        cell.subtitle = @"Приватная группа";
+    }
+
+    if (group.image_100 != nil) {
+        cell.icon = group.image_100;
+    } else {
+
+    }
     
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 60;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
+    VKProductsCollectionViewController *vc = [sb instantiateViewControllerWithIdentifier:@"VKProductsCollectionViewController"];
+    vc.group = self.groups.items[indexPath.row];
+    [self.navigationController pushViewController:vc animated:true];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (void)chooseCityControllerDidChooseCity:(VKCity *)city {
+    self.selectedCity = city;
+    [self loadGroups];
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

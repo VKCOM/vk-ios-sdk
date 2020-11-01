@@ -46,3 +46,20 @@
 }
 
 @end
+
+@implementation VKPrice
+@end
+
+@implementation VKMarket
+
+@synthesize description = _description;
+
+@end
+
+@implementation VKMarkets
+
+-(Class)objectClass {
+    return [VKMarket class];
+}
+
+@end

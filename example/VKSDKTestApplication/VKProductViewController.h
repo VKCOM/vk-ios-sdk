@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VKProductViewController : UIViewController
 
+@property (nonatomic, strong) VKMarket *item;
+
 @end
 
 NS_ASSUME_NONNULL_END

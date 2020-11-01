@@ -22,9 +22,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TestViewController : UITableViewController {
-@private
-    VKRequest *callingRequest;
-}
+@interface TestViewController : UITableViewController
+
 @property(nonatomic, strong) IBOutlet UILabel *tokenLabel;
+
 @end

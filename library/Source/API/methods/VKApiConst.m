@@ -22,6 +22,7 @@ NSString *const VK_API_SORT = @"sort";
 NSString *const VK_API_OFFSET = @"offset";
 NSString *const VK_API_COUNT = @"count";
 NSString *const VK_API_OWNER_ID = @"owner_id";
+NSString *const VK_API_ID = @"id";
 
 //auth
 NSString *const VK_API_LANG = @"lang";
@@ -38,7 +39,7 @@ NSString *const VK_API_EXTENDED = @"extended";
 //Search
 NSString *const VK_API_Q = @"q";
 NSString *const VK_API_CITY = @"city";
-NSString *const VK_API_COUNTRY = @"country";
+NSString *const VK_API_COUNTRY = @"country_id";
 NSString *const VK_API_HOMETOWN = @"hometown";
 NSString *const VK_API_UNIVERSITY_COUNTRY = @"university_country";
 NSString *const VK_API_UNIVERSITY = @"university";
@@ -62,6 +63,7 @@ NSString *const VK_API_COMPANY = @"company";
 NSString *const VK_API_POSITION = @"position";
 NSString *const VK_API_GROUP_ID = @"group_id";
 NSString *const VK_API_GROUP_IDS = @"group_ids";
+NSString *const VK_API_DOCS_TAGS = @"return_tags";
 
 NSString *const VK_API_FRIENDS_ONLY = @"friends_only";
 NSString *const VK_API_FROM_GROUP = @"from_group";
@@ -101,3 +103,8 @@ NSString *const VK_API_ALBUM_ID = @"album_id";
 
 //Events
 NSString *const VKCaptchaAnsweredEvent = @"VKCaptchaAnsweredEvent";
+
+//Groups
+NSString *const VK_API_MARKET = @"market";
+NSString *const VK_API_GROUP_TYPE = @"type";
+NSString *const VK_API_GROUP_FUTURE = @"type";

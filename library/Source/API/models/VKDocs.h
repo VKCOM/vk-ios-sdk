@@ -40,6 +40,12 @@
 @property(nonatomic, copy) NSString *photo_130;
 @property(nonatomic, strong) NSNumber *date;
 @property(nonatomic, strong) NSNumber *type;
+@property(nonatomic, strong) NSArray *tags;
+
+// Doesn't recived from server
+@property(nonatomic, strong) UIImage *image_100;
+@property(nonatomic, strong) UIImage *image_130;
+
 @end
 
 /**

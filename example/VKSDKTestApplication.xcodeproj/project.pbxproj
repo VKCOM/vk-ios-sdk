@@ -3,15 +3,54 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A32D6AE23FB274E00EDB2E6 /* VKTaskOneTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A32D6AD23FB274E00EDB2E6 /* VKTaskOneTableViewController.m */; };
+		0A32D6B323FC3BB000EDB2E6 /* VKDocumentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A32D6B123FC3BB000EDB2E6 /* VKDocumentTableViewCell.m */; };
+		0A32D6B423FC3BB000EDB2E6 /* VKDocumentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A32D6B223FC3BB000EDB2E6 /* VKDocumentTableViewCell.xib */; };
+		0A5362AC240C130400B66F81 /* VKGroupsUnsubscribeCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5362AB240C130400B66F81 /* VKGroupsUnsubscribeCollectionViewController.m */; };
+		0A5362AF240C135600B66F81 /* VKGroupUnsubsctibeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5362AE240C135500B66F81 /* VKGroupUnsubsctibeCollectionViewCell.m */; };
+		0A5362B2240C424100B66F81 /* VKSubscribeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5362B1240C424100B66F81 /* VKSubscribeView.m */; };
+		0A5362B5240C4FD400B66F81 /* VKGroupInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5362B4240C4FD400B66F81 /* VKGroupInfoViewController.m */; };
+		0A5C61A8240AF278007E30FF /* VKTableViewCityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C61A7240AF278007E30FF /* VKTableViewCityCell.m */; };
+		0A5C61AE240AFB7E007E30FF /* VKProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C61AD240AFB7E007E30FF /* VKProductCollectionViewCell.m */; };
+		0A5C61B1240AFBF7007E30FF /* VKProductsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C61B0240AFBF7007E30FF /* VKProductsCollectionViewController.m */; };
+		0A5EBD22240BBA6F00B59309 /* VKGroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5EBD21240BBA6E00B59309 /* VKGroupTableViewCell.m */; };
+		0A911B65240BC8A000B6245C /* VKProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A911B64240BC8A000B6245C /* VKProductViewController.m */; };
+		0A98772025489E99008E9A72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A98771F25489E99008E9A72 /* Assets.xcassets */; };
+		0A98772725489E99008E9A72 /* vkwatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0A98772625489E99008E9A72 /* vkwatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0A98772C25489E99008E9A72 /* VKSDKTestApplicationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98772B25489E99008E9A72 /* VKSDKTestApplicationApp.swift */; };
+		0A98772E25489E99008E9A72 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98772D25489E99008E9A72 /* ContentView.swift */; };
+		0A98773025489E99008E9A72 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98772F25489E99008E9A72 /* NotificationController.swift */; };
+		0A98773225489E99008E9A72 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98773125489E99008E9A72 /* NotificationView.swift */; };
+		0A98773425489E99008E9A72 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98773325489E99008E9A72 /* ComplicationController.swift */; };
+		0A98773625489E9A008E9A72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A98773525489E9A008E9A72 /* Assets.xcassets */; };
+		0A98773925489E9A008E9A72 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A98773825489E9A008E9A72 /* Preview Assets.xcassets */; };
+		0A98773E25489E9A008E9A72 /* vkwatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 0A98771D25489E97008E9A72 /* vkwatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0A98774D254A0755008E9A72 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98774C254A0755008E9A72 /* CircleImage.swift */; };
+		0A987759254C8397008E9A72 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A987758254C8397008E9A72 /* PostView.swift */; };
+		0A98775E254C83C7008E9A72 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98775D254C83C7008E9A72 /* PostModel.swift */; };
+		0AA2753B254D66A200DC448C /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 0AA2753A254D66A200DC448C /* SDWebImageSwiftUI */; };
+		0AA27551254D686C00DC448C /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 0AA27550254D686C00DC448C /* SDWebImage */; };
+		0AA27553254D687100DC448C /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 0AA27552254D687100DC448C /* SDWebImageSwiftUI */; };
+		0AA27557254D68E300DC448C /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 0AA27556254D68E300DC448C /* SDWebImage */; };
+		0AA27560254D75A200DC448C /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2755F254D75A200DC448C /* NewsView.swift */; };
+		0AA2FEF924026D28005CD5FC /* VKTaskFiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2FEF824026D28005CD5FC /* VKTaskFiveViewController.m */; };
+		0AAB0A6D254DA7120032A41E /* PhoneConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB0A6C254DA7120032A41E /* PhoneConnectivityManager.swift */; };
+		0AAB0A74254DAE3A0032A41E /* WatchSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB0A73254DAE390032A41E /* WatchSessionManager.m */; };
+		0AE08B792402783D00C44A61 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0AE08B752402783D00C44A61 /* SF-Pro-Text-Regular.otf */; };
+		0AE08B7B2402784700C44A61 /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0AE08B7A2402784700C44A61 /* SF-Pro-Text-Semibold.otf */; };
+		0AE08B7D2402787100C44A61 /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0AE08B7C2402787100C44A61 /* SF-Pro-Text-Medium.otf */; };
+		0AE08B852402AF9F00C44A61 /* VKTaskFiveContentPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE08B842402AF9F00C44A61 /* VKTaskFiveContentPickerViewController.m */; };
+		0AE08B882402BE6000C44A61 /* VKModalCardTransitionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE08B872402BE6000C44A61 /* VKModalCardTransitionDelegate.m */; };
+		0AE08B8F24044CDA00C44A61 /* VKTaskSevenTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE08B8E24044CDA00C44A61 /* VKTaskSevenTableViewController.m */; };
+		0AED99AE240A5856001A248A /* VKChooseCityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AED99AD240A5856001A248A /* VKChooseCityTableViewController.m */; };
 		F34DED0C1D2173D6005495E5 /* VKSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F34DED091D2173C9005495E5 /* VKSdkFramework.framework */; };
 		F34DED0D1D2173D6005495E5 /* VKSdkFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F34DED091D2173C9005495E5 /* VKSdkFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F36114C21976DC770085898F /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = F36114C11976DC770085898F /* apple.png */; };
 		F3769E671BE8D48800AEC4AF /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3769E661BE8D48800AEC4AF /* SafariServices.framework */; };
-		F3B7EEAB184353CF00104B90 /* ApiCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B7EEAA184353CF00104B90 /* ApiCallViewController.m */; };
 		F3D38E6F183CD29700D05079 /* VKStartScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D38E6E183CD29700D05079 /* VKStartScreen.m */; };
 		F3DC2446183B811E00E3A93D /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3DC2445183B811E00E3A93D /* Storyboard.storyboard */; };
 		F3EEFF6A1827B1DD000BB525 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EEFF691827B1DD000BB525 /* Foundation.framework */; };
@@ -27,6 +66,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0A98772825489E99008E9A72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3EEFF5E1827B1DD000BB525 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A98772525489E99008E9A72;
+			remoteInfo = "vkwatch Extension";
+		};
+		0A98773C25489E9A008E9A72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3EEFF5E1827B1DD000BB525 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A98771C25489E97008E9A72;
+			remoteInfo = vkwatch;
+		};
 		F34DED041D2173C9005495E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F34DECFD1D2173C9005495E5 /* VK-ios-sdk.xcodeproj */;
@@ -65,6 +118,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		0A98773F25489E9A008E9A72 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				0A98773E25489E9A008E9A72 /* vkwatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A98774225489E9A008E9A72 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0A98772725489E99008E9A72 /* vkwatch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F34DED101D2173D6005495E5 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -79,12 +154,66 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A32D6AC23FB274E00EDB2E6 /* VKTaskOneTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKTaskOneTableViewController.h; sourceTree = "<group>"; };
+		0A32D6AD23FB274E00EDB2E6 /* VKTaskOneTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKTaskOneTableViewController.m; sourceTree = "<group>"; };
+		0A32D6B023FC3BB000EDB2E6 /* VKDocumentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKDocumentTableViewCell.h; sourceTree = "<group>"; };
+		0A32D6B123FC3BB000EDB2E6 /* VKDocumentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKDocumentTableViewCell.m; sourceTree = "<group>"; };
+		0A32D6B223FC3BB000EDB2E6 /* VKDocumentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VKDocumentTableViewCell.xib; sourceTree = "<group>"; };
+		0A5362AA240C130400B66F81 /* VKGroupsUnsubscribeCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKGroupsUnsubscribeCollectionViewController.h; sourceTree = "<group>"; };
+		0A5362AB240C130400B66F81 /* VKGroupsUnsubscribeCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKGroupsUnsubscribeCollectionViewController.m; sourceTree = "<group>"; };
+		0A5362AD240C135500B66F81 /* VKGroupUnsubsctibeCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKGroupUnsubsctibeCollectionViewCell.h; sourceTree = "<group>"; };
+		0A5362AE240C135500B66F81 /* VKGroupUnsubsctibeCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKGroupUnsubsctibeCollectionViewCell.m; sourceTree = "<group>"; };
+		0A5362B0240C424100B66F81 /* VKSubscribeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKSubscribeView.h; sourceTree = "<group>"; };
+		0A5362B1240C424100B66F81 /* VKSubscribeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKSubscribeView.m; sourceTree = "<group>"; };
+		0A5362B3240C4FD400B66F81 /* VKGroupInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKGroupInfoViewController.h; sourceTree = "<group>"; };
+		0A5362B4240C4FD400B66F81 /* VKGroupInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKGroupInfoViewController.m; sourceTree = "<group>"; };
+		0A5C61A6240AF278007E30FF /* VKTableViewCityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKTableViewCityCell.h; sourceTree = "<group>"; };
+		0A5C61A7240AF278007E30FF /* VKTableViewCityCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKTableViewCityCell.m; sourceTree = "<group>"; };
+		0A5C61AC240AFB7E007E30FF /* VKProductCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKProductCollectionViewCell.h; sourceTree = "<group>"; };
+		0A5C61AD240AFB7E007E30FF /* VKProductCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKProductCollectionViewCell.m; sourceTree = "<group>"; };
+		0A5C61AF240AFBF7007E30FF /* VKProductsCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKProductsCollectionViewController.h; sourceTree = "<group>"; };
+		0A5C61B0240AFBF7007E30FF /* VKProductsCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKProductsCollectionViewController.m; sourceTree = "<group>"; };
+		0A5EBD20240BBA6E00B59309 /* VKGroupTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKGroupTableViewCell.h; sourceTree = "<group>"; };
+		0A5EBD21240BBA6E00B59309 /* VKGroupTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKGroupTableViewCell.m; sourceTree = "<group>"; };
+		0A911B63240BC8A000B6245C /* VKProductViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKProductViewController.h; sourceTree = "<group>"; };
+		0A911B64240BC8A000B6245C /* VKProductViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKProductViewController.m; sourceTree = "<group>"; };
+		0A98771D25489E97008E9A72 /* vkwatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vkwatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A98771F25489E99008E9A72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0A98772125489E99008E9A72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A98772625489E99008E9A72 /* vkwatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "vkwatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A98772B25489E99008E9A72 /* VKSDKTestApplicationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKSDKTestApplicationApp.swift; sourceTree = "<group>"; };
+		0A98772D25489E99008E9A72 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0A98772F25489E99008E9A72 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		0A98773125489E99008E9A72 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		0A98773325489E99008E9A72 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		0A98773525489E9A008E9A72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0A98773825489E9A008E9A72 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0A98773A25489E9A008E9A72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A98773B25489E9A008E9A72 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		0A98774C254A0755008E9A72 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
+		0A987758254C8397008E9A72 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		0A98775D254C83C7008E9A72 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		0AA2755F254D75A200DC448C /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
+		0AA2FEF724026D28005CD5FC /* VKTaskFiveViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKTaskFiveViewController.h; sourceTree = "<group>"; };
+		0AA2FEF824026D28005CD5FC /* VKTaskFiveViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKTaskFiveViewController.m; sourceTree = "<group>"; };
+		0AAB0A6C254DA7120032A41E /* PhoneConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneConnectivityManager.swift; sourceTree = "<group>"; };
+		0AAB0A72254DAE390032A41E /* WatchSessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatchSessionManager.h; sourceTree = "<group>"; };
+		0AAB0A73254DAE390032A41E /* WatchSessionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WatchSessionManager.m; sourceTree = "<group>"; };
+		0AE08B752402783D00C44A61 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
+		0AE08B7A2402784700C44A61 /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
+		0AE08B7C2402787100C44A61 /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
+		0AE08B832402AF9F00C44A61 /* VKTaskFiveContentPickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKTaskFiveContentPickerViewController.h; sourceTree = "<group>"; };
+		0AE08B842402AF9F00C44A61 /* VKTaskFiveContentPickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKTaskFiveContentPickerViewController.m; sourceTree = "<group>"; };
+		0AE08B862402BE6000C44A61 /* VKModalCardTransitionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKModalCardTransitionDelegate.h; sourceTree = "<group>"; };
+		0AE08B872402BE6000C44A61 /* VKModalCardTransitionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKModalCardTransitionDelegate.m; sourceTree = "<group>"; };
+		0AE08B8D24044CDA00C44A61 /* VKTaskSevenTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKTaskSevenTableViewController.h; sourceTree = "<group>"; };
+		0AE08B8E24044CDA00C44A61 /* VKTaskSevenTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKTaskSevenTableViewController.m; sourceTree = "<group>"; };
+		0AED99AC240A5856001A248A /* VKChooseCityTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKChooseCityTableViewController.h; sourceTree = "<group>"; };
+		0AED99AD240A5856001A248A /* VKChooseCityTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VKChooseCityTableViewController.m; sourceTree = "<group>"; };
 		F34DECFD1D2173C9005495E5 /* VK-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "VK-ios-sdk.xcodeproj"; path = "../VK-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
 		F36114AA197687050085898F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F36114C11976DC770085898F /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple.png; sourceTree = "<group>"; };
 		F3769E661BE8D48800AEC4AF /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
-		F3B7EEA9184353CF00104B90 /* ApiCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiCallViewController.h; sourceTree = "<group>"; };
-		F3B7EEAA184353CF00104B90 /* ApiCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiCallViewController.m; sourceTree = "<group>"; };
 		F3BACC301865902D003158DA /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		F3D38E6D183CD29700D05079 /* VKStartScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKStartScreen.h; sourceTree = "<group>"; };
 		F3D38E6E183CD29700D05079 /* VKStartScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKStartScreen.m; sourceTree = "<group>"; };
@@ -107,6 +236,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0A98772325489E99008E9A72 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0AA27553254D687100DC448C /* SDWebImageSwiftUI in Frameworks */,
+				0AA27551254D686C00DC448C /* SDWebImage in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F3EEFF631827B1DD000BB525 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,7 +253,9 @@
 				F3EEFFD01827F9B5000BB525 /* SystemConfiguration.framework in Frameworks */,
 				F3EEFFCE1827F9AF000BB525 /* MobileCoreServices.framework in Frameworks */,
 				F3EEFF6C1827B1DD000BB525 /* CoreGraphics.framework in Frameworks */,
+				0AA2753B254D66A200DC448C /* SDWebImageSwiftUI in Frameworks */,
 				F3EEFF6E1827B1DD000BB525 /* UIKit.framework in Frameworks */,
+				0AA27557254D68E300DC448C /* SDWebImage in Frameworks */,
 				F3EEFF6A1827B1DD000BB525 /* Foundation.framework in Frameworks */,
 				F34DED0C1D2173D6005495E5 /* VKSdkFramework.framework in Frameworks */,
 			);
@@ -124,6 +264,129 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A32D6AF23FC3B1E00EDB2E6 /* Task1 */ = {
+			isa = PBXGroup;
+			children = (
+				0A32D6AC23FB274E00EDB2E6 /* VKTaskOneTableViewController.h */,
+				0A32D6AD23FB274E00EDB2E6 /* VKTaskOneTableViewController.m */,
+				0A32D6B023FC3BB000EDB2E6 /* VKDocumentTableViewCell.h */,
+				0A32D6B123FC3BB000EDB2E6 /* VKDocumentTableViewCell.m */,
+				0A32D6B223FC3BB000EDB2E6 /* VKDocumentTableViewCell.xib */,
+			);
+			name = Task1;
+			sourceTree = "<group>";
+		};
+		0A5362A6240C12DD00B66F81 /* Task6 */ = {
+			isa = PBXGroup;
+			children = (
+				0A5362AA240C130400B66F81 /* VKGroupsUnsubscribeCollectionViewController.h */,
+				0A5362AB240C130400B66F81 /* VKGroupsUnsubscribeCollectionViewController.m */,
+				0A5362B3240C4FD400B66F81 /* VKGroupInfoViewController.h */,
+				0A5362B4240C4FD400B66F81 /* VKGroupInfoViewController.m */,
+				0A5362AD240C135500B66F81 /* VKGroupUnsubsctibeCollectionViewCell.h */,
+				0A5362AE240C135500B66F81 /* VKGroupUnsubsctibeCollectionViewCell.m */,
+				0A5362B0240C424100B66F81 /* VKSubscribeView.h */,
+				0A5362B1240C424100B66F81 /* VKSubscribeView.m */,
+			);
+			name = Task6;
+			sourceTree = "<group>";
+		};
+		0A98771E25489E97008E9A72 /* vkwatch */ = {
+			isa = PBXGroup;
+			children = (
+				0A98771F25489E99008E9A72 /* Assets.xcassets */,
+				0A98772125489E99008E9A72 /* Info.plist */,
+			);
+			path = vkwatch;
+			sourceTree = "<group>";
+		};
+		0A98772A25489E99008E9A72 /* vkwatch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0A98772B25489E99008E9A72 /* VKSDKTestApplicationApp.swift */,
+				0A98772D25489E99008E9A72 /* ContentView.swift */,
+				0A98774C254A0755008E9A72 /* CircleImage.swift */,
+				0AAB0A6B254DA6CF0032A41E /* PhoneConnectivity */,
+				0A987763254C8452008E9A72 /* View */,
+				0A98775C254C83AC008E9A72 /* Model */,
+				0A98772F25489E99008E9A72 /* NotificationController.swift */,
+				0A98773125489E99008E9A72 /* NotificationView.swift */,
+				0A98773325489E99008E9A72 /* ComplicationController.swift */,
+				0A98773525489E9A008E9A72 /* Assets.xcassets */,
+				0A98773A25489E9A008E9A72 /* Info.plist */,
+				0A98773B25489E9A008E9A72 /* PushNotificationPayload.apns */,
+				0A98773725489E9A008E9A72 /* Preview Content */,
+			);
+			path = "vkwatch Extension";
+			sourceTree = "<group>";
+		};
+		0A98773725489E9A008E9A72 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				0A98773825489E9A008E9A72 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		0A98775C254C83AC008E9A72 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0A98775D254C83C7008E9A72 /* PostModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0A987763254C8452008E9A72 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0A987758254C8397008E9A72 /* PostView.swift */,
+				0AA2755F254D75A200DC448C /* NewsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0AA2FEF624026C42005CD5FC /* Task5 */ = {
+			isa = PBXGroup;
+			children = (
+				0AA2FEF724026D28005CD5FC /* VKTaskFiveViewController.h */,
+				0AA2FEF824026D28005CD5FC /* VKTaskFiveViewController.m */,
+				0AE08B832402AF9F00C44A61 /* VKTaskFiveContentPickerViewController.h */,
+				0AE08B842402AF9F00C44A61 /* VKTaskFiveContentPickerViewController.m */,
+				0AE08B862402BE6000C44A61 /* VKModalCardTransitionDelegate.h */,
+				0AE08B872402BE6000C44A61 /* VKModalCardTransitionDelegate.m */,
+			);
+			name = Task5;
+			sourceTree = "<group>";
+		};
+		0AAB0A6B254DA6CF0032A41E /* PhoneConnectivity */ = {
+			isa = PBXGroup;
+			children = (
+				0AAB0A6C254DA7120032A41E /* PhoneConnectivityManager.swift */,
+			);
+			path = PhoneConnectivity;
+			sourceTree = "<group>";
+		};
+		0AE08B8924044C5D00C44A61 /* Task7 */ = {
+			isa = PBXGroup;
+			children = (
+				0AE08B8D24044CDA00C44A61 /* VKTaskSevenTableViewController.h */,
+				0AE08B8E24044CDA00C44A61 /* VKTaskSevenTableViewController.m */,
+				0AED99AC240A5856001A248A /* VKChooseCityTableViewController.h */,
+				0AED99AD240A5856001A248A /* VKChooseCityTableViewController.m */,
+				0A5C61AF240AFBF7007E30FF /* VKProductsCollectionViewController.h */,
+				0A5C61B0240AFBF7007E30FF /* VKProductsCollectionViewController.m */,
+				0A911B63240BC8A000B6245C /* VKProductViewController.h */,
+				0A911B64240BC8A000B6245C /* VKProductViewController.m */,
+				0A5EBD20240BBA6E00B59309 /* VKGroupTableViewCell.h */,
+				0A5EBD21240BBA6E00B59309 /* VKGroupTableViewCell.m */,
+				0A5C61A6240AF278007E30FF /* VKTableViewCityCell.h */,
+				0A5C61A7240AF278007E30FF /* VKTableViewCityCell.m */,
+				0A5C61AC240AFB7E007E30FF /* VKProductCollectionViewCell.h */,
+				0A5C61AD240AFB7E007E30FF /* VKProductCollectionViewCell.m */,
+			);
+			name = Task7;
+			sourceTree = "<group>";
+		};
 		F34DECFE1D2173C9005495E5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +402,8 @@
 			isa = PBXGroup;
 			children = (
 				F3EEFF6F1827B1DD000BB525 /* VKSDKTestApplication */,
+				0A98771E25489E97008E9A72 /* vkwatch */,
+				0A98772A25489E99008E9A72 /* vkwatch Extension */,
 				F3EEFF681827B1DD000BB525 /* Frameworks */,
 				F3EEFF671827B1DD000BB525 /* Products */,
 				F34DECFD1D2173C9005495E5 /* VK-ios-sdk.xcodeproj */,
@@ -149,6 +414,8 @@
 			isa = PBXGroup;
 			children = (
 				F3EEFF661827B1DD000BB525 /* VKSDKTestApplication.app */,
+				0A98771D25489E97008E9A72 /* vkwatch.app */,
+				0A98772625489E99008E9A72 /* vkwatch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -172,6 +439,8 @@
 			children = (
 				F3EEFF781827B1DD000BB525 /* VKAppDelegate.h */,
 				F3EEFF791827B1DD000BB525 /* VKAppDelegate.m */,
+				0AAB0A72254DAE390032A41E /* WatchSessionManager.h */,
+				0AAB0A73254DAE390032A41E /* WatchSessionManager.m */,
 				F3EEFF7B1827B1DD000BB525 /* Images.xcassets */,
 				F3EEFF701827B1DD000BB525 /* Supporting Files */,
 				F3DC2445183B811E00E3A93D /* Storyboard.storyboard */,
@@ -179,8 +448,10 @@
 				F3D38E6E183CD29700D05079 /* VKStartScreen.m */,
 				F3EEFFBD1827E990000BB525 /* TestViewController.h */,
 				F3EEFFBE1827E990000BB525 /* TestViewController.m */,
-				F3B7EEA9184353CF00104B90 /* ApiCallViewController.h */,
-				F3B7EEAA184353CF00104B90 /* ApiCallViewController.m */,
+				0A5362A6240C12DD00B66F81 /* Task6 */,
+				0AE08B8924044C5D00C44A61 /* Task7 */,
+				0A32D6AF23FC3B1E00EDB2E6 /* Task1 */,
+				0AA2FEF624026C42005CD5FC /* Task5 */,
 			);
 			path = VKSDKTestApplication;
 			sourceTree = "<group>";
@@ -188,6 +459,9 @@
 		F3EEFF701827B1DD000BB525 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0AE08B7A2402784700C44A61 /* SF-Pro-Text-Semibold.otf */,
+				0AE08B7C2402787100C44A61 /* SF-Pro-Text-Medium.otf */,
+				0AE08B752402783D00C44A61 /* SF-Pro-Text-Regular.otf */,
 				F36114C11976DC770085898F /* apple.png */,
 				F3EEFF711827B1DD000BB525 /* VKSDKTestApplication-Info.plist */,
 				F3EEFF721827B1DD000BB525 /* InfoPlist.strings */,
@@ -200,6 +474,51 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0A98771C25489E97008E9A72 /* vkwatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A98774925489E9A008E9A72 /* Build configuration list for PBXNativeTarget "vkwatch" */;
+			buildPhases = (
+				0A98771B25489E97008E9A72 /* Resources */,
+				0A98774225489E9A008E9A72 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0AA27545254D67DA00DC448C /* PBXTargetDependency */,
+				0AA27531254D657000DC448C /* PBXTargetDependency */,
+				0A98772925489E99008E9A72 /* PBXTargetDependency */,
+			);
+			name = vkwatch;
+			packageProductDependencies = (
+				0AA2752A254D647400DC448C /* SDWebImageSwiftUI */,
+				0AA27541254D67CF00DC448C /* SDWebImage */,
+			);
+			productName = vkwatch;
+			productReference = 0A98771D25489E97008E9A72 /* vkwatch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		0A98772525489E99008E9A72 /* vkwatch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A98774825489E9A008E9A72 /* Build configuration list for PBXNativeTarget "vkwatch Extension" */;
+			buildPhases = (
+				0A98772225489E99008E9A72 /* Sources */,
+				0A98772325489E99008E9A72 /* Frameworks */,
+				0A98772425489E99008E9A72 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0AA27535254D65B700DC448C /* PBXTargetDependency */,
+			);
+			name = "vkwatch Extension";
+			packageProductDependencies = (
+				0AA27550254D686C00DC448C /* SDWebImage */,
+				0AA27552254D687100DC448C /* SDWebImageSwiftUI */,
+			);
+			productName = "vkwatch Extension";
+			productReference = 0A98772625489E99008E9A72 /* vkwatch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		F3EEFF651827B1DD000BB525 /* VKSDKTestApplication */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F3EEFF921827B1DE000BB525 /* Build configuration list for PBXNativeTarget "VKSDKTestApplication" */;
@@ -208,13 +527,21 @@
 				F3EEFF631827B1DD000BB525 /* Frameworks */,
 				F3EEFF641827B1DD000BB525 /* Resources */,
 				F34DED101D2173D6005495E5 /* Embed Frameworks */,
+				0A98773F25489E9A008E9A72 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				0AA27549254D67FC00DC448C /* PBXTargetDependency */,
+				0AA27539254D663500DC448C /* PBXTargetDependency */,
 				F34DED0F1D2173D6005495E5 /* PBXTargetDependency */,
+				0A98773D25489E9A008E9A72 /* PBXTargetDependency */,
 			);
 			name = VKSDKTestApplication;
+			packageProductDependencies = (
+				0AA2753A254D66A200DC448C /* SDWebImageSwiftUI */,
+				0AA27556254D68E300DC448C /* SDWebImage */,
+			);
 			productName = VKSDKTestApplication;
 			productReference = F3EEFF661827B1DD000BB525 /* VKSDKTestApplication.app */;
 			productType = "com.apple.product-type.application";
@@ -226,24 +553,40 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = VK;
+				LastSwiftUpdateCheck = 1210;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = VK;
 				TargetAttributes = {
+					0A98771C25489E97008E9A72 = {
+						CreatedOnToolsVersion = 12.1;
+						DevelopmentTeam = 292K3XX9N4;
+						ProvisioningStyle = Automatic;
+					};
+					0A98772525489E99008E9A72 = {
+						CreatedOnToolsVersion = 12.1;
+						DevelopmentTeam = 292K3XX9N4;
+						ProvisioningStyle = Automatic;
+					};
 					F3EEFF651827B1DD000BB525 = {
-						DevelopmentTeam = R26JY69RPL;
+						DevelopmentTeam = 292K3XX9N4;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = F3EEFF611827B1DD000BB525 /* Build configuration list for PBXProject "VKSDKTestApplication" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				ru,
+				Base,
 			);
 			mainGroup = F3EEFF5D1827B1DD000BB525;
+			packageReferences = (
+				0AA27529254D647400DC448C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				0AA27540254D67CF00DC448C /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = F3EEFF671827B1DD000BB525 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -255,6 +598,8 @@
 			projectRoot = "";
 			targets = (
 				F3EEFF651827B1DD000BB525 /* VKSDKTestApplication */,
+				0A98771C25489E97008E9A72 /* vkwatch */,
+				0A98772525489E99008E9A72 /* vkwatch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -291,35 +636,119 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0A98771B25489E97008E9A72 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A98772025489E99008E9A72 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A98772425489E99008E9A72 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A98773925489E9A008E9A72 /* Preview Assets.xcassets in Resources */,
+				0A98773625489E9A008E9A72 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F3EEFF641827B1DD000BB525 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AE08B792402783D00C44A61 /* SF-Pro-Text-Regular.otf in Resources */,
 				F3DC2446183B811E00E3A93D /* Storyboard.storyboard in Resources */,
 				F3EEFF741827B1DD000BB525 /* InfoPlist.strings in Resources */,
 				F3EEFF7C1827B1DD000BB525 /* Images.xcassets in Resources */,
+				0AE08B7D2402787100C44A61 /* SF-Pro-Text-Medium.otf in Resources */,
+				0A32D6B423FC3BB000EDB2E6 /* VKDocumentTableViewCell.xib in Resources */,
 				F36114C21976DC770085898F /* apple.png in Resources */,
+				0AE08B7B2402784700C44A61 /* SF-Pro-Text-Semibold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0A98772225489E99008E9A72 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A987759254C8397008E9A72 /* PostView.swift in Sources */,
+				0A98775E254C83C7008E9A72 /* PostModel.swift in Sources */,
+				0A98773025489E99008E9A72 /* NotificationController.swift in Sources */,
+				0AAB0A6D254DA7120032A41E /* PhoneConnectivityManager.swift in Sources */,
+				0AA27560254D75A200DC448C /* NewsView.swift in Sources */,
+				0A98772E25489E99008E9A72 /* ContentView.swift in Sources */,
+				0A98773425489E99008E9A72 /* ComplicationController.swift in Sources */,
+				0A98772C25489E99008E9A72 /* VKSDKTestApplicationApp.swift in Sources */,
+				0A98773225489E99008E9A72 /* NotificationView.swift in Sources */,
+				0A98774D254A0755008E9A72 /* CircleImage.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F3EEFF621827B1DD000BB525 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				F3EEFFC01827E990000BB525 /* TestViewController.m in Sources */,
 				F3EEFF761827B1DD000BB525 /* main.m in Sources */,
+				0AE08B852402AF9F00C44A61 /* VKTaskFiveContentPickerViewController.m in Sources */,
+				0AA2FEF924026D28005CD5FC /* VKTaskFiveViewController.m in Sources */,
+				0AE08B882402BE6000C44A61 /* VKModalCardTransitionDelegate.m in Sources */,
+				0A911B65240BC8A000B6245C /* VKProductViewController.m in Sources */,
+				0A5362B2240C424100B66F81 /* VKSubscribeView.m in Sources */,
+				0A32D6B323FC3BB000EDB2E6 /* VKDocumentTableViewCell.m in Sources */,
+				0A5EBD22240BBA6F00B59309 /* VKGroupTableViewCell.m in Sources */,
+				0A5C61AE240AFB7E007E30FF /* VKProductCollectionViewCell.m in Sources */,
+				0AED99AE240A5856001A248A /* VKChooseCityTableViewController.m in Sources */,
+				0A5362AC240C130400B66F81 /* VKGroupsUnsubscribeCollectionViewController.m in Sources */,
+				0A5362AF240C135600B66F81 /* VKGroupUnsubsctibeCollectionViewCell.m in Sources */,
+				0A32D6AE23FB274E00EDB2E6 /* VKTaskOneTableViewController.m in Sources */,
+				0AAB0A74254DAE3A0032A41E /* WatchSessionManager.m in Sources */,
+				0A5C61B1240AFBF7007E30FF /* VKProductsCollectionViewController.m in Sources */,
 				F3D38E6F183CD29700D05079 /* VKStartScreen.m in Sources */,
+				0A5C61A8240AF278007E30FF /* VKTableViewCityCell.m in Sources */,
+				0AE08B8F24044CDA00C44A61 /* VKTaskSevenTableViewController.m in Sources */,
 				F3EEFF7A1827B1DD000BB525 /* VKAppDelegate.m in Sources */,
-				F3B7EEAB184353CF00104B90 /* ApiCallViewController.m in Sources */,
+				0A5362B5240C4FD400B66F81 /* VKGroupInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0A98772925489E99008E9A72 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A98772525489E99008E9A72 /* vkwatch Extension */;
+			targetProxy = 0A98772825489E99008E9A72 /* PBXContainerItemProxy */;
+		};
+		0A98773D25489E9A008E9A72 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A98771C25489E97008E9A72 /* vkwatch */;
+			targetProxy = 0A98773C25489E9A008E9A72 /* PBXContainerItemProxy */;
+		};
+		0AA27531254D657000DC448C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 0AA27530254D657000DC448C /* SDWebImageSwiftUI */;
+		};
+		0AA27535254D65B700DC448C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 0AA27534254D65B700DC448C /* SDWebImageSwiftUI */;
+		};
+		0AA27539254D663500DC448C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 0AA27538254D663500DC448C /* SDWebImageSwiftUI */;
+		};
+		0AA27545254D67DA00DC448C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 0AA27544254D67DA00DC448C /* SDWebImage */;
+		};
+		0AA27549254D67FC00DC448C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 0AA27548254D67FC00DC448C /* SDWebImage */;
+		};
 		F34DED0F1D2173D6005495E5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = VKSdkFramework;
@@ -340,6 +769,216 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0A98774025489E9A008E9A72 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 292K3XX9N4;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = vkwatch_Extension;
+				INFOPLIST_FILE = vkwatch/Info.plist;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Dmitrii-Cherviakov.vkcup1.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+			};
+			name = Debug;
+		};
+		0A98774125489E9A008E9A72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 292K3XX9N4;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = vkwatch_Extension;
+				INFOPLIST_FILE = vkwatch/Info.plist;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Dmitrii-Cherviakov.vkcup1.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+			};
+			name = Release;
+		};
+		0A98774325489E9A008E9A72 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_ASSET_PATHS = "\"vkwatch Extension/Preview Content\"";
+				DEVELOPMENT_TEAM = 292K3XX9N4;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "vkwatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Dmitrii-Cherviakov.vkcup1.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+			};
+			name = Debug;
+		};
+		0A98774425489E9A008E9A72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_ASSET_PATHS = "\"vkwatch Extension/Preview Content\"";
+				DEVELOPMENT_TEAM = 292K3XX9N4;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "vkwatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Dmitrii-Cherviakov.vkcup1.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+			};
+			name = Release;
+		};
 		F3EEFF901827B1DE000BB525 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -373,7 +1012,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -405,7 +1044,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -416,11 +1055,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 292K3XX9N4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/VKSDKTestApplication",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VKSDKTestApplication/VKSDKTestApplication-Prefix.pch";
@@ -430,13 +1073,17 @@
 				);
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				INFOPLIST_FILE = "VKSDKTestApplication/VKSDKTestApplication-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vk.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Dmitrii-Cherviakov.vkcup1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "include/**";
 				WRAPPER_EXTENSION = app;
@@ -448,23 +1095,31 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 292K3XX9N4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/VKSDKTestApplication",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VKSDKTestApplication/VKSDKTestApplication-Prefix.pch";
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				INFOPLIST_FILE = "VKSDKTestApplication/VKSDKTestApplication-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vk.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Dmitrii-Cherviakov.vkcup1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "include/**";
 				WRAPPER_EXTENSION = app;
@@ -474,6 +1129,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0A98774825489E9A008E9A72 /* Build configuration list for PBXNativeTarget "vkwatch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A98774325489E9A008E9A72 /* Debug */,
+				0A98774425489E9A008E9A72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0A98774925489E9A008E9A72 /* Build configuration list for PBXNativeTarget "vkwatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A98774025489E9A008E9A72 /* Debug */,
+				0A98774125489E9A008E9A72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F3EEFF611827B1DD000BB525 /* Build configuration list for PBXProject "VKSDKTestApplication" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -493,6 +1166,83 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0AA27529254D647400DC448C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
+			};
+		};
+		0AA27540254D67CF00DC448C /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0AA2752A254D647400DC448C /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AA27529254D647400DC448C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		0AA27530254D657000DC448C /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AA27529254D647400DC448C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		0AA27534254D65B700DC448C /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AA27529254D647400DC448C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		0AA27538254D663500DC448C /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AA27529254D647400DC448C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		0AA2753A254D66A200DC448C /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AA27529254D647400DC448C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		0AA27541254D67CF00DC448C /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AA27540254D67CF00DC448C /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		0AA27544254D67DA00DC448C /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AA27540254D67CF00DC448C /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		0AA27548254D67FC00DC448C /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AA27540254D67CF00DC448C /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		0AA27550254D686C00DC448C /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AA27540254D67CF00DC448C /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		0AA27552254D687100DC448C /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AA27529254D647400DC448C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		0AA27556254D68E300DC448C /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AA27540254D67CF00DC448C /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F3EEFF5E1827B1DD000BB525 /* Project object */;
 }

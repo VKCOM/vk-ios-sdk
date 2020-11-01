@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VKTaskFiveContentPickerViewController : UIViewController
 
+@property (nonatomic, strong) UIImage *image;
+
+@property (nonatomic, copy) void (^completionBlock)(void);
+
 @end
 
 NS_ASSUME_NONNULL_END

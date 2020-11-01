@@ -77,4 +77,7 @@ Base class for VK API arrays
 - (void)serializeTo:(NSMutableDictionary *)dict withName:(NSString *)name;
 
 - (Class)objectClass;
+
+- (ApiObjectType)objectForObjectId:(NSInteger)objectId;
+
 @end

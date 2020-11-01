@@ -29,6 +29,10 @@
 #import "VKApiConst.h"
 #import "VKApiCaptcha.h"
 #import "VKApiGroups.h"
+#import "VKApiDatabase.h"
+#import "VKApiMarket.h"
+#import "VKApiFave.h"
+#import "VKApiFeed.h"
 #import "VKApiDocs.h"
 #import "VKImageParameters.h"
 #import "VKApiModels.h"
@@ -63,10 +67,40 @@ Returns object for preparing requests to friends part of API
 + (VKApiFriends *)friends;
 
 /**
-https://vk.com/dev/friends
+https://vk.com/dev/groups
 Returns object for preparing requests to groups part of API
 */
 + (VKApiGroups *)groups;
+
+/**
+https://vk.com/dev/docs
+Returns object for preparing requests to groups part of API
+*/
++ (VKApiDocs *)docs;
+
+/**
+https://vk.com/dev/database
+Returns object for preparing requests to groups part of API
+*/
++ (VKApiDatabase *)database;
+
+/**
+https://vk.com/dev/market
+Returns object for preparing requests to groups part of API
+*/
++ (VKApiMarket *)market;
+
+/**
+https://vk.com/dev/fav
+Returns object for preparing requests to groups part of API
+*/
++ (VKApiFave *)favourite;
+
+/**
+https://vk.com/dev/newsfeed
+Returns object for preparing requests to groups part of API
+*/
++ (VKApiFeed *)feed;
 
 /**
  Create new request with parameters. See documentation for methods here https://vk.com/dev/methods

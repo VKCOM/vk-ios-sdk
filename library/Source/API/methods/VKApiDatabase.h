@@ -6,11 +6,18 @@
 //  Copyright © 2020 VK. All rights reserved.
 //
 
-#import <VKSdkFramework/VKSdkFramework.h>
+#import "VKApiBase.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VKApiDatabase : VKApiBase
+
+/**
+ Return array of the cities for country
+https://vk.com/dev/database.getCities
+@return Request for execution
+*/
+- (VKRequest *)getCitiesForCountry:(NSInteger)countryId;
 
 @end
 

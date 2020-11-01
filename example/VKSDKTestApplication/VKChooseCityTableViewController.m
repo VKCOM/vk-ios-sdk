@@ -7,6 +7,7 @@
 //
 
 #import "VKChooseCityTableViewController.h"
+#import "VKTableViewCityCell.h"
 
 @interface VKChooseCityTableViewController ()
 
@@ -16,78 +17,79 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return self.cities.items.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
+    VKTableViewCityCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cityCell" forIndexPath:indexPath];
+
+    VKCity *city = self.cities.items[indexPath.row];
+    cell.title = city.title;
+    cell.isSelectedCity = (self.selectedCity == city);
     
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.delegate chooseCityControllerDidChooseCity:self.cities.items[indexPath.row]];
+
+    VKTableViewCityCell *selectedCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[self.cities.items indexOfObject:self.selectedCity] inSection:0]];
+    selectedCell.isSelectedCity = false;
+
+    VKTableViewCityCell *newSelectedCell = [tableView cellForRowAtIndexPath:indexPath];
+
+    [UIView animateWithDuration:0.3 animations:^{
+        newSelectedCell.isSelectedCity = true;
+    } completion:^(BOOL finished) {
+        [self dismissViewControllerAnimated:true completion:nil];
+    }];
+
+
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 52)];
+
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectZero];
+    title.translatesAutoresizingMaskIntoConstraints = false;
+    title.font = [UIFont boldSystemFontOfSize:17];
+    title.text = @"Город";
+    [header addSubview:title];
+
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectZero];
+    button.translatesAutoresizingMaskIntoConstraints = false;
+    [button setImage:[UIImage imageNamed:@"dismiss_24"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(closeButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [header addSubview:button];
+
+     [NSLayoutConstraint activateConstraints:@[
+           [title.centerXAnchor constraintEqualToAnchor:header.centerXAnchor],
+           [title.centerYAnchor constraintEqualToAnchor:header.centerYAnchor],
+           [button.heightAnchor constraintEqualToConstant:48],
+           [button.widthAnchor constraintEqualToConstant:48],
+           [button.rightAnchor constraintEqualToAnchor:header.rightAnchor constant:-2],
+           [button.centerYAnchor constraintEqualToAnchor:header.centerYAnchor]]
+       ];
+
+    return header;
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 52;
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+- (void)closeButtonTapped:(id)sender {
+    [self dismissViewControllerAnimated:true completion:nil];
 }
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

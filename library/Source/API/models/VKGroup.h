@@ -115,8 +115,35 @@
 @property(nonatomic, strong) NSString *deactivated;
 @property(nonatomic, strong) NSNumber *blacklisted;
 
+// Doesn't recived from server
+@property(nonatomic, strong) UIImage *image_50;
+@property(nonatomic, strong) UIImage *image_100;
+@property(nonatomic, strong) UIImage *image_200;
+
 @end
 
 @interface VKGroups : VKApiObjectArray<VKGroup*>
+
+@end
+
+@interface VKPrice : VKApiObject
+@property(nonatomic, strong) NSString *text;
+@property(nonatomic, strong) NSString *amount;
+@end
+
+@interface VKMarket : VKApiObject
+@property(nonatomic, strong) NSNumber *id;
+@property(nonatomic, strong) NSNumber *owner_id;
+@property(nonatomic, strong) NSString *title;
+@property(nonatomic, strong) NSString *description;
+@property(nonatomic, strong) VKPrice *price;
+@property(nonatomic, strong) NSString *thumb_photo;
+@property(nonatomic, assign) BOOL is_favorite;
+
+// Doesn't recived from server
+@property(nonatomic, strong) UIImage *preview;
+@end
+
+@interface VKMarkets : VKApiObjectArray<VKMarket*>
 
 @end
