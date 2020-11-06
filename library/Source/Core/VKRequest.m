@@ -419,13 +419,14 @@ void vksdk_dispatch_on_main_queue_now(void(^block)(void)) {
 - (void)finishRequest {
     void (^block)(void) = NULL;
     if (self.error) {
+        NSError *error = self.error;
         block = ^{
             if (self.errorBlock) {
-                self.errorBlock(self.error);
+                self.errorBlock(error);
             }
             for (VKRequest *postRequest in self->_postRequestsQueue) {
                 if (postRequest.errorBlock) {
-                    postRequest.errorBlock(self.error);
+                    postRequest.errorBlock(error);
                 }
             }
         };
