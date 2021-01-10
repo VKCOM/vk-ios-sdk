@@ -30,5 +30,10 @@ jobs:
         git checkout HEAD^2
 
     - name: "Run build"
+      env:
+        VK_APP_ID: ${{ secrets.VK_APP_ID }}
+        VK_SERVICE_TOKEN: ${{ secrets.VK_SERVICE_TOKEN }}
+        VK_SECRET: ${{ secrets.VK_SECRET }}
       run: |
-        xcodebuild test -project VK-ios-sdk.xcodeproj -scheme VKSdk -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 12"
+        xcodebuild test -project VK-ios-sdk.xcodeproj -scheme VKSdk -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 12" \
+                        GCC_PREPROCESSOR_DEFINITIONS="VK_APP_ID=$VK_APP_ID VK_SERVICE_TOKEN=$VK_SERVICE_TOKEN VK_SECRET=$VK_SECRET"
