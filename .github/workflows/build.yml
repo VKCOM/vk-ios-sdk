@@ -1,0 +1,34 @@
+name: "Build"
+
+on:
+  push:
+    branches:
+    - master
+
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  build:
+    name: "Build"
+    runs-on: macos-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: "Checkout repository"
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 2
+
+    - name: "Checkout HEAD^2 for pull request"
+      if: ${{ github.event_name == 'pull_request' }}
+      run: |
+        git checkout HEAD^2
+
+    - name: "Run build"
+      run: |
+        xcodebuild test -project VK-ios-sdk.xcodeproj -scheme VKSdk -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 12"
