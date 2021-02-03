@@ -118,6 +118,16 @@ SDK Initialization
     return YES;
 }
 ```
+For iOS 13, put the following code to SceneDelegate.swift file:
+
+```
+func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+     if let url = URLContexts.first?.url {
+       VKSdk.processOpen(url, fromApplication: URLContexts.first?.options.sourceApplication)
+     }
+  }
+```
+
 Note: if you already have FaceBook SDK added and one of this methods returns `[FBSDKDelegate ...]` you can handle it
 ```
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
