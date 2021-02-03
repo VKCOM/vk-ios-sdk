@@ -22,6 +22,14 @@
 
 #import "VKApiBase.h"
 
+typedef enum {
+    VKSdkWallFilterAll = 0,
+    VKSdkWallFilterSuggests = 1,
+    VKSdkWallFilterPostponed = 2,
+    VKSdkWallFilterOwner = 3,
+    VKSdkWallFilterOthers = 4
+} VKSdkWallFilter;
+
 /**
 Builds requests for API.wall part
 */
@@ -32,4 +40,25 @@ https://vk.com/dev/wall.post
 @return Request for execution
 */
 - (VKRequest *)post:(NSDictionary *)params;
+
+
+/**
+ https://vk.com/dev/wall.get
+ @param params Use parameters from description with VK_API prefix
+ @return Request for execution
+ */
+- (VKRequest *)getByOwnerId:(NSInteger)ownerId
+                     domain:(NSString *)domain
+                     offset:(NSInteger)offset
+                      count:(NSInteger)count
+                     filter:(VKSdkWallFilter)filter
+                   extended:(BOOL)extended
+                     fields:(NSArray *)fields;
+
+
+- (VKRequest *)getByOwnerId:(NSInteger)ownerId
+                     domain:(NSString *)domain
+                     offset:(NSInteger)offset
+                      count:(NSInteger)count;
+
 @end
