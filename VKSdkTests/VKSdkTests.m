@@ -7,9 +7,43 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "VKAccessToken.h"
 #import "VKUser.h"
 #import "VKUtil.h"
 #import "VKSdk.h"
+
+#ifndef VK_APP_ID
+#define VK_APP_ID place_app_id_here
+#endif
+
+#ifndef VK_SERVICE_TOKEN
+#define VK_SERVICE_TOKEN place_service_token_here
+#endif
+
+#ifndef VK_SECRET
+#define VK_SECRET place_secret_here
+#endif
+
+#define QUOTE(s) #s
+#define NSSTR(s) @QUOTE(s)
+
+//
+// Subclass to avoid interacting with keychain in
+// tests, which is problematic and often leads to
+// errSecMissingEntitlement (-34018)
+//
+@interface VKTestAccessToken : VKAccessToken
+
+- (void)saveTokenToDefaults:(NSString *)defaultsKey;
+
+@end
+
+@implementation VKTestAccessToken
+
+- (void)saveTokenToDefaults:(NSString *)defaultsKey {
+}
+
+@end
 
 @interface VKSdkTests : XCTestCase
 
@@ -22,7 +56,9 @@
     
     self.continueAfterFailure = NO;
     
-    [VKSdk initializeWithAppId:@"3974615" apiVersion:@"5.50"];
+    [VKSdk initializeWithAppId:NSSTR(VK_APP_ID) apiVersion:@"5.122"];
+    
+    [VKSdk setAccessToken:[VKTestAccessToken tokenWithToken:NSSTR(VK_SERVICE_TOKEN) secret:NSSTR(VK_SECRET) userId:@""]];
     
     NSURL *URL = [NSURL URLWithString:@"https://api.vk.com"];
     
