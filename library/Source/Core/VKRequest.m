@@ -20,7 +20,7 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <NSString+MD5.h>
+#import "NSString+MD5.h"
 
 #import "VKSdk.h"
 #import "OrderedDictionary.h"
