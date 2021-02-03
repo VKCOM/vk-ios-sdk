@@ -47,6 +47,12 @@
 // User email (if passed)
 @property(nonatomic, readonly, copy) NSString *email;
 
+// User phone nubmer (if passed)
+@property(nonatomic, readonly, copy) NSString *phoneNumber;
+
+// User phone secret nubmer (if passed)
+@property(nonatomic, readonly, copy) NSString *phoneAccessKey;
+
 /// Time when token expires
 @property(nonatomic, readonly, assign) NSInteger expiresIn;
 
