@@ -21,6 +21,7 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import "VKObject.h"
 #import "VKUploadImage.h"
 
@@ -58,6 +59,9 @@ typedef NS_ENUM(NSInteger, VKShareDialogControllerResult) {
 
 /// Text to share. User can change it
 @property(nonatomic, copy) NSString *text;
+
+/// Location attachment for new post
+@property(nonatomic) CLLocationCoordinate2D *location;
 
 /// Put only needed scopes into that array. By default equals @[VK_PER_WALL,VK_PER_PHOTOS]
 @property(nonatomic, strong) NSArray *requestedScope;
