@@ -1,0 +1,1 @@
+../API/methods/VKApiPhotos.h

@@ -1,0 +1,1 @@
+../Views/VKAuthorizeController.h

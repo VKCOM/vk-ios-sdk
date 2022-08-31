@@ -32,3 +32,4 @@ Pods
 .idea/*
 
 SDKBuildSteps.info
+.swiftpm
