@@ -156,7 +156,7 @@ static NSString *VK_ACCESS_TOKEN_DEFAULTS_KEY = @"VK_ACCESS_TOKEN_DEFAULTS_KEY_D
     instance.permissions = [permissionsSet copy];
     permissions = [permissionsSet allObjects];
 
-    BOOL providersEnabled = !(options & VKAuthorizationOptionsDisableProviders);
+    BOOL providersEnabled = options & VKAuthorizationOptionsEnableProviders;
 
     BOOL vkApp = [self vkAppMayExists]
             && instance.authState == VKAuthorizationInitialized && providersEnabled;
