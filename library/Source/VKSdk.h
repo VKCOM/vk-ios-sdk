@@ -48,8 +48,10 @@ typedef NS_OPTIONS(NSUInteger, VKAuthorizationOptions) {
     VKAuthorizationOptionsUnlimitedToken = 1 << 0,
     ///Pass this option to disable usage of SFSafariViewController
     VKAuthorizationOptionsDisableSafariController = 1 << 1,
-    ///Pass this option to enable usage of authorization providers
-    VKAuthorizationOptionsEnableProviders = 1 << 2,
+    ///This option does not affect authorization parameters in any way
+    VKAuthorizationOptionsEnableProviders DEPRECATED_MSG_ATTRIBUTE("This option does not affect authorization parameters in any way") = 1 << 2,
+    ///Pass this option to disable usage of authorization providers
+    VKAuthorizationOptionsDisableProviders = 1 << 3
 };
 
 /**
