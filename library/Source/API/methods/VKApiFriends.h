@@ -29,4 +29,8 @@ Builds requests for API.users part
 - (VKRequest *)get;
 
 - (VKRequest *)get:(NSDictionary *)params;
+
+- (VKRequest *)getWithCount:(NSInteger)count
+                     offset:(NSInteger)offset
+                     fields:(NSArray *)fields;
 @end
