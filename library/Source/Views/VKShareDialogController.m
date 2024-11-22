@@ -159,10 +159,7 @@ static const CGFloat ipadHeight = 500.f;
 @property(nonatomic, copy, readwrite) NSString *postId;
 @end
 
-@implementation VKShareDialogController {
-
-    UIBarStyle defaultBarStyle;
-}
+@implementation VKShareDialogController
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -361,11 +358,6 @@ static const CGFloat ipadHeight = 500.f;
         }
         return result;
     }]];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [UINavigationBar appearance].barStyle = defaultBarStyle;
 }
 @end
 
